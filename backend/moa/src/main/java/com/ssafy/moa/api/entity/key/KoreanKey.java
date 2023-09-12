@@ -14,13 +14,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class KoreanKey implements Serializable {
-    private int koreanId;
+    private Long koreanId;
 
     @OneToOne
     private NationCode koreanNationCode;
 
     @Builder
-    public KoreanKey(int koreanId, NationCode koreanNationCode) {
+    public KoreanKey(long koreanId, NationCode koreanNationCode) {
         this.koreanId = koreanId;
         this.koreanNationCode = koreanNationCode;
     }

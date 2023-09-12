@@ -16,4 +16,18 @@ public class Foreigner {
     private ForeignerKey foreignerKey;
     @Column(length = 100)
     private String foreignerKoreaName;
+    private int foreignerLikeGender;
+
+    public void update(int foreignerLikeGender) {
+        this.foreignerLikeGender = foreignerLikeGender;
+    }
+
+    @Override
+    public String toString() {
+        return "Foreigner{" +
+                "foreignerKey=" + foreignerKey +
+                ", foreignerKoreaName='" + foreignerKoreaName + '\'' +
+                ", foreignerLikeGender='" + foreignerLikeGender + '\'' +
+                '}';
+    }
 }

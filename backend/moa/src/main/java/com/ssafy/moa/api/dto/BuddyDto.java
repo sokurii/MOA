@@ -8,15 +8,18 @@ public class BuddyDto {
 
     @Getter
     public static class KoreanBuddyPostRequest {
-        private int memberId;
+        private long memberId;
         private int nationCode;
         private List<Integer> interest;
         private int gender;
     }
 
     @Getter
-    public static class KoreanBuddyPostResponse {
-        private int memberId;
+    public static class ForeignerBuddyPostRequest {
+        private long memberId;
+        private int nationCode;
+        private List<Integer> interest;
+        private int gender;
     }
 
 

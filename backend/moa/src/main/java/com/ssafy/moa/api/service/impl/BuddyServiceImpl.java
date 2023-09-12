@@ -1,10 +1,8 @@
 package com.ssafy.moa.api.service.impl;
 
 import com.ssafy.moa.api.dto.BuddyDto.*;
-import com.ssafy.moa.api.entity.InterestCode;
-import com.ssafy.moa.api.entity.Korean;
-import com.ssafy.moa.api.entity.Member;
-import com.ssafy.moa.api.entity.NationCode;
+import com.ssafy.moa.api.entity.*;
+import com.ssafy.moa.api.entity.key.ForeignerKey;
 import com.ssafy.moa.api.entity.key.InterestKey;
 import com.ssafy.moa.api.entity.key.KoreanKey;
 import com.ssafy.moa.api.repository.*;
@@ -23,24 +21,21 @@ public class BuddyServiceImpl implements BuddyService {
     private final NationRepository nationRepository;
     private final InterestRepository interestRepository;
     private final InterestCodeRepository interestCodeRepository;
+    private final ForeignerRepository foreignerRepository;
     private final MemberRepository memberRepository;
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public KoreanKey saveKoreanBuddyInfo(KoreanBuddyPostRequest buddyKoreanPostRequest) {
-        System.out.println("buddyKoreanPostRequest.getNationCode() = " + buddyKoreanPostRequest.getNationCode());
-        
         NationCode nationCode = nationRepository.findByNationCode(buddyKoreanPostRequest.getNationCode())
                 .orElseThrow(() -> new NotFoundException("Not Found Nation Code"));
 
-        System.out.println("nationCode.toString() = " + nationCode.toString());
         Member member = memberRepository.findByMemberId(buddyKoreanPostRequest.getMemberId())
                 .orElseThrow(() -> new NotFoundException("Not Found Member"));
 
         KoreanKey koreanKey = KoreanKey.builder()
                 .koreanId(buddyKoreanPostRequest.getMemberId())
                 .koreanNationCode(nationCode).build();
-
 
         Korean korean = Korean.builder().koreanKey(koreanKey).koreanLikeGender(buddyKoreanPostRequest.getGender()).build();
 
@@ -55,5 +50,42 @@ public class BuddyServiceImpl implements BuddyService {
         }
         koreanRepository.save(korean);
         return koreanKey;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ForeignerKey saveForeignerBuddyInfo(ForeignerBuddyPostRequest foreignerBuddyPostRequest) {
+        NationCode nationCode = nationRepository.findByNationCode(foreignerBuddyPostRequest.getNationCode())
+                .orElseThrow(() -> new NotFoundException("Not Found Nation Code"));
+
+        // ForeignerKey 찾기
+        ForeignerKey foreignerKey = ForeignerKey.builder()
+                .foreignerId(foreignerBuddyPostRequest.getMemberId())
+                .foreignerCode(nationCode).build();
+
+        // Foreigner 를 찾기
+        Foreigner foreigner = foreignerRepository.findByForeignerKey(foreignerKey)
+                .orElseThrow(() -> new NotFoundException("Not Found Foreigner"));
+
+        // 선호하는 성별 저장
+        foreigner.update(foreignerBuddyPostRequest.getGender());
+        System.out.println("foreigner.toString() = " + foreigner.toString());
+        foreignerRepository.save(foreigner);
+
+        Member member = memberRepository.findByMemberId(foreignerBuddyPostRequest.getMemberId())
+                .orElseThrow(() -> new NotFoundException("Not Found Member"));
+
+        // 관심사 등록
+        for(int i : foreignerBuddyPostRequest.getInterest()) {
+            InterestCode interestCode = interestCodeRepository.findByInterestCode(i).orElseThrow(
+                    () -> new NotFoundException("Not Found Interest Code")
+            );
+
+            InterestKey.builder()
+                    .memberId(member)
+                    .interestCode(interestCode).build();
+        }
+        foreignerRepository.save(foreigner);
+        return foreignerKey;
     }
 }

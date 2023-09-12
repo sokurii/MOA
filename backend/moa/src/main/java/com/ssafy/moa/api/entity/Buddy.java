@@ -7,7 +7,7 @@ public class Buddy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int buddyId;
+    private Long buddyId;
 
     @OneToOne
     @JoinColumns({
