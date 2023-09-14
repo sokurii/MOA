@@ -1,12 +1,11 @@
 package com.ssafy.moa.api.entity;
 
-import com.ssafy.moa.api.entity.key.InterestKey;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -28,17 +27,26 @@ public class Member {
     @Column(length = 100)
     private String memberName;
 
-    private Boolean memberGender;
+    private Integer memberGender;
 
     private Boolean memberIsForeigner;
 
     private Integer memberExp;
 
-    @OneToMany(mappedBy = "interestKey.memberId")
-    private List<Interest> interestKey;
+    @OneToMany(mappedBy = "member")
+    private List<Interest> interest;
+
+    @OneToMany(mappedBy = "member")
+    private List<Foreigner> foreigner;
+
+    @OneToMany(mappedBy = "member")
+    private List<Korean> korean;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
     @Builder
-    public Member(Long memberId, String memberEmail, String memberPassword, String memberName, Boolean memberGender, Boolean memberIsForeigner, Integer memberExp) {
+    public Member(Long memberId, String memberEmail, String memberPassword, String memberName, Integer memberGender, Boolean memberIsForeigner, Integer memberExp) {
         this.memberId = memberId;
         this.memberEmail = memberEmail;
         this.memberPassword = memberPassword;

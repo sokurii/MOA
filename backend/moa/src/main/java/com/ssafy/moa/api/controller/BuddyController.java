@@ -1,8 +1,6 @@
 package com.ssafy.moa.api.controller;
 
 import com.ssafy.moa.api.dto.BuddyDto.*;
-import com.ssafy.moa.api.entity.key.ForeignerKey;
-import com.ssafy.moa.api.entity.key.KoreanKey;
 import com.ssafy.moa.api.service.BuddyService;
 import com.ssafy.moa.common.utils.ApiUtils.ApiResult;
 import lombok.RequiredArgsConstructor;
@@ -22,15 +20,13 @@ public class BuddyController {
     private final BuddyService buddyService;
 
     @PostMapping("/korean")
-    public ApiResult<KoreanKey> createKoreanBuddy(@RequestBody KoreanBuddyPostRequest koreanBuddyPostRequest) {
-        KoreanKey koreanKey = buddyService.saveKoreanBuddyInfo(koreanBuddyPostRequest);
-        return success(koreanKey);
+    public ApiResult<Long> createKoreanBuddy(@RequestBody KoreanBuddyPostRequest koreanBuddyPostRequest) {
+        return success(buddyService.saveKoreanBuddyInfo(koreanBuddyPostRequest));
     }
 
     @PostMapping("/foreigner")
-    public ApiResult<ForeignerKey> createForeignerBuddy(@RequestBody ForeignerBuddyPostRequest foreignerBuddyPostRequest) {
-        ForeignerKey foreignerKey = buddyService.saveForeignerBuddyInfo(foreignerBuddyPostRequest);
-        return success(foreignerKey);
+    public ApiResult<Long> createForeignerBuddy(@RequestBody ForeignerBuddyPostRequest foreignerBuddyPostRequest) {
+        return success(buddyService.saveForeignerBuddyInfo(foreignerBuddyPostRequest));
     }
 
 }

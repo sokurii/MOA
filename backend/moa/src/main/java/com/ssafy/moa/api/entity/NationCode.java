@@ -1,11 +1,10 @@
 package com.ssafy.moa.api.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,10 +13,17 @@ import lombok.NoArgsConstructor;
 public class NationCode {
 
     @Id
+    @Column(name = "nation_code")
     private int nationCode;
 
     @Column(length = 30)
     private String nationName;
+
+    @OneToMany(mappedBy = "nationCode")
+    private List<Foreigner> foreigner;
+
+    @OneToMany(mappedBy = "nationCode")
+    private List<Korean> korean;
 
     @Override
     public String toString() {

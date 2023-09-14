@@ -22,5 +22,10 @@ public class BuddyDto {
         private int gender;
     }
 
+    @Getter
+    public static class BuddyMatchingRequest {
+        private long memberId;
+        private int nationCode;
+    }
 
 }

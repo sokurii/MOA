@@ -1,8 +1,6 @@
 package com.ssafy.moa.api.entity;
 
-import com.ssafy.moa.api.entity.key.KoreanKey;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,13 +10,28 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Korean {
 
-    @EmbeddedId
-    private KoreanKey koreanKey;
+    @Id
+    @Column(name = "korean_id")
+    private Long koreanId;
     private int koreanLikeGender;
 
+    @ManyToOne
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "nation_code", referencedColumnName = "nation_code", insertable = false, updatable = false)
+    private NationCode nationCode;
+
+    @OneToOne
+    @JoinColumn(name = "buddy_id")
+    private Buddy buddy;
+
     @Builder
-    public Korean(KoreanKey koreanKey, int koreanLikeGender) {
-        this.koreanKey = koreanKey;
+    public Korean(Long koreanId, int koreanLikeGender, Member member, NationCode nationCode) {
+        this.koreanId = koreanId;
         this.koreanLikeGender = koreanLikeGender;
+        this.member = member;
+        this.nationCode = nationCode;
     }
 }
