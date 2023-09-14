@@ -1,6 +1,7 @@
 package com.ssafy.moa.api.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,18 +20,24 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
+    @NotNull
     private String memberEmail;
 
+    @NotNull
     @Column(length = 100)
     private String memberPassword;
 
+    @NotNull
     @Column(length = 100)
     private String memberName;
 
+    @NotNull
     private Integer memberGender;
 
+    @NotNull
     private Boolean memberIsForeigner;
 
+    @NotNull
     @Column(columnDefinition = "INT DEFAULT 0")
     private Integer memberExp;
 

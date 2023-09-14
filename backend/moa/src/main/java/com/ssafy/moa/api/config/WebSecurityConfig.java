@@ -31,6 +31,8 @@ public class WebSecurityConfig {
                         authorizeHttpRequests
                                 .requestMatchers("/member/signup").permitAll()
                                 .requestMatchers("/member/login").permitAll()
+                                .requestMatchers("/swagger-ui/**").permitAll()
+                                .requestMatchers("/v3/**").permitAll()
                                 .anyRequest().authenticated())
                 .apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
