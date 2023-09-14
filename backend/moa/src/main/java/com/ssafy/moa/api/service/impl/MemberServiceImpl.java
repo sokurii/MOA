@@ -43,7 +43,7 @@ public class MemberServiceImpl implements MemberService {
 
         String memberEmail = memberSignUpReqDto.getMemberEmail();
         String memberName = memberSignUpReqDto.getMemberName();
-        Boolean memberGender = memberSignUpReqDto.getMemberGender();
+        Integer memberGender = memberSignUpReqDto.getMemberGender();
         Boolean memberIsForeigner = memberSignUpReqDto.getMemberIsForeigner();
 
         Member member = new Member(memberEmail, encodedPassword, memberName, memberGender, memberIsForeigner, 0);

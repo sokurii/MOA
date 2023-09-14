@@ -11,7 +11,7 @@ public class MemberSignUpDto {
     private String memberEmail;
     private String memberPassword;
     private String memberName;
-    private Boolean memberGender;
+    private Integer memberGender;
     private Boolean memberIsForeigner;
 
     @Builder

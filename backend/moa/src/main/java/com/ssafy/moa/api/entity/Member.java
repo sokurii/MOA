@@ -46,6 +46,7 @@ public class Member {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
+
     @Builder
     public Member(String memberEmail, String memberPassword, String memberName, Integer memberGender, Boolean memberIsForeigner, Integer memberExp) {
         this.memberEmail = memberEmail;
