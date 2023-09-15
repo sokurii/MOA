@@ -6,7 +6,7 @@ import Intro from './pages/Intro';
 import Main from './pages/Main';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-import KoreanLearning from './pages/KoreanLearning';
+import KoreanLearning from './pages/Learning/KoreanLearning';
 import Quiz from './pages/Quiz/Quiz';
 import IncorrectNote from './pages/Quiz/IncorrectNote';
 import WithBuddy from './pages/WithBuddy/WithBuddy';
