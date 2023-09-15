@@ -3,6 +3,7 @@ package com.ssafy.moa.api.controller;
 import com.ssafy.moa.api.dto.member.EmailCheckDto;
 import com.ssafy.moa.api.jwt.JwtTokenProvider;
 import com.ssafy.moa.api.service.EmailService;
+import com.ssafy.moa.api.service.impl.EmailServiceImpl;
 import com.ssafy.moa.api.service.MemberService;
 import com.ssafy.moa.common.utils.ApiUtils.ApiResult;
 import com.ssafy.moa.api.dto.member.LoginReqDto;
