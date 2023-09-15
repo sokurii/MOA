@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/moa
+    url: jdbc:mysql://3.38.179.92:3306/moa
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
@@ -11,7 +11,7 @@ spring:
     show-sql: true
   redis:
     port: 6379
-    host: localhost
+    host: 3.38.179.92
   mail:
     host: smtp.naver.com
     port: 465
