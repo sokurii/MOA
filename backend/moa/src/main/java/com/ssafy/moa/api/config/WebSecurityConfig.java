@@ -33,6 +33,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/member/login").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers("/v3/**").permitAll()
+                                .requestMatchers("/balance/**").permitAll()
                                 .anyRequest().authenticated())
                 .apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
