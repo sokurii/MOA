@@ -16,6 +16,6 @@ public class InterestCode {
     private int interestCode;
     private String interestName;
 
-    @OneToMany(mappedBy = "interestCode")
+    @OneToMany(mappedBy = "interestCode", cascade = CascadeType.ALL)
     private List<Interest> interest;
 }

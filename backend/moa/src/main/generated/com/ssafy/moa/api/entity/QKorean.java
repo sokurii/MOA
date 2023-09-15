@@ -51,7 +51,7 @@ public class QKorean extends EntityPathBase<Korean> {
     public QKorean(Class<? extends Korean> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.buddy = inits.isInitialized("buddy") ? new QBuddy(forProperty("buddy"), inits.get("buddy")) : null;
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
         this.nationCode = inits.isInitialized("nationCode") ? new QNationCode(forProperty("nationCode")) : null;
     }
 

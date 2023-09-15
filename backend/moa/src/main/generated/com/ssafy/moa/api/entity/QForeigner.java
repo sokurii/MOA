@@ -53,7 +53,7 @@ public class QForeigner extends EntityPathBase<Foreigner> {
     public QForeigner(Class<? extends Foreigner> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.buddy = inits.isInitialized("buddy") ? new QBuddy(forProperty("buddy"), inits.get("buddy")) : null;
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
         this.nationCode = inits.isInitialized("nationCode") ? new QNationCode(forProperty("nationCode")) : null;
     }
 

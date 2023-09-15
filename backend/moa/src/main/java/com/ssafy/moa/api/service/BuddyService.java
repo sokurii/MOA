@@ -5,5 +5,6 @@ import com.ssafy.moa.api.dto.BuddyDto.*;
 public interface BuddyService {
     Long saveKoreanBuddyInfo(KoreanBuddyPostRequest koreanBuddyPostRequest);
     Long saveForeignerBuddyInfo(ForeignerBuddyPostRequest foreignerBuddyPostRequest);
-    Integer findMatchingBuddy(BuddyMatchingRequest buddyMatchingRequest);
+    Long findMatchingBuddy(BuddyMatchingRequest buddyMatchingRequest);
+    Integer deleteBuddy(Long memberId);
 }

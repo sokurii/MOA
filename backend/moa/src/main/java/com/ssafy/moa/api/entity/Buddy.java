@@ -1,6 +1,7 @@
 package com.ssafy.moa.api.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,9 +15,18 @@ public class Buddy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long buddyId;
 
-    @OneToOne(mappedBy = "buddy")
+    @OneToOne
+    @JoinColumn(name = "foreigner_id")
     private Foreigner foreigner;
 
-    @OneToOne(mappedBy = "buddy")
+    @OneToOne
+    @JoinColumn(name = "korean_id")
     private Korean korean;
+
+    @Builder
+    public Buddy(Long buddyId, Foreigner foreigner, Korean korean) {
+        this.buddyId = buddyId;
+        this.foreigner = foreigner;
+        this.korean = korean;
+    }
 }

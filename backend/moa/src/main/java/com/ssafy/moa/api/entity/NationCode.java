@@ -19,10 +19,10 @@ public class NationCode {
     @Column(length = 30)
     private String nationName;
 
-    @OneToMany(mappedBy = "nationCode")
+    @OneToMany(mappedBy = "nationCode", cascade = CascadeType.ALL)
     private List<Foreigner> foreigner;
 
-    @OneToMany(mappedBy = "nationCode")
+    @OneToMany(mappedBy = "nationCode", cascade = CascadeType.ALL)
     private List<Korean> korean;
 
     @Override

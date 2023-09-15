@@ -1,4 +1,4 @@
-package com.ssafy.moa.api.config;
+package com.ssafy.moa.config;
 
 import com.ssafy.moa.api.jwt.*;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +31,8 @@ public class WebSecurityConfig {
                         authorizeHttpRequests
                                 .requestMatchers("/member/signup").permitAll()
                                 .requestMatchers("/member/login").permitAll()
+                                .requestMatchers("/buddy/**").permitAll()
+                                .requestMatchers("/test/**").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers("/v3/**").permitAll()
                                 .requestMatchers("/balance/**").permitAll()

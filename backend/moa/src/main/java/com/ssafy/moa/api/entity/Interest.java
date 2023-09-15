@@ -13,14 +13,15 @@ public class Interest {
 
     @Id
     @Column(name = "interest_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long interestId;
 
-    @ManyToOne
-    @JoinColumn(name = "interest_code", referencedColumnName = "interest_code", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "interest_code", referencedColumnName = "interest_code")
     private InterestCode interestCode;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
     @Builder
@@ -28,5 +29,14 @@ public class Interest {
         this.interestId = interestId;
         this.interestCode = interestCode;
         this.member = member;
+    }
+
+    @Override
+    public String toString() {
+        return "Interest{" +
+                "interestId=" + interestId +
+                ", interestCode=" + interestCode +
+                ", member=" + member +
+                '}';
     }
 }

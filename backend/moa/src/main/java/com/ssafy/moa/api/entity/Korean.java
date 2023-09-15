@@ -12,19 +12,19 @@ public class Korean {
 
     @Id
     @Column(name = "korean_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long koreanId;
     private int koreanLikeGender;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
+    @OneToOne
+    @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "nation_code", referencedColumnName = "nation_code", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nation_code", referencedColumnName = "nation_code")
     private NationCode nationCode;
 
-    @OneToOne
-    @JoinColumn(name = "buddy_id")
+    @OneToOne(mappedBy = "korean")
     private Buddy buddy;
 
     @Builder
@@ -33,5 +33,16 @@ public class Korean {
         this.koreanLikeGender = koreanLikeGender;
         this.member = member;
         this.nationCode = nationCode;
+    }
+
+    @Override
+    public String toString() {
+        return "Korean{" +
+                "koreanId=" + koreanId +
+                ", koreanLikeGender=" + koreanLikeGender +
+                ", member=" + member +
+                ", nationCode=" + nationCode +
+                ", buddy=" + buddy +
+                '}';
     }
 }

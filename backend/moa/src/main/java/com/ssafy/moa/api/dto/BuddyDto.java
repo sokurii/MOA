@@ -24,8 +24,7 @@ public class BuddyDto {
 
     @Getter
     public static class BuddyMatchingRequest {
-        private long memberId;
-        private int nationCode;
+        private Long memberId;
     }
 
 }

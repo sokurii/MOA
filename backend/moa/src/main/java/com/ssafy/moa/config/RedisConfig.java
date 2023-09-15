@@ -1,4 +1,4 @@
-package com.ssafy.moa.api.config;
+package com.ssafy.moa.config;
 
 
 import org.springframework.beans.factory.annotation.Value;

@@ -47,7 +47,7 @@ public class QInterest extends EntityPathBase<Interest> {
     public QInterest(Class<? extends Interest> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.interestCode = inits.isInitialized("interestCode") ? new QInterestCode(forProperty("interestCode")) : null;
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
     }
 
 }

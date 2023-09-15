@@ -47,7 +47,7 @@ public class QBalanceGameGood extends EntityPathBase<BalanceGameGood> {
     public QBalanceGameGood(Class<? extends BalanceGameGood> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.balanceGame = inits.isInitialized("balanceGame") ? new QBalanceGame(forProperty("balanceGame"), inits.get("balanceGame")) : null;
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
     }
 
 }
