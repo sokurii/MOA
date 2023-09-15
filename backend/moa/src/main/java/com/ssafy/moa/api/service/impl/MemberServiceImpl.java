@@ -1,21 +1,21 @@
 package com.ssafy.moa.api.service.impl;
 
-import com.ssafy.moa.api.entity.Member;
-import com.ssafy.moa.api.entity.RefreshToken;
+import com.ssafy.moa.api.entity.*;
 import com.ssafy.moa.api.jwt.JwtTokenProvider;
 import com.ssafy.moa.api.jwt.MyUserDetailsService;
-import com.ssafy.moa.api.repository.MemberRepository;
-import com.ssafy.moa.api.repository.RefreshTokenRepository;
+import com.ssafy.moa.api.repository.*;
 import com.ssafy.moa.api.service.MemberService;
-import com.ssafy.moa.dto.LoginReqDto;
-import com.ssafy.moa.dto.MemberSignUpDto;
-import com.ssafy.moa.dto.TokenRespDto;
+import com.ssafy.moa.api.dto.member.LoginReqDto;
+import com.ssafy.moa.api.dto.member.MemberSignUpDto;
+import com.ssafy.moa.api.dto.member.TokenRespDto;
+import com.ssafy.moa.common.exception.EmailDuplicateException;
+import com.ssafy.moa.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,10 +24,14 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final NationRepository nationRepository;
+    private final ForeignerRepository foreignerRepository;
+    private final LevelRepository levelRepository;
 
     private final PasswordEncoder passwordEncoder;
     private final MyUserDetailsService myUserDetailsService;
@@ -42,12 +46,32 @@ public class MemberServiceImpl implements MemberService {
         String encodedPassword = passwordEncoder.encode(memberSignUpReqDto.getMemberPassword());
 
         String memberEmail = memberSignUpReqDto.getMemberEmail();
+        if(memberRepository.existsByMemberEmail(memberEmail)) {
+            throw new EmailDuplicateException("중복된 이메일을 입력하였습니다.");
+        }
+
         String memberName = memberSignUpReqDto.getMemberName();
         Integer memberGender = memberSignUpReqDto.getMemberGender();
         Boolean memberIsForeigner = memberSignUpReqDto.getMemberIsForeigner();
 
-        Member member = new Member(memberEmail, encodedPassword, memberName, memberGender, memberIsForeigner, 0);
+        // default Level
+        Level defaultLevel = levelRepository.findByLevelId(1L)
+                .orElseThrow(() -> new NotFoundException("해당 ID를 가진 Level를 찾지 못했습니다."));
+
+        Member member = new Member(memberEmail, encodedPassword, memberName, memberGender, memberIsForeigner, 0, defaultLevel);
         memberRepository.save(member);
+
+        // 유학생일 경우 유학생 테이블에도 정보 추가해주기
+        if(memberIsForeigner) {
+            // 나라 정보 찾기
+            String nationName = memberSignUpReqDto.getNationName();
+            NationCode nationCode = nationRepository.findByNationName(nationName)
+                    .orElseThrow(() -> new NotFoundException("Not Found Nation Name : " + nationName));
+            Foreigner newForeigner = new Foreigner(member, nationCode);
+            foreignerRepository.save(newForeigner);
+        }
+
+
         return new MemberSignUpDto(member);
     }
 
@@ -55,6 +79,10 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public TokenRespDto login(LoginReqDto loginReqDto) {
         UserDetails userDetails = myUserDetailsService.loadUserByUsername(loginReqDto.getMemberEmail());
+
+        // memberId도 토큰을 만들 때 사용하기 위해서
+        Member member = memberRepository.findByMemberEmail(loginReqDto.getMemberEmail())
+                .orElseThrow(() -> new NotFoundException(loginReqDto.getMemberEmail() + "의 이메일을 가진 사용자가 없습니다."));
 
         if(!passwordEncoder.matches(loginReqDto.getMemberPassword(), userDetails.getPassword())) {
             throw new BadCredentialsException(userDetails.getUsername() + "Invalid Password");
@@ -64,8 +92,9 @@ public class MemberServiceImpl implements MemberService {
                 userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities()
         );
 
+
         return new TokenRespDto(
-                "Bearer " + jwtTokenProvider.createAccessToken(authentication),
+                "Bearer " + jwtTokenProvider.createAccessToken(authentication, member.getMemberId()),
                 "Bearer " + jwtTokenProvider.issueRefreshToken(authentication)
         );
     }

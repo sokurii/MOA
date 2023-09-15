@@ -42,6 +42,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final BooleanPath memberIsForeigner = createBoolean("memberIsForeigner");
 
+    public final QLevel memberLevel;
+
     public final StringPath memberName = createString("memberName");
 
     public final StringPath memberPassword = createString("memberPassword");
@@ -68,6 +70,7 @@ public class QMember extends EntityPathBase<Member> {
         super(type, metadata, inits);
         this.foreigner = inits.isInitialized("foreigner") ? new QForeigner(forProperty("foreigner"), inits.get("foreigner")) : null;
         this.korean = inits.isInitialized("korean") ? new QKorean(forProperty("korean"), inits.get("korean")) : null;
+        this.memberLevel = inits.isInitialized("memberLevel") ? new QLevel(forProperty("memberLevel")) : null;
     }
 
 }

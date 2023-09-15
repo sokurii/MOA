@@ -51,16 +51,28 @@ public class JwtTokenProvider implements InitializingBean {
     }
 
     // accessToken 생성
-    public String createAccessToken(Authentication authentication) {
+    public String createAccessToken(Authentication authentication, Long memberId) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + tokenValidityInMs);
 
         return  Jwts.builder()
                 .setSubject(authentication.getName())
+                .claim("memberId", memberId)
                 .setIssuedAt(now)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
+    }
+
+    // jwt 토큰에서 memberId 값 추출
+    public Long extractMemberId(String token) {
+        Claims claims = Jwts
+                .parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get("memberId", Long.class);
     }
 
     public Authentication getAuthentication(String token) {

@@ -29,12 +29,13 @@ public class WebSecurityConfig {
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/member/signup").permitAll()
+                                .requestMatchers("/member/signup/**").permitAll()
                                 .requestMatchers("/member/login").permitAll()
-                                .requestMatchers("/buddy/**").permitAll()
-                                .requestMatchers("/test/**").permitAll()
+                                .requestMatchers("/nation").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers("/v3/**").permitAll()
+                                .requestMatchers("/buddy/**").permitAll()
+                                .requestMatchers("/test/**").permitAll()
                                 .requestMatchers("/balance/**").permitAll()
                                 .anyRequest().authenticated())
                 .apply(new JwtTokenFilterConfigurer(jwtTokenProvider));

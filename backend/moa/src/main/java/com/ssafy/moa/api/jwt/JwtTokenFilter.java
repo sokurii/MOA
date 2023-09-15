@@ -1,5 +1,6 @@
 package com.ssafy.moa.api.jwt;
 
+import com.ssafy.moa.api.repository.MemberRepository;
 import com.ssafy.moa.common.exception.AccessTokenExpiredException;
 import com.ssafy.moa.common.exception.InvalidTokenException;
 import com.ssafy.moa.common.exception.RefreshTokenExpiredException;
@@ -31,6 +32,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String jwt = resolveToken(request, AUTHORIZATION_HEADER);
@@ -50,7 +52,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
                 // accessToken 생성
                 Authentication authentication = jwtTokenProvider.getAuthentication(refresh);
-                String newAccessToken = jwtTokenProvider.createAccessToken(authentication);
+                String newAccessToken = jwtTokenProvider.createAccessToken(authentication, jwtTokenProvider.extractMemberId(jwt));
                 response.setHeader(AUTHORIZATION_HEADER, "Bearer " + newAccessToken);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 log.info("Issued a new accessToken through refreshToken.");

@@ -1,8 +1,8 @@
 package com.ssafy.moa.api.service;
 
-import com.ssafy.moa.dto.LoginReqDto;
-import com.ssafy.moa.dto.MemberSignUpDto;
-import com.ssafy.moa.dto.TokenRespDto;
+import com.ssafy.moa.api.dto.member.LoginReqDto;
+import com.ssafy.moa.api.dto.member.MemberSignUpDto;
+import com.ssafy.moa.api.dto.member.TokenRespDto;
 import org.springframework.security.core.Authentication;
 
 public interface MemberService {

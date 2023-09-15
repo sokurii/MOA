@@ -53,18 +53,24 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<BalanceGame> balanceGame;
 
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = "member_level")
+    private Level memberLevel;
+
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
 
     @Builder
-    public Member(String memberEmail, String memberPassword, String memberName, Integer memberGender, Boolean memberIsForeigner, Integer memberExp) {
+    public Member(String memberEmail, String memberPassword, String memberName, Integer memberGender, Boolean memberIsForeigner, Integer memberExp, Level memberLevel) {
         this.memberEmail = memberEmail;
         this.memberPassword = memberPassword;
         this.memberName = memberName;
         this.memberGender = memberGender;
         this.memberIsForeigner = memberIsForeigner;
         this.memberExp = memberExp;
+        this.memberLevel = memberLevel;
     }
 
     @Override

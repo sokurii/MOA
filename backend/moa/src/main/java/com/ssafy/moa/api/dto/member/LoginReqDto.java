@@ -1,4 +1,4 @@
-package com.ssafy.moa.dto;
+package com.ssafy.moa.api.dto.member;
 
 
 import lombok.Getter;
