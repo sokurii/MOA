@@ -29,7 +29,13 @@ function Main(props) {
           <button>버디랑 놀기</button>
         </Link>
 
-        <BackButton />
+        {/* 첫 화면 이동을 위해 임시로 만든 버튼 */}
+        <div>
+          <Link to="/intro">
+            <button>첫 화면으로 이동</button>
+          </Link>
+        </div>
+        {/* <BackButton /> */}
       </div>
     </div>
   );

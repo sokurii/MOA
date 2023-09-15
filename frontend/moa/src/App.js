@@ -7,11 +7,17 @@ import Main from './pages/Main';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import KoreanLearning from './pages/KoreanLearning';
-import Quiz from './pages/Quiz';
-import WithBuddy from './pages/WithBuddy';
-import ExchangeDiary from './pages/ExchangeDiary';
-import BalanceGame from './pages/BalanceGame';
-import KoreaTour from './pages/KoreaTour';
+import Quiz from './pages/Quiz/Quiz';
+import WithBuddy from './pages/WithBuddy/WithBuddy';
+import ExchangeDiary from './pages/WithBuddy/ExchangeDiary';
+import ExchangeDiaryDetail from './pages/WithBuddy/ExchangeDiaryDetail';
+import CreateExchangeDiary from './pages/WithBuddy/CreateExchangeDiary';
+import UpdateExchangeDiary from './pages/WithBuddy/UpdateExchangeDiary';
+import BalanceGame from './pages/WithBuddy/BalanceGame';
+import BalanceGameDetail from './pages/WithBuddy/BalanceGameDetail';
+import CreateBalanceGame from './pages/WithBuddy/CreateBalanceGame';
+import UpdateBalanceGame from './pages/WithBuddy/UpdateBalanceGame';
+import KoreaTour from './pages/WithBuddy/KoreaTour';
 import NotFound404 from './pages/NotFound404';
 
 function App() {
@@ -37,8 +43,17 @@ function App() {
           <Route path="/koreanlearning" element={<KoreanLearning />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/withbuddy" element={<WithBuddy />} />
+
           <Route path="/withbuddy/exchangediary" element={<ExchangeDiary />} />
+          <Route path="/withbuddy/exchangediary/:id" element={<ExchangeDiaryDetail />} />
+          <Route path="/withbuddy/exchangediary/create" element={<CreateExchangeDiary />} />
+          <Route path="/withbuddy/exchangediary/:id/update" element={<UpdateExchangeDiary />} />
+
           <Route path="/withbuddy/balancegame" element={<BalanceGame />} />
+          <Route path="/withbuddy/balancegame/:id" element={<BalanceGameDetail />} />
+          <Route path="/withbuddy/balancegame/create" element={<CreateBalanceGame />} />
+          <Route path="/withbuddy/balancegame/:id/update" element={<UpdateBalanceGame />} />
+
           <Route path="/withbuddy/koreatour" element={<KoreaTour />} />
           
           <Route path="*" element={<NotFound404 />} />
