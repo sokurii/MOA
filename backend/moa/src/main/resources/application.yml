@@ -12,6 +12,7 @@ spring:
   redis:
     port: 6379
     host: 3.38.179.92
+    password: ssafy
   mail:
     host: smtp.naver.com
     port: 465
