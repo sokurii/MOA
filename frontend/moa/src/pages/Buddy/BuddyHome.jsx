@@ -8,13 +8,13 @@ function WithBuddy(props) {
     <div>
       <p>WithBuddy Page</p>
       <div>
-        <Link to="/withbuddy/exchangediary">
+        <Link to="/buddy/exchangediary">
           <button>교환일기</button>
         </Link>
-        <Link to="/withbuddy/balancegame">
+        <Link to="/buddy/balancegame">
           <button>밸런스 게임</button>
         </Link>
-        <Link to="/withbuddy/koreatour">
+        <Link to="/buddy/koreatour">
           <button>한국 둘러보기</button>
         </Link>
 

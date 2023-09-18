@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import BackButton from '../../components/BackButton';
-import BalanceGameListItem from '../../components/BalanceGameListItem';
+import BackButton from '../../../components/BackButton';
+import BalanceGameListItem from '../../../components/BalanceGame/BalanceGameListItem';
 
 function CreateBalanceGame(props) {
   const [balanceGameList, setBalanceGameList] = useState([]);

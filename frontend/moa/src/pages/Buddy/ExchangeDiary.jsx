@@ -14,7 +14,7 @@ function ExchangeDiary(props) {
   const navigate = useNavigate();
 
   const handleDiaryClick = (diary) => {
-    navigate(`/withbuddy/exchangediary/${diary.id}`, {
+    navigate(`/buddy/exchangediary/${diary.id}`, {
       state: { diary }, // 다이어리 데이터를 state에 전달
     });
   };
@@ -24,7 +24,7 @@ function ExchangeDiary(props) {
       <p>교환일기</p>
 
       <div>
-        <Link to="/withbuddy/exchangediary/create">
+        <Link to="/buddy/exchangediary/create">
           <button>생성하기</button>
         </Link>
       </div>

@@ -11,16 +11,16 @@ import OpenChattingDetail from './pages/Chatting/OpenChattingDetail';
 import KoreanLearning from './pages/Learning/KoreanLearning';
 import Quiz from './pages/Quiz/Quiz';
 import IncorrectNote from './pages/Quiz/IncorrectNote';
-import WithBuddy from './pages/WithBuddy/WithBuddy';
-import ExchangeDiary from './pages/WithBuddy/ExchangeDiary';
-import ExchangeDiaryDetail from './pages/WithBuddy/ExchangeDiaryDetail';
-import CreateExchangeDiary from './pages/WithBuddy/CreateExchangeDiary';
-import UpdateExchangeDiary from './pages/WithBuddy/UpdateExchangeDiary';
-import BalanceGame from './pages/WithBuddy/BalanceGame';
-import BalanceGameDetail from './pages/WithBuddy/BalanceGameDetail';
-import CreateBalanceGame from './pages/WithBuddy/CreateBalanceGame';
-import UpdateBalanceGame from './pages/WithBuddy/UpdateBalanceGame';
-import KoreaTour from './pages/WithBuddy/KoreaTour';
+import BuddyHome from './pages/Buddy/BuddyHome';
+import ExchangeDiary from './pages/Buddy/ExchangeDiary';
+import ExchangeDiaryDetail from './pages/Buddy/ExchangeDiaryDetail';
+import CreateExchangeDiary from './pages/Buddy/CreateExchangeDiary';
+import UpdateExchangeDiary from './pages/Buddy/UpdateExchangeDiary';
+import BalanceGame from './pages/Buddy/BalanceGame/BalanceGame';
+import BalanceGameDetail from './pages/Buddy/BalanceGame/BalanceGameDetail';
+import CreateBalanceGame from './pages/Buddy/BalanceGame/CreateBalanceGame';
+import UpdateBalanceGame from './pages/Buddy/BalanceGame/UpdateBalanceGame';
+import KoreaTour from './pages/Buddy/KoreaTour';
 import NotFound404 from './pages/NotFound404';
 
 function App() {
@@ -51,19 +51,19 @@ function App() {
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/quiz/incorrect-note" element={<IncorrectNote />} />
 
-          <Route path="/withbuddy" element={<WithBuddy />} />
+          <Route path="/buddy" element={<BuddyHome />} />
 
-          <Route path="/withbuddy/exchangediary" element={<ExchangeDiary />} />
-          <Route path="/withbuddy/exchangediary/:id" element={<ExchangeDiaryDetail />} />
-          <Route path="/withbuddy/exchangediary/create" element={<CreateExchangeDiary />} />
-          <Route path="/withbuddy/exchangediary/:id/update" element={<UpdateExchangeDiary />} />
+          <Route path="/buddy/exchangediary" element={<ExchangeDiary />} />
+          <Route path="/buddy/exchangediary/:id" element={<ExchangeDiaryDetail />} />
+          <Route path="/buddy/exchangediary/create" element={<CreateExchangeDiary />} />
+          <Route path="/buddy/exchangediary/:id/update" element={<UpdateExchangeDiary />} />
 
-          <Route path="/withbuddy/balancegame" element={<BalanceGame />} />
-          <Route path="/withbuddy/balancegame/:id" element={<BalanceGameDetail />} />
-          <Route path="/withbuddy/balancegame/create" element={<CreateBalanceGame />} />
-          <Route path="/withbuddy/balancegame/:id/update" element={<UpdateBalanceGame />} />
+          <Route path="/buddy/balancegame" element={<BalanceGame />} />
+          <Route path="/buddy/balancegame/:id" element={<BalanceGameDetail />} />
+          <Route path="/buddy/balancegame/create" element={<CreateBalanceGame />} />
+          <Route path="/buddy/balancegame/:id/update" element={<UpdateBalanceGame />} />
 
-          <Route path="/withbuddy/koreatour" element={<KoreaTour />} />
+          <Route path="/buddy/koreatour" element={<KoreaTour />} />
           
           <Route path="*" element={<NotFound404 />} />
         </Routes>    

@@ -18,7 +18,7 @@ function ExchangeDiaryDetail(props) {
   const navigate = useNavigate();
 
   const handleUpdateExchangeDiaryClick = () => {
-    navigate(`/withbuddy/exchangediary/${id}/update`, {
+    navigate(`/buddy/exchangediary/${id}/update`, {
       state: { diary }, // 밸런스게임 데이터를 state에 전달
     });
   };

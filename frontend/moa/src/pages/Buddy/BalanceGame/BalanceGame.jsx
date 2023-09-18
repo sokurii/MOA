@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import BackButton from '../../components/BackButton';
-import BalanceGameItem from '../../components/BalanceGameItem';
-import PopularBalanceGameItem from '../../components/PopularBalanceGameItem';
+import BackButton from '../../../components/BackButton';
+import BalanceGameItem from '../../../components/BalanceGame/BalanceGameItem';
+import PopularBalanceGameItem from '../../../components/PopularBalanceGameItem';
 
 function BalanceGame(props) {
   const [balanceGames, setBalanceGames] = useState([
@@ -57,7 +57,7 @@ function BalanceGame(props) {
   const navigate = useNavigate();
 
   const handleBalanceGameClick = (balanceGame) => {
-    navigate(`/withbuddy/balancegame/${balanceGame.id}`, {
+    navigate(`/buddy/balancegame/${balanceGame.id}`, {
       state: { balanceGame }, // 밸런스게임 데이터를 state에 전달
     });
   };
@@ -90,7 +90,7 @@ function BalanceGame(props) {
       <div>
         <h3>밸런스 게임 목록</h3>
         <div>
-          <Link to="/withbuddy/balancegame/create">
+          <Link to="/buddy/balancegame/create">
             <button>생성하기</button>
           </Link>
         </div>
