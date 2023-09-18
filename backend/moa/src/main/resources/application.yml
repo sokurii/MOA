@@ -3,7 +3,7 @@ spring:
     url: jdbc:mysql://localhost:3306/moa
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: ssafy
   jpa:
     hibernate:
       ddl-auto: update
