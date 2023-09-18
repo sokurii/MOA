@@ -19,6 +19,11 @@ function Main(props) {
     <div>
       <p>Main Page</p>
       <div>
+        <Link to="/chatting">
+          <button>채팅</button>
+        </Link>
+      </div>
+      <div>
         <Link to="/koreanlearning">
           <button>한국어 학습</button>
         </Link>
