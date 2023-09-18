@@ -65,7 +65,7 @@ function BalanceGame(props) {
   return (
     <div>
       <BackButton />
-      <p>밸런스 게임</p>
+      <h2>밸런스 게임</h2>
 
       <div>
         <h3>인기 밸런스 게임</h3>
