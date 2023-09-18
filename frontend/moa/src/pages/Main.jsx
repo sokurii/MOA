@@ -30,7 +30,7 @@ function Main(props) {
         <Link to="/quiz">
           <button>퀴즈</button>
         </Link>
-        <Link to="/withbuddy">
+        <Link to="/buddy">
           <button>버디랑 놀기</button>
         </Link>
 
