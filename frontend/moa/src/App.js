@@ -7,6 +7,7 @@ import Main from './pages/Main';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import ChattingHome from './pages/Chatting/ChattingHome';
+import OpenChattingDetail from './pages/Chatting/OpenChattingDetail';
 import KoreanLearning from './pages/Learning/KoreanLearning';
 import Quiz from './pages/Quiz/Quiz';
 import IncorrectNote from './pages/Quiz/IncorrectNote';
@@ -43,6 +44,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
 
           <Route path="/chatting" element={<ChattingHome />}/>
+          <Route path="/chatting/openchat/:id" element={<OpenChattingDetail />}/>
 
           <Route path="/koreanlearning" element={<KoreanLearning />} />
 

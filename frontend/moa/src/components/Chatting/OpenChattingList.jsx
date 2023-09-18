@@ -1,27 +1,12 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState } from 'react';
 import OpenChattingListItem from './OpenChattingListItem';
 import OpenChattingEntrance from './OpenChattingEntrance';
 
 function OpenChattingList(props) {
   const [openChattings, setOpenChattings] = useState([
-    { id: 1, title: '오픈채팅방1', description: '소개1', member_id: 1, 
-      participate: [1, 2, 3, ],
-    },
-    { id: 2, title: '오픈채팅방2', description: '소개2', member_id: 4, 
-      participate: [5, 6, 7, ],
-    },
+    { id: 1, title: '오픈채팅방1', description: '소개1', member_id: 1, participate: [1, 2, 3] },
+    { id: 2, title: '오픈채팅방2', description: '소개2', member_id: 4, participate: [5, 6, 7] },
   ]);
-
-  // const [isModalVisible, setIsModalVisible] = useState(false);
-
-  // const openModal = () => {
-  //   setIsModalVisible(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalVisible(false);
-  // };
 
   return (
     <div>
@@ -44,7 +29,7 @@ function OpenChattingList(props) {
             />
             <hr />
           </div>
-        )
+        );
       })}
     </div>
   );
