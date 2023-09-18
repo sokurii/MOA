@@ -15,6 +15,9 @@ public class BalanceGameGood {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long balanceGameLikeId;
 
+    @Column(name = "balance_game_reaction")
+    private Integer balanceGameReaction;
+
     @ManyToOne
     @JoinColumn(name = "balance_game_id", referencedColumnName = "balance_game_id")
     private BalanceGame balanceGame;
@@ -24,8 +27,10 @@ public class BalanceGameGood {
     private Member member;
 
     @Builder
-    public BalanceGameGood(Long balanceGameLikeId, BalanceGame balanceGame, Member member) {
+
+    public BalanceGameGood(Long balanceGameLikeId, Integer balanceGameReaction, BalanceGame balanceGame, Member member) {
         this.balanceGameLikeId = balanceGameLikeId;
+        this.balanceGameReaction = balanceGameReaction;
         this.balanceGame = balanceGame;
         this.member = member;
     }

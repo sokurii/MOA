@@ -1,10 +1,13 @@
 package com.ssafy.moa.api.entity;
 
+import com.ssafy.moa.api.dto.BalanceGameListDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -40,4 +43,21 @@ public class BalanceGameList {
         this.balanceOrder = balanceOrder;
         this.balanceGame = balanceGame;
     }
+
+    public void change(BalanceGameListDto bgl){
+        this.balanceGameOne = bgl.getBalanceGameOne();
+        this.balanceGameTwo = bgl.getBalanceGameTwo();
+        this.balanceOrder = bgl.getBalanceOrder();
+    }
+
+//    @Override
+//    public String toString() {
+//        return "BalanceGameList{" +
+//                "balanceGameListId=" + balanceGameListId +
+//                ", balanceGameOne='" + balanceGameOne + '\'' +
+//                ", balanceGameTwo='" + balanceGameTwo + '\'' +
+//                ", balanceOrder=" + balanceOrder +
+//                ", balanceGame=" + balanceGame +
+//                '}';
+//    }
 }

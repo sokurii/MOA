@@ -26,6 +26,8 @@ public class QBalanceGameGood extends EntityPathBase<BalanceGameGood> {
 
     public final NumberPath<Long> balanceGameLikeId = createNumber("balanceGameLikeId", Long.class);
 
+    public final NumberPath<Integer> balanceGameReaction = createNumber("balanceGameReaction", Integer.class);
+
     public final QMember member;
 
     public QBalanceGameGood(String variable) {

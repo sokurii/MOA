@@ -8,15 +8,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BalanceGameListDto {
-    private Long balanceGameListId;
+public class BalanceGameListReqDto {
     private String balanceGameOne;
     private String balanceGameTwo;
     private Integer balanceOrder;
 
     @Builder
-    public BalanceGameListDto(Long balanceGameListId, String balanceGameOne, String balanceGameTwo, Integer balanceOrder) {
-        this.balanceGameListId = balanceGameListId;
+    public BalanceGameListReqDto(String balanceGameOne, String balanceGameTwo, Integer balanceOrder) {
         this.balanceGameOne = balanceGameOne;
         this.balanceGameTwo = balanceGameTwo;
         this.balanceOrder = balanceOrder;
@@ -25,8 +23,7 @@ public class BalanceGameListDto {
     @Override
     public String toString() {
         return "BalanceGameListDto{" +
-                "balanceGameListId=" + balanceGameListId +
-                ", balanceGameOne='" + balanceGameOne + '\'' +
+                "balanceGameOne='" + balanceGameOne + '\'' +
                 ", balanceGameTwo='" + balanceGameTwo + '\'' +
                 ", balanceOrder=" + balanceOrder +
                 '}';
