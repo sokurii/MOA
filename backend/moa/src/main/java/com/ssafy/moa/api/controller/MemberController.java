@@ -1,14 +1,11 @@
 package com.ssafy.moa.api.controller;
 
-import com.ssafy.moa.api.dto.member.EmailCheckDto;
+import com.ssafy.moa.api.dto.member.*;
 import com.ssafy.moa.api.jwt.JwtTokenProvider;
 import com.ssafy.moa.api.service.EmailService;
 import com.ssafy.moa.api.service.impl.EmailServiceImpl;
 import com.ssafy.moa.api.service.MemberService;
 import com.ssafy.moa.common.utils.ApiUtils.ApiResult;
-import com.ssafy.moa.api.dto.member.LoginReqDto;
-import com.ssafy.moa.api.dto.member.MemberSignUpDto;
-import com.ssafy.moa.api.dto.member.TokenRespDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,9 +35,16 @@ public class MemberController {
 
     @PostMapping("/signup/email")
     // 회원가입 시 이메일 인증번호 전송
-    public ApiResult<String> emailCheck(@RequestBody EmailCheckDto emailCheckDto) throws Exception {
+    public ApiResult<String> sendEmailCode(@RequestBody EmailCheckDto emailCheckDto) throws Exception {
         String emailCode = emailService.sendSimpleMessage(emailCheckDto);
         return success(emailCode);
+    }
+
+    @DeleteMapping("/signup/email")
+    // 회원가입 시 코드를 통한 이메일 인증
+    public ApiResult<String> verifyEmailCode(@RequestBody EmailCodeDto emailCodeDto) {
+        String verifyEmailStatus = emailService.verifyEmail(emailCodeDto);
+        return success(verifyEmailStatus);
     }
 
 
@@ -58,6 +62,15 @@ public class MemberController {
         Authentication authentication = jwtTokenProvider.getAuthentication(token);
         memberService.logout(authentication);
         return success("로그아웃 성공");
+    }
+
+    // 회원 탈퇴
+    @DeleteMapping
+    public ApiResult<String> removeMember(@RequestHeader("Authorization") String header) {
+        String token = header.substring(7);
+        Long memberId = jwtTokenProvider.extractMemberId(token);
+        String status = memberService.removeMember(memberId);
+        return success(status);
     }
 
     // 테스트

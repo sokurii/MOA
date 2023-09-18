@@ -109,4 +109,14 @@ public class MemberServiceImpl implements MemberService {
             refreshTokenRepository.delete(findRefreshToken.get());
         }
     }
+
+    // 회원 탈퇴
+    @Override
+    public String removeMember(Long memberId) {
+        Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new NotFoundException(memberId + "에 해당하는 member를 찾지 못했습니다."));
+
+        memberRepository.delete(member);
+        return "탈퇴 성공";
+    }
 }

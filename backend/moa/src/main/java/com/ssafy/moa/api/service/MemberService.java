@@ -10,5 +10,5 @@ public interface MemberService {
     MemberSignUpDto signUp(MemberSignUpDto memberSignUpDto);
     TokenRespDto login(LoginReqDto loginReqDto);
     void logout(Authentication authentication);
-
+    String removeMember(Long memberId);
 }

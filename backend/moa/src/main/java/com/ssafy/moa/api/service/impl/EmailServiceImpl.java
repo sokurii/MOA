@@ -1,7 +1,10 @@
 package com.ssafy.moa.api.service.impl;
 
 import com.ssafy.moa.api.dto.member.EmailCheckDto;
+import com.ssafy.moa.api.dto.member.EmailCodeDto;
 import com.ssafy.moa.api.service.EmailService;
+import com.ssafy.moa.common.exception.NotFoundException;
+import com.ssafy.moa.common.utils.RedisUtil;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -22,6 +25,7 @@ import java.util.Random;
 @Service
 public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javaMailSender;
+    private final RedisUtil redisUtil;
 
     // 인증번호 생성
     private final String ePw = createKey();
@@ -67,12 +71,23 @@ public class EmailServiceImpl implements EmailService {
     public String sendSimpleMessage(EmailCheckDto emailCheckDto) throws Exception {
         MimeMessage message = createMessage(emailCheckDto.getEmail());
         try {
+            redisUtil.setDataExpire(ePw, emailCheckDto.getEmail(), 60 * 3L); // 유효기간 3분
             javaMailSender.send(message);
         } catch (MailException e) {
             e.printStackTrace();
             throw new IllegalAccessException();
         }
         return ePw;
+    }
+
+    @Override
+    public String verifyEmail(EmailCodeDto emailCodeDto) throws NotFoundException {
+        String memberEmail = redisUtil.getData(emailCodeDto.getEmailCode());
+        if(memberEmail == null) {
+            throw new NotFoundException("이메일 인증을 실패했습니다.");
+        }
+        redisUtil.deleteData(emailCodeDto.getEmailCode());
+        return "이메일 인증을 성공했습니다.";
     }
 
 }

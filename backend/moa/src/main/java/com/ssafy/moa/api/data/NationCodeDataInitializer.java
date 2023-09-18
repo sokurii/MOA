@@ -47,7 +47,7 @@ public class NationCodeDataInitializer implements CommandLineRunner {
         });
 
         for (int i = 0; i < countries.length; i++) {
-            Locale locale = new Locale("en", countries[i]);
+            Locale locale = new Locale("ko", countries[i]);
             insertQuery.append("(").append(i+1).append(", '").append(locale.getDisplayCountry()).append("')");
             if (i < countries.length - 1) {
                 insertQuery.append(", ");
