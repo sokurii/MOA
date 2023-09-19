@@ -29,7 +29,7 @@ public class BalanceGameController {
     public ApiResult<Long> createBalanceGame(/*@RequestHeader("Authorization") String header,*/ @RequestBody BalanceGameReqDto balanceGameReqDto){
 //        String token = header.substring(7);
 //        Authentication authentication = jwtTokenProvider.getAuthentication(token);
-        Long memberId = 4L;
+        Long memberId = 1L;
         log.info(balanceGameReqDto.toString());
         return success(balanceGameService.createBalanceGame(memberId, balanceGameReqDto));
     }
@@ -62,7 +62,7 @@ public class BalanceGameController {
     @Operation(summary = "밸런스게임 반응 등록", description = "진행한 밸런스게임의 반응을 등록합니다.", tags = { "BalanceGame Controller" })
     @PostMapping("/reaction")
     public ApiResult<Long> createBalanceGameReaction(/*@RequestHeader("Authorization") String header,*/ @RequestBody BalanceGameReactionDto balanceGameReactionDto){
-        Long memberId = 4L;
+        Long memberId = 1L;
         return success(balanceGameService.createBalanceGameReaction(memberId, balanceGameReactionDto));
     }
 
