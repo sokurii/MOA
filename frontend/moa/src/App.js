@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp';
 import ChattingHome from './pages/Chatting/ChattingHome';
 import OpenChattingDetail from './pages/Chatting/OpenChattingDetail';
 import KoreanLearning from './pages/Learning/KoreanLearning';
+import QnABoard from './pages/QnA/QnABoard';
 import Quiz from './pages/Quiz/Quiz';
 import IncorrectNote from './pages/Quiz/IncorrectNote';
 import BuddyHome from './pages/Buddy/BuddyHome';
@@ -48,6 +49,8 @@ function App() {
 
           <Route path="/koreanlearning" element={<KoreanLearning />} />
 
+          <Route path="/qna-board" element={<QnABoard />} />
+          
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/quiz/incorrect-note" element={<IncorrectNote />} />
 
