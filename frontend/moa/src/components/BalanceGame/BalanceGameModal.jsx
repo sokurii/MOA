@@ -4,7 +4,7 @@ import BalanceGameResult from './BalanceGameResult';
 import LiveChatArea from './LiveChatArea';
 import ProgressBar from './ProgressBar';
 
-function BalanceGameModal({ balanceGameList, time }) {
+function BalanceGameModal({ balanceGameId, balanceGameList, time }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [remainingTime, setRemainingTime] = useState(time);
@@ -96,7 +96,10 @@ function BalanceGameModal({ balanceGameList, time }) {
       ) : (
         <div>
           {/* BalanceGameResult에 선택한 옵션 배열을 전달 */}
-          <BalanceGameResult selectedOptions={selectedOptions} />
+          <BalanceGameResult
+            balanceGameId={balanceGameId}
+            selectedOptions={selectedOptions}
+          />
         </div>
       )}
     </div>

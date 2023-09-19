@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { balanceGameApi } from '../../../api/balanceGameApi';
 
@@ -35,6 +35,8 @@ function BalanceGameDetail(props) {
   const [normalCount, setNormalCount] = useState(0);
   const [badCount, setBadCount] = useState(0);
 
+  const [dataLoaded, setDataLoaded] = useState(false);
+
   useEffect(() => {
     balanceGameApi.getBalanceGameDetail(balanceGameId)
     .then((response) => {
@@ -51,7 +53,10 @@ function BalanceGameDetail(props) {
       console.log('상세 밸런스게임 조회 에러 발생');
       console.error(error);
     });
-  })
+
+    setDataLoaded(true);
+
+  }, [dataLoaded]);
 
   return (
     <div>
@@ -110,6 +115,7 @@ function BalanceGameDetail(props) {
 
       {isModalOpen &&
         <BalanceGameModal
+          balanceGameId={balanceGameId}
           balanceGameList={balanceGameList}
           time={time}
         />}

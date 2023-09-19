@@ -1,9 +1,8 @@
 import React from 'react';
 
-import BackButton from '../BackButton';
+import ReactionChoice from './ReactionChoice';
 
-function BalanceGameResult(props) {
-  const selectedOptions = props.selectedOptions;
+function BalanceGameResult({ balanceGameId, selectedOptions }) {
   return (
     <div>
       <h3>결과</h3>
@@ -25,11 +24,10 @@ function BalanceGameResult(props) {
       <hr />
 
       {/* 밸런스 게임 반응 */}
-      <div>
-        <p>반응 Component</p>
-      </div>
+      <ReactionChoice
+        balanceGameId={balanceGameId}
+      />
       <hr />
-      <BackButton />
     </div>
   );
 }
