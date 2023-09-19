@@ -24,6 +24,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final ListPath<BalanceGame, QBalanceGame> balanceGame = this.<BalanceGame, QBalanceGame>createList("balanceGame", BalanceGame.class, QBalanceGame.class, PathInits.DIRECT2);
 
+    public final ListPath<BalanceGameGood, QBalanceGameGood> balanceGameGood = this.<BalanceGameGood, QBalanceGameGood>createList("balanceGameGood", BalanceGameGood.class, QBalanceGameGood.class, PathInits.DIRECT2);
+
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
 
     public final ListPath<ExchangeDiary, QExchangeDiary> exchangeDiary = this.<ExchangeDiary, QExchangeDiary>createList("exchangeDiary", ExchangeDiary.class, QExchangeDiary.class, PathInits.DIRECT2);

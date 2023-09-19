@@ -54,6 +54,9 @@ public class BalanceGame {
     @OneToMany(mappedBy = "balanceGame", cascade = CascadeType.ALL)
     private List<BalanceGameList> balanceGameList;
 
+    @OneToMany(mappedBy = "balanceGame", cascade = CascadeType.ALL)
+    private List<BalanceGameGood> balanceGameGood;
+
 //    @Builder
 //    public BalanceGame(Long balanceGameId, String balanceGameTitle, Integer balanceGameTime, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
 //        this.balanceGameId = balanceGameId;
@@ -72,6 +75,21 @@ public class BalanceGame {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
         this.member = member;
+    }
+
+    @Builder
+    public BalanceGame(Long balanceGameId, @NotNull String balanceGameTitle, Integer balanceGameTime, @NotNull LocalDateTime createdAt, @NotNull LocalDateTime updatedAt, Integer goodCount, Integer normalCount, Integer badCount, Member member, List<BalanceGameList> balanceGameList, List<BalanceGameGood> balanceGameGood) {
+        this.balanceGameId = balanceGameId;
+        this.balanceGameTitle = balanceGameTitle;
+        this.balanceGameTime = balanceGameTime;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.goodCount = goodCount;
+        this.normalCount = normalCount;
+        this.badCount = badCount;
+        this.member = member;
+        this.balanceGameList = balanceGameList;
+        this.balanceGameGood = balanceGameGood;
     }
 
     public void change(BalanceGameDto bg){
@@ -100,8 +118,12 @@ public class BalanceGame {
                 ", balanceGameTime=" + balanceGameTime +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", goodCount=" + goodCount +
+                ", normalCount=" + normalCount +
+                ", badCount=" + badCount +
                 ", member=" + member +
                 ", balanceGameList=" + balanceGameList +
+                ", balanceGameGood=" + balanceGameGood +
                 '}';
     }
 }
