@@ -34,6 +34,10 @@ function Main(props) {
           <button>버디랑 놀기</button>
         </Link>
 
+        <Link to="/mypage">
+          <button>마이페이지</button>
+        </Link>
+
         {/* 첫 화면 이동을 위해 임시로 만든 버튼 */}
         <div>
           <Link to="/intro">

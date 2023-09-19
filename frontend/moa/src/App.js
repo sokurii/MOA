@@ -22,6 +22,7 @@ import BalanceGameDetail from './pages/Buddy/BalanceGame/BalanceGameDetail';
 import CreateBalanceGame from './pages/Buddy/BalanceGame/CreateBalanceGame';
 import UpdateBalanceGame from './pages/Buddy/BalanceGame/UpdateBalanceGame';
 import KoreaTour from './pages/Buddy/KoreaTour';
+import MyPage from './pages/MyPage/MyPage';
 import NotFound404 from './pages/NotFound404';
 
 function App() {
@@ -67,6 +68,8 @@ function App() {
           <Route path="/buddy/balancegame/:id/update" element={<UpdateBalanceGame />} />
 
           <Route path="/buddy/koreatour" element={<KoreaTour />} />
+
+          <Route path="/mypage" element={<MyPage />} />
           
           <Route path="*" element={<NotFound404 />} />
         </Routes>    
