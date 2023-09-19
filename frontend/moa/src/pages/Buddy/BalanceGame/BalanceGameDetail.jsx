@@ -21,11 +21,25 @@ function BalanceGameDetail(props) {
   
   const navigate = useNavigate();
   
+  // 밸런스 게임 수정 페이지 이동
   const handleUpdateBalanceGameClick = () => {
     navigate(`/buddy/balancegame/${balanceGameId}/update`, {
       state: { balanceGame }, // 밸런스게임 데이터를 state에 전달
     });
   };
+
+  // 밸런스 게임 삭제
+  const deleteBalanceGame = () => {
+    balanceGameApi.deleteBalanceGame(balanceGameId)
+    .then((response) => {
+      alert('게임이 삭제되었습니다.');
+      navigate('/buddy/balancegame');
+    })
+    .catch((error) => {
+      console.log('밸런스 게임 삭제 에러 발생');
+      console.log(error);
+    })
+  }
   
   // 밸런스 게임 목록
   const [title, setTitle] = useState('');
@@ -66,7 +80,7 @@ function BalanceGameDetail(props) {
       {/* 수정 및 삭제 버튼 */}
       <div>
         <button onClick={() => handleUpdateBalanceGameClick()}>수정하기</button>
-        <button>삭제하기</button>
+        <button onClick={deleteBalanceGame}>삭제하기</button>
       </div>
 
       <div>

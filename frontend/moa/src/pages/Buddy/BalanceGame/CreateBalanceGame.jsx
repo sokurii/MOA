@@ -84,7 +84,7 @@ function CreateBalanceGame(props) {
     .then((response) => {
       console.log(response);
       alert('게임이 생성되었습니다!');
-      navigate(-1);
+      navigate('/buddy/balancegame/');
     })
     .catch((error) => {
       console.log('밸런스게임 생성 오류 발생');
