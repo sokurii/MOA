@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useLocation, Link } from 'react-router-dom';
 
+import { balanceGameApi } from '../../../api/balanceGameApi';
+
 import BackButton from '../../../components/BackButton';
 import LiveChatArea from '../../../components/BalanceGame/LiveChatArea';
 import BalanceGameModal from '../../../components/BalanceGame/BalanceGameModal';
@@ -9,26 +11,47 @@ import BalanceGameModal from '../../../components/BalanceGame/BalanceGameModal';
 function BalanceGameDetail(props) {
   const location = useLocation();
   const balanceGame = location.state.balanceGame;
-
-  const id = balanceGame.id;
-  const title = balanceGame.title;
-  const username = balanceGame.username;
-  const time = balanceGame.time;
-  const balanceGameList = balanceGame.balanceGameList;
-
+  const balanceGameId = balanceGame.balanceGameId;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  
   const handleStartClick = () => {
     setIsModalOpen(true);
   };
-
+  
   const navigate = useNavigate();
-
+  
   const handleUpdateBalanceGameClick = () => {
-    navigate(`/buddy/balancegame/${id}/update`, {
+    navigate(`/buddy/balancegame/${balanceGameId}/update`, {
       state: { balanceGame }, // 밸런스게임 데이터를 state에 전달
     });
   };
+  
+  // 밸런스 게임 목록
+  const [title, setTitle] = useState('');
+  const [time, setTime] = useState(0);
+  const [balanceGameList, setBalanceGameList] = useState([]);
+  const [goodCount, setGoodCount] = useState(0);
+  const [normalCount, setNormalCount] = useState(0);
+  const [badCount, setBadCount] = useState(0);
+
+  useEffect(() => {
+    balanceGameApi.getBalanceGameDetail(balanceGameId)
+    .then((response) => {
+      const res = response.data.response;
+      console.log(res);
+      setTitle(res.balanceGameTitle);
+      setTime(res.balanceGameTime);
+      setBalanceGameList(res.balanceGameList);
+      setGoodCount(res.goodCount);
+      setNormalCount(res.normalCount);
+      setBadCount(res.badCount);
+    })
+    .catch((error) => {
+      console.log('상세 밸런스게임 조회 에러 발생');
+      console.error(error);
+    });
+  })
 
   return (
     <div>
@@ -41,27 +64,23 @@ function BalanceGameDetail(props) {
         <button>삭제하기</button>
       </div>
 
-      { id } 번 밸런스 게임
       <div>
         <h1>제목 : { title }</h1>
 
         {/* 밸런스 게임 평가 */}
         <div>
           <div>
-            😍 : 0
+            😍 : { goodCount }
           </div>
           <div>
-            😐 : 0
+            😐 : { normalCount }
           </div>
           <div>
-            😥 : 0
+            😥 : { badCount }
           </div>
         </div>
 
         {/* 밸런스 게임 정보 */}
-        <div>
-          제작자 : { username }
-        </div>
         <div>
           라운드 수 : { balanceGameList.length }
         </div>
@@ -91,7 +110,8 @@ function BalanceGameDetail(props) {
 
       {isModalOpen &&
         <BalanceGameModal
-          balanceGame={balanceGame}
+          balanceGameList={balanceGameList}
+          time={time}
         />}
 
     </div>

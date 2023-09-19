@@ -4,11 +4,7 @@ import BalanceGameResult from './BalanceGameResult';
 import LiveChatArea from './LiveChatArea';
 import ProgressBar from './ProgressBar';
 
-function BalanceGameModal(props) {
-  const balanceGame = props.balanceGame;
-  const balanceGameList = balanceGame.balanceGameList;
-  const time = balanceGame.time;
-
+function BalanceGameModal({ balanceGameList, time }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [remainingTime, setRemainingTime] = useState(time);
@@ -42,9 +38,9 @@ function BalanceGameModal(props) {
   // 선택한 옵션을 배열에 추가
   const handleOptionSelect = () => {
     if (leftButtonActive) {
-      setSelectedOptions([...selectedOptions, balanceGameList[currentIndex].left]);
+      setSelectedOptions([...selectedOptions, balanceGameList[currentIndex].balanceGameOne]);
     } else if (rightButtonActive) {
-      setSelectedOptions([...selectedOptions, balanceGameList[currentIndex].right]);
+      setSelectedOptions([...selectedOptions, balanceGameList[currentIndex].balanceGameTwo]);
     }
   };
 
@@ -69,8 +65,8 @@ function BalanceGameModal(props) {
         <div>
           <div>
             <div>
-              <h4>Round {balanceGameList[currentIndex].order}</h4>
-              <p>{balanceGameList[currentIndex].order} / {balanceGameList.length}</p>
+              <h4>Round {balanceGameList[currentIndex].balanceOrder}</h4>
+              <p>{balanceGameList[currentIndex].balanceOrder} / {balanceGameList.length}</p>
             </div>
             <ProgressBar
               remainingTime={remainingTime}
@@ -79,13 +75,13 @@ function BalanceGameModal(props) {
             <div>
               <div>
                 <button onClick={handleLeftButtonClick} style={{ backgroundColor: leftButtonActive ? 'green' : 'gray', color: 'white' }}>
-                  {balanceGameList[currentIndex].left}
+                  {balanceGameList[currentIndex].balanceGameOne}
                 </button>
               </div>
               <div><h5>vs</h5></div>
               <div>
                 <button onClick={handleRightButtonClick} style={{ backgroundColor: rightButtonActive ? 'green' : 'gray', color: 'white' }}>
-                  {balanceGameList[currentIndex].right}
+                  {balanceGameList[currentIndex].balanceGameTwo}
                 </button>
               </div>
               {currentIndex === balanceGameList.length - 1 ? (

@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 import { balanceGameApi } from '../../api/balanceGameApi';
 
-function BalanceGameItem({ balanceGameId, balanceGameTitle }) {
+function BestBalanceGameItem({ balanceGameId, balanceGameTitle }) {
   const [round, setRound] = useState(0);
 
   useEffect(() => {
     balanceGameApi.getBalanceGameDetail(balanceGameId)
     .then((response) => {
       const res = response.data.response;
-      const gameList = res.balanceGameList;    
-      setRound(gameList.length);  
+      const gameList = res.balanceGameList;
+      setRound(gameList.length);
     })
     .catch((error) => {
       console.log('상세 밸런스게임 조회 에러 발생');
@@ -20,7 +20,7 @@ function BalanceGameItem({ balanceGameId, balanceGameTitle }) {
   }, [balanceGameId, balanceGameTitle]);
 
   return (
-    // 가로로 나열
+    // 세로로 나열
     <div>
       <div>
         <div>
@@ -33,4 +33,4 @@ function BalanceGameItem({ balanceGameId, balanceGameTitle }) {
   );
 }
 
-export default BalanceGameItem;
+export default BestBalanceGameItem;
