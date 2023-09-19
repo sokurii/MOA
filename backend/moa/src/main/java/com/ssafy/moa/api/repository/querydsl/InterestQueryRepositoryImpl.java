@@ -14,7 +14,7 @@ public class InterestQueryRepositoryImpl implements InterestQueryRepository{
     public Integer countByInterest(Long koreanId, Long foreignId) {
         return Math.toIntExact(jpaQueryFactory.select(interest.interestCode.count())
                 .from(interest)
-                .where(interest.member.memberId.in(1, 2))
+                .where(interest.member.memberId.in(koreanId, foreignId))
                 .groupBy(interest.interestCode)
                 .having(interest.member.memberId.count().gt(1)).fetchOne());
     }

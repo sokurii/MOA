@@ -26,6 +26,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
 
+    public final ListPath<ExchangeDiary, QExchangeDiary> exchangeDiary = this.<ExchangeDiary, QExchangeDiary>createList("exchangeDiary", ExchangeDiary.class, QExchangeDiary.class, PathInits.DIRECT2);
+
     public final QForeigner foreigner;
 
     public final ListPath<Interest, QInterest> interest = this.<Interest, QInterest>createList("interest", Interest.class, QInterest.class, PathInits.DIRECT2);
