@@ -2,7 +2,7 @@ import React from 'react';
 import BackButton from '../components/BackButton';
 import MainButton from '../components/MainButton';
 
-function SignUp(props) {
+function SignUp(props) { 
   return (
     <div>
       <p>SignUp Page</p>
@@ -36,7 +36,12 @@ function SignUp(props) {
           <label htmlFor="email" className="inputTitle">이메일</label>
           <input type="text" id="email" name="email"/>
         </div>
-        <button>인증번호 전송</button>
+        <button onClick="takeTarget()">인증번호 전송</button>
+        {/* 타이머 구현 전 */}
+        <span>
+          <span id="min">3</span> : 
+          <span id="sec">00</span>
+        </span>
 
         <div className="inputForm">
           <label htmlFor="password" className="inputTitle">비밀번호</label>

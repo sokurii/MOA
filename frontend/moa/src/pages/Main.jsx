@@ -25,11 +25,15 @@ function Main(props) {
       </div>
       <div>
         <Link to="/koreanlearning">
-          <button>한국어 학습</button>
+          <button>뉴스 보기</button>
         </Link>
         <Link to="/quiz">
-          <button>퀴즈</button>
+          <button>퀴즈 풀기</button>
         </Link>
+        <Link to="/qna-board">
+          <button>질문하기</button>
+        </Link>
+
         <Link to="/buddy">
           <button>버디랑 놀기</button>
         </Link>
