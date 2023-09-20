@@ -54,14 +54,18 @@ public class JwtTokenProvider implements InitializingBean {
     public String createAccessToken(Authentication authentication, Long memberId) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + tokenValidityInMs);
+        log.info("토큰 생성하러 왔습니닷");
 
-        return  Jwts.builder()
+        String newAccessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("memberId", memberId)
                 .setIssuedAt(now)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
+
+        log.info(newAccessToken + "생성됐는지 .. ㅠ");
+        return newAccessToken;
     }
 
     // jwt 토큰에서 memberId 값 추출
