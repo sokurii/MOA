@@ -27,13 +27,6 @@ spring:
           ssl:
             enable: true
             trust: smtp.naver.com
-  cloud:
-    gcp:
-      storage:
-        credentials:
-          location: classpath:moremoa-b16fd6cab763.json
-    project-id: moremoa
-    bucket: diary_storage
   profiles:
     include:
       - mail

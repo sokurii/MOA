@@ -50,8 +50,16 @@ public class OpenChatServiceImpl implements OpenChatService {
                 .openChatImgUrl(uuid)
                 .member(member)
                 .build();
+        openChatRepository.save(openChat);
 
-        return openChatRepository.save(openChat).getOpenChatId();
+        OpenChatMember openChatMember = OpenChatMember.builder()
+                .member(member)
+                .openChat(openChat)
+                .build();
+
+        openChatMemberRepository.save(openChatMember);
+
+        return openChat.getOpenChatId();
     }
 
     @Override
