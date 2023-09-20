@@ -1,6 +1,6 @@
 package com.ssafy.moa.common.handler;
 
-import com.ssafy.moa.api.entity.ChatMessage;
+import com.ssafy.moa.api.dto.ChatMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;

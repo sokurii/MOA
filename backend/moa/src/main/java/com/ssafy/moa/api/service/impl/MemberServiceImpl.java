@@ -119,4 +119,10 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.delete(member);
         return "탈퇴 성공";
     }
+
+    @Override
+    public Member findMember(Long memberId) {
+        return memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+    }
 }

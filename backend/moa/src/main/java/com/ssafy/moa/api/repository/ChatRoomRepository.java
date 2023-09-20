@@ -1,5 +1,6 @@
 package com.ssafy.moa.api.repository;
 
+import com.ssafy.moa.api.dto.ChatRoom;
 import com.ssafy.moa.common.handler.RedisSubscriber;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -19,24 +21,62 @@ public class ChatRoomRepository {
     private final RedisSubscriber redisSubscriber;
 
     private final RedisTemplate<String, Object> redisTemplate;
-    private Map<String, ChannelTopic> topics;
+    private HashOperations<String, String, ChatRoom> opsHashChatRoom;
+    private Map<String, ChannelTopic> openChatTopics;
+    private Map<String, ChannelTopic> buddyChatTopics;
 
-    /**
-     * 채팅방 입장 : redis에 topic을 만들고 pub/sub 통신을 하기 위해 리스너를 설정한다.
-     */
-    public void enterChatRoom(String roomId) {
-        ChannelTopic topic = topics.get(roomId);
+    private static final String OPEN_CHAT_ROOMS = "OPEN_CHAT_ROOM";
+    private static final String BUDDY_CHAT_ROOMS = "BUDDY_CHAT_ROOM";
+
+    @PostConstruct
+    private void init() {
+        opsHashChatRoom = redisTemplate.opsForHash();
+        openChatTopics = new HashMap<>();
+        buddyChatTopics = new HashMap<>();
+    }
+
+    public List<ChatRoom> findAllRoom(Integer type) {
+        if(type == 1) return opsHashChatRoom.values(OPEN_CHAT_ROOMS);
+        else return opsHashChatRoom.values(BUDDY_CHAT_ROOMS);
+    }
+
+    public ChatRoom findRoomById(Integer type, String id) {
+        if(type == 1) return opsHashChatRoom.get(OPEN_CHAT_ROOMS, id);
+        else  return opsHashChatRoom.get(BUDDY_CHAT_ROOMS, id);
+    }
+
+    public ChatRoom createChatRoom(String name) {
+        ChatRoom chatRoom = ChatRoom.builder().name(name).build();
+        opsHashChatRoom.put(OPEN_CHAT_ROOMS, chatRoom.getRoomId(), chatRoom);
+        return chatRoom;
+    }
+
+    public void enterOpenChatRoom(String roomId) {
+        String key = "open_chat:" + roomId;
+        ChannelTopic topic = openChatTopics.get(key);
         if (topic == null) {
-            topic = new ChannelTopic(roomId);
+            topic = new ChannelTopic(key);
             redisMessageListener.addMessageListener(redisSubscriber, topic);
-            topics.put(roomId, topic);
+            openChatTopics.put(key, topic);
         }
     }
-
-
-    public ChannelTopic getTopic(String roomId) {
-        return topics.get(roomId);
+    public ChannelTopic getOpenChatTopic(String roomId) {
+        return openChatTopics.get(roomId);
     }
 
+
+    public void enterBuddyChatRoom(String roomId) {
+        String key = "buddy:" + roomId;
+        ChannelTopic topic = buddyChatTopics.get(key);
+        if (topic == null) {
+            topic = new ChannelTopic(key);
+            redisMessageListener.addMessageListener(redisSubscriber, topic);
+            buddyChatTopics.put(key, topic);
+        }
+    }
+    public ChannelTopic getBuddyChatTopic(String roomId) {
+        String key = "buddy: " + roomId;
+        return buddyChatTopics.get(key);
+    }
 
 }

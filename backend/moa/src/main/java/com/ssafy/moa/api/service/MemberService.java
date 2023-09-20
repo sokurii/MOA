@@ -3,6 +3,7 @@ package com.ssafy.moa.api.service;
 import com.ssafy.moa.api.dto.member.LoginReqDto;
 import com.ssafy.moa.api.dto.member.MemberSignUpDto;
 import com.ssafy.moa.api.dto.member.TokenRespDto;
+import com.ssafy.moa.api.entity.Member;
 import org.springframework.security.core.Authentication;
 
 public interface MemberService {
@@ -11,4 +12,5 @@ public interface MemberService {
     TokenRespDto login(LoginReqDto loginReqDto);
     void logout(Authentication authentication);
     String removeMember(Long memberId);
+    Member findMember(Long memberId);
 }

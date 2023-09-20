@@ -2,7 +2,7 @@ package com.ssafy.moa.common.handler;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.moa.api.entity.ChatMessage;
+import com.ssafy.moa.api.dto.ChatMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;
@@ -24,7 +24,7 @@ public class RedisSubscriber implements MessageListener {
         try {
             String publishMessage = (String) redisTemplate.getStringSerializer().deserialize(message.getBody());
             ChatMessage roomMessage = objectMapper.readValue(publishMessage, ChatMessage.class);
-//            messagingTemplate.convertAndSend("/sub/chat/buddy/" + roomMessage.getRoomId(), roomMessage);
+            messagingTemplate.convertAndSend("/sub/chat/buddy/" + roomMessage.getRoomId(), roomMessage);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

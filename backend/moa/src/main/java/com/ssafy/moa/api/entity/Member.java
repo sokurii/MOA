@@ -59,6 +59,12 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<ExchangeDiary> exchangeDiary;
 
+    @OneToMany(mappedBy = "member")
+    private List<OpenChat> openChat;
+
+    @OneToMany(mappedBy = "member")
+    private List<OpenChatMember> openChatMember;
+
     @ManyToOne
     @NotNull
     @JoinColumn(name = "member_level")

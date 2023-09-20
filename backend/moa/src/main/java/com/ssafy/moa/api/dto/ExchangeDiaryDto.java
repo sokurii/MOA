@@ -54,7 +54,7 @@ public class ExchangeDiaryDto {
             List<ExchangeDiaryDetailResponse> list = exchangeDiaryList.stream()
                     .map(exchangeDiary -> {
                         MemberDto memberDto = MemberDto.builder().member(exchangeDiary.getMember()).build();
-                        String imgUrl = url + bucketName + "/" + exchangeDiary.getExchangeDiaryPicture();
+                        String imgUrl = url + bucketName + "/diary/" + exchangeDiary.getExchangeDiaryPicture();
 
                         return ExchangeDiaryDetailResponse.builder()
                                 .member(memberDto)
