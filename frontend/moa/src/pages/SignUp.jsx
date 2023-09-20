@@ -2,27 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userApi } from '../api/userApi';
 import BackButton from '../components/BackButton';
-// import MainButton from '../components/MainButton';
 
-function SignUp(props) { 
+function SignUp(props) {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     memberEmail: '',
     memberPassword: '',
     memberName: '',
-    memeberGender: 0,
+    memberGender: 0,
     memberIsForeigner: false,
     nationName: '한국',
+    verificationCode: '',
   });
 
   const [passwordValid, setPasswordValid] = useState(true); // 비밀번호 유효성
   const [timer, setTimer] = useState(180);
+  const [timerStarted, setTimerStarted] = useState(false); // 타이머 시작 여부
+  const [verificationSent, setVerificationSent] = useState(false); // 인증번호 전송 여부
 
   useEffect(() => {
     const passwordValid = validatePassword(formData.memberPassword);
     setPasswordValid(passwordValid);
-  }, [formData.memberPassword])
+  }, [formData.memberPassword]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +33,7 @@ function SignUp(props) {
       [name]: value,
     });
 
-    // 비밀번호 유효성 
+    // 비밀번호 유효성
     if (name === 'memberPassword') {
       const passwordValid = validatePassword(value);
       setPasswordValid(passwordValid);
@@ -43,23 +45,37 @@ function SignUp(props) {
     return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
   };
 
-  // 타이머 
-  const handleSendVerificationCode = () => {
-    // 인증번호 전송 처리 코드 추가해야 함
-    // 인증번호 전송 후 타이머 시작해야 함
-    startTimer()
-  };
-
+  // 타이머 시작
   const startTimer = () => {
+    setTimerStarted(true); // 타이머 시작됨 표시
     const interval = setInterval(() => {
-      setTimer((prevTimer) => prevTimer -1);
+      setTimer((prevTimer) => prevTimer - 1);
     }, 1000);
 
     setTimeout(() => {
       clearInterval(interval);
+      setTimerStarted(false); // 타이머 종료됨 표시
     }, 180000);
-  }
+  };
 
+  const handleSendVerificationCode = async () => {
+    try {
+      const response = await userApi.emailVerification(formData.memberEmail);
+
+      if (response.data.success) {
+        console.log('이메일 인증 요청 성공');
+        setVerificationSent(true);
+        setTimerStarted(true);
+        startTimer();
+      } else {
+        console.log('이메일 인증 요청 오류:', response.data.error.message);
+      }
+    } catch (error) {
+      console.error('API Request Error:', error);
+    }
+  };
+
+  // 회원가입 제출
   const handleForSubmit = async (e) => {
     e.preventDefault();
 
@@ -73,11 +89,10 @@ function SignUp(props) {
       } else {
         console.log('회원가입 오류: ', response.data.error.message);
       }
-    } catch(error){
+    } catch (error) {
       console.error('API Request Error:', error);
     }
   };
-
 
   return (
     <div>
@@ -86,7 +101,7 @@ function SignUp(props) {
         <div>
           <label htmlFor="" className="inputTitle">나는</label>
           <input type="radio" id="foreigner" name="memberIsForeigner" value="true"/>외국인
-          <input type="radio" id="korean" name="memberIsForeingner" value="false"/>한국인
+          <input type="radio" id="korean" name="memberIsForeigner" value="false"/>한국인
         </div>
 
         <div className="inputForm">
@@ -105,22 +120,29 @@ function SignUp(props) {
         <div className="inputForm">
           <label htmlFor="memberGender" className="inputTitle">성별</label>
           <input type="radio" id="man" name="memberGender" value="0" onChange={handleInputChange}/>남자
-          <input type="radio" id="woman" name="memberGender"value="1"onChange={handleInputChange}/>여자
+          <input type="radio" id="woman" name="memberGender" value="1" onChange={handleInputChange}/>여자
         </div>
 
         <div className="inputForm">
           <label htmlFor="memberEmail" className="inputTitle">이메일</label>
           <input type="text" id="memberEmail" name="memberEmail" onChange={handleInputChange}/>
         </div>
+
+        {verificationSent ? (
+          <div className='inputForm'>
+            <label htmlFor="verificationCode" className='inputTitle'>인증번호</label>
+            <input type='text' id='verificationCode' name='verificationCode' onChange={handleInputChange} />
+          </div>
+        ) : null}
         <button onClick={handleSendVerificationCode}>인증번호 전송</button>
-        
+
         {/* 타이머 구현 전 */}
-        <span>
-          <span id="min">{Math.floor(timer / 60)}</span> : 
-          <span id="sec">{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}</span>
-        </span>
-        {/* 인증번호 입력란 */}
-        <p>인증번호 입력란 만들어야 함!</p>
+        {timerStarted ? (
+          <span>
+            <span id="min">{Math.floor(timer / 60)}</span> :
+            <span id="sec">{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}</span>
+          </span>
+        ) : null}
 
         <div className="inputForm">
           <label htmlFor="memberPassword" className="inputTitle">비밀번호</label>
@@ -135,7 +157,7 @@ function SignUp(props) {
         <button onClick={handleForSubmit}>회원가입</button>
 
       </div>
-      
+
       <BackButton />
     </div>
   );
