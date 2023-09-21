@@ -34,8 +34,8 @@ function ChattingHome(props) {
         <button onClick={openOpenChattingModal}>오픈 채팅</button>
       </div>
 
-      {isBuddyChattingModalOpen && <BuddyChattingModal closeModal={closeBuddyChattingModal}/>}
-      {isOpenChattingModalOpen && <OpenChattingModal closeModal={closeOpenChattingModal}/>}
+      <BuddyChattingModal isOpen={isBuddyChattingModalOpen} closeModal={closeBuddyChattingModal}/>
+      <OpenChattingModal isOpen={isOpenChattingModalOpen} closeModal={closeOpenChattingModal}/>
     </div>
   );
 }

@@ -1,9 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { openChatApi } from '../../api/chatApi';
 
 import OpenChattingEntrance from './OpenChattingEntrance';
 
-function OpenChattingListItem(props) {
-  const { id, title, description, member_id, participate } = props;
+const openChatItemStyle = {
+  margin: '5px',
+  padding: '5px',
+  border: '1px solid black',
+  borderRadius: '5px',
+};
+
+function OpenChattingListItem({ openChatId }) {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [memberCount, setMemberCount] = useState(null);
+
+  useEffect(() => {
+    openChatApi.getOpenChatRoomDetail(openChatId)
+    .then((response) => {
+       const res = response.data.response;
+       setTitle(res.openChatTitle);
+       setContent(res.openChatContent);
+       setMemberCount(res.openChatMemberCount);
+    })
+  }, [openChatId]);
+
   const [isEntranceOpen, setIsEntranceOpen] = useState(false);
 
   const openEntrance = () => {
@@ -14,20 +35,20 @@ function OpenChattingListItem(props) {
   }
 
   return (
-    <div>
+    <div style={openChatItemStyle}>
       <h4>{title}</h4>
-      <p>{description}</p>
-      <p>참여자 수: {participate.length}</p>
+      <p>{content}</p>
+      <p>참여자 수: {memberCount}</p>
 
       <button onClick={openEntrance}>입장하기</button>
 
       {isEntranceOpen &&
         <OpenChattingEntrance 
           closeEntrance={closeEntrance}
-          id={id}
+          openChatId={openChatId}
           title={title}
-          description={description}
-          participate={participate}
+          content={content}
+          memberCount={memberCount}
         />
       }
     </div>

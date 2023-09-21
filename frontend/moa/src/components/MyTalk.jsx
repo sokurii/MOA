@@ -1,12 +1,26 @@
 import React from 'react';
 
-function MyTalk({ talk }) {
+const myTalkStyle = {
+  margin: '5px',
+  padding: '10px',
+  width: '75%',
+  backgroundColor: 'green',
+  color: 'white',
+  borderRadius: '5px',
+  textAlign: 'right',
+};
 
+const myTalkWrapperStyle = {
+  display: 'flex',
+  justifyContent: 'flex-end',
+};
+
+function MyTalk({ talk }) {
   return (
-    <div className="my-talk-area" style={{ backgroundColor: 'green', color: 'white' }}>
-      <li>
-        { talk }
-      </li>
+    <div style={myTalkWrapperStyle}>
+      <div className="my-talk-area" style={myTalkStyle}>
+        {talk}
+      </div>
     </div>
   );
 }

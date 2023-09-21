@@ -3,32 +3,32 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import CloseButton from '../CloseButton';
 
 function OpenChattingEntrance(props) {
+  const { closeEntrance, openChatId, title, content, memberCount } = props
+
+
   const navigate = useNavigate();
 
   const handleOpenChattingClick = () => {
-    navigate(`/chatting/openchat/${props.id}`, {
+    navigate(`/chatting/openchat/${openChatId}`, {
       state: {
-        id: props.id,
-        title: props.title,
-        description: props.description,
-        participate: props.participate,
+        openChatId: openChatId,
       },
     });
   };
 
   return (
     <div>
-      <CloseButton onClose={props.closeEntrance} />
+      <CloseButton onClose={closeEntrance} />
       <p>오픈채팅 입장 페이지</p>
       <div>
         <p>사진 Component</p>
       </div>
       <hr />
       <div>
-        <h3>{props.title}</h3>
-        <p>{props.participate.length}</p>
+        <h3>{title}</h3>
+        <p>{memberCount}</p>
       </div>
-      <div>{props.description}</div>
+      <div>{content}</div>
 
       <button onClick={handleOpenChattingClick}>입장하기</button>
     </div>
