@@ -24,6 +24,8 @@ public class QBuddy extends EntityPathBase<Buddy> {
 
     public final NumberPath<Long> buddyId = createNumber("buddyId", Long.class);
 
+    public final DatePath<java.time.LocalDate> createdAt = createDate("createdAt", java.time.LocalDate.class);
+
     public final QForeigner foreigner;
 
     public final QKorean korean;

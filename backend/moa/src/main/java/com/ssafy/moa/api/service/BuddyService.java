@@ -7,4 +7,5 @@ public interface BuddyService {
     Long saveForeignerBuddyInfo(ForeignerBuddyPostRequest foreignerBuddyPostRequest);
     Long findMatchingBuddy(BuddyMatchingRequest buddyMatchingRequest);
     Integer deleteBuddy(Long memberId);
+    Long findWithBuddyDate(Long memberId);
 }

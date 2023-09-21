@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -96,14 +98,16 @@ public class BuddyServiceImpl implements BuddyService {
                     if(count > 0) {
                         Buddy buddy = Buddy.builder()
                                 .korean(korean)
-                                .foreigner(foreigner).build();
+                                .foreigner(foreigner)
+                                .createdAt(LocalDate.now()).build();
                         return buddyRepository.save(buddy).getBuddyId();
                     }
                 }
 
                 Buddy buddy = Buddy.builder()
                         .korean(koreanBuddyGenderAndNation.get(0))
-                        .foreigner(foreigner).build();
+                        .foreigner(foreigner)
+                        .createdAt(LocalDate.now()).build();
                 return buddyRepository.save(buddy).getBuddyId();
             }
 
@@ -115,14 +119,16 @@ public class BuddyServiceImpl implements BuddyService {
                     if(count > 0) {
                         Buddy buddy = Buddy.builder()
                                 .korean(korean)
-                                .foreigner(foreigner).build();
+                                .foreigner(foreigner)
+                                .createdAt(LocalDate.now()).build();
                         return buddyRepository.save(buddy).getBuddyId();
                     }
                 }
 
                 Buddy buddy = Buddy.builder()
                         .korean(koreanBuddyGenderAndNation.get(0))
-                        .foreigner(foreigner).build();
+                        .foreigner(foreigner)
+                        .createdAt(LocalDate.now()).build();
                 return buddyRepository.save(buddy).getBuddyId();
             }
 
@@ -139,14 +145,16 @@ public class BuddyServiceImpl implements BuddyService {
                     if(count > 0) {
                         Buddy buddy = Buddy.builder()
                                 .korean(korean)
-                                .foreigner(foreigner).build();
+                                .foreigner(foreigner)
+                                .createdAt(LocalDate.now()).build();
                         return buddyRepository.save(buddy).getBuddyId();
                     }
                 }
 
                 Buddy buddy = Buddy.builder()
                         .korean(korean)
-                        .foreigner(foreignerBuddyGenderAndNation.get(0)).build();
+                        .foreigner(foreignerBuddyGenderAndNation.get(0))
+                        .createdAt(LocalDate.now()).build();
                 return buddyRepository.save(buddy).getBuddyId();
             }
 
@@ -187,5 +195,13 @@ public class BuddyServiceImpl implements BuddyService {
                     .orElseThrow(() -> new NotFoundException("Not Found Korean"));
             return buddyRepository.deleteByKorean(korean);
         }
+    }
+
+    @Override
+    public Long findWithBuddyDate(Long memberId) {
+        Member member = memberService.findMember(memberId);
+        LocalDate agoDate = buddyRepository.findByKorean(member.getKorean()).get().getCreatedAt();
+        Long daysDifference = ChronoUnit.DAYS.between(agoDate, LocalDate.now());
+        return daysDifference;
     }
 }

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -23,10 +25,13 @@ public class Buddy {
     @JoinColumn(name = "korean_id")
     private Korean korean;
 
+    private LocalDate createdAt;
+
     @Builder
-    public Buddy(Long buddyId, Foreigner foreigner, Korean korean) {
+    public Buddy(Long buddyId, Foreigner foreigner, Korean korean, LocalDate createdAt) {
         this.buddyId = buddyId;
         this.foreigner = foreigner;
         this.korean = korean;
+        this.createdAt = createdAt;
     }
 }
