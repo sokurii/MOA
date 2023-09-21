@@ -41,6 +41,10 @@ public class Member {
     @Column(columnDefinition = "INT DEFAULT 0")
     private Integer memberExp;
 
+    private String memberImgAddress;
+
+    private String memberKoreanName;
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Interest> interest;
 

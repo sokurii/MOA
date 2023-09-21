@@ -1,9 +1,11 @@
 package com.ssafy.moa.api.service.impl;
 
+import com.ssafy.moa.api.dto.member.MemberInfoDto;
 import com.ssafy.moa.api.entity.*;
 import com.ssafy.moa.api.jwt.JwtTokenProvider;
 import com.ssafy.moa.api.jwt.MyUserDetailsService;
 import com.ssafy.moa.api.repository.*;
+import com.ssafy.moa.api.repository.querydsl.MemberQueryRepository;
 import com.ssafy.moa.api.service.MemberService;
 import com.ssafy.moa.api.dto.member.LoginReqDto;
 import com.ssafy.moa.api.dto.member.MemberSignUpDto;
@@ -32,6 +34,7 @@ public class MemberServiceImpl implements MemberService {
     private final NationRepository nationRepository;
     private final ForeignerRepository foreignerRepository;
     private final LevelRepository levelRepository;
+//    private final MemberQueryRepository memberQueryRepository;
 
     private final PasswordEncoder passwordEncoder;
     private final MyUserDetailsService myUserDetailsService;
@@ -120,9 +123,17 @@ public class MemberServiceImpl implements MemberService {
         return "탈퇴 성공";
     }
 
+    // 회원 정보 조회
+//    @Override
+//    public MemberInfoDto getMemberInfo(Long memberId) {
+//
+//    }
+
     @Override
     public Member findMember(Long memberId) {
         return memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
     }
+
+
 }

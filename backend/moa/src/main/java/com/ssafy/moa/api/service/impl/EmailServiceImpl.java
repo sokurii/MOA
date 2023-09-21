@@ -27,8 +27,7 @@ public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javaMailSender;
     private final RedisUtil redisUtil;
 
-    // 인증번호 생성
-    private final String ePw = createKey();
+    static String ePw;
 
     @Value("${spring.mail.username}")
     private String id;
@@ -56,7 +55,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     // 인증번호 만들기
-    private  static String createKey() {
+    private static String createKey() {
         StringBuffer key = new StringBuffer();
         Random random = new Random();
 
@@ -70,6 +69,8 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public String sendSimpleMessage(EmailCheckDto emailCheckDto) throws Exception {
         MimeMessage message = createMessage(emailCheckDto.getEmail());
+        // 인증번호 생성
+        ePw = createKey();
         try {
             redisUtil.setDataExpire(ePw, emailCheckDto.getEmail(), 60 * 3L); // 유효기간 3분
             javaMailSender.send(message);

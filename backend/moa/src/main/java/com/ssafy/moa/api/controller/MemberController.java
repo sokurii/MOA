@@ -64,6 +64,15 @@ public class MemberController {
         return success("로그아웃 성공");
     }
 
+    // 회원 정보 조회
+//    @GetMapping
+//    public ApiResult<MemberInfoDto> getMemberInfo(@RequestHeader("Authorization") String header) {
+//        String token = header.substring(7);
+//        Long memberId = jwtTokenProvider.extractMemberId(token);
+//        MemberInfoDto memberInfoDto = memberService.getMemberInfo(memberId);
+//        return success(memberInfoDto);
+//    }
+
     // 회원 탈퇴
     @DeleteMapping
     public ApiResult<String> removeMember(@RequestHeader("Authorization") String header) {
