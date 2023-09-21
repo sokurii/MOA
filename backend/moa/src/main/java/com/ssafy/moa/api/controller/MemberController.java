@@ -8,6 +8,7 @@ import com.ssafy.moa.api.service.MemberService;
 import com.ssafy.moa.common.utils.ApiUtils.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,8 +59,8 @@ public class MemberController {
     // 로그인
     @PostMapping("/login")
     @Operation(summary = "로그인")
-    public ApiResult<TokenRespDto> login(@RequestBody LoginReqDto loginReqDto) {
-        TokenRespDto tokenRespDto = memberService.login(loginReqDto);
+    public ApiResult<TokenRespDto> login(@RequestBody LoginReqDto loginReqDto, HttpServletResponse response) {
+        TokenRespDto tokenRespDto = memberService.login(loginReqDto, response);
         return success(tokenRespDto);
     }
 
@@ -78,7 +79,10 @@ public class MemberController {
     @Operation(summary = "회원 사진 수정", description = "회원 사진을 수정하는 API 입니다.")
     public ApiResult<MemberPhotoDto> updateMemberPhoto(@RequestHeader("Authorization") String header, @RequestParam MultipartFile multipartFile) throws IOException {
         String token = header.substring(7);
+        Authentication authentication = jwtTokenProvider.getAuthentication(token);
+        log.info("그렇다면" + authentication.getName());
         Long memberId = jwtTokenProvider.extractMemberId(token);
+        log.info("토큰 확인해보시당" + memberId);
         return success(memberService.updateMemberPhoto(memberId, multipartFile));
     }
 

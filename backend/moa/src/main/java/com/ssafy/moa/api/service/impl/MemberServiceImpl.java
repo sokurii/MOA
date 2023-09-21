@@ -11,6 +11,9 @@ import com.ssafy.moa.api.repository.querydsl.MemberQueryRepository;
 import com.ssafy.moa.api.service.MemberService;
 import com.ssafy.moa.common.exception.EmailDuplicateException;
 import com.ssafy.moa.common.exception.NotFoundException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,6 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -93,7 +98,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public TokenRespDto login(LoginReqDto loginReqDto) {
+    public TokenRespDto login(LoginReqDto loginReqDto, HttpServletResponse response) {
         UserDetails userDetails = myUserDetailsService.loadUserByUsername(loginReqDto.getMemberEmail());
 
         // memberId도 토큰을 만들 때 사용하기 위해서
@@ -108,10 +113,21 @@ public class MemberServiceImpl implements MemberService {
                 userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities()
         );
 
+        String refreshToken = jwtTokenProvider.issueRefreshToken(authentication, member.getMemberId());
+
+        // 쿠키 생성
+        String cookieName = "refreshToken";
+        String cookieValue = refreshToken;
+
+        Cookie cookie = new Cookie(cookieName, cookieValue);
+        cookie.setMaxAge(60 * 60 * 24 * 14);
+        cookie.setPath("/");
+
+        response.addCookie(cookie);
 
         return new TokenRespDto(
                 "Bearer " + jwtTokenProvider.createAccessToken(authentication, member.getMemberId()),
-                "Bearer " + jwtTokenProvider.issueRefreshToken(authentication)
+                "Bearer " + refreshToken
         );
     }
 

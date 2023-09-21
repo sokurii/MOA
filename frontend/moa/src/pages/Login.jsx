@@ -1,6 +1,7 @@
 import React,{ useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userApi } from '../api/userApi';
+import Cookies from 'js-cookie';
 // import BackButton from '../components/BackButton';
 // import MainButton from '../components/MainButton';
 
@@ -30,6 +31,11 @@ function Login(props) {
 
       if(response.data.success) {
         console.log('로그인 성공', response);
+
+        // refreshToken 쿠키 설정
+        const refreshToken = response.data.response.refreshToken.substring(7);
+        Cookies.set("refreshToken", refreshToken, {expires: 14});
+
         navigate('/intro');
       } else {
         console.log('로그인 오류:', response.data.error.message);

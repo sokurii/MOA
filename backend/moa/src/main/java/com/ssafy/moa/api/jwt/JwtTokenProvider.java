@@ -1,7 +1,10 @@
 package com.ssafy.moa.api.jwt;
 
+import com.ssafy.moa.api.entity.Member;
 import com.ssafy.moa.api.entity.RefreshToken;
+import com.ssafy.moa.api.repository.MemberRepository;
 import com.ssafy.moa.api.repository.RefreshTokenRepository;
+import com.ssafy.moa.common.exception.NotFoundException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +28,7 @@ public class JwtTokenProvider implements InitializingBean {
 
     private final MyUserDetailsService myUserDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final MemberRepository memberRepository;
 
     private final String secretKey;
     private final long tokenValidityInMs;
@@ -34,12 +38,14 @@ public class JwtTokenProvider implements InitializingBean {
                             @Value("${jwt.token-validity-in-sec}") long tokenValidity,
                             @Value("${jwt.refresh-token-validity-in-sec}") long refreshTokenValidityInMs,
                             MyUserDetailsService myUserDetailsService,
-                            RefreshTokenRepository refreshTokenRepository) {
+                            RefreshTokenRepository refreshTokenRepository,
+                            MemberRepository memberRepository) {
         this.refreshTokenRepository = refreshTokenRepository;
         this.myUserDetailsService = myUserDetailsService;
         this.secretKey = secretKey;
         this.tokenValidityInMs = tokenValidity * 1000;
         this.refreshTokenValidityInMs = refreshTokenValidityInMs * 1000;
+        this.memberRepository = memberRepository;
     }
 
     private Key key;
@@ -53,8 +59,7 @@ public class JwtTokenProvider implements InitializingBean {
     // accessToken 생성
     public String createAccessToken(Authentication authentication, Long memberId) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + tokenValidityInMs);
-        log.info("토큰 생성하러 왔습니닷");
+        Date validity = new Date(now.getTime() + tokenValidityInMs);;
 
         String newAccessToken = Jwts.builder()
                 .setSubject(authentication.getName())
@@ -64,7 +69,6 @@ public class JwtTokenProvider implements InitializingBean {
                 .setExpiration(validity)
                 .compact();
 
-        log.info(newAccessToken + "생성됐는지 .. ㅠ");
         return newAccessToken;
     }
 
@@ -107,6 +111,8 @@ public class JwtTokenProvider implements InitializingBean {
     public String reissueRefreshToken(String refreshToken) throws RuntimeException  {
         // 현재 받은 refreshToken을 DB의 refreshToken과 비교하기
        Authentication authentication = getAuthentication(refreshToken);
+        Member member = memberRepository.findByMemberEmail(authentication.getName())
+                .orElseThrow(() -> new NotFoundException(authentication.getName() + "에 해당하는 member는 없습니다"));
 
        // Redis에서 해당 멤버의 RefreshToken을 가져온다.
         RefreshToken findRefreshToken = refreshTokenRepository.findById(authentication.getName())
@@ -114,7 +120,7 @@ public class JwtTokenProvider implements InitializingBean {
 
         if(findRefreshToken.getRefreshToken().equals(refreshToken)) {
             // 새로운 RefreshToken 생성
-            String newRefreshToken = createRefreshToken(authentication);
+            String newRefreshToken = createRefreshToken(authentication, member.getMemberId());
             refreshTokenRepository.save(new RefreshToken(newRefreshToken, authentication.getName()));
             return newRefreshToken;
         }
@@ -127,8 +133,8 @@ public class JwtTokenProvider implements InitializingBean {
 
 
     @Transactional
-    public String issueRefreshToken(Authentication authentication) {
-        String newRefreshToken = createRefreshToken(authentication);
+    public String issueRefreshToken(Authentication authentication, Long memberId) {
+        String newRefreshToken = createRefreshToken(authentication, memberId);
 
         // Redis에 RefreshToken 저장
         refreshTokenRepository.save(new RefreshToken(newRefreshToken, authentication.getName()));
@@ -136,12 +142,13 @@ public class JwtTokenProvider implements InitializingBean {
     }
 
     // refreshToken 생성
-    private String createRefreshToken(Authentication authentication) {
+    private String createRefreshToken(Authentication authentication, Long memberId) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + refreshTokenValidityInMs);
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
+                .claim("memberId", memberId)
                 .setIssuedAt(now)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)

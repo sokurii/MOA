@@ -6,6 +6,7 @@ import com.ssafy.moa.common.exception.InvalidTokenException;
 import com.ssafy.moa.common.exception.RefreshTokenExpiredException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     // refreshToken을 쿠키에 저장하는 방식으로 리팩토링할 예정.
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String REFRESH_HEADER = "Refresh";
+//    public static final String REFRESH_HEADER = "Refresh";
 
     private JwtTokenProvider jwtTokenProvider;
 
@@ -35,7 +36,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String jwt = resolveToken(request, AUTHORIZATION_HEADER);
+        String jwt = resolveAccessToken(request, AUTHORIZATION_HEADER);
 
         if(jwt != null && jwtTokenProvider.validateToken(jwt) == JwtTokenProvider.JwtCode.ACCESS) {
             Authentication authentication = jwtTokenProvider.getAuthentication(jwt);
@@ -45,10 +46,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         // accessToken이 만료되었을 때
         else if(jwt != null && jwtTokenProvider.validateToken(jwt) == JwtTokenProvider.JwtCode.EXPIRED) {
             log.info("accessToken has expired.");
-            String refresh = resolveToken(request, REFRESH_HEADER);
+            String refresh = resolveRefreshToken(request);
             // refreshToken 만료 여부를 확인해서 만약 만료되지 않은 refreshToken일 경우 재발급해준다.
             if(refresh != null && jwtTokenProvider.validateToken(refresh) == JwtTokenProvider.JwtCode.ACCESS) {
-                response.setHeader(REFRESH_HEADER, "Bearer " + refresh);
 
                 // accessToken 생성
                 Authentication authentication = jwtTokenProvider.getAuthentication(refresh);
@@ -69,6 +69,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 log.info("refreshToken이 만료되었어요. 로그아웃 처리가 필요합니다.");
                 throw new RefreshTokenExpiredException("refreshTokenExpired");
             }
+//            else if(refresh == null) {
+//                log.info("로그인이 필요합니다.");
+//            }
         }
         // 입력받은 accessToken이 valid하지 않을 때
         else if(jwt != null && jwtTokenProvider.validateToken(jwt) == JwtTokenProvider.JwtCode.DENIED){
@@ -78,10 +81,23 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String resolveToken(HttpServletRequest request, String header) {
+    private String resolveAccessToken(HttpServletRequest request, String header) {
         String bearerToken = request.getHeader(header);
         if(bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
+        }
+        return null;
+    }
+
+    private String resolveRefreshToken(HttpServletRequest request) {
+        // 쿠키에서 refreshToken을 가져오기
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("refreshToken")) {
+                    return cookie.getValue();
+                }
+            }
         }
         return null;
     }
