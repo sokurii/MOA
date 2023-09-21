@@ -1,15 +1,14 @@
 package com.ssafy.moa.api.service.impl;
 
-import com.ssafy.moa.api.dto.member.MemberInfoDto;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
+import com.ssafy.moa.api.dto.member.*;
 import com.ssafy.moa.api.entity.*;
 import com.ssafy.moa.api.jwt.JwtTokenProvider;
 import com.ssafy.moa.api.jwt.MyUserDetailsService;
 import com.ssafy.moa.api.repository.*;
 import com.ssafy.moa.api.repository.querydsl.MemberQueryRepository;
 import com.ssafy.moa.api.service.MemberService;
-import com.ssafy.moa.api.dto.member.LoginReqDto;
-import com.ssafy.moa.api.dto.member.MemberSignUpDto;
-import com.ssafy.moa.api.dto.member.TokenRespDto;
 import com.ssafy.moa.common.exception.EmailDuplicateException;
 import com.ssafy.moa.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -21,20 +20,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class MemberServiceImpl implements MemberService {
 
+    private final String bucketName = "diary_storage";
+    private final Storage storage;
+    private final String url = "https://storage.googleapis.com/";
+
     private final MemberRepository memberRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final NationRepository nationRepository;
     private final ForeignerRepository foreignerRepository;
     private final LevelRepository levelRepository;
-//    private final MemberQueryRepository memberQueryRepository;
 
     private final PasswordEncoder passwordEncoder;
     private final MyUserDetailsService myUserDetailsService;
@@ -44,8 +49,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public MemberSignUpDto signUp(MemberSignUpDto memberSignUpReqDto) {
-        // 중복체크 나중에 ..
-
         String encodedPassword = passwordEncoder.encode(memberSignUpReqDto.getMemberPassword());
 
         String memberEmail = memberSignUpReqDto.getMemberEmail();
@@ -61,7 +64,17 @@ public class MemberServiceImpl implements MemberService {
         Level defaultLevel = levelRepository.findByLevelId(1L)
                 .orElseThrow(() -> new NotFoundException("해당 ID를 가진 Level를 찾지 못했습니다."));
 
-        Member member = new Member(memberEmail, encodedPassword, memberName, memberGender, memberIsForeigner, 0, defaultLevel);
+        Member member = Member.builder()
+                .memberEmail(memberEmail)
+                .memberPassword(encodedPassword)
+                .memberName(memberName)
+                .memberGender(memberGender)
+                .memberIsForeigner(memberIsForeigner)
+                .memberExp(0)
+                .memberLevel(defaultLevel)
+                .memberImgAddress("https://storage.googleapis.com/diary_storage/member/default.jpg")
+                .build();
+
         memberRepository.save(member);
 
         // 유학생일 경우 유학생 테이블에도 정보 추가해주기
@@ -123,16 +136,40 @@ public class MemberServiceImpl implements MemberService {
         return "탈퇴 성공";
     }
 
-    // 회원 정보 조회
-//    @Override
-//    public MemberInfoDto getMemberInfo(Long memberId) {
-//
-//    }
-
     @Override
     public Member findMember(Long memberId) {
         return memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
+    }
+
+    // 회원 프로필 사진 수정
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public MemberPhotoDto updateMemberPhoto(Long memberId, MultipartFile multipartFile) throws IOException {
+        Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new NotFoundException(memberId + "에 해당하는 Member를 찾을 수 없습니다."));
+
+        String uuid = UUID.randomUUID().toString();
+        String ext = multipartFile.getContentType();
+
+        BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, "member/" + uuid)
+                .setContentType(ext)
+                .build();
+        storage.create(blobInfo, multipartFile.getInputStream());
+
+        String updateMemberImgAddress = url + bucketName + "/member/" + uuid;
+        member.updateMemberImgAddress(updateMemberImgAddress);
+        memberRepository.save(member);
+
+        return MemberPhotoDto.builder()
+                .memberImgAddress(updateMemberImgAddress)
+                .build();
+    }
+
+    // 회원 정보 조회
+    @Override
+    public MemberInfoDto getMemberInfo(Long memberId) {
+        return memberRepository.getMemberInfoWithLevel(memberId);
     }
 
 

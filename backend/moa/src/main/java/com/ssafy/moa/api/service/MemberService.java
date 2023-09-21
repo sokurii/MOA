@@ -1,11 +1,11 @@
 package com.ssafy.moa.api.service;
 
-import com.ssafy.moa.api.dto.member.LoginReqDto;
-import com.ssafy.moa.api.dto.member.MemberInfoDto;
-import com.ssafy.moa.api.dto.member.MemberSignUpDto;
-import com.ssafy.moa.api.dto.member.TokenRespDto;
+import com.ssafy.moa.api.dto.member.*;
 import com.ssafy.moa.api.entity.Member;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface MemberService {
 
@@ -14,6 +14,10 @@ public interface MemberService {
     void logout(Authentication authentication);
     String removeMember(Long memberId);
     Member findMember(Long memberId);
+
+    MemberPhotoDto updateMemberPhoto(Long memberId, MultipartFile multipartFile) throws IOException;
+
+    MemberInfoDto getMemberInfo(Long memberId);
 
 //    MemberInfoDto getMemberInfo(Long memberId);
 }

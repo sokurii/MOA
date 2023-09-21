@@ -1,6 +1,8 @@
 package com.ssafy.moa.api.repository.querydsl;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.moa.api.dto.member.MemberInfoDto;
 import com.ssafy.moa.api.entity.Foreigner;
 import com.ssafy.moa.api.entity.Korean;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,8 @@ import static com.ssafy.moa.api.entity.QBuddy.buddy;
 import static com.ssafy.moa.api.entity.QForeigner.foreigner;
 import static com.ssafy.moa.api.entity.QKorean.korean;
 import static com.ssafy.moa.api.entity.QMember.member;
+import static com.ssafy.moa.api.entity.QLevel.level;
+import static com.ssafy.moa.api.entity.QNationCode.nationCode1;
 
 @Repository
 @RequiredArgsConstructor
@@ -85,6 +89,32 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
                 .leftJoin(buddy).on(korean.koreanId.eq(buddy.korean.koreanId)).where(buddy.korean.koreanId.isNull().and(foreigner.nationCode.eq(korean.nationCode)))
                 .orderBy(member.createdAt.asc())
                 .fetch();
+    }
+
+    // Level 정보와 함께 Member 정보를 조회한다.
+    @Override
+    public MemberInfoDto getMemberInfoWithLevel(Long memberId) {
+        Tuple tuple = jpaQueryFactory.select(member.memberIsForeigner, member.memberName, foreigner.foreignerKoreaName, member.memberImgAddress,
+                nationCode1.nationName, level.levelId, level.levelName, level.levelGrade, member.memberExp, level.requiredExp)
+                .from(member)
+                .innerJoin(level).on(member.memberLevel.eq(level))
+                .leftJoin(foreigner).on(member.memberId.eq(foreigner.member.memberId))
+                .leftJoin(nationCode1).on(nationCode1.eq(foreigner.nationCode))
+                .where(member.memberId.eq(memberId))
+                .fetchOne();
+
+        return MemberInfoDto.builder()
+                .memberIsForeigner(tuple.get(member.memberIsForeigner))
+                .memberName(tuple.get(member.memberName))
+                .memberKoreaName(tuple.get(foreigner.foreignerKoreaName))
+                .memberImgAddress(tuple.get(member.memberImgAddress))
+                .memberNationName(tuple.get(nationCode1.nationName))
+                .memberLevelId(tuple.get(level.levelId))
+                .memberLevelName(tuple.get(level.levelName))
+                .memberLevelGrade(tuple.get(level.levelGrade))
+                .memberExp(tuple.get(member.memberExp))
+                .memberRequiredExp(tuple.get(level.requiredExp))
+                .build();
     }
 
 }

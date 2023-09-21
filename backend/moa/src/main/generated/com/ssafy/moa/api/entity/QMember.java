@@ -48,8 +48,6 @@ public class QMember extends EntityPathBase<Member> {
 
     public final BooleanPath memberIsForeigner = createBoolean("memberIsForeigner");
 
-    public final StringPath memberKoreanName = createString("memberKoreanName");
-
     public final QLevel memberLevel;
 
     public final StringPath memberName = createString("memberName");
