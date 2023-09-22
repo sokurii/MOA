@@ -20,5 +20,7 @@ public interface MemberService {
 
     MemberInfoDto getMemberInfo(Long memberId);
 
+    EmailDuplicateCheckDto checkEmailDuplicate(EmailCheckDto emailCheckDto);
+
 //    MemberInfoDto getMemberInfo(Long memberId);
 }

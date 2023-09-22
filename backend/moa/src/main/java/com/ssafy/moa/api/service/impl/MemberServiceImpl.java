@@ -96,6 +96,30 @@ public class MemberServiceImpl implements MemberService {
         return new MemberSignUpDto(member);
     }
 
+    // 이메일 중복 확인
+    @Override
+    public EmailDuplicateCheckDto checkEmailDuplicate(EmailCheckDto emailCheckDto) {
+        String memberEmail = emailCheckDto.getEmail();
+        Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
+
+        String emailMessage;
+        Boolean isEmailDuplicate;
+
+        if(member.isPresent()) {
+            emailMessage = "중복된 이메일입니다.";
+            isEmailDuplicate = true;
+        }
+        else {
+            emailMessage = "가입 가능한 이메일입니다.";
+            isEmailDuplicate = false;
+        }
+
+        return EmailDuplicateCheckDto.builder()
+                .emailMessage(emailMessage)
+                .isEmailDuplicate(isEmailDuplicate)
+                .build();
+    }
+
     @Override
     @Transactional
     public TokenRespDto login(LoginReqDto loginReqDto, HttpServletResponse response) {
@@ -187,6 +211,8 @@ public class MemberServiceImpl implements MemberService {
     public MemberInfoDto getMemberInfo(Long memberId) {
         return memberRepository.getMemberInfoWithLevel(memberId);
     }
+
+
 
 
 }
