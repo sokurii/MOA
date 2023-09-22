@@ -58,7 +58,9 @@ function Login(props) {
 
         <div className="inputForm">
           <label htmlFor="memberPassword" className="inputTitle">비밀번호</label>
-          <input type="password" id="memberPassword" name="memberPassword" onChange={handleInputChange}/>
+          <form>
+            <input type="password" id="memberPassword" name="memberPassword" onChange={handleInputChange}  autoComplete="off"/>
+          </form>
         </div>
 
 

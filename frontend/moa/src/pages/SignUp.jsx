@@ -20,10 +20,14 @@ function SignUp(props) {
   const [timer, setTimer] = useState(180);
   const [timerStarted, setTimerStarted] = useState(false); // 타이머 시작 여부
   const [verificationSent, setVerificationSent] = useState(false); // 인증번호 전송 여부
+  const [nations, setNations] = useState([]); // 국가 정보
 
   useEffect(() => {
     const passwordValid = validatePassword(formData.memberPassword);
     setPasswordValid(passwordValid);
+    
+    // 국가 정보 조회
+    fetchNations();
   }, [formData.memberPassword]);
 
   const handleInputChange = (e) => {
@@ -58,6 +62,7 @@ function SignUp(props) {
     }, 180000);
   };
 
+  // 이메일 인증코드 전송 및 타이머 
   const handleSendVerificationCode = async () => {
     try {
       const response = await userApi.emailVerification(formData.memberEmail);
@@ -75,6 +80,24 @@ function SignUp(props) {
     }
   };
 
+  // 인증코드 확인
+  const handleVerificationCode = async () => {
+    try {
+      const response = await userApi.verificationCode(formData.verificationCode);
+
+      if (response.data.success) {
+        console.log('인증 성공 : ', response);
+        alert('인증이 완료되었습니다.');
+      } else {
+        console.log('인증 실패 :', response.data.error.message);
+        alert('인증에 실패하였습니다');
+      } 
+    } catch(error){
+      console.log('API Request Error:', error);
+      alert('인증코드 확인 중 오류가 발생했습니다. 다시 시도해주세요')
+    }
+  };
+
   // 회원가입 제출
   const handleForSubmit = async (e) => {
     e.preventDefault();
@@ -85,12 +108,27 @@ function SignUp(props) {
       if (response.data.success) {
         console.log('회원가입 성공', response);
         alert('회원가입 성공!');
-        navigate('/intro');
+        navigate('/matching');
       } else {
         console.log('회원가입 오류: ', response.data.error.message);
       }
     } catch (error) {
       console.error('API Request Error:', error);
+    }
+  };
+
+  // 국가 정보 조회
+  const fetchNations = async () =>{
+    try{
+      const response = await userApi.getNations();
+
+      if (response.data.success) {
+        setNations(response.data.response);
+      } else {
+        console.log('국가 정보 조회 실패:', response.data.error.message);
+      }
+    } catch (error) {
+      console.log('API Request Error:', error);
     }
   };
 
@@ -112,8 +150,11 @@ function SignUp(props) {
         <div className="inputForm">
           <label htmlFor="nationName" className="inputTitle">국적</label>
           <select name="nationName" onChange={handleInputChange}>
-            <option value="한국">한국</option>
-            <option value="미국">미국</option>
+            {nations.map((nation) => (
+              <option key={nation.nationCode} value={nation.nationName}>
+                {nation.nationName}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -128,21 +169,25 @@ function SignUp(props) {
           <input type="text" id="memberEmail" name="memberEmail" onChange={handleInputChange}/>
         </div>
 
-        {verificationSent ? (
-          <div className='inputForm'>
-            <label htmlFor="verificationCode" className='inputTitle'>인증번호</label>
-            <input type='text' id='verificationCode' name='verificationCode' onChange={handleInputChange} />
-          </div>
-        ) : null}
+        {/* 이메일 인증 */}
         <button onClick={handleSendVerificationCode}>인증번호 전송</button>
 
-        {/* 타이머 구현 전 */}
+        {/* 인증 시 타이머*/}
         {timerStarted ? (
           <span>
             <span id="min">{Math.floor(timer / 60)}</span> :
             <span id="sec">{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}</span>
           </span>
         ) : null}
+        {/* 인증 번호 입력란 */}
+        {verificationSent ? (
+          <div className='inputForm'>
+            <label htmlFor="verificationCode" className='inputTitle'>인증번호</label>
+            <input type='text' id='verificationCode' name='verificationCode' onChange={handleInputChange} />
+            <button onClick={handleVerificationCode}>인증확인</button>
+          </div>
+        ) : null}
+
 
         <div className="inputForm">
           <label htmlFor="memberPassword" className="inputTitle">비밀번호</label>
