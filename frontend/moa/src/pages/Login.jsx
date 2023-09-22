@@ -64,7 +64,6 @@ function Login(props) {
         </div>
 
 
-        {/* 로그인 기능 기능구현은 X */}
         <button type="submit" onClick={handleLogin}>로그인</button>
         {loginError && <p className='error'>{loginError}</p>}
         {/* <MainButton text="로그인" to="/main" /> */}

@@ -1,8 +1,8 @@
 import React from 'react';
 
-function ConfirmButton({text}) {
+function ConfirmButton({text, onClick}) {
   return (
-    <button>
+    <button onClick={onClick}>
       {text}
     </button>
   );

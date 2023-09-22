@@ -40,7 +40,14 @@ export const userApi = {
     return axios.post(loginApiEndPoint, requestData);
   },
 
+  // 로그아웃
+  logout: () => axios.delete('/member/logout'),
+
 
   // 국가 정보 조회
   getNations: () => axios.get('/nation'),
+
+
+  // 회원 정보 조회
+  getMemberInfo: () => axios.get('/member'),
 };

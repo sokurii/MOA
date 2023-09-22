@@ -51,6 +51,7 @@ function SignUp(props) {
 
   // 타이머 시작
   const startTimer = () => {
+    setTimer(300);
     setTimerStarted(true); // 타이머 시작됨 표시
     const interval = setInterval(() => {
       setTimer((prevTimer) => prevTimer - 1);
@@ -59,7 +60,7 @@ function SignUp(props) {
     setTimeout(() => {
       clearInterval(interval);
       setTimerStarted(false); // 타이머 종료됨 표시
-    }, 180000);
+    }, 300000);
   };
 
   // 이메일 인증코드 전송 및 타이머 
@@ -106,9 +107,13 @@ function SignUp(props) {
       const response = await userApi.signUp(formData);
 
       if (response.data.success) {
+        const res = response.data.response;
+        const isForeigner = res.memberIsForeigner;
         console.log('회원가입 성공', response);
         alert('회원가입 성공!');
-        navigate('/matching');
+        navigate('/matching', {
+          state: { isForeigner },
+        });
       } else {
         console.log('회원가입 오류: ', response.data.error.message);
       }
@@ -160,7 +165,7 @@ function SignUp(props) {
 
         <div className="inputForm">
           <label htmlFor="memberGender" className="inputTitle">성별</label>
-          <input type="radio" id="man" name="memberGender" value="0" onChange={handleInputChange}/>남자
+          <input type="radio" id="man" name="memberGender" value="2" onChange={handleInputChange}/>남자
           <input type="radio" id="woman" name="memberGender" value="1" onChange={handleInputChange}/>여자
         </div>
 
@@ -168,7 +173,7 @@ function SignUp(props) {
           <label htmlFor="memberEmail" className="inputTitle">이메일</label>
           <input type="text" id="memberEmail" name="memberEmail" onChange={handleInputChange}/>
         </div>
-
+        
         {/* 이메일 인증 */}
         <button onClick={handleSendVerificationCode}>인증번호 전송</button>
 
