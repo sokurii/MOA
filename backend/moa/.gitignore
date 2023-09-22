@@ -38,4 +38,5 @@ out/
 
 ### 환경 변수
 /src/main/resources/application-mail.yml
+/src/main/resources/application-chat.yml
 /src/main/resources/moremoa-b16fd6cab763.json
