@@ -96,6 +96,7 @@ public class BuddyServiceImpl implements BuddyService {
 
             List<Korean> koreanBuddyGenderAndNation = memberRepository.findKoreanBuddyGenderAndNation(member.getMemberId());
             if(!koreanBuddyGenderAndNation.isEmpty()) {
+                log.info("foreigner 1");
                 for(Korean korean : koreanBuddyGenderAndNation) {
                     Integer count = interestRepository.countByInterest(member.getMemberId(), korean.getMember().getMemberId());
                     if(count > 0) {
@@ -106,7 +107,7 @@ public class BuddyServiceImpl implements BuddyService {
                         return buddyRepository.save(buddy).getBuddyId();
                     }
                 }
-
+                log.info("foreigner 2");
                 Buddy buddy = Buddy.builder()
                         .korean(koreanBuddyGenderAndNation.get(0))
                         .foreigner(foreigner)
@@ -117,6 +118,7 @@ public class BuddyServiceImpl implements BuddyService {
             // 2순위: 성별, 관심사(무관)
             List<Korean> koreanBuddyGender = memberRepository.findKoreanBuddyGender(member.getMemberId());
             if(!koreanBuddyGender.isEmpty()) {
+                log.info("foreigner 3");
                 for(Korean korean : koreanBuddyGenderAndNation) {
                     Integer count = interestRepository.countByInterest(member.getMemberId(), korean.getMember().getMemberId());
                     if(count > 0) {
@@ -127,7 +129,7 @@ public class BuddyServiceImpl implements BuddyService {
                         return buddyRepository.save(buddy).getBuddyId();
                     }
                 }
-
+                log.info("foreigner 4");
                 Buddy buddy = Buddy.builder()
                         .korean(koreanBuddyGenderAndNation.get(0))
                         .foreigner(foreigner)
