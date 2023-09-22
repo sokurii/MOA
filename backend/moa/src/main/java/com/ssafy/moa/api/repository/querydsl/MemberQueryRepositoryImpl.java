@@ -36,7 +36,6 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
                                 .or(foreigner.foreignerLikeGender.eq(korean.koreanLikeGender).or(korean.koreanLikeGender.eq(member.memberGender).and(foreigner.foreignerLikeGender.eq(3))))
                 )
                 .leftJoin(buddy).on(foreigner.foreignerId.eq(buddy.foreigner.foreignerId)).where(buddy.foreigner.foreignerId.isNull())
-                .orderBy(member.createdAt.asc())
                 .fetch();
     }
 
@@ -53,7 +52,6 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
                                 .or(foreigner.foreignerLikeGender.eq(korean.koreanLikeGender).or(korean.koreanLikeGender.eq(member.memberGender).and(foreigner.foreignerLikeGender.eq(3))))
                 )
                 .leftJoin(buddy).on(foreigner.foreignerId.eq(buddy.foreigner.foreignerId)).where(buddy.foreigner.foreignerId.isNull().and(korean.nationCode.eq(foreigner.nationCode)))
-                .orderBy(member.createdAt.asc())
                 .fetch();
     }
 
@@ -70,7 +68,6 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
                                 .or(korean.koreanLikeGender.eq(foreigner.foreignerLikeGender).or(foreigner.foreignerLikeGender.eq(member.memberGender).and(korean.koreanLikeGender.eq(3))))
                 )
                 .leftJoin(buddy).on(korean.koreanId.eq(buddy.korean.koreanId)).where(buddy.korean.koreanId.isNull())
-                .orderBy(member.createdAt.asc())
                 .fetch();
     }
 
@@ -87,7 +84,6 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
                                 .or(korean.koreanLikeGender.eq(foreigner.foreignerLikeGender).or(foreigner.foreignerLikeGender.eq(member.memberGender).and(korean.koreanLikeGender.eq(3))))
                 )
                 .leftJoin(buddy).on(korean.koreanId.eq(buddy.korean.koreanId)).where(buddy.korean.koreanId.isNull().and(foreigner.nationCode.eq(korean.nationCode)))
-                .orderBy(member.createdAt.asc())
                 .fetch();
     }
 

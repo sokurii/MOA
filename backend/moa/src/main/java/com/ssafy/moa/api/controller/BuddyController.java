@@ -22,7 +22,6 @@ public class BuddyController {
     @PostMapping("/korean")
     @Operation(summary = "한국인 버디 가입")
     public ApiResult<Long> createKoreanBuddy(@RequestBody KoreanBuddyPostRequest koreanBuddyPostRequest) {
-        System.out.println("koreanBuddyPostRequest.getGender() = " + koreanBuddyPostRequest.getGender());
         return success(buddyService.saveKoreanBuddyInfo(koreanBuddyPostRequest));
     }
 
