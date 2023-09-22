@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -79,7 +80,9 @@ public class Member {
 
 
     @Builder
-    public Member(String memberEmail, String memberPassword, String memberName, Integer memberGender, Boolean memberIsForeigner, Integer memberExp, Level memberLevel, String memberImgAddress) {
+    public Member(String memberEmail, String memberPassword, String memberName, Integer memberGender, Boolean memberIsForeigner,
+                  Integer memberExp, Level memberLevel, String memberImgAddress,
+                  LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.memberEmail = memberEmail;
         this.memberPassword = memberPassword;
         this.memberName = memberName;
@@ -88,6 +91,8 @@ public class Member {
         this.memberExp = memberExp;
         this.memberLevel = memberLevel;
         this.memberImgAddress = memberImgAddress;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
     }
 
     public void updateMemberImgAddress(String memberImgAddress) {
@@ -106,6 +111,9 @@ public class Member {
                 ", memberIsForeigner=" + memberIsForeigner +
                 ", memberExp=" + memberExp +
                 ", memberImgAddress='" + memberImgAddress + '\'' +
+                ", memberLevel=" + memberLevel +
+                ", createdAt=" + createdAt +
+                ", modifiedAt=" + modifiedAt +
                 '}';
     }
 }

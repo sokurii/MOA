@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.core.Local;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -44,6 +46,7 @@ public class MemberServiceImpl implements MemberService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final NationRepository nationRepository;
     private final ForeignerRepository foreignerRepository;
+    private final KoreanRepository koreanRepository;
     private final LevelRepository levelRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -78,6 +81,7 @@ public class MemberServiceImpl implements MemberService {
                 .memberExp(0)
                 .memberLevel(defaultLevel)
                 .memberImgAddress("https://storage.googleapis.com/diary_storage/member/default.jpg")
+                .createdAt(LocalDateTime.now())
                 .build();
 
         memberRepository.save(member);
@@ -90,6 +94,15 @@ public class MemberServiceImpl implements MemberService {
                     .orElseThrow(() -> new NotFoundException("Not Found Nation Name : " + nationName));
             Foreigner newForeigner = new Foreigner(member, nationCode);
             foreignerRepository.save(newForeigner);
+        }
+        else { // 한국일 경우 한국 테이블에도 정보 추가해주기
+            NationCode nationCode = nationRepository.findByNationName("대한민국")
+                    .orElseThrow(() -> new NotFoundException("Not Found Nation Name : " + "대한민국"));
+            Korean newKorean = Korean.builder()
+                    .member(member)
+                    .nationCode(nationCode)
+                    .build();
+            koreanRepository.save(newKorean);
         }
 
 
