@@ -72,7 +72,7 @@ public class ExchangeDiaryController {
     }
 
     @PutMapping("/{exchangeDiaryId}")
-    @Operation(summary = "오픈 채팅방 수정")
+    @Operation(summary = "교환일기 수정")
     public ApiResult<Long> updateExchangeDiary(@RequestHeader("Authorization") String header, @PathVariable Long exchangeDiaryId, @RequestBody ExchangeDiaryUpdateRequest exchangeDiaryUpdateRequest) {
         String token = header.substring(7);
         Long memberId = jwtTokenProvider.extractMemberId(token);
