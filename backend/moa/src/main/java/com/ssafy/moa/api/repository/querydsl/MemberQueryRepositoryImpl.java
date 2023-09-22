@@ -91,9 +91,9 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
                 .fetch();
     }
 
-    // Level 정보와 함께 Member 정보를 조회한다.
+    // Level 정보와 함께 외국인 Member 정보를 조회한다.
     @Override
-    public MemberInfoDto getMemberInfoWithLevel(Long memberId) {
+    public MemberInfoDto getForeignerMemberInfoWithLevel(Long memberId) {
         Tuple tuple = jpaQueryFactory.select(member.memberIsForeigner, member.memberName, foreigner.foreignerKoreaName, member.memberImgAddress,
                 nationCode1.nationName, level.levelId, level.levelName, level.levelGrade, member.memberExp, level.requiredExp)
                 .from(member)
@@ -114,6 +114,23 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
                 .memberLevelGrade(tuple.get(level.levelGrade))
                 .memberExp(tuple.get(member.memberExp))
                 .memberRequiredExp(tuple.get(level.requiredExp))
+                .build();
+    }
+
+    // Level 정보와 함께 한국인 Member 정보를 조회한다.
+    @Override
+    public MemberInfoDto getKoreanMemberInfoWithLevel(Long memberId) {
+        Tuple tuple = jpaQueryFactory.select(member.memberName, member.memberImgAddress, nationCode1.nationName)
+                .from(member)
+                .innerJoin(korean).on(member.memberId.eq(korean.member.memberId))
+                .leftJoin(nationCode1).on(korean.nationCode.eq(nationCode1))
+                .where(member.memberId.eq(memberId))
+                .fetchOne();
+
+        return MemberInfoDto.builder()
+                .memberName(tuple.get(member.memberName))
+                .memberImgAddress(tuple.get(member.memberImgAddress))
+                .memberNationName(tuple.get(nationCode1.nationName))
                 .build();
     }
 

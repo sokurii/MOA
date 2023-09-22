@@ -13,5 +13,7 @@ public interface MemberQueryRepository {
     List<Korean> findKoreanBuddyGender(long memberId);
     List<Korean> findKoreanBuddyGenderAndNation(long memberId);
 
-    MemberInfoDto getMemberInfoWithLevel(Long memberId);
+    MemberInfoDto getForeignerMemberInfoWithLevel(Long memberId);
+
+    MemberInfoDto getKoreanMemberInfoWithLevel(Long memberId);
 }

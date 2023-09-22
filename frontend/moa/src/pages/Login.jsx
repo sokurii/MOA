@@ -34,7 +34,7 @@ function Login(props) {
 
         // refreshToken 쿠키 설정
         const refreshToken = response.data.response.refreshToken.substring(7);
-        Cookies.set("refreshToken", refreshToken, {expires: 14});
+        Cookies.set("refreshToken", refreshToken, {expires: 7});
 
         navigate('/intro');
       } else {

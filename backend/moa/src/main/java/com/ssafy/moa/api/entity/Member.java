@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -103,6 +102,11 @@ public class Member {
 
     public void updateMemberImgAddress(String memberImgAddress) {
         this.memberImgAddress = memberImgAddress;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.modifiedAt = LocalDateTime.now();
     }
 
 

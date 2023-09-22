@@ -133,6 +133,7 @@ public class MemberServiceImpl implements MemberService {
                 .build();
     }
 
+    // 로그인
     @Override
     @Transactional
     public TokenRespDto login(LoginReqDto loginReqDto, HttpServletResponse response) {
@@ -157,7 +158,7 @@ public class MemberServiceImpl implements MemberService {
         String cookieValue = refreshToken;
 
         Cookie cookie = new Cookie(cookieName, cookieValue);
-        cookie.setMaxAge(60 * 60 * 24 * 14);
+        cookie.setMaxAge(60 * 60 * 24 * 7);
         cookie.setPath("/");
 
         response.addCookie(cookie);
@@ -222,7 +223,20 @@ public class MemberServiceImpl implements MemberService {
     // 회원 정보 조회
     @Override
     public MemberInfoDto getMemberInfo(Long memberId) {
-        return memberRepository.getMemberInfoWithLevel(memberId);
+        // member가 유학생인지 한국인인지 확인하기
+        Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new NotFoundException(memberId + "에 해당하는 member를 찾지 못헀습니다."));
+
+        // 유학생이라면
+        if(member.getMemberIsForeigner()) {
+            return memberRepository.getForeignerMemberInfoWithLevel(memberId);
+        }
+        // 한국인이라면
+        else {
+            return memberRepository.getKoreanMemberInfoWithLevel(memberId);
+        }
+
+
     }
 
 

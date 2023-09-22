@@ -87,9 +87,7 @@ public class MemberController {
     public ApiResult<MemberPhotoDto> updateMemberPhoto(@RequestHeader("Authorization") String header, @RequestParam MultipartFile multipartFile) throws IOException {
         String token = header.substring(7);
         Authentication authentication = jwtTokenProvider.getAuthentication(token);
-        log.info("그렇다면" + authentication.getName());
         Long memberId = jwtTokenProvider.extractMemberId(token);
-        log.info("토큰 확인해보시당" + memberId);
         return success(memberService.updateMemberPhoto(memberId, multipartFile));
     }
 
