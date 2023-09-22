@@ -11,4 +11,5 @@ public interface QuizService {
     QuizSubmitRespDto submitWordQuiz(QuizSubmitReqDto quizSubmitReqDto);
 
     QuizFinishRespDto finishQuiz(Long memberId, QuizFinishReqDto quizFinishReqDto);
+    List<QuizQuestionDto> questionSentenceQuiz();
 }

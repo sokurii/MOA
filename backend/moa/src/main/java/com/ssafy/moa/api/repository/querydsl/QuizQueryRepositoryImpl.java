@@ -68,4 +68,47 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
                 .limit(3)
                 .fetch();
     }
+
+    @Override
+    public List<QuizQuestionDto> getRandomSentenceQuizzes() {
+        QDailyKoreanQuiz dailyKoreanQuiz = QDailyKoreanQuiz.dailyKoreanQuiz;
+        QQuizCode quizCode = QQuizCode.quizCode1;
+
+        List<Tuple> tuples = jpaQueryFactory
+                .select(dailyKoreanQuiz.quizId, dailyKoreanQuiz.quizQuestion, dailyKoreanQuiz.quizAnswer,
+                        quizCode.quizCode, quizCode.quizName)
+                .from(dailyKoreanQuiz)
+                .innerJoin(quizCode).on(dailyKoreanQuiz.quizCode.eq(quizCode))
+                .where(dailyKoreanQuiz.quizCode.quizCode.eq(3L).or(dailyKoreanQuiz.quizCode.quizCode.eq(4L)))
+                .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
+                .limit(15)
+                .fetch();
+
+        List<QuizQuestionDto> quizQuestionDtoList = new ArrayList<>();
+        for(Tuple tuple : tuples) {
+            QuizQuestionDto quizQuestionDto = QuizQuestionDto.builder()
+                    .quizId(tuple.get(dailyKoreanQuiz.quizId))
+                    .quizAnswer(tuple.get(dailyKoreanQuiz.quizAnswer))
+                    .quizQuestion(tuple.get(dailyKoreanQuiz.quizQuestion))
+                    .quizCategoryId(tuple.get(quizCode.quizCode))
+                    .quizCategoryName(tuple.get(quizCode.quizName))
+                    .build();
+            quizQuestionDtoList.add(quizQuestionDto);
+        }
+
+        return quizQuestionDtoList;
+    }
+
+    @Override
+    public List<String> getQuizAnswerCandidates() {
+        QDailyKoreanQuiz dailyKoreanQuiz = QDailyKoreanQuiz.dailyKoreanQuiz;
+
+        return jpaQueryFactory
+                .select(dailyKoreanQuiz.quizAnswer)
+                .from(dailyKoreanQuiz)
+                .where(dailyKoreanQuiz.quizCode.quizCode.eq(1L))
+                .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
+                .limit(9)
+                .fetch();
+    }
 }

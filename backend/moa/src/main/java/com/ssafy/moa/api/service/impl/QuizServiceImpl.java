@@ -14,9 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -110,6 +108,45 @@ public class QuizServiceImpl implements QuizService {
                 .quizMessage(quizMessage)
                 .memberGetExp(memberGetExp)
                 .build();
+    }
+
+    // 문장 퀴즈 출제 API
+    @Override
+    public List<QuizQuestionDto> questionSentenceQuiz() {
+        List<QuizQuestionDto> quizQuestionDtoList = quizQueryRepository.getRandomSentenceQuizzes();
+
+        // 퀴즈 보기 생성
+        // 1. StringTokenizer를 사용하여 문제 답을 토큰화 시켜 나누자.
+        // 2. 보기는 총 9개가 있어야한다.
+
+        for(int i = 0; i<quizQuestionDtoList.size(); i++) {
+            QuizQuestionDto quizQuestionDto = quizQuestionDtoList.get(i);
+            String quizAnswer = quizQuestionDto.getQuizAnswer();
+
+            StringTokenizer stringTokenizer = new StringTokenizer(quizAnswer);
+
+            List<String> quizAnswerList = new ArrayList<>();
+            int cnt = 0;
+            while(stringTokenizer.hasMoreTokens()) {
+                String token = stringTokenizer.nextToken();
+                quizAnswerList.add(token);
+                cnt++;
+            }
+
+            // 3. 단어 퀴즈 answer 값 랜덤으로 9개 가져와서 남은 개수만큼 넣어주기
+            List<String> quizAnswerCandidateList = quizQueryRepository.getQuizAnswerCandidates();
+
+            int remainWordCnt = 9 - cnt;
+            for(int r = 0; r < remainWordCnt; r++) {
+                quizAnswerList.add(quizAnswerCandidateList.get(r));
+            }
+
+            Collections.shuffle(quizAnswerList);
+            quizQuestionDto.setQuizAnswerList(quizAnswerList);
+            quizQuestionDtoList.set(i, quizQuestionDto);
+        }
+
+        return quizQuestionDtoList;
     }
 
     public void updateMemberLevel(Member member) {
