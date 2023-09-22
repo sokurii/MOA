@@ -33,9 +33,7 @@ public class OpenChatServiceImpl implements OpenChatService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Long saveOpenChat(MultipartFile multipartFile, SaveOpenChatRequest saveOpenChatRequest) throws IOException {
-        Member member = memberService.findMember(saveOpenChatRequest.getMemberId());
-
+    public Long saveOpenChat(Member member, MultipartFile multipartFile, SaveOpenChatRequest saveOpenChatRequest) throws IOException {
         String uuid = UUID.randomUUID().toString();
         String ext = multipartFile.getContentType();
 
@@ -64,9 +62,7 @@ public class OpenChatServiceImpl implements OpenChatService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Long saveOpenChatMember(Long openChatId, SaveOpenChatMemberRequest saveOpenChatMemberRequest) {
-        Member member = memberService.findMember(saveOpenChatMemberRequest.getMemberId());
-
+    public Long saveOpenChatMember(Member member, Long openChatId) {
         OpenChatMember openChatMember = OpenChatMember.builder()
                 .member(member)
                 .openChat(findOpenChat(openChatId))
@@ -100,8 +96,7 @@ public class OpenChatServiceImpl implements OpenChatService {
 
     @Override
     @Transactional
-    public Long deleteOpenChatMember(Long openChatId, Long memberId) {
-        Member member = memberService.findMember(memberId);
+    public Long deleteOpenChatMember(Member member, Long openChatId) {
         OpenChat openChat = findOpenChat(openChatId);
         openChatMemberRepository.deleteByMember(member);
         return openChat.getOpenChatId();

@@ -16,7 +16,7 @@ import static com.ssafy.moa.common.utils.ApiUtils.success;
 @RestController
 @RequestMapping("/buddy")
 @RequiredArgsConstructor
-@Tag(name = "buddy", description = "버디 API")
+@Tag(name = "buddy", description = "버디 API, 모든 API 헤더에 access token 필요")
 public class BuddyController {
 
     private final BuddyService buddyService;

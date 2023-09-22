@@ -13,16 +13,10 @@ public class OpenChatDto {
     @Getter
     @NoArgsConstructor
     public static class SaveOpenChatRequest {
-        private Long memberId;
         private String openChatTitle;
         private String openChatContent;
     }
 
-    @Getter
-    @NoArgsConstructor
-    public static class SaveOpenChatMemberRequest {
-        private Long memberId;
-    }
 
     @Getter
     @NoArgsConstructor
