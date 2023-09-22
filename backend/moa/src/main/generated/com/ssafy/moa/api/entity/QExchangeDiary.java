@@ -32,8 +32,6 @@ public class QExchangeDiary extends EntityPathBase<ExchangeDiary> {
 
     public final StringPath exchangeDiaryPicture = createString("exchangeDiaryPicture");
 
-    public final StringPath exchangeDiaryTitle = createString("exchangeDiaryTitle");
-
     public final QMember member;
 
     public final DateTimePath<java.time.LocalDateTime> updatedAt = createDateTime("updatedAt", java.time.LocalDateTime.class);

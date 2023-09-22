@@ -9,7 +9,6 @@ import com.ssafy.moa.api.repository.*;
 import com.ssafy.moa.api.service.ExchangeDiaryService;
 import com.ssafy.moa.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,8 +34,8 @@ public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Long saveExchangeDiary(MultipartFile multipartFile, ExchangeDiaryRequest exchangeDiaryRequest) throws IOException {
-        Member member = memberRepository.findByMemberId(exchangeDiaryRequest.getMemberId())
+    public Long saveExchangeDiary(MultipartFile multipartFile, ExchangeDiaryRequest exchangeDiaryRequest, Long memberId) throws IOException {
+        Member member = memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
 
         String uuid = UUID.randomUUID().toString();
@@ -49,7 +48,6 @@ public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
 
         LocalDateTime now = LocalDateTime.now();
         ExchangeDiary exchangeDiary = ExchangeDiary.builder()
-                .exchangeDiaryTitle(exchangeDiaryRequest.getExchangeDiaryTitle())
                 .exchangeDiaryContent(exchangeDiaryRequest.getExchangeDiaryContent())
                 .exchangeDiaryPicture(uuid)
                 .exchangeDiaryDate(now)
@@ -62,27 +60,17 @@ public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ExchangeDiaryDetailResponse> findExchangeDiary(Long memberId) {
-        Member member = memberRepository.findByMemberId(memberId)
-                .orElseThrow(() -> new NotFoundException("Not Found User"));
-        Buddy buddy = null;
-        Member buddyMember = null;
-        if(member.getMemberIsForeigner()) { // 외국인이면
-            Foreigner foreigner = foreignerRepository.findByMember(member)
-                    .orElseThrow(() -> new NotFoundException("Not Found Foreigner"));
-            buddy = buddyRepository.findByForeigner(foreigner)
-                    .orElseThrow(() -> new NotFoundException("Not Found Buddy"));
-            buddyMember = buddy.getKorean().getMember();
-        }
-        else {
-            Korean korean = koreanRepository.findByMember(member)
-                    .orElseThrow(() -> new NotFoundException("Not Found Korean"));
-            buddy = buddyRepository.findByKorean(korean)
-                    .orElseThrow(() -> new NotFoundException("Not Found Buddy"));
-            buddyMember = buddy.getForeigner().getMember();
-        }
-
+    public List<ExchangeDiaryDetailResponse> findExchangeDiary(Member member) {
+        Member buddyMember = findBuddyMember(member);
         List<ExchangeDiary> diaryList = exchangeDiaryRepository.findByMemberOrMember(member, buddyMember);
+        return ExchangeDiaryResponse.builder().exchangeDiaryList(diaryList).build().getExchangeDiaryResponseList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ExchangeDiaryDetailResponse> findExchangeDiaryByMonth(Member member, Integer month) {
+        Member buddyMember = findBuddyMember(member);
+        List<ExchangeDiary> diaryList = exchangeDiaryRepository.findMonth(member, buddyMember, month);
         return ExchangeDiaryResponse.builder().exchangeDiaryList(diaryList).build().getExchangeDiaryResponseList();
     }
 
@@ -99,7 +87,6 @@ public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
 
         return ExchangeDiaryDetailResponse.builder()
                 .member(memberDto)
-                .exchangeDiaryTitle(exchangeDiary.getExchangeDiaryTitle())
                 .exchangeDiaryContent(exchangeDiary.getExchangeDiaryContent())
                 .exchangeDiaryImgUrl(imgUrl)
                 .exchangeDiaryDate(exchangeDiary.getExchangeDiaryDate())
@@ -116,8 +103,29 @@ public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
     @Transactional(rollbackFor = Exception.class)
     public Long updateExchangeDiary(Long exchangeId, ExchangeDiaryUpdateRequest exchangeDiaryUpdateRequest) {
         ExchangeDiary exchangeDiary = exchangeDiaryRepository.findByExchangeDiaryId(exchangeId);
-        exchangeDiary.update(exchangeDiaryUpdateRequest.getExchangeDiaryTitle(), exchangeDiaryUpdateRequest.getExchangeDiaryContent());
+        exchangeDiary.update(exchangeDiaryUpdateRequest.getExchangeDiaryContent());
         exchangeDiaryRepository.save(exchangeDiary);
         return exchangeDiary.getExchangeDiaryId();
+    }
+
+    @Override
+    public Member findBuddyMember(Member member) {
+        Buddy buddy = null;
+        Member buddyMember = null;
+        if(!member.getMemberIsForeigner()) { // 한국인이면
+            Foreigner foreigner = foreignerRepository.findByMember(member)
+                    .orElseThrow(() -> new NotFoundException("Not Found Foreigner"));
+            buddy = buddyRepository.findByForeigner(foreigner)
+                    .orElseThrow(() -> new NotFoundException("Not Found Buddy"));
+            buddyMember = buddy.getKorean().getMember();
+        }
+        else {
+            Korean korean = koreanRepository.findByMember(member)
+                    .orElseThrow(() -> new NotFoundException("Not Found Korean"));
+            buddy = buddyRepository.findByKorean(korean)
+                    .orElseThrow(() -> new NotFoundException("Not Found Buddy"));
+            buddyMember = buddy.getForeigner().getMember();
+        }
+        return buddyMember;
     }
 }
