@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MyTalk from '../MyTalk';
 import OpponentTalk from '../OpponentTalk';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 
 const chatContainerStyle = {
   margin: '20px',
@@ -11,34 +13,40 @@ const chatContainerStyle = {
 
 function ChattingArea(props) {
   const [inputMyText, setInputMyText] = useState(''); // 나의 텍스트 입력 상태
-  const [inputOpponentText, setInputOpponentText] = useState(''); // 상대방 텍스트 입력 상태
   const [messages, setMessages] = useState([]); // 대화 메세지 저장용
+  const [stompClient, setStompClient] = useState(null); // Stomp 클라이언트 상태
 
-  // 나의 텍스트 입력 필드의 onChange 이벤트 핸들러
-  const handleMyInputChange = (e) => {
-    setInputMyText(e.target.value);
-  };
+  useEffect(() => {
+    // WebSocket 연결 설정
+    const socket = new SockJS('http://moamore.site:8589/ws-stomp'); // WebSocket 서버 주소
+    const stompClient = Stomp.over(socket);
 
-  // 상대방 텍스트 입력 필드의 onChange 이벤트 핸들러
-  const handleOpponentInputChange = (e) => {
-    setInputOpponentText(e.target.value);
-  };
+    stompClient.connect({}, () => {
+      setStompClient(stompClient);
+      // 연결 성공 시 동작 설정
+      stompClient.subscribe('/sub/chat', (message) => {
+        const newMessage = JSON.parse(message.body);
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+      });
+    });
 
-  // 나의 텍스트 입력 필드의 onKeyDown 이벤트 핸들러
+    // 컴포넌트 언마운트 시 WebSocket 연결 해제
+    return () => {
+      if (stompClient) {
+        stompClient.disconnect();
+      }
+    };
+  }, []);
+
   const handleMyInputKeyDown = (e) => {
     if (e.key === 'Enter' && inputMyText.trim() !== '') {
-      // 엔터 키를 누르면 나의 메시지를 배열에 추가합니다.
-      setMessages([...messages, { text: inputMyText, isMine: true }]);
+      const newMessage = { text: inputMyText, isMine: true };
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
       setInputMyText('');
-    }
-  };
 
-  // 상대방 텍스트 입력 필드의 onKeyDown 이벤트 핸들러
-  const handleOpponentInputKeyDown = (e) => {
-    if (e.key === 'Enter' && inputOpponentText.trim() !== '') {
-      // 엔터 키를 누르면 상대방 메시지를 배열에 추가합니다.
-      setMessages([...messages, { text: inputOpponentText, isMine: false }]);
-      setInputOpponentText('');
+      if (stompClient && stompClient.connected) {
+        stompClient.send('/pub/chat', {}, JSON.stringify(newMessage));
+      }
     }
   };
 
@@ -49,7 +57,6 @@ function ChattingArea(props) {
       </div>
       <hr />
       <div>
-        {/* 대화 메세지 출력 */}
         {messages.map((message, index) =>
           message.isMine ? (
             <MyTalk key={index} talk={message.text} />
@@ -58,22 +65,13 @@ function ChattingArea(props) {
           )
         )}
       </div>
-
       <div>
         <input
           type="text"
           value={inputMyText}
-          onChange={handleMyInputChange}
+          onChange={(e) => setInputMyText(e.target.value)}
           onKeyDown={handleMyInputKeyDown}
           placeholder="채팅"
-        />
-        {/* 테스트용 상대방 채팅 입력 필드 */}
-        <input
-          type="text"
-          value={inputOpponentText}
-          onChange={handleOpponentInputChange}
-          onKeyDown={handleOpponentInputKeyDown}
-          placeholder="테스트용 상대방 채팅"
         />
       </div>
     </div>
