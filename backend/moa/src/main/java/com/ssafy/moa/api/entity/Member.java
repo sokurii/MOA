@@ -70,6 +70,12 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<OpenChatMember> openChatMember;
 
+    @OneToMany(mappedBy = "member")
+    private List<Article> article;
+
+    @OneToMany(mappedBy = "member")
+    private List<Word> word;
+
     @ManyToOne
     @NotNull
     @JoinColumn(name = "member_level")
