@@ -1,7 +1,9 @@
 package com.ssafy.moa.api.controller;
 
 import com.ssafy.moa.api.dto.BuddyDto.*;
+import com.ssafy.moa.api.jwt.JwtTokenProvider;
 import com.ssafy.moa.api.service.BuddyService;
+import com.ssafy.moa.api.service.MemberService;
 import com.ssafy.moa.common.utils.ApiUtils.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,34 +20,51 @@ import static com.ssafy.moa.common.utils.ApiUtils.success;
 public class BuddyController {
 
     private final BuddyService buddyService;
+    private final MemberService memberService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/korean")
     @Operation(summary = "한국인 버디 가입")
-    public ApiResult<Long> createKoreanBuddy(@RequestBody KoreanBuddyPostRequest koreanBuddyPostRequest) {
+    public ApiResult<Long> createKoreanBuddy(@RequestHeader("Authorization") String header, @RequestBody KoreanBuddyPostRequest koreanBuddyPostRequest) {
+        String token = header.substring(7);
+        Long memberId = jwtTokenProvider.extractMemberId(token);
+        memberService.findMember(memberId);
         return success(buddyService.saveKoreanBuddyInfo(koreanBuddyPostRequest));
     }
 
     @PostMapping("/foreigner")
     @Operation(summary = "외국인 버디 가입")
-    public ApiResult<Long> createForeignerBuddy(@RequestBody ForeignerBuddyPostRequest foreignerBuddyPostRequest) {
-        return success(buddyService.saveForeignerBuddyInfo(foreignerBuddyPostRequest));
+    public ApiResult<Long> createForeignerBuddy(@RequestHeader("Authorization") String header, @RequestBody ForeignerBuddyPostRequest foreignerBuddyPostRequest) {
+        String token = header.substring(7);
+        Long memberId = jwtTokenProvider.extractMemberId(token);
+        memberService.findMember(memberId);
+        return success(buddyService.saveForeignerBuddyInfo(memberId, foreignerBuddyPostRequest));
     }
 
     @PostMapping("/match")
     @Operation(summary = "버디 매칭")
-    public ApiResult<Long> createForeignerBuddy(@RequestBody BuddyMatchingRequest buddyMatchingRequest) {
-        return success(buddyService.findMatchingBuddy(buddyMatchingRequest));
+    public ApiResult<Long> createForeignerBuddy(@RequestHeader("Authorization") String header) {
+        String token = header.substring(7);
+        Long memberId = jwtTokenProvider.extractMemberId(token);
+        memberService.findMember(memberId);
+        return success(buddyService.findMatchingBuddy(memberId));
     }
 
-    @DeleteMapping("/{memberId}")
+    @DeleteMapping
     @Operation(summary = "버디 연결 끊기")
-    public ApiResult<Integer> deleteBuddy(@PathVariable Long memberId) {
+    public ApiResult<Integer> deleteBuddy(@RequestHeader("Authorization") String header) {
+        String token = header.substring(7);
+        Long memberId = jwtTokenProvider.extractMemberId(token);
+        memberService.findMember(memberId);
         return success(buddyService.deleteBuddy(memberId));
     }
 
-    @GetMapping("/{memberId}")
+    @GetMapping
     @Operation(summary = "버디와 함께한 날짜 조회")
-    public ApiResult<Long> findWithBuddyDate(@PathVariable Long memberId) {
+    public ApiResult<Long> findWithBuddyDate(@RequestHeader("Authorization") String header) {
+        String token = header.substring(7);
+        Long memberId = jwtTokenProvider.extractMemberId(token);
+        memberService.findMember(memberId);
         return success(buddyService.findWithBuddyDate(memberId));
     }
 }

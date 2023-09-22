@@ -58,8 +58,8 @@ public class BuddyServiceImpl implements BuddyService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Long saveForeignerBuddyInfo(ForeignerBuddyPostRequest foreignerBuddyPostRequest) {
-        Member member = memberService.findMember(foreignerBuddyPostRequest.getMemberId());
+    public Long saveForeignerBuddyInfo(Long memberId,  ForeignerBuddyPostRequest foreignerBuddyPostRequest) {
+        Member member = memberService.findMember(memberId);
         // Foreigner 를 찾기
         Foreigner foreigner = foreignerRepository.findByMember(member)
                 .orElseThrow(() -> new NotFoundException("Not Found Foreigner"));
@@ -84,9 +84,9 @@ public class BuddyServiceImpl implements BuddyService {
     }
 
     @Override
-    public Long findMatchingBuddy(BuddyMatchingRequest buddyMatchingRequest) {
+    public Long findMatchingBuddy(Long memberId) {
         // memberId로 외국인인지 판별
-        Member member = memberService.findMember(buddyMatchingRequest.getMemberId());
+        Member member = memberService.findMember(memberId);
 
         // 외국인이면
         if(member.getMemberIsForeigner()) {
