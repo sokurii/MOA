@@ -96,7 +96,6 @@ public class BuddyServiceImpl implements BuddyService {
 
             List<Korean> koreanBuddyGenderAndNation = memberRepository.findKoreanBuddyGenderAndNation(member.getMemberId());
             if(!koreanBuddyGenderAndNation.isEmpty()) {
-                log.info("foreigner 1");
                 for(Korean korean : koreanBuddyGenderAndNation) {
                     Integer count = interestRepository.countByInterest(member.getMemberId(), korean.getMember().getMemberId());
                     if(count > 0) {
@@ -106,20 +105,23 @@ public class BuddyServiceImpl implements BuddyService {
                                 .createdAt(LocalDate.now()).build();
                         return buddyRepository.save(buddy).getBuddyId();
                     }
+                    else {
+                        Buddy buddy = Buddy.builder()
+                                .korean(koreanBuddyGenderAndNation.get(0))
+                                .foreigner(foreigner)
+                                .createdAt(LocalDate.now()).build();
+                        return buddyRepository.save(buddy).getBuddyId();
+                    }
                 }
-                log.info("foreigner 2");
-                Buddy buddy = Buddy.builder()
-                        .korean(koreanBuddyGenderAndNation.get(0))
-                        .foreigner(foreigner)
-                        .createdAt(LocalDate.now()).build();
-                return buddyRepository.save(buddy).getBuddyId();
             }
 
             // 2순위: 성별, 관심사(무관)
             List<Korean> koreanBuddyGender = memberRepository.findKoreanBuddyGender(member.getMemberId());
+            log.info(String.valueOf(koreanBuddyGender.size()));
+            log.info(String.valueOf(koreanBuddyGender.get(0).getKoreanId()));
+
             if(!koreanBuddyGender.isEmpty()) {
-                log.info("foreigner 3");
-                for(Korean korean : koreanBuddyGenderAndNation) {
+                for(Korean korean : koreanBuddyGender) {
                     Integer count = interestRepository.countByInterest(member.getMemberId(), korean.getMember().getMemberId());
                     if(count > 0) {
                         Buddy buddy = Buddy.builder()
@@ -128,15 +130,15 @@ public class BuddyServiceImpl implements BuddyService {
                                 .createdAt(LocalDate.now()).build();
                         return buddyRepository.save(buddy).getBuddyId();
                     }
+                    else {
+                        Buddy buddy = Buddy.builder()
+                                .korean(korean)
+                                .foreigner(foreigner)
+                                .createdAt(LocalDate.now()).build();
+                        return buddyRepository.save(buddy).getBuddyId();
+                    }
                 }
-                log.info("foreigner 4");
-                Buddy buddy = Buddy.builder()
-                        .korean(koreanBuddyGenderAndNation.get(0))
-                        .foreigner(foreigner)
-                        .createdAt(LocalDate.now()).build();
-                return buddyRepository.save(buddy).getBuddyId();
             }
-
         }
         else { // 한국인이면
             // 1순위: 성별 & 국적, 관심사(무관)
@@ -146,7 +148,6 @@ public class BuddyServiceImpl implements BuddyService {
 
             List<Foreigner> foreignerBuddyGenderAndNation = memberRepository.findForeignerBuddyGenderAndNation(member.getMemberId());
             if(!foreignerBuddyGenderAndNation.isEmpty()) {
-                log.info("들어왔나?");
                 for(Foreigner foreigner : foreignerBuddyGenderAndNation) {
                     Integer count = interestRepository.countByInterest(member.getMemberId(), foreigner.getMember().getMemberId());
                     log.info(String.valueOf(count));
@@ -158,7 +159,6 @@ public class BuddyServiceImpl implements BuddyService {
                         return buddyRepository.save(buddy).getBuddyId();
                     }
                 }
-                log.info("여긴가?");
                 Buddy buddy = Buddy.builder()
                         .korean(korean)
                         .foreigner(foreignerBuddyGenderAndNation.get(0))
@@ -178,7 +178,6 @@ public class BuddyServiceImpl implements BuddyService {
                         return buddyRepository.save(buddy).getBuddyId();
                     }
                 }
-
                 Buddy buddy = Buddy.builder()
                         .korean(korean)
                         .foreigner(foreignerBuddyGenderAndNation.get(0)).build();
