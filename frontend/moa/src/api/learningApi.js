@@ -1,4 +1,4 @@
-import { axios } from './https';
+import { authAxios } from './https';
 
 export const learningApi = {
 

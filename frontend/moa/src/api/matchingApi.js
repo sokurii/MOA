@@ -1,13 +1,13 @@
-import { axios } from './https';
+import { nonAuthAxios } from './https';
 
 export const matchingApi = {
   // 한국인 매칭 정보 등록
-  koreanInfo : (data) => axios.post('buddy/korean', data),
+  koreanInfo : (data) => nonAuthAxios.post('buddy/korean', data),
 
   // 외국인 매칭 정보 등록
-  foreignerInfo : (data) => axios.post('buddy/foreigner', data),
+  foreignerInfo : (data) => nonAuthAxios.post('buddy/foreigner', data),
 
   // 매칭
-  matching : (data) => axios.post('buddy/match', data),
+  matching : (data) => nonAuthAxios.post('buddy/match', data),
 
 };
