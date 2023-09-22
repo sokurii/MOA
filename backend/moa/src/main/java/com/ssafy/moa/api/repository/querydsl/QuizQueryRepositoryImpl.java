@@ -10,6 +10,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.moa.api.dto.quiz.QuizQuestionDto;
 import com.ssafy.moa.api.entity.QDailyKoreanQuiz;
 import com.ssafy.moa.api.entity.QQuizCode;
+import com.ssafy.moa.api.entity.QuizCode;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -33,6 +35,7 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
                         quizCode.quizCode, quizCode.quizName)
                 .from(dailyKoreanQuiz)
                 .innerJoin(quizCode).on(dailyKoreanQuiz.quizCode.eq(quizCode))
+                .where(dailyKoreanQuiz.quizCode.quizCode.eq(1L).or(dailyKoreanQuiz.quizCode.quizCode.eq(2L)))
                 .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
                 .limit(15)
                 .fetch();
@@ -41,8 +44,8 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
         for(Tuple tuple : tuples) {
             QuizQuestionDto quizQuestionDto = QuizQuestionDto.builder()
                     .quizId(tuple.get(dailyKoreanQuiz.quizId))
-                    .quizAnswer(tuple.get(dailyKoreanQuiz.quizQuestion))
-                    .quizQuestion(tuple.get(dailyKoreanQuiz.quizAnswer))
+                    .quizAnswer(tuple.get(dailyKoreanQuiz.quizAnswer))
+                    .quizQuestion(tuple.get(dailyKoreanQuiz.quizQuestion))
                     .quizCategoryId(tuple.get(quizCode.quizCode))
                     .quizCategoryName(tuple.get(quizCode.quizName))
                     .build();
@@ -50,5 +53,19 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
         }
 
         return quizQuestionDtoList;
+    }
+
+    @Override
+    public List<String> getWordQuizAnswerList(String quizAnswer) {
+        QDailyKoreanQuiz dailyKoreanQuiz = QDailyKoreanQuiz.dailyKoreanQuiz;
+
+        return jpaQueryFactory
+                .select(dailyKoreanQuiz.quizAnswer)
+                .from(dailyKoreanQuiz)
+                .where(dailyKoreanQuiz.quizCode.quizCode.eq(1L))
+                .where(dailyKoreanQuiz.quizAnswer.ne(quizAnswer))
+                .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
+                .limit(3)
+                .fetch();
     }
 }

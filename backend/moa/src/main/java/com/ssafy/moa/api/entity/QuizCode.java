@@ -1,6 +1,7 @@
 package com.ssafy.moa.api.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,4 @@ public class QuizCode {
 
     @OneToMany(mappedBy = "quizCode")
     private List<DailyKoreanQuiz> dailyKoreanQuizList;
-
-
 }

@@ -15,12 +15,7 @@ public interface MemberService {
     void logout(Authentication authentication);
     String removeMember(Long memberId);
     Member findMember(Long memberId);
-
     MemberPhotoDto updateMemberPhoto(Long memberId, MultipartFile multipartFile) throws IOException;
-
     MemberInfoDto getMemberInfo(Long memberId);
-
     EmailDuplicateCheckDto checkEmailDuplicate(EmailCheckDto emailCheckDto);
-
-//    MemberInfoDto getMemberInfo(Long memberId);
 }
