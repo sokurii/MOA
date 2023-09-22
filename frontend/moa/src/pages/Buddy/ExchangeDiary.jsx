@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+
+import { diaryApi } from '../../api/diaryApi';
+
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -6,10 +9,19 @@ import BackButton from '../../components/BackButton';
 import DiaryItem from '../../components/DiaryItem';
 
 function ExchangeDiary(props) {
-  const [diaries, setDiaries] = useState([
-    { id: 1, title: '제목1', content: '내용1', image: '이미지1', date: '2023.09.14', time: '10:25' },
-    { id: 2, title: '제목2', content: '내용2', image: '이미지2', date: '2023.09.14', time: '10:26' },
-  ]);
+  const [diaries, setDiaries] = useState([]);
+
+  useEffect(() => {
+    diaryApi.getDiaryList()
+    .then((response) => {
+      console.log(response.data);
+      setDiaries(response.data.response);
+    })
+    .catch((error) => {
+      console.log('교환일기 전체 조회 에러 발생');
+      console.log(error);
+    })
+  }, []);
 
   const navigate = useNavigate();
 
@@ -40,13 +52,12 @@ function ExchangeDiary(props) {
       {/* 일기 리스트에 따른 일기 나열 */}
       {/* 같은 날짜일 때 묶어서 component화 해야함 */}
       {diaries.map((diary, index) => {
+        const exchangeDiaryId = diary.exchangeDiaryId;
+
         return (
           <div key={index} onClick={() => handleDiaryClick(diary)}>
             <DiaryItem
-              title={diary.title}
-              image={diary.image}
-              date={diary.date}
-              time={diary.time}
+              exchangeDiaryId={exchangeDiaryId}
             />
           </div>
         );
