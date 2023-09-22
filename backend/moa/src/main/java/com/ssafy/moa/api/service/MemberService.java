@@ -12,7 +12,7 @@ public interface MemberService {
 
     MemberSignUpDto signUp(MemberSignUpDto memberSignUpDto);
     TokenRespDto login(LoginReqDto loginReqDto, HttpServletResponse response);
-    void logout(Authentication authentication);
+    void logout(Authentication authentication, HttpServletResponse response);
     String removeMember(Long memberId);
     Member findMember(Long memberId);
     MemberPhotoDto updateMemberPhoto(Long memberId, MultipartFile multipartFile) throws IOException;

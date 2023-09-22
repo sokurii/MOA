@@ -171,8 +171,14 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     // 로그아웃
-    public void logout(Authentication authentication) {
+    public void logout(Authentication authentication, HttpServletResponse response) {
         String memberEmail = authentication.getName();
+
+        Cookie refreshCookie = new Cookie("refreshToken", null);
+        refreshCookie.setMaxAge(0);
+        refreshCookie.setPath("/");
+
+        response.addCookie(refreshCookie);
 
         Optional<RefreshToken> findRefreshToken = refreshTokenRepository.findById(memberEmail);
         if(findRefreshToken.isPresent()) {

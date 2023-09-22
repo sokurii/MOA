@@ -74,10 +74,10 @@ public class MemberController {
     // 로그아웃
     @DeleteMapping("/logout")
     @Operation(summary = "로그아웃")
-    public ApiResult<String> logout(@RequestHeader("Authorization") String header) {
+    public ApiResult<String> logout(@RequestHeader("Authorization") String header, HttpServletResponse response) {
         String token = header.substring(7);
         Authentication authentication = jwtTokenProvider.getAuthentication(token);
-        memberService.logout(authentication);
+        memberService.logout(authentication, response);
         return success("로그아웃 성공");
     }
 
