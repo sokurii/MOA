@@ -8,8 +8,14 @@ import java.util.List;
 public interface QuizService {
     List<QuizQuestionDto> questionWordQuiz();
 
-    QuizSubmitRespDto submitWordQuiz(QuizSubmitReqDto quizSubmitReqDto);
+    QuizSubmitRespDto submitWordQuiz(Long memberId, QuizSubmitReqDto quizSubmitReqDto);
 
     QuizFinishRespDto finishQuiz(Long memberId, QuizFinishReqDto quizFinishReqDto);
     List<QuizQuestionDto> questionSentenceQuiz();
+
+    QuizWrongCountDto getWrongQuizCount(Long memberId);
+
+    List<QuizQuestionDto> submitWrongQuiz(Long memberId, QuizWrongCountDto quizWrongCountDto);
+
+    Long deleteWrongQuiz(Long memberId, Long quizId);
 }

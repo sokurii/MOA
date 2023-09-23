@@ -26,4 +26,7 @@ public class DailyKoreanQuiz {
     @NotNull
     @JoinColumn(name = "quiz_code")
     private QuizCode quizCode;
+
+    @OneToOne(mappedBy = "quiz")
+    private QuizWrongAnswer quizWrongAnswer;
 }

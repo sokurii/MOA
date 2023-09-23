@@ -43,8 +43,9 @@ public class QuizController {
     // 퀴즈 제출 API
     @PostMapping
     @Operation(summary = "퀴즈 제출", description = "퀴즈를 풀고 한 문제씩 답을 확인하는 API입니다.")
-    public ApiResult<QuizSubmitRespDto> submitWordQuiz(@RequestBody QuizSubmitReqDto quizSubmitReqDto) {
-        QuizSubmitRespDto quizSubmitRespDto = quizService.submitWordQuiz(quizSubmitReqDto);
+    public ApiResult<QuizSubmitRespDto> submitWordQuiz(@RequestHeader("Authorization") String header, @RequestBody QuizSubmitReqDto quizSubmitReqDto) {
+        Long memberId = jwtTokenProvider.extractMemberId(header.substring(7));
+        QuizSubmitRespDto quizSubmitRespDto = quizService.submitWordQuiz(memberId, quizSubmitReqDto);
         return success(quizSubmitRespDto);
     }
 
@@ -55,4 +56,30 @@ public class QuizController {
         Long memberId = jwtTokenProvider.extractMemberId(header.substring(7));
         return success(quizService.finishQuiz(memberId, quizFinishReqDto));
     }
+
+    // 틀린 문제 개수 반환
+    @GetMapping("/wrong-answer")
+    @Operation(summary = "틀린 문제의 개수를 반환")
+    public ApiResult<QuizWrongCountDto> getWrongQuizCount(@RequestHeader("Authorization") String header) {
+        Long memberId = jwtTokenProvider.extractMemberId(header.substring(7));
+        return success(quizService.getWrongQuizCount(memberId));
+    }
+
+    // 틀린 문제에서 랜덤 출제
+    @PostMapping("/wrong-answer")
+    @Operation(summary = "틀린 문제에서 랜덤으로 문제 출제")
+    public ApiResult<List<QuizQuestionDto>> submitWrongQuiz(@RequestHeader("Authorization") String header, @RequestBody QuizWrongCountDto quizWrongCountDto) {
+        Long memberId = jwtTokenProvider.extractMemberId(header.substring(7));
+        return success(quizService.submitWrongQuiz(memberId, quizWrongCountDto));
+    }
+
+    // 틀린 문제 삭제
+    @DeleteMapping("/wrong-answer/{quizId}")
+    @Operation(summary = "틀린 문제 풀기에서 맞춘 후 문제 삭제")
+    public ApiResult<Long> deleteWrongQuiz(@RequestHeader("Authorization") String header, @PathVariable("quizId") Long quizId) {
+        Long memberId = jwtTokenProvider.extractMemberId(header.substring(7));
+        return success(quizService.deleteWrongQuiz(memberId, quizId));
+    }
+
+
 }

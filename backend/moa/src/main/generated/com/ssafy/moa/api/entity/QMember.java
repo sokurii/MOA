@@ -62,6 +62,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final ListPath<OpenChatMember, QOpenChatMember> openChatMember = this.<OpenChatMember, QOpenChatMember>createList("openChatMember", OpenChatMember.class, QOpenChatMember.class, PathInits.DIRECT2);
 
+    public final ListPath<QuizWrongAnswer, QQuizWrongAnswer> quizWrongAnswer = this.<QuizWrongAnswer, QQuizWrongAnswer>createList("quizWrongAnswer", QuizWrongAnswer.class, QQuizWrongAnswer.class, PathInits.DIRECT2);
+
     public final ListPath<Word, QWord> word = this.<Word, QWord>createList("word", Word.class, QWord.class, PathInits.DIRECT2);
 
     public QMember(String variable) {
