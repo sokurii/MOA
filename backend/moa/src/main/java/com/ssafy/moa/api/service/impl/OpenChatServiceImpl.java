@@ -2,6 +2,7 @@ package com.ssafy.moa.api.service.impl;
 
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
+import com.ssafy.moa.api.dto.ChatRoom;
 import com.ssafy.moa.api.dto.OpenChatDto.*;
 import com.ssafy.moa.api.entity.Member;
 import com.ssafy.moa.api.entity.OpenChat;
@@ -57,7 +58,8 @@ public class OpenChatServiceImpl implements OpenChatService {
                 .member(member)
                 .openChat(openChat)
                 .build();
-
+//        List<ChatRoom> allRoom = chatRoomRepository.findAllRoom(1);
+//        ChatRoom roomById = chatRoomRepository.findRoomById(1, 14 + "");
         openChatMemberRepository.save(openChatMember);
 
         return openChat.getOpenChatId();
