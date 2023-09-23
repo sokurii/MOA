@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // 초기 상태
 const initialState = {
-  accessToken: null,
+  accessToken: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3bHNndWQ0MDg0QGdtYWlsLmNvbSIsIm1lbWJlcklkIjoxNCwiaWF0IjoxNjk1NDQ1MTcwLCJleHAiOjE2OTU0NDg3NzB9.On79og-j9UDRFTZurIYK-FqbIUGnznmQq3CCJc9rrEZK-aaRni_lq0NwABkJGQLPfBkx2LZVCFnpfk0fNh8C3A',
 };
 
 // Actions

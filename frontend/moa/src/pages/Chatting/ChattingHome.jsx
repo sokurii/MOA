@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
-import BuddyChattingModal from '../../components/Chatting/BuddyChattingModal';
-import OpenChattingModal from '../../components/Chatting/OpenChattingModal';
+import BuddyChattingModal from './BuddyChattingModal';
+import OpenChattingModal from './OpenChattingModal';
 
 function ChattingHome(props) {
   const [isBuddyChattingModalOpen, setIsBuddyChattingModalOpen] = useState(false);
@@ -30,12 +30,13 @@ function ChattingHome(props) {
       <BackButton />
       <p>채팅 페이지</p>
       <div>
-        <button onClick={openBuddyChattingModal}>버디 1:1 채팅</button>
-        <button onClick={openOpenChattingModal}>오픈 채팅</button>
+        <Link to="/chatting/buddy">
+          <button>버디 1:1 채팅</button>
+        </Link>
+        <Link to="/chatting/openchat">
+          <button>오픈 채팅</button>
+        </Link>
       </div>
-
-      <BuddyChattingModal isOpen={isBuddyChattingModalOpen} closeModal={closeBuddyChattingModal}/>
-      <OpenChattingModal isOpen={isOpenChattingModalOpen} closeModal={closeOpenChattingModal}/>
     </div>
   );
 }

@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Matching from './pages/Matching';
 import ChattingHome from './pages/Chatting/ChattingHome';
+import BuddyChattingModal from './pages/Chatting/BuddyChattingModal';
+import OpenChattingModal from './pages/Chatting/OpenChattingModal';
 import OpenChattingDetail from './pages/Chatting/OpenChattingDetail';
 import KoreanLearning from './pages/Learning/KoreanLearning';
 import QnABoard from './pages/QnA/QnABoard';
@@ -48,6 +50,8 @@ function App() {
           <Route path="/matching" element={<Matching />}/>
 
           <Route path="/chatting" element={<ChattingHome />}/>
+          <Route path="/chatting/buddy" element={<BuddyChattingModal />}/>
+          <Route path="/chatting/openchat" element={<OpenChattingModal />}/>
           <Route path="/chatting/openchat/:id" element={<OpenChattingDetail />}/>
 
           <Route path="/koreanlearning" element={<KoreanLearning />} />

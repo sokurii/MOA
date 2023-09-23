@@ -1,11 +1,11 @@
-import { authAxios } from './https';
+import { authAxios, nonAuthAxios } from './https';
 
 export const openChatApi = {
   // 오픈채팅방 전체 조회
-  getOpenChatRoom : () => authAxios.get('open-chat'),
+  getOpenChatRoom : () => nonAuthAxios.get('open-chat'),
   
   // 오픈채팅방 상세 조회
-  getOpenChatRoomDetail : (openChatId) => authAxios.get(`open-chat/${openChatId}`),
+  getOpenChatRoomDetail : (openChatId) => nonAuthAxios.get(`open-chat/${openChatId}`),
 
   // 오픈채팅방 생성
   createOpenChatRoom : (data) => authAxios.post('open-chat', data),
