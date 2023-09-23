@@ -6,6 +6,7 @@ import com.ssafy.moa.api.dto.OpenChatDto.*;
 import com.ssafy.moa.api.entity.Member;
 import com.ssafy.moa.api.entity.OpenChat;
 import com.ssafy.moa.api.entity.OpenChatMember;
+import com.ssafy.moa.api.repository.ChatRoomRepository;
 import com.ssafy.moa.api.repository.MemberRepository;
 import com.ssafy.moa.api.repository.OpenChatMemberRepository;
 import com.ssafy.moa.api.repository.OpenChatRepository;
@@ -26,7 +27,7 @@ import java.util.UUID;
 public class OpenChatServiceImpl implements OpenChatService {
     private final OpenChatRepository openChatRepository;
     private final OpenChatMemberRepository openChatMemberRepository;
-    private final MemberService memberService;
+    private final ChatRoomRepository chatRoomRepository;
     private final String bucketName = "diary_storage";
     private final Storage storage;
     private final String url = "https://storage.googleapis.com/";
@@ -48,7 +49,9 @@ public class OpenChatServiceImpl implements OpenChatService {
                 .openChatImgUrl(uuid)
                 .member(member)
                 .build();
-        openChatRepository.save(openChat);
+
+        Long openChatId = openChatRepository.save(openChat).getOpenChatId();
+        chatRoomRepository.createChatRoom(openChatId+"", saveOpenChatRequest.getOpenChatTitle());
 
         OpenChatMember openChatMember = OpenChatMember.builder()
                 .member(member)

@@ -58,7 +58,7 @@ public class OpenChatController {
         return success(openChatService.findOpenChatOne(openChatId));
     }
 
-    @DeleteMapping("/{openChatId}")
+    @DeleteMapping("/member/{openChatId}")
     @Operation(summary = "오픈 채팅방 멤버 삭제", description = "오픈 채팅방 API, API 헤더에 access token 필요")
     public ApiResult<Long> deleteOpenChatMember(@RequestHeader("Authorization") String header, @PathVariable Long openChatId) {
         String token = header.substring(7);

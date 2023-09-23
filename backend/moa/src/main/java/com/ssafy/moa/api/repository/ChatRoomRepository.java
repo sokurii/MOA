@@ -45,14 +45,20 @@ public class ChatRoomRepository {
         else  return opsHashChatRoom.get(BUDDY_CHAT_ROOMS, id);
     }
 
-    public ChatRoom createChatRoom(String name) {
-        ChatRoom chatRoom = ChatRoom.builder().name(name).build();
+    public ChatRoom createChatRoom(String roomId, String name) {
+        ChatRoom chatRoom = ChatRoom.builder().roomId(roomId).name(name).build();
+        opsHashChatRoom.put(OPEN_CHAT_ROOMS, chatRoom.getRoomId(), chatRoom);
+        return chatRoom;
+    }
+
+    public ChatRoom createBuddyRoom(String roomId, String name) {
+        ChatRoom chatRoom = ChatRoom.builder().roomId(roomId).name(name).build();
         opsHashChatRoom.put(OPEN_CHAT_ROOMS, chatRoom.getRoomId(), chatRoom);
         return chatRoom;
     }
 
     public void enterOpenChatRoom(String roomId) {
-        String key = "open_chat:" + roomId;
+        String key = "open_chat: " + roomId;
         ChannelTopic topic = openChatTopics.get(key);
         if (topic == null) {
             topic = new ChannelTopic(key);
@@ -66,7 +72,7 @@ public class ChatRoomRepository {
 
 
     public void enterBuddyChatRoom(String roomId) {
-        String key = "buddy:" + roomId;
+        String key = "buddy: " + roomId;
         ChannelTopic topic = buddyChatTopics.get(key);
         if (topic == null) {
             topic = new ChannelTopic(key);

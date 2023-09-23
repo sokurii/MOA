@@ -2,6 +2,7 @@ package com.ssafy.moa.api.controller;
 
 import com.ssafy.moa.api.dto.BuddyDto.*;
 import com.ssafy.moa.api.jwt.JwtTokenProvider;
+import com.ssafy.moa.api.repository.ChatRoomRepository;
 import com.ssafy.moa.api.service.BuddyService;
 import com.ssafy.moa.api.service.MemberService;
 import com.ssafy.moa.common.utils.ApiUtils.ApiResult;
@@ -22,6 +23,7 @@ public class BuddyController {
     private final BuddyService buddyService;
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
+    private final ChatRoomRepository chatRoomRepository;
 
     @PostMapping("/korean")
     @Operation(summary = "한국인 버디 가입")
@@ -47,7 +49,11 @@ public class BuddyController {
         String token = header.substring(7);
         Long memberId = jwtTokenProvider.extractMemberId(token);
         memberService.findMember(memberId);
-        return success(buddyService.findMatchingBuddy(memberId));
+        Long matchingBuddy = buddyService.findMatchingBuddy(memberId);
+        if(matchingBuddy != null) {
+            chatRoomRepository.createBuddyRoom(matchingBuddy+"","버디 채팅");
+        }
+        return success(matchingBuddy);
     }
 
     @DeleteMapping

@@ -12,8 +12,8 @@ public class ChatRoom {
     private String name;
 
     @Builder
-    public ChatRoom(String name) {
-        this.roomId = UUID.randomUUID().toString();
+    public ChatRoom(String roomId, String name) {
+        this.roomId = roomId;
         this.name = name;
     }
 }

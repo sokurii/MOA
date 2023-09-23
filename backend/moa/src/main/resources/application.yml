@@ -27,6 +27,14 @@ spring:
           ssl:
             enable: true
             trust: smtp.naver.com
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+  freemarker:
+    cache: false
+
   profiles:
     include:
       - mail
