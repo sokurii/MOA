@@ -14,6 +14,7 @@ import com.ssafy.moa.api.service.MemberService;
 import com.ssafy.moa.api.service.OpenChatService;
 import com.ssafy.moa.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OpenChatServiceImpl implements OpenChatService {
@@ -30,7 +32,6 @@ public class OpenChatServiceImpl implements OpenChatService {
     private final ChatRoomRepository chatRoomRepository;
     private final String bucketName = "diary_storage";
     private final Storage storage;
-    private final String url = "https://storage.googleapis.com/";
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -52,7 +53,6 @@ public class OpenChatServiceImpl implements OpenChatService {
 
         Long openChatId = openChatRepository.save(openChat).getOpenChatId();
         chatRoomRepository.createChatRoom(openChatId+"", saveOpenChatRequest.getOpenChatTitle());
-
         OpenChatMember openChatMember = OpenChatMember.builder()
                 .member(member)
                 .openChat(openChat)

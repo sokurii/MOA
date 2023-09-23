@@ -11,6 +11,7 @@ import com.ssafy.moa.common.utils.ApiUtils.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +20,7 @@ import java.util.List;
 
 import static com.ssafy.moa.common.utils.ApiUtils.success;
 
+@Slf4j
 @RestController
 @RequestMapping("/open-chat")
 @Tag(name = "open-chat", description = "오픈 채팅방 API")
@@ -34,6 +36,7 @@ public class OpenChatController {
         String token = header.substring(7);
         Long memberId = jwtTokenProvider.extractMemberId(token);
         Member member = memberService.findMember(memberId);
+        log.info(member.getMemberId().toString());
         return success(openChatService.saveOpenChat(member, multipartFile, saveOpenChatRequest));
     }
 
