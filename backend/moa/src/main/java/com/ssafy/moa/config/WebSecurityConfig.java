@@ -41,6 +41,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/open-chat/**").permitAll()
                                 .requestMatchers("/chat-gpt/**").permitAll()
                                 .requestMatchers("/scrap/**").permitAll()
+                                .requestMatchers("/quiz/**").permitAll()
                                 .anyRequest().authenticated())
                 .apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
