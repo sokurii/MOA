@@ -8,6 +8,7 @@ import com.ssafy.moa.api.jwt.JwtTokenProvider;
 import com.ssafy.moa.api.service.BalanceGameService;
 import com.ssafy.moa.common.utils.ApiUtils.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -18,19 +19,17 @@ import static com.ssafy.moa.common.utils.ApiUtils.success;
 @RestController
 @RequestMapping("/balance")
 @RequiredArgsConstructor
+@Tag(name = "BalanceGame", description = "밸런스게임 API, 등록 API에 access token 필요")
 @Slf4j
 public class BalanceGameController {
     private final BalanceGameService balanceGameService;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Operation(summary = "밸런스게임 등록", description = "밸런스게임을 등록할 수 있습니다.", tags = { "BalanceGame Controller" })
-    // Todo : 추후 authentication를 사용해서 실제 memberId로 변경
     @PostMapping
-    public ApiResult<Long> createBalanceGame(/*@RequestHeader("Authorization") String header,*/ @RequestBody BalanceGameReqDto balanceGameReqDto){
-//        String token = header.substring(7);
-//        Authentication authentication = jwtTokenProvider.getAuthentication(token);
-        Long memberId = 1L;
-        log.info(balanceGameReqDto.toString());
+    public ApiResult<Long> createBalanceGame(@RequestHeader("Authorization") String header, @RequestBody BalanceGameReqDto balanceGameReqDto){
+        String token = header.substring(7);
+        Long memberId = jwtTokenProvider.extractMemberId(token);
         return success(balanceGameService.createBalanceGame(memberId, balanceGameReqDto));
     }
 
@@ -58,11 +57,11 @@ public class BalanceGameController {
         return success(balanceGameService.deleteBalanceGame(balanceGameId));
     }
 
-    // Todo : 추후 authentication를 사용해서 실제 memberId로 변경
     @Operation(summary = "밸런스게임 반응 등록", description = "진행한 밸런스게임의 반응을 등록합니다.", tags = { "BalanceGame Controller" })
     @PostMapping("/reaction")
-    public ApiResult<Long> createBalanceGameReaction(/*@RequestHeader("Authorization") String header,*/ @RequestBody BalanceGameReactionDto balanceGameReactionDto){
-        Long memberId = 1L;
+    public ApiResult<Long> createBalanceGameReaction(@RequestHeader("Authorization") String header, @RequestBody BalanceGameReactionDto balanceGameReactionDto){
+        String token = header.substring(7);
+        Long memberId = jwtTokenProvider.extractMemberId(token);
         return success(balanceGameService.createBalanceGameReaction(memberId, balanceGameReactionDto));
     }
 
