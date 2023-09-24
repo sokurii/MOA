@@ -1,4 +1,5 @@
-import { nonAuthAxios, authAxios } from './https';
+import { nonAuthAxios } from './nonAuthAxios';
+import { authAxios } from './authAxios';
 
 export const userApi = {
   // 회원가입

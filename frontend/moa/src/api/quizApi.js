@@ -1,4 +1,4 @@
-import { nonAuthAxios } from './https';
+import { nonAuthAxios } from "./nonAuthAxios";
 
 export const quizApi = {
 

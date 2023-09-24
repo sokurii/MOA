@@ -1,4 +1,5 @@
-import { authAxios, nonAuthAxios } from './https';
+import { nonAuthAxios } from "./nonAuthAxios";
+import { authAxios } from "./authAxios";
 
 export const openChatApi = {
   // 오픈채팅방 전체 조회

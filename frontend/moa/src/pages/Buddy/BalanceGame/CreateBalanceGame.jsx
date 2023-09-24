@@ -77,7 +77,7 @@ function CreateBalanceGame(props) {
     const data = {
       balanceGameTitle: balanceGameTitle,
       balanceGameTime: selectedTime,
-      balanceGameList: balanceGameList,
+      balanceGameList: balanceGameListItems,
     }
 
     balanceGameApi.createBalanceGame(data)

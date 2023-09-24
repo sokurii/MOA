@@ -1,4 +1,4 @@
-import { nonAuthAxios } from './https';
+import { nonAuthAxios } from "./nonAuthAxios";
 
 export const matchingApi = {
   // 한국인 매칭 정보 등록
