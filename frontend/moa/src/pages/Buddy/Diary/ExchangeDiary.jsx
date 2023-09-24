@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { diaryApi } from '../../api/diaryApi';
+import { diaryApi } from '../../../api/diaryApi';
 
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import BackButton from '../../components/BackButton';
-import DiaryItem from '../../components/DiaryItem';
+import BackButton from '../../../components/BackButton';
+import DiaryItem from '../../../components/DiaryItem';
 
 function ExchangeDiary(props) {
   const [diaries, setDiaries] = useState([]);

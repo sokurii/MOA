@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
 
-import BackButton from '../../components/BackButton';
+import BackButton from '../../../components/BackButton';
 
 function ExchangeDiaryDetail(props) {
   const location = useLocation();

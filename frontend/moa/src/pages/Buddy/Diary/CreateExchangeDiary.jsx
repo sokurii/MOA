@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { diaryApi } from '../../api/diaryApi';
+import { diaryApi } from '../../../api/diaryApi';
 
 import { useNavigate } from 'react-router-dom';
 
-import BackButton from '../../components/BackButton';
+import BackButton from '../../../components/BackButton';
 
 function CreateExchangeDiary(props) {
   const [exchangeDiaryContent, setExchangeDiaryContent] = useState('');
