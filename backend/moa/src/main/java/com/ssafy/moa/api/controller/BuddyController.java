@@ -1,6 +1,7 @@
 package com.ssafy.moa.api.controller;
 
 import com.ssafy.moa.api.dto.BuddyDto.*;
+import com.ssafy.moa.api.entity.Member;
 import com.ssafy.moa.api.jwt.JwtTokenProvider;
 import com.ssafy.moa.api.repository.ChatRoomRepository;
 import com.ssafy.moa.api.service.BuddyService;
@@ -73,4 +74,14 @@ public class BuddyController {
         memberService.findMember(memberId);
         return success(buddyService.findWithBuddyDate(memberId));
     }
+
+    @GetMapping("/whether")
+    @Operation(summary = "버디 여부 조회")
+    public ApiResult<Integer> findBuddy(@RequestHeader("Authorization") String header) {
+        String token = header.substring(7);
+        Long memberId = jwtTokenProvider.extractMemberId(token);
+        Member member = memberService.findMember(memberId);
+        return success(buddyService.findBuddy(member));
+    }
+
 }

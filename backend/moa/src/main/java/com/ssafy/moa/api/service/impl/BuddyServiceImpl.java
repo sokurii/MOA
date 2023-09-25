@@ -205,10 +205,28 @@ public class BuddyServiceImpl implements BuddyService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Long findWithBuddyDate(Long memberId) {
         Member member = memberService.findMember(memberId);
         LocalDate agoDate = buddyRepository.findByKorean(member.getKorean()).get().getCreatedAt();
         Long daysDifference = ChronoUnit.DAYS.between(agoDate, LocalDate.now());
         return daysDifference;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Integer findBuddy(Member member) {
+        if(member.getMemberIsForeigner()) {
+            Foreigner foreigner = foreignerRepository.findByMember(member)
+                    .orElseThrow(() -> new NotFoundException("Not Found Foreigner"));
+            if(buddyRepository.findByForeigner(foreigner).isPresent()) return 1;
+            else return 0;
+        }
+        else {
+            Korean korean = koreanRepository.findByMember(member)
+                    .orElseThrow(() -> new NotFoundException("Not Found Korean"));
+            if(buddyRepository.findByKorean(korean).isPresent()) return 1;
+            else return 0;
+        }
     }
 }
