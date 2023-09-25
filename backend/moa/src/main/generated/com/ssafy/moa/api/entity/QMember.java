@@ -36,6 +36,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final ListPath<Interest, QInterest> interest = this.<Interest, QInterest>createList("interest", Interest.class, QInterest.class, PathInits.DIRECT2);
 
+    public final ListPath<Keyword, QKeyword> keyword = this.<Keyword, QKeyword>createList("keyword", Keyword.class, QKeyword.class, PathInits.DIRECT2);
+
     public final QKorean korean;
 
     public final StringPath memberEmail = createString("memberEmail");

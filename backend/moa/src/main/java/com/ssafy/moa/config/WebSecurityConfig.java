@@ -43,6 +43,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/scrap/**").permitAll()
                                 .requestMatchers("/chat/**").permitAll()
                                 .requestMatchers("/quiz/**").permitAll()
+                                .requestMatchers("/keyword/**").permitAll()
                                 .anyRequest().authenticated())
                 .apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 

@@ -78,6 +78,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<QuizWrongAnswer> quizWrongAnswer;
 
+    @OneToMany(mappedBy = "member")
+    private List<Keyword> keyword;
+
     @ManyToOne
     @NotNull
     @JoinColumn(name = "member_level")
