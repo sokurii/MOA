@@ -19,4 +19,7 @@ export const openChatApi = {
 
   // 오픈채팅방 삭제
   deleteOpenChatRoom : (openChatId) => authAxios.delete(`open-chat/${openChatId}`),
+
+  // 오픈채팅 대화 내역
+  openChatLog : (roomId) => nonAuthAxios.get(`chat/open-chat/${roomId}`),
 };

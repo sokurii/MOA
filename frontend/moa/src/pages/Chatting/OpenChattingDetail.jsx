@@ -41,7 +41,9 @@ function OpenChattingDetail(props) {
         <h3>{ title }</h3>
         <p>{ memberCount }</p>
       </div>
-      <ChattingArea />
+      <ChattingArea
+        openChatId={openChatId}
+      />
     </div>
   );
 }
