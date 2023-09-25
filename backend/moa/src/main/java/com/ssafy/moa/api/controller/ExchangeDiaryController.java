@@ -50,6 +50,7 @@ public class ExchangeDiaryController {
         String token = header.substring(7);
         Long memberId = jwtTokenProvider.extractMemberId(token);
         Member member = memberService.findMember(memberId);
+        System.out.println("member.toString() = " + member.toString());
         return success(exchangeDiaryService.findExchangeDiary(member));
     }
 

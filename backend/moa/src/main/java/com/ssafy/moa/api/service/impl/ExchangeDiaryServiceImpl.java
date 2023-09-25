@@ -63,6 +63,7 @@ public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
     public List<ExchangeDiaryDetailResponse> findExchangeDiary(Member member) {
         Member buddyMember = findBuddyMember(member);
         List<ExchangeDiary> diaryList = exchangeDiaryRepository.findByMemberOrMember(member, buddyMember);
+        System.out.println("diaryList.size() = " + diaryList.size());
         return ExchangeDiaryResponse.builder().exchangeDiaryList(diaryList).build().getExchangeDiaryResponseList();
     }
 
@@ -112,7 +113,7 @@ public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
     public Member findBuddyMember(Member member) {
         Buddy buddy = null;
         Member buddyMember = null;
-        if(!member.getMemberIsForeigner()) { // 한국인이면
+        if(member.getMemberIsForeigner()) { // 외국인
             Foreigner foreigner = foreignerRepository.findByMember(member)
                     .orElseThrow(() -> new NotFoundException("Not Found Foreigner"));
             buddy = buddyRepository.findByForeigner(foreigner)
