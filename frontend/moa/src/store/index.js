@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // 초기 상태
 const initialState = {
   // 임시로 하드코딩 적용(로그인 시 토큰 자동 저장하는 식으로 바꿀 예정)
-  accessToken: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3bHNndWQ0MDg0QGdtYWlsLmNvbSIsIm1lbWJlcklkIjoxNCwiaWF0IjoxNjk1NTUyMjQ5LCJleHAiOjE2OTU1NTU4NDl9.Exz31_mYOwqbO61EXs_Sj8Jg5LXFqzUi4brNniL3lo93esGQXIFGebducq7kbH2t2MTf5Vpb6IBRLFWBX63NVA',
+  accessToken: null,
 };
 
 // Actions

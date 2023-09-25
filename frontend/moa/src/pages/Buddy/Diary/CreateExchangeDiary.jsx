@@ -26,7 +26,7 @@ function CreateExchangeDiary(props) {
     const formData = new FormData();
     const jsonBlob = new Blob([JSON.stringify(exchangeDiaryRequest)], { type: "application/json" });
 
-    formData.append('saveOpenChatRequest', jsonBlob);
+    formData.append('exchangeDiaryRequest', jsonBlob);
     formData.append('multipartFile', imageFile);
 
     const headers = {
@@ -35,6 +35,7 @@ function CreateExchangeDiary(props) {
 
     diaryApi.createDiary(formData, { headers })
     .then((response) => {
+      alert('일기가 생성되었습니다!');
       navigate('/buddy/exchangediary');
     })
     .catch((error) => {
