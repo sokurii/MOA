@@ -34,6 +34,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/nation").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers("/v3/**").permitAll()
+                                .requestMatchers("/translation/**").permitAll()
                                 .requestMatchers("/buddy/**").permitAll()
                                 .requestMatchers("/test/**").permitAll()
                                 .requestMatchers("/balance/**").permitAll()
