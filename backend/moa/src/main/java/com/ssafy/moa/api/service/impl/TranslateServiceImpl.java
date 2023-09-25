@@ -6,6 +6,7 @@ import com.ssafy.moa.api.service.TranslateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.weaver.tools.UnsupportedPointcutPrimitiveException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,10 +27,15 @@ public class TranslateServiceImpl implements TranslateService {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
+    @Value("${papago.client.id}")
+    private String clientId;
+
+    @Value("${papago.client.secret}")
+    private String clientSecret;
+
     @Override
     public String translateText(String sentence) {
-        String clientId = "6xvYr4AONUMN4goMvGlL";
-        String clientSecret = "zo1l1Wd1fA";
+
         String apiUrl = "https://openapi.naver.com/v1/papago/n2mt";
         String text;
         try {

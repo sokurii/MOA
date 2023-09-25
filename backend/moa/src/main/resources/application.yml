@@ -39,8 +39,10 @@ spring:
     include:
       - mail
       - chat
+      - papago
   main:
     allow-bean-definition-overriding: true
+
 
 jwt:
   secret-key: WGmDjeValRGtlGnSOLmXPW8Ht36zv571HcMi1HnG9TTsAzG5q5SW8cGkLJKf7L2CTWqI7K27tmdFgakdhBtoFQ==
@@ -52,3 +54,4 @@ server:
     key-store: classpath:keystore.p12
     key-store-password: ssafy
     key-store-type: PKCS12
+

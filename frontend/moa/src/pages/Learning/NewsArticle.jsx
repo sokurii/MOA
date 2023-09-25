@@ -1,6 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NewsArticleSentence from '../../components/Learning/NewsArticleSentence';
+import axios from 'axios';
 
 function NewsArticle(props) {
 
@@ -13,6 +14,11 @@ function NewsArticle(props) {
     ]
 
     const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+    const [translatedSentence, setTranslatedSentence] = useState('');
+
+    useEffect(() => {
+        translateSentence(articleSentences[currentSentenceIndex]);
+    }, [currentSentenceIndex]);
 
     const goToNextIndex = () => {
         if(currentSentenceIndex < articleSentences.length - 1) {
@@ -26,11 +32,41 @@ function NewsArticle(props) {
         }
     }
 
+    const translateSentence = async (sentence) => {
+        const term = sentence;
+        const url = 'papago/n2mt';
+
+        const params = new URLSearchParams();
+        params.append('source', 'ko');
+        params.append('target', 'en');
+        params.append('text', term);
+
+        const config = {
+            baseURL: 'https://openapi.naver.com/v1/',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'x-naver-client-id' : '6xvYr4AONUMN4goMvGlL',
+                'x-naver-client-secret' : 'zo1l1Wd1fA',
+            }
+        }
+
+        try {
+            const resposne = await axios.post(url, params, config);
+            const translatedText = resposne.data.message.result.translatedText;
+            setTranslatedSentence(translatedText);
+            console.log(translatedText);
+        } catch(error) {
+            console.error('Translation error: ', error);
+        }
+    }
+
+
 
   return (
     <div>
         <div>제로베이스원 리더 성한빈, '엠카' 새 MC</div>
         <NewsArticleSentence sentence={articleSentences[currentSentenceIndex]} />
+        {/* <NewsArticle sentence={translatedSentence} /> */}
         <div>
             {currentSentenceIndex > 0 && (
                 <button onClick={goToPreviousIndex}>이전</button>

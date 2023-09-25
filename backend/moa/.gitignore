@@ -38,6 +38,7 @@ out/
 
 ### 환경 변수
 /src/main/resources/application-mail.yml
+/src/main/resources/application-papago.yml
 
 ### json 파일
 /src/main/resources/application-chat.yml
