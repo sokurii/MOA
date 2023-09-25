@@ -28,9 +28,9 @@ function ExchangeDiary(props) {
 
   const navigate = useNavigate();
 
-  const handleDiaryClick = (diary) => {
-    navigate(`/buddy/exchangediary/${diary.id}`, {
-      state: { diary }, // 다이어리 데이터를 state에 전달
+  const handleDiaryClick = (exchangeDiaryId) => {
+    navigate(`/buddy/exchangediary/${exchangeDiaryId}`, {
+      state: { exchangeDiaryId }, // 다이어리 데이터를 state에 전달
     });
   };
 
@@ -58,7 +58,7 @@ function ExchangeDiary(props) {
         const exchangeDiaryId = diary.exchangeDiaryId;
 
         return (
-          <div key={index} onClick={() => handleDiaryClick(diary)}>
+          <div key={index} onClick={() => handleDiaryClick(exchangeDiaryId)}>
             <DiaryItem
               exchangeDiaryId={exchangeDiaryId}
             />

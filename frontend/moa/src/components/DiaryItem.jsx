@@ -11,12 +11,14 @@ function DiaryItem({ exchangeDiaryId }) {
     diaryApi.getDiaryDetail(exchangeDiaryId)
     .then((response) => {
       const res = response.data;
-      const member = res.member;
+      const member = res.response.member;
       console.log(res);
+      console.log(member);
       setDiaryContent(res.exchangeDiaryContent);
       setImgUrl(res.exchangeDiaryImgUrl);
       setDate(res.exchangeDiaryDate);
       setName(member.memberName);
+
     })
     .catch((error) => {
       console.log('교환일기 상세조회 오류');

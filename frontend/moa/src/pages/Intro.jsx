@@ -4,8 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { userApi } from '../api/userApi';
 import Cookies from 'js-cookie';
 
+import { useAppDispatch } from '../store'; // useDispatch를 사용하는 부분을 변경
+import { setAccessToken } from '../store';
+
 function Intro(props) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   // 로그아웃 핸들러 함수
   const handleLogout = async () => {
@@ -15,7 +19,7 @@ function Intro(props) {
       if (response.data.success){
         console.log('로그아웃 성공');
         Cookies.remove('refreshToken');
-
+        dispatch(setAccessToken(null));
         navigate('/login');
       } else {
         console.error('로그아웃 오류:', response.data.error.message);

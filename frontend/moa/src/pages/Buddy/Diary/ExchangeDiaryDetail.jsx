@@ -1,31 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
+import { diaryApi } from '../../../api/diaryApi';
 
 import BackButton from '../../../components/BackButton';
 
-function ExchangeDiaryDetail(props) {
-  const location = useLocation();
-  const diary = location.state.diary; // state에서 다이어리 데이터 받아오기
+function ExchangeDiaryDetail({ exchangeDiaryId }) {
+  const [diaryContent, setDiaryContent] = useState('');
+  const [imgUrl, setImgUrl] = useState('');
+  const [date, setDate] = useState('');
+  const [name, setName] = useState('');
 
-  const id = diary.id;
-  const title = diary.title;
-  const content = diary.content;
-  const image = diary.image;
-  const date = diary.date;
-  const time = diary.time;
+  useEffect(() => {
+    diaryApi.getDiaryDetail(exchangeDiaryId)
+    .then((response) => {
+      const res = response.data;
+      const member = res.response.member;
+      console.log(res);
+      console.log(member);
+      setDiaryContent(res.exchangeDiaryContent);
+      setImgUrl(res.exchangeDiaryImgUrl);
+      setDate(res.exchangeDiaryDate);
+      setName(member.memberName);
+
+    })
+    .catch((error) => {
+      console.log('교환일기 상세조회 오류');
+      console.log(error);
+    });
+
+  }, [exchangeDiaryId]);
 
   const navigate = useNavigate();
 
   const handleUpdateExchangeDiaryClick = () => {
-    navigate(`/buddy/exchangediary/${id}/update`, {
-      state: { diary }, // 밸런스게임 데이터를 state에 전달
+    navigate(`/buddy/exchangediary/${exchangeDiaryId}/update`, {
+      state: { exchangeDiaryId }, // 밸런스게임 데이터를 state에 전달
     });
   };
 
   return (
     <div>
-      {id} 번 다이어리
+      {exchangeDiaryId} 번 다이어리
 
       <div>
         <button onClick={() => handleUpdateExchangeDiaryClick()}>수정하기</button>
@@ -33,17 +49,11 @@ function ExchangeDiaryDetail(props) {
       </div>
 
       <div>
-        {image}
+        <p>이미지 들어갈 자리</p>
       </div>
       <div>
         <div>
-          <h2>제목 : {title}</h2>
-        </div>
-        <div>
-          <h3>작성 시간 : {date} {time}</h3>
-        </div>
-        <div>
-          <h5>내용 : {content}</h5>
+          <h5>내용 : {diaryContent}</h5>
         </div>
       </div>
       <hr />
