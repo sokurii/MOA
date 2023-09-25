@@ -8,6 +8,13 @@ import BackButton from '../../../components/BackButton';
 import BalanceGameItem from '../../../components/BalanceGame/BalanceGameItem';
 import BestBalanceGameItem from '../../../components/BalanceGame/BestBalanceGameItem';
 
+const balanceGameListStyle = {
+  margin: '10px',
+  padding: '10px',
+  backgroundColor: 'lightgreen',
+  borderRadius: '5px',
+};
+
 function BalanceGame(props) {
   const [balanceGames, setBalanceGames] = useState([]);
   const [bestBalanceGames, setBestBalanceGames] = useState([]);
@@ -53,46 +60,55 @@ function BalanceGame(props) {
     <div>
       <BackButton />
       <h2>밸런스 게임</h2>
-
       <div>
         <h3>인기 밸런스 게임</h3>
-        {bestBalanceGames.map((bestBalanceGame, index) => {
-          const { balanceGameId, balanceGameTitle } = bestBalanceGame;
-
-          return (
-            <div key={index} onClick={() => handleBalanceGameClick(bestBalanceGame)}>
-              <BestBalanceGameItem 
-                balanceGameId={balanceGameId}
-                balanceGameTitle={balanceGameTitle}
-              />
-            </div>
-          )
-        })}
+        <div style={balanceGameListStyle}>
+          {bestBalanceGames.length === 0 ? (
+            <p>인기 밸런스 게임이 없습니다.</p>
+          ) : (
+            bestBalanceGames.map((bestBalanceGame, index) => {
+              const { balanceGameId, balanceGameTitle } = bestBalanceGame;
+  
+              return (
+                <div key={index} onClick={() => handleBalanceGameClick(bestBalanceGame)}>
+                  <BestBalanceGameItem 
+                    balanceGameId={balanceGameId}
+                    balanceGameTitle={balanceGameTitle}
+                  />
+                </div>
+              );
+            })
+          )}
+        </div>
       </div>
 
-      <br />
       <hr />
-      <br />
 
       <div>
         <h3>밸런스 게임 목록</h3>
-        <div>
-          <Link to="/buddy/balancegame/create">
-            <button>생성하기</button>
-          </Link>
-        </div>
-        {balanceGames.map((balanceGame, index) => {
-          const { balanceGameId, balanceGameTitle } = balanceGame;
+        <div style={balanceGameListStyle}>
+          <div>
+            <Link to="/buddy/balancegame/create">
+              <button>생성하기</button>
+            </Link>
+          </div>
+          {balanceGames.length === 0 ? (
+            <p>생성된 밸런스 게임이 없습니다.</p>
+          ) : (
+            balanceGames.map((balanceGame, index) => {
+              const { balanceGameId, balanceGameTitle } = balanceGame;
 
-          return (
-            <div key={index} onClick={() => handleBalanceGameClick(balanceGame)}>
-              <BalanceGameItem 
-                balanceGameId={balanceGameId}
-                balanceGameTitle={balanceGameTitle}
-              />
-            </div>
-          )
-        })}
+              return (
+                <div key={index} onClick={() => handleBalanceGameClick(balanceGame)}>
+                  <BalanceGameItem 
+                    balanceGameId={balanceGameId}
+                    balanceGameTitle={balanceGameTitle}
+                  />
+                </div>
+              );
+            })
+          )}
+        </div>
       </div>
     </div>
   );

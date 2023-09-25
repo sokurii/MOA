@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import BalanceGameResult from './BalanceGameResult';
-import LiveChatArea from './LiveChatArea';
+import BuddyChatArea from './BuddyChatArea';
 import ProgressBar from './ProgressBar';
 
 function BalanceGameModal({ balanceGameId, balanceGameList, time }) {
@@ -91,7 +91,7 @@ function BalanceGameModal({ balanceGameId, balanceGameList, time }) {
               )}
             </div>
           </div>
-          <LiveChatArea />
+          <BuddyChatArea />
         </div>
       ) : (
         <div>

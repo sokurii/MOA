@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { balanceGameApi } from '../../../api/balanceGameApi';
 
 import BackButton from '../../../components/BackButton';
-import LiveChatArea from '../../../components/BalanceGame/LiveChatArea';
+import BuddyChatArea from '../../../components/BalanceGame/BuddyChatArea';
 import BalanceGameModal from '../../../components/BalanceGame/BalanceGameModal';
 
 function BalanceGameDetail(props) {
@@ -119,9 +119,7 @@ function BalanceGameDetail(props) {
       </div>
 
       {/* 실시간 채팅 화면 */}
-      <div>
-        <LiveChatArea />
-      </div>
+      <BuddyChatArea />
 
       <hr />
 
