@@ -10,5 +10,6 @@ import java.util.List;
 public interface WordRepository extends JpaRepository<Word, Long> {
     List<Word> findByMember_MemberIdOrderByCreatedAtDesc(Long memberId);
     Long deleteByWordId(Long wordId);
+    Long deleteByMember_MemberIdAndWordName(Long memberId, String wordName);
     List<Word> findByMember_MemberIdAndWordName(Long memberId, String wordName);
 }

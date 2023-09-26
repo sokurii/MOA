@@ -58,8 +58,13 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public Long deleteArticle(Long articleId) {
-        return articleRepository.deleteByArticleId(articleId);
+    public Long deleteArticle(String type, Long memberId, Long articleId) {
+        if (type.equals("news")){
+            return articleRepository.deleteByMember_MemberIdAndArticleOriginId(memberId, articleId);
+        }
+        else{ // scrap
+            return articleRepository.deleteByArticleId(articleId);
+        }
     }
 
     @Override

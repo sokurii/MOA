@@ -61,6 +61,24 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
+    @Transactional
+    public Long deleteWordInNews(Long memberId, String wordName) {
+        return wordRepository.deleteByMember_MemberIdAndWordName(memberId, wordName);
+    }
+
+    @Override
+    @Transactional
+    public Long deleteWordAll(String type, Long memberId, Long wordId, String wordName) {
+        if (type.equals("news")){
+            return wordRepository.deleteByMember_MemberIdAndWordName(memberId, wordName);
+        }
+        else { // scrap
+            return wordRepository.deleteByWordId(wordId);
+        }
+    }
+
+
+    @Override
     public Long checkWord(Long memberId, String wordName) {
         List<Word> wordList = wordRepository.findByMember_MemberIdAndWordName(memberId, wordName);
 
@@ -70,4 +88,5 @@ public class WordServiceImpl implements WordService {
         }
         return result;
     }
+
 }

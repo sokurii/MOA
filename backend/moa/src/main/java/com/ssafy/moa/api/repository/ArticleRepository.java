@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findByMember_MemberIdOrderByCreatedAtDesc(Long memberId);
     Long deleteByArticleId(Long articleId);
+    Long deleteByMember_MemberIdAndArticleOriginId(Long memberId, Long articleId);
     List<Article> findByMember_MemberIdAndAndArticleOriginId(Long memberId, Long articleOriginId);
 }

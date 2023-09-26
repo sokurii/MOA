@@ -12,7 +12,11 @@ public interface WordService {
 
     WordDto getWord(Long wordId);
 
-    Long deleteWord(Long wordId);
+    Long deleteWord( Long wordId);
 
     Long checkWord(Long memberId, String wordName);
+
+    Long deleteWordInNews(Long memberId, String wordName);
+
+    Long deleteWordAll(String type, Long memberId, Long wordId, String wordName);
 }
