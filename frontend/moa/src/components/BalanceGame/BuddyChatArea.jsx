@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MyTalk from '../MyTalk';
 import OpponentTalk from '../OpponentTalk';
 
-function LiveChatArea() {
+function BuddyChatArea() {
   const [inputMyText, setInputMyText] = useState(''); // 나의 텍스트 입력 상태
   const [inputOpponentText, setInputOpponentText] = useState(''); // 상대방 텍스트 입력 상태
   const [messages, setMessages] = useState([]); // 대화 메세지 저장용
@@ -69,4 +69,4 @@ function LiveChatArea() {
   );
 }
 
-export default LiveChatArea;
+export default BuddyChatArea;

@@ -3,21 +3,38 @@ import BackButton from '../../components/BackButton';
 import OpenChattingList from '../../components/Chatting/OpenChattingList';
 import CreateOpenChatting from '../../components/Chatting/CreateOpenChatting';
 
-// const openChatModalStyle = {
-//   position: 'fixed',
-//   top: 0,
-//   right: '-100%', // 처음에는 오른쪽 화면 밖에 위치하도록 설정
-//   bottom: 0,
-//   width: '100%',
-//   overflow: 'auto',
-//   backgroundColor: 'white',
-//   transition: 'right 0.3s ease-in-out', // 부드러운 슬라이딩 애니메이션을 위한 설정
-//   zIndex: 999, // 다른 콘텐츠 위에 나타나도록 zIndex 설정
-// };
+const openChatPageStyle = {
+  background: 'linear-gradient(to bottom, #ffffff, silver)',
+  padding: '10px 0px',
+};
 
-// const modalOpenStyle = {
-//   right: 0, // 오른쪽에서 슬라이드되어 나타나도록 설정
-// };
+const inputStyle = {
+  display: 'block',  // 가운데 정렬
+  margin: '20px auto',
+  padding: '10px 20px',
+  width: '80%',
+  height: '40px',
+  backgroundColor: '#f2f2f2',
+  borderRadius: '32px',
+  border: 'none',
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+};
+
+const headerStyle = {
+  display: 'block',
+  margin: '20px',
+  padding: '10px',
+  textAlign: 'left',
+};
+
+const createOpenChatButtonStyle = {
+  background: 'linear-gradient(to bottom, lightgreen, green)',
+  color: 'white',
+  border: 'none',
+  padding: '10px 20px',
+  borderRadius: '32px',
+  cursor: 'pointer',
+};
 
 function OpenChattingModal(props) {
   // const modalStyle = props.isOpen ? { ...openChatModalStyle, ...modalOpenStyle } : openChatModalStyle;
@@ -33,15 +50,16 @@ function OpenChattingModal(props) {
   };
 
   return (
-    <div>
+    <div style={openChatPageStyle}>
     {/* <div style={modalStyle}> */}
       <BackButton />
-      <h3>오픈 채팅 목록</h3>
+      <h2 style={headerStyle}>오픈 채팅방 목록</h2>
+      <input
+        style={inputStyle}
+        type="text"
+        placeholder="Search" />
       <div>
-        <p>검색 input Component</p>
-      </div>
-      <div>
-        <button onClick={openCreateModal}>오픈채팅방 생성</button>
+        <button style={createOpenChatButtonStyle} onClick={openCreateModal}>오픈채팅방 생성</button>
       </div>
 
       <CreateOpenChatting isOpen={createModalOpen} onClose={closeCreateModal} />
