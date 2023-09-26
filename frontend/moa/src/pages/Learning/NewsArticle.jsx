@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { learningApi } from '../../api/learningApi';
 import styles from './NewsArticle.module.css'
+import { async } from 'q';
 
 function NewsArticle(props) {
 
@@ -20,6 +21,25 @@ function NewsArticle(props) {
 
     const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
     const [translatedSentence, setTranslatedSentence] = useState('');
+    const [isNewsScrap, setIsNewsScrap] = useState(null);
+
+    // 스크랩 여부 확인
+
+    useEffect(() => {
+        learningApi.getIsNewsScrap(1)
+            .then((response) => {
+                console.log(response.data.response);
+                if (response.data.response) {
+                    setIsNewsScrap(true);
+                }
+                else {
+                    setIsNewsScrap(false);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    })
 
     useEffect(() => {
         translateSentence(articleSentences[currentSentenceIndex]);
@@ -99,6 +119,7 @@ function NewsArticle(props) {
     // 녹음 기능 구현
 
 
+
     return (
         <div className={styles.container}>
             <img src="../../../assets/NewsArticle/background-img.png" className={styles.backgroundImg}></img>
@@ -111,9 +132,11 @@ function NewsArticle(props) {
             <button className={styles.recordSound}>
                 <img src="../../../assets/NewsArticle/record-sound.png"></img>
             </button>
-            <button className={styles.scrap}>
-                <img src="../../../assets/NewsArticle/scrap.png"></img>
-            </button>
+            {!isNewsScrap &&
+                <button className={styles.scrap}>
+                    <img src="../../../assets/NewsArticle/scrap.png"></img>
+                </button>
+            }
             <div className={styles.articleContent}>
                 <div className={styles.articleSentences}>
                     <div>

@@ -13,5 +13,8 @@ export const learningApi = {
 
         return nonAuthAxios.post(translateEndPoint, requestData);
 
-    }
+    },
+
+    // 스크랩 여부 확인
+    getIsNewsScrap : (articleOriginId) => authAxios.get(`scrap/news/check/${articleOriginId}`)
 }
