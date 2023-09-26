@@ -18,6 +18,7 @@ const inputStyle = {
   width: '90%',
   backgroundColor: '#f2f2f2',
   borderRadius: '32px',
+  border: 'none',
 };
 
 function ChattingArea({ openChatId }) {
@@ -132,10 +133,6 @@ function ChattingArea({ openChatId }) {
 
   return (
     <div style={chatContainerStyle}>
-      <div>
-        <h4>대화상대 이름</h4>
-      </div>
-      <hr />
       <div>
         {messages.map((message, index) =>
           message.sender === sender ? (

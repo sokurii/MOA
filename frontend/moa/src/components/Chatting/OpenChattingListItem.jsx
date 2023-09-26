@@ -34,7 +34,7 @@ const titleStyle = {
 };
 
 const memberCountStyle = {
-  paddingTop: '6px',
+  paddingTop: '5px',
   color: '#9D9D9D',
   fontSize: '20px',
   fontWeight: '700',

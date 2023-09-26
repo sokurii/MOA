@@ -51,8 +51,7 @@ function OpenChattingModal(props) {
 
   return (
     <div style={openChatPageStyle}>
-    {/* <div style={modalStyle}> */}
-      <BackButton />
+      <BackButton text='←' />
       <h2 style={headerStyle}>오픈 채팅방 목록</h2>
       <input
         style={inputStyle}
