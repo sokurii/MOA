@@ -11,12 +11,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ArticleReqDto {
+    private Long articleOriginId;
     private String articleTitle;
     private String articleContent;
     private String articleLink;
 
     @Builder
-    public ArticleReqDto(String articleTitle, String articleContent, String articleLink) {
+    public ArticleReqDto(Long articleOriginId, String articleTitle, String articleContent, String articleLink) {
+        this.articleOriginId = articleOriginId;
         this.articleTitle = articleTitle;
         this.articleContent = articleContent;
         this.articleLink = articleLink;
@@ -24,8 +26,9 @@ public class ArticleReqDto {
 
     @Override
     public String toString() {
-        return "ArticleDto{" +
-                "articleTitle='" + articleTitle + '\'' +
+        return "ArticleReqDto{" +
+                "articleOriginId=" + articleOriginId +
+                ", articleTitle='" + articleTitle + '\'' +
                 ", articleContent='" + articleContent + '\'' +
                 ", articleLink='" + articleLink + '\'' +
                 '}';

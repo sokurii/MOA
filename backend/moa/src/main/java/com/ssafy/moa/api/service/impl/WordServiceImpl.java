@@ -59,4 +59,15 @@ public class WordServiceImpl implements WordService {
     public Long deleteWord(Long wordId) {
         return wordRepository.deleteByWordId(wordId);
     }
+
+    @Override
+    public Long checkWord(Long memberId, String wordName) {
+        List<Word> wordList = wordRepository.findByMember_MemberIdAndWordName(memberId, wordName);
+
+        Long result = 0L;
+        if(wordList.size()!=0){
+            result = 1L;
+        }
+        return result;
+    }
 }

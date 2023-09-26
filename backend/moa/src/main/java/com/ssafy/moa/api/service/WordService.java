@@ -13,4 +13,6 @@ public interface WordService {
     WordDto getWord(Long wordId);
 
     Long deleteWord(Long wordId);
+
+    Long checkWord(Long memberId, String wordName);
 }

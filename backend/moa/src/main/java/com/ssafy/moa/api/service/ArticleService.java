@@ -13,4 +13,6 @@ public interface ArticleService {
     ArticleDto getArticle(Long articleId);
 
     Long deleteArticle(Long articleId);
+
+    Long checkArticle(Long memberId, Long articleOriginId);
 }

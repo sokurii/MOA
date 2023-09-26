@@ -19,6 +19,10 @@ public class Article {
     private Long articleId;
 
     @NotNull
+    @Column(name = "article_origin_id")
+    private Long articleOriginId;
+
+    @NotNull
     @Column(name = "article_title")
     private String articleTitle;
 
@@ -39,14 +43,16 @@ public class Article {
     private Member member;
 
     @Builder
-    public Article(Long articleId, @NotNull String articleTitle, @NotNull String articleContent, @NotNull String articleLink, Member member) {
+    public Article(Long articleId, @NotNull Long articleOriginId, @NotNull String articleTitle, @NotNull String articleContent, @NotNull String articleLink, @NotNull LocalDateTime createdAt, Member member) {
         this.articleId = articleId;
+        this.articleOriginId = articleOriginId;
         this.articleTitle = articleTitle;
         this.articleContent = articleContent;
         this.articleLink = articleLink;
         this.createdAt = LocalDateTime.now();
         this.member = member;
     }
+
 
     @Override
     public String toString() {

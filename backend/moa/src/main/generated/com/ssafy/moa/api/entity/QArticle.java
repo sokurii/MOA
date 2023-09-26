@@ -28,6 +28,8 @@ public class QArticle extends EntityPathBase<Article> {
 
     public final StringPath articleLink = createString("articleLink");
 
+    public final NumberPath<Long> articleOriginId = createNumber("articleOriginId", Long.class);
+
     public final StringPath articleTitle = createString("articleTitle");
 
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
