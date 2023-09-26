@@ -81,10 +81,10 @@ function CreateOpenChatting(props) {
   const [openChatContent, setOpenChatContent] = useState('');
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 변경
 
-  const state = store.getState();
-  const accessToken = state.accessToken;
+  // const state = store.getState();
+  // const accessToken = state.accessToken;
 
-  console.log(accessToken);
+  // console.log(accessToken);
 
   const navigate = useNavigate();
 
@@ -131,7 +131,8 @@ function CreateOpenChatting(props) {
       .catch((error) => {
         console.log('오픈채팅방 생성 에러 발생');
         console.log(error);
-      });
+      }
+    );
   };
 
   return (
