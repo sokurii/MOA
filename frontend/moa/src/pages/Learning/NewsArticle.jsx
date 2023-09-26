@@ -14,6 +14,10 @@ function NewsArticle(props) {
         "지금까지 보여 드린 모습과는 다른 성한빈의 다양한 매력을 보여드릴 테니 제로즈(공식 팬덤명) 분들도 많이 기대해 주셨으면 한다라고 소감을 전했다."
     ]
 
+    const articleWords = [
+        "신인", "시청자", "소속사", "꿈", "영광", "행복", "동료", "성장", "모습", "기대", "소감"
+    ]
+
     const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
     const [translatedSentence, setTranslatedSentence] = useState('');
 
@@ -31,6 +35,17 @@ function NewsArticle(props) {
         if (currentSentenceIndex > 0) {
             setCurrentSentenceIndex(currentSentenceIndex - 1);
         }
+    }
+
+    // 정규 표현식을 사용하여 문장을 단어로 분리
+    const splitSentenceIntoWords = (sentence) => {
+        return sentence.split(/\s+/);
+    }
+
+    // 문장 단어를 받아 일치 여부 확인
+    const isWordMatching = (sentence, word) => {
+        const wordsInSentence = splitSentenceIntoWords(sentence);
+        return wordsInSentence.some((w) => w.includes(word));
     }
 
     // 번역
@@ -101,7 +116,16 @@ function NewsArticle(props) {
             </button>
             <div className={styles.articleContent}>
                 <div className={styles.articleSentences}>
-                    <div>{articleSentences[currentSentenceIndex]} </div>
+                    <div>
+                        {splitSentenceIntoWords(articleSentences[currentSentenceIndex]).map((word, index) => (
+                            <span
+                                key={index}
+                                className={articleWords.some((highlightWord) =>
+                                    isWordMatching(word, highlightWord)
+                                )
+                                    ? styles.highlightWord : ''}>{word}{' '}</span>
+                        ))}
+                    </div>
                     <div>{translatedSentence} </div>
                 </div>
             </div>
