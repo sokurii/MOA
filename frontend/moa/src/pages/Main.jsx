@@ -24,7 +24,7 @@ function Main(props) {
         </Link>
       </div>
       <div>
-        <Link to="/koreanlearning">
+        <Link to="/koreanlearning/default">
           <button>뉴스 보기</button>
         </Link>
         <Link to="/quiz">

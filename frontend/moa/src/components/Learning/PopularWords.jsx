@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
-import PopularWordsItem from './PopularWordsItem';
+import './PopularWordsItem';
 
 function PopularWords(props) {
   const [ popularWords, setPopularWords ] = useState([

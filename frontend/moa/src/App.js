@@ -13,6 +13,7 @@ import OpenChattingModal from './pages/Chatting/OpenChattingModal';
 import OpenChattingDetail from './pages/Chatting/OpenChattingDetail';
 import KoreanLearning from './pages/Learning/KoreanLearning';
 import LearningKeyword from './pages/Learning/LearningMyKeyword';
+import WordLearning from './pages/Learning/WordLearning';
 import KoreanLearningDefault from './pages/Learning/KoreanLearningDefault';
 import QnABoard from './pages/QnA/QnABoard';
 import Quiz from './pages/Quiz/Quiz';
@@ -59,6 +60,7 @@ function App() {
           <Route path="/chatting/openchat/:id" element={<OpenChattingDetail />}/>
 
           <Route path="/koreanlearning" element={<KoreanLearning />} />
+          <Route path="/koreanlearning/word" element={<WordLearning />} />
           <Route path='/koreanlearning/article' element= {<NewsArticle />} />
           <Route path='/koreanlearning/keyword' element= {<LearningKeyword />} />
           <Route path='/koreanlearning/default' element= {<KoreanLearningDefault />} />

@@ -1,11 +1,21 @@
 import React from 'react';
+import News from '../../styles/Learning/relatedNews.css';
 
 function RelatedNews(props) {
   return (
     <div>
-      <h3>Related News</h3>
-      <div>
-        <p>관련 뉴스 item </p>
+      <div className='container'>
+        <div>
+          <div className='news-number-box'>
+            <div className='news-number'>1</div>
+          </div>
+          남해 부는 '노르딕워킹' 바람, 심상치 않다
+          
+        </div>
+
+      </div>
+      <div className='container'>
+        
       </div>
     </div>
   );

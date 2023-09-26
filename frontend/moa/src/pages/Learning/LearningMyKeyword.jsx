@@ -4,7 +4,7 @@ import KeywordAdd from '../../components/Learning/KeywordAdd';
 import News from '../../styles/Learning/news.css';
 import { Link } from 'react-router-dom';
 
-function KoreanLearning(props) {
+function LearningKeyword(props) {
   return (
     <div >
       <Logo />
@@ -30,4 +30,4 @@ function KoreanLearning(props) {
   );
 }
 
-export default KoreanLearning;
+export default LearningKeyword;
