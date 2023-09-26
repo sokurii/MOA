@@ -1,0 +1,177 @@
+/* NewsArticle.css */
+
+.container {
+    position: relative;
+    width: 390px;
+    height: 844px;
+    background: linear-gradient(180deg, rgba(49, 116, 248, 0.25) 8.12%, rgba(114, 159, 245, 0) 81.04%), #FFFFFF;
+}
+
+.backgroundImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.articleContent {
+    position: absolute;
+    width: 390px;
+    height: 567px;
+    left: 0px;
+    top: 277px;
+
+    background: #FFFFFF;
+    border-radius: 40px 40px 0px 0px;
+}
+
+.articleTitle {
+    position: absolute;
+    width: 328px;
+    height: 81px;
+    left: 31px;
+    top: 93px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+
+    color: #2C432E;
+}
+
+.articleSentences {
+    position: absolute;
+    width: 328px;
+    height: 342px;
+    left: calc(50% - 328px/2 - 2px);
+    top: 50px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 126.34%;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    /* 요소들을 수직으로 정렬 */
+    gap: 30px;
+    /* 요소들 간의 간격 (최신 브라우저에서 지원) */
+}
+
+.pageMoving {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 0px;
+    gap: 74px;
+
+    position: relative;
+    width: 329px;
+    height: 39px;
+    left: 31px;
+    top: 745px;
+
+    background: linear-gradient(90deg, #D1E0FD 15.94%, rgba(255, 255, 255, 0) 51.56%, #D1E0FD 85.21%);
+    border-radius: 16px;
+}
+
+.pageButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    height: 37px;
+
+    border-radius: 20px;
+    border: none;
+    background-color: transparent;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+}
+
+.pageNumber {
+    width: 29px;
+    height: 17px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    color: #000000;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.listenToSound {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    left: 31px;
+    top: 210px;
+
+    background: #FFFFFF;
+    border: 2.37209px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 10.6744px 10.6744px 18.9767px rgba(177, 200, 244, 0.6), -10.6744px -10.6744px 18.9767px rgba(255, 255, 255, 0.6);
+    border-radius: 23.7209px;
+}
+
+.recordSound {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    left: 101px;
+    top: 210px;
+
+    background: #FFFFFF;
+    border: 2.37209px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 10.6744px 10.6744px 18.9767px rgba(177, 200, 244, 0.6), -10.6744px -10.6744px 18.9767px rgba(255, 255, 255, 0.6);
+    border-radius: 23.7209px;
+}
+
+.scrap {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    left: 308px;
+    top: 210px;
+
+    background: #FFFFFF;
+    border: 2.37209px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 10.6744px 10.6744px 18.9767px rgba(177, 200, 244, 0.6), -10.6744px -10.6744px 18.9767px rgba(255, 255, 255, 0.6);
+    border-radius: 23.7209px;
+}
+
+.articleDate {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 8px;
+    gap: 10px;
+
+    position: absolute;
+    width: 62.55px;
+    height: 21px;
+    left: 270px;
+    top: 171px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 15px;
+    color: #B1B1B1;
+}
