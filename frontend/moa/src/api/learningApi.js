@@ -16,5 +16,8 @@ export const learningApi = {
     },
 
     // 스크랩 여부 확인
-    getIsNewsScrap : (articleOriginId) => authAxios.get(`scrap/news/check/${articleOriginId}`)
+    getIsNewsScrap : (articleOriginId) => authAxios.get(`scrap/news/check/${articleOriginId}`),
+
+    // 스크랩 등록
+    createNewsScrap : (data) => authAxios.post('scrap/news', data),
 }
