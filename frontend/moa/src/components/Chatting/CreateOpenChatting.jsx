@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { openChatApi } from '../../api/chatApi';
 
+import store from '../../store';
+
 import { useNavigate } from 'react-router-dom';
 
 import CloseButton from '../CloseButton';
@@ -79,6 +81,11 @@ function CreateOpenChatting(props) {
   const [openChatContent, setOpenChatContent] = useState('');
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 변경
 
+  const state = store.getState();
+  const accessToken = state.accessToken;
+
+  console.log(accessToken);
+
   const navigate = useNavigate();
 
   const handleTitleChange = (e) => {
@@ -133,7 +140,7 @@ function CreateOpenChatting(props) {
       <h2 style={headerStyle}>오픈채팅방 생성</h2>
 
       <div style={inputContainerStyle}>
-        <label style={labelStyle} for="file">
+        <label style={labelStyle} htmlFor="file">
           <div>
             이미지 업로드
           </div>

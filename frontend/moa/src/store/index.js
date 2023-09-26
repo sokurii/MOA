@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // 초기 상태
 const initialState = {
   // 임시로 하드코딩 적용(로그인 시 토큰 자동 저장하는 식으로 바꿀 예정)
-  accessToken: null,
+  accessToken: localStorage.getItem('accessToken') || null,
 };
 
 // Actions
@@ -17,6 +17,8 @@ export const setAccessToken = (accessToken) => ({ type: SET_ACCESS_TOKEN, access
 const accessTokenReducer = (state = initialState.accessToken, action) => {
   switch (action.type) {
     case SET_ACCESS_TOKEN:
+      // Local Storage에도 저장
+      localStorage.setItem('accessToken', action.accessToken);
       return action.accessToken;
     default:
       return state;
