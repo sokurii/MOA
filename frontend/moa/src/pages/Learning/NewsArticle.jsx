@@ -45,20 +45,22 @@ function NewsArticle(props) {
 
     // 스크랩 여부 확인
     useEffect(() => {
-        learningApi.getIsNewsScrap(1) // 나중에 articleId 값 받아오면 넣어주기 
-            .then((response) => {
-                console.log(response.data.response);
-                if (response.data.response) {
-                    setIsNewsScrap(true);
-                }
-                else {
-                    setIsNewsScrap(false);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }, [])
+        if (articleContent !== '') {
+            learningApi.getIsNewsScrap(1) // 나중에 articleId 값 받아오면 넣어주기 
+                .then((response) => {
+                    console.log(response.data.response);
+                    if (response.data.response) {
+                        setIsNewsScrap(true);
+                    }
+                    else {
+                        setIsNewsScrap(false);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+    }, [articleContent])
 
     useEffect(() => {
         if (articleSentences.length > 0) {
