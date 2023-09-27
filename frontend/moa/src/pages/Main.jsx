@@ -3,7 +3,28 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 import AppBar from '../components/AppBar';
+import MainArea from '../components/MainArea';
+import BottomBar from '../components/BottomBar';
 import BackButton from '../components/BackButton';
+
+const mainPageStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '100vh',
+};
+
+const mainAreaContainerStyle = {
+  marginBottom: '64px',
+}
+
+const bottomBarContainerStyle = {
+  position: 'fixed',
+  bottom: '0',
+  left: '0',
+  right: '0',
+  width: '100%',
+  boxSizing: 'border-box',
+};
 
 function Main(props) {
   const isLoggedIn = props.inLoggedIn;
@@ -17,35 +38,20 @@ function Main(props) {
   // }, []);
 
   return (
-    <div>
+    <div style={mainPageStyle}>
       <AppBar />
+      {/* 첫 화면 이동을 위해 임시로 만든 버튼 */}
       <div>
-        <Link to="/chatting">
-          <button>채팅</button>
+        <Link to="/intro">
+          <button>첫 화면으로 이동</button>
         </Link>
       </div>
-      <div>
-        <Link to="/koreanlearning/default">
-          <button>뉴스 보기</button>
-        </Link>
-        <Link to="/quiz">
-          <button>퀴즈 풀기</button>
-        </Link>
-        <Link to="/qna-board">
-          <button>질문하기</button>
-        </Link>
-
-        <Link to="/buddy">
-          <button>버디랑 놀기</button>
-        </Link>
-
-        {/* 첫 화면 이동을 위해 임시로 만든 버튼 */}
-        <div>
-          <Link to="/intro">
-            <button>첫 화면으로 이동</button>
-          </Link>
-        </div>
-        {/* <BackButton /> */}
+      <div style={mainAreaContainerStyle}>
+        <MainArea />
+      </div>
+      {/* bottombar */}
+      <div style={bottomBarContainerStyle}>
+        <BottomBar />
       </div>
     </div>
   );

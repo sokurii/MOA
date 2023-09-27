@@ -7,7 +7,7 @@ import Main from './pages/Main';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Matching from './pages/Matching';
-import ChattingHome from './pages/Chatting/ChattingHome';
+import ChattingHome from './components/ChattingHome';
 import BuddyChattingModal from './pages/Chatting/BuddyChattingModal';
 import OpenChattingModal from './pages/Chatting/OpenChattingModal';
 import OpenChattingDetail from './pages/Chatting/OpenChattingDetail';
@@ -16,9 +16,9 @@ import LearningKeyword from './pages/Learning/LearningMyKeyword';
 import WordLearning from './pages/Learning/WordLearning';
 import KoreanLearningDefault from './pages/Learning/KoreanLearningDefault';
 import QnABoard from './pages/QnA/QnABoard';
-import Quiz from './pages/Quiz/Quiz';
+import Quiz from './components/QuizHome';
 import IncorrectNote from './pages/Quiz/IncorrectNote';
-import BuddyHome from './pages/Buddy/BuddyHome';
+import BuddyHome from './components/BuddyHome';
 import ExchangeDiary from './pages/Buddy/Diary/ExchangeDiary';
 import ExchangeDiaryDetail from './pages/Buddy/Diary/ExchangeDiaryDetail';
 import CreateExchangeDiary from './pages/Buddy/Diary/CreateExchangeDiary';
@@ -33,21 +33,12 @@ import RelatedNews from './components/Learning/RelatedNews';
 import NewsArticle from './pages/Learning/NewsArticle';
 
 function App() {
-  
-  const [isLoggedIn, setIsLoggedIn] = useState(false);  // 로그인 여부 확인
-
-  return (
+    return (
     
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route
-            path="/"
-            element=
-              {<Main 
-                isLoggedIn={isLoggedIn}
-              />}
-          />
+          <Route path="/" element={<Main />} />
           <Route path="/intro" element={<Intro />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />

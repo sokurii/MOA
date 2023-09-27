@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import BackButton from '../../components/BackButton';
-import BuddyChattingModal from './BuddyChattingModal';
-import OpenChattingModal from './OpenChattingModal';
+import BuddyChattingModal from '../pages/Chatting/BuddyChattingModal';
+import OpenChattingModal from '../pages/Chatting/OpenChattingModal';
 
 function ChattingHome(props) {
   const [isBuddyChattingModalOpen, setIsBuddyChattingModalOpen] = useState(false);
@@ -27,7 +26,6 @@ function ChattingHome(props) {
 
   return (
     <div>
-      <BackButton />
       <p>채팅 페이지</p>
       <div>
         <Link to="/chatting/buddy">

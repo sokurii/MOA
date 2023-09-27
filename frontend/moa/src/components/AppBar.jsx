@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MoaLogo from '../assets/Logo/MoaLogo.png';
 
 const appBarStyle = {
   padding: '0 10px',
@@ -25,7 +24,7 @@ function AppBar(props) {
   return (
     <div style={appBarStyle}>
       <Link style={imgContainerStyle} to="/">
-        <img style={imgStyle} src={MoaLogo} alt="로고" />
+        <img style={imgStyle} src={process.env.PUBLIC_URL + '/assets/Logo/MoaLogo.png'} alt="로고" />
       </Link>
     </div>
   );

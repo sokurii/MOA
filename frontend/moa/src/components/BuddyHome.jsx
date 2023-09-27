@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-import BackButton from '../../components/BackButton';
+import BackButton from './BackButton';
 
 function WithBuddy(props) {
   return (

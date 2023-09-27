@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import BackButton from '../../components/BackButton';
-import QuestionModal from '../../components/Quiz/QuestionModal';
+import BackButton from './BackButton';
+import QuestionModal from './Quiz/QuestionModal';
 
 function Quiz(props) {
   const [questions, setQuestions] = useState([]);
@@ -26,7 +26,6 @@ function Quiz(props) {
 
   return (
     <div>
-      <BackButton />
       <h1>일상 한국어 배우기</h1>
       <div>
         <button onClick={openModal}>단어 맞추기</button>
