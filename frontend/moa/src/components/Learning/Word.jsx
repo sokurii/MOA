@@ -1,27 +1,27 @@
 import React from 'react';
-import News from '../../styles/Learning/word.css';
+import News from '../../styles/Learning/Word.module.css';
 
-const logoStyle = {
-    width: '50%',
-};
+// const logoStyle = {
+//     width: '50%',
+// };
 
 function WordLogo(props) {
   return (
-    <div className='middle-container'>
-        <div className='middle-top'>
+    <div className={News.middleContainer}>
+        <div className={News.middleTop}>
             <div>
-                <div className='font-container'>
-                    <div className='top-left-font'> 해양치유</div>
-                    <div className='top-right-font'>  &nbsp; marine therapy</div> <br />
+                <div className={News.fontContainer}>
+                    <div className={News.topLeftFont}> 해양치유</div>
+                    <div className={News.topRightFont}>  &nbsp; marine therapy</div> <br />
                 </div>
-                <div className='font-br-container top-left-font'>[Yeshi dan-eo]</div>
+                <div className={News.topLeftFont}>[Yeshi dan-eo]</div>
             </div>
-            <button className='sound-container'>
-                <img className='sound-img' src="../../../assets/news/volumeHigh.png" alt=""></img>
+            <button className={News.soundContainer}>
+                <img className={News.soundImg} src="../../../assets/news/volumeHigh.png" alt=""></img>
             </button>
         </div>
-        <button className='ask-button'>
-            <div className='ask-font'>Ask to AI</div>
+        <button className={News.askButton}>
+            <div className={News.askFont}>Ask to AI</div>
         </button>
     </div>
   );

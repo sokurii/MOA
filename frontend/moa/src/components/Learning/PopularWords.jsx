@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './PopularWordsItem';
+import Word from '../../styles/Learning/PopularWords.module.css';
 
 function PopularWords(props) {
   const [ popularWords, setPopularWords ] = useState([
@@ -15,9 +15,9 @@ function PopularWords(props) {
 
         return (
           <div key={index}>
-            <button className='word-btn'>
-              <div className='word-bold'> {word} </div> 
-              <div className='word-right'> {percentage}% </div>
+            <button className={Word.wordBtn}>
+              <div className={Word.wordBold}> {word} </div> 
+              <div className={Word.wordRight}> {percentage}% </div>
             </button>
           </div>
         );

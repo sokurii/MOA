@@ -1,11 +1,11 @@
-.top-container {
+.topContainer {
     position: relative;
     width: 412px;
     height: 104px;
     box-shadow: 4px 4px 16px rgba(181, 178, 178, 0.25), -4px -4px 16px #F0FFF3;
 }
 
-.left-wrap {
+.leftWrap {
     position: absolute;
     top: 70%;
     left: 10%;
@@ -13,7 +13,7 @@
     transform: translate(-10%, -70%);
 }
 
-.right-wrap {
+.rightWrap {
     position: absolute;
     top: 70%;
     left: 50%;
@@ -21,7 +21,7 @@
     font-size: 20px;
 }
 
-.middle-container {
+.middleContainer {
     position: relative;
     width: 350px;
     height: 168px;
@@ -31,34 +31,34 @@
     margin: 17px auto;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
 }
-.middle-top {
+.middleTop {
     display: flex;
     flex-direction: row;
 }
 
-.font-container {
+.fontContainer {
     display: flex;
     margin-left: 32px;
     padding-top: 30px;
     align-items: flex-end;
 }
-.font-br-container {
+.fontBrContainer {
     display: flex;
     margin-left: 32px;
     align-items: flex-end;
 }
 
-.top-left-font {
+.topLeftFont {
     color: #2C432E;
     font-size: 20px;
 }
 
-.top-right-font {
+.topRightFont {
     color: #2C432E;
     font-size: 14px;
 }
 
-.sound-container {
+.soundContainer {
     margin-left: 41px;
     width: 51px;
     height: 51px;
@@ -70,12 +70,12 @@
     border-radius: 23.7209px;
 }
 
-.sound-img {
+.soundImg {
     width: 27.5px;
     height: 20.119px;
 }
 
-.ask-button {
+.askButton {
     width: 286px;
     height: 39px;
     margin-top: 18px;
@@ -90,7 +90,7 @@
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
-.ask-font {
+.askFont {
     color: #FFF;
     font-size: 16px;
 }

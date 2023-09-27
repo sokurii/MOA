@@ -1,8 +1,8 @@
-.news-container {
+.newsContainer {
     display: flex;
 }
 
-.news-number-box {
+.NumberBox {
     width: 7px;
     padding: 3px 10px;
     flex-direction: column;
@@ -13,7 +13,7 @@
     background: #0980D0;   
 }
 
-.news-number {
+.newsNumber {
     color: #FFF;
     font-size: 14px;
     font-style: normal;

@@ -1,4 +1,4 @@
-.default-font {
+.font {
     margin-top: 43px;
     margin-left: 30px;
     text-align: left;
@@ -6,11 +6,11 @@
     font-size: 20px;
 }
 
-.wrap-container {
+.container {
     position : relative;
 }
 
-.keyword-btn {
+.btn {
     position: absolute;
     width: 270px;
     height: 48px;

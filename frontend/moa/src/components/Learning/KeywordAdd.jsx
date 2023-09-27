@@ -1,10 +1,10 @@
 import React from 'react';
-import News from '../../styles/Learning/news.css';
+import News from '../../styles/Learning/KeywordAdd.module.css';
 
 function KeywordItem(props) {
   return (
-    <div className='display-middle'>
-      <div className='container'>해양</div>
+    <div className={News.displayMiddle}>
+      <div className={News.container}>해양</div>
     </div>
   );
 }

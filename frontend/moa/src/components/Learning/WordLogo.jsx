@@ -1,5 +1,5 @@
 import React from 'react';
-import News from '../../styles/Learning/word.css';
+import News from '../../styles/Learning/Word.module.css';
 
 const logoStyle = {
     width: '50%',
@@ -7,9 +7,9 @@ const logoStyle = {
 
 function WordLogo(props) {
   return (
-    <div className='top-container'>
-        <div className='left-wrap'> {'<'} </div>
-        <div className='right-wrap'>단어보기</div>
+    <div className={News.topContainer}>
+        <div className={News.leftWrap}> {'<'} </div>
+        <div className={News.rightWrap}>단어보기</div>
     </div>
   );
 }

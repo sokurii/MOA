@@ -1,0 +1,49 @@
+.font {
+    margin: 0 20px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.middleFont {
+    margin-left: 20px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.display{
+    margin-top: 42px;
+}
+
+.container {
+    margin: 0 auto;
+    width: 350px;
+    height: 55px;
+    border-radius: 18px;
+    box-shadow: 5px 5px 5px #F3F9FF;
+    line-height: 55px;
+}
+
+.btn {
+    margin-left: 20px;
+    width: 350px;
+    height: 56px;
+    border: none;
+    color: #FFFFFF;
+    font-size: 18px;
+    margin-top: 22px;
+    border-radius: 18px;
+    background: linear-gradient(132.52deg, #B5CCF9 -0.88%, #6C99F0 126.31%);
+}
+
+.keywordBtn {
+    width: 350px;
+    height: 56px;
+    border: none;
+    color: #2C432E;
+    margin-left: 20px;
+    font-size: 18px;
+    margin-top: 22px;
+    border-radius: 18px;
+    background: rgba(203, 220, 253, 0.79);
+}

@@ -1,0 +1,14 @@
+.display-middle{
+    display: flex;
+    margin-top: 18px;
+    margin-left: 20px;
+}
+
+.container {
+    margin: 0 auto;
+    width: 350px;
+    height: 55px;
+    border-radius: 18px;
+    box-shadow: 5px 5px 5px #F3F9FF;
+    line-height: 55px;
+}

@@ -1,0 +1,27 @@
+.displayPlus {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    margin-top: 10%;
+}
+.displayPlusFont{
+    font-weight: bold;
+    font-size: 20px;
+}
+.displayPlusRightFont{
+    font-size: 14px;
+    margin-left: 190px;
+    align-items: flex-end;
+}
+
+.font {
+    margin-left: 20px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+.display{
+    margin-top: 42px;
+}
