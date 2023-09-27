@@ -6,17 +6,8 @@ import ArticleModal from '../../components/Learning/ArticleModal';
 
 function NewsArticle(props) {
 
-
-    const articleSentences = [
-        "신인 보이그룹 제로베이스원(ZEROBASEONE) 리더 성한빈이 엠넷 음악방송 '엠카운트다운' 새 MC가 됐다.",
-        "소속사 웨이크원은 성한빈이 '엠카운트다운'의 새 MC가 되어 오는 7일 방송부터 시청자들을 만난다고 1일 밝혔다.",
-        "성한빈은 소속사를 통해 어릴 때부터 '엠카운트다운'을 보면서 꿈을 키워 왔는데 MC로 시청자분들을 뵙게 되어 영광이고, 행복하다. ",
-        "많은 선배님들과 동료분들을 가까이서 만나서 더 많이 배우고 성장할 수 있을 것 같아 기대된다.",
-        "지금까지 보여 드린 모습과는 다른 성한빈의 다양한 매력을 보여드릴 테니 제로즈(공식 팬덤명) 분들도 많이 기대해 주셨으면 한다라고 소감을 전했다."
-    ]
-
     const articleWords = [
-        "신인", "시청자", "소속사", "꿈", "영광", "행복", "동료", "성장", "모습", "기대", "소감"
+        "법원", "출석", "단식"
     ]
 
     const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
@@ -26,10 +17,35 @@ function NewsArticle(props) {
     const [isModalOpen, setIsModalOpen] = useState(false); //모달 관련
     const [clickWord, setClickWord] = useState(null);
 
-    // 스크랩 여부 확인
+    const [articleId, setArticleId] = useState(null);
+    const [articleTitle, setArticleTitle] = useState('');
+    const [articleContent, setArticleContent] = useState('');
+    const [articleSentences, setArticleSentences] = useState([]);
+    const [articleDate, setArticleDate] = useState('');
+    const [articleUrl, setArticleUrl] = useState('');
 
     useEffect(() => {
-        learningApi.getIsNewsScrap(3)
+        learningApi.getNews(1)
+            .then((response) => {
+                const newsData = response.data;
+                setArticleId(newsData.article_id);
+                setArticleTitle(newsData.title);
+                setArticleContent(newsData.content);
+                setArticleDate(newsData.date);
+                setArticleUrl(newsData.url);
+
+                const sentences = splitTextIntoSentences(newsData.content);
+                setArticleSentences(sentences);
+            })
+            .catch((error) => {
+                console.error('기사 조회 에러', error);
+            })
+    }, []);
+
+
+    // 스크랩 여부 확인
+    useEffect(() => {
+        learningApi.getIsNewsScrap(1) // 나중에 articleId 값 받아오면 넣어주기 
             .then((response) => {
                 console.log(response.data.response);
                 if (response.data.response) {
@@ -42,10 +58,18 @@ function NewsArticle(props) {
             .catch((error) => {
                 console.log(error);
             })
-    })
+    }, [])
 
     useEffect(() => {
-        translateSentence(articleSentences[currentSentenceIndex]);
+        if (articleSentences.length > 0) {
+            translateSentence(articleSentences[0]);
+        }
+    }, [articleSentences])
+
+    useEffect(() => {
+        if (articleSentences.length > 0) {
+            translateSentence(articleSentences[currentSentenceIndex]);
+        }
     }, [currentSentenceIndex]);
 
     const goToNextIndex = () => {
@@ -60,9 +84,17 @@ function NewsArticle(props) {
         }
     }
 
+    const splitTextIntoSentences = (text) => {
+        const sentences = text.split('.');
+        return sentences.filter((sentence) => sentence.trim() !== '')
+            .map((sentence) => sentence.trim() + '.');
+    }
+
     // 정규 표현식을 사용하여 문장을 단어로 분리
     const splitSentenceIntoWords = (sentence) => {
-        return sentence.split(/\s+/);
+        if (typeof sentence === 'string') {
+            return sentence.split(/\s+/);
+        }
     }
 
     // 문장 단어를 받아 일치 여부 확인
@@ -134,22 +166,32 @@ function NewsArticle(props) {
     // 스크랩 
     const createNewsScrap = () => {
         const data = {
-            // 나중에 useState로 관리하기
-            articleOriginId: 3,
-            articleTitle: "제로베이스원 리더 성한빈, '엠카' 새 MC",
-            articleContent: "TEST",
-            articleLink: "https://www.nocutnews.co.kr/news/6004744",
+            articleOriginId: articleId,
+            articleTitle: articleTitle,
+            articleContent: articleContent,
+            articleLink: articleUrl,
         }
 
         learningApi.createNewsScrap(data)
             .then((response) => {
                 console.log(response);
-                alert('스크랩 완료');
                 setIsNewsScrap(true);
             })
             .catch((error) => {
                 console.log("뉴스스크랩 오류 발생");
                 console.error(error);
+            })
+    }
+
+    // 스크랩 삭제
+    const deleteNewsScrap = () => {
+        learningApi.deleteNewsScrap(articleId)
+            .then((response) => {
+                console.log(response);
+                setIsNewsScrap(false);
+            })
+            .catch((error) => {
+                console.error('스크랩 삭제 오류 발생', error);
             })
     }
 
@@ -174,8 +216,8 @@ function NewsArticle(props) {
 
             <img src="../../../assets/NewsArticle/background-img.png" className={styles.backgroundImg}></img>
 
-            <div className={styles.articleTitle}>제로베이스원 리더 성한빈, '엠카' 새 MC</div>
-            <div className={styles.articleDate}>2023.09.24</div>
+            <div className={styles.articleTitle}>{articleTitle}</div>
+            <div className={styles.articleDate}>{articleDate}</div>
             <button className={styles.listenToSound} onClick={() =>
                 speech(articleSentences[currentSentenceIndex])}>
                 <img src="../../../assets/NewsArticle/listen-to-sound.png" alt=""></img>
@@ -191,14 +233,16 @@ function NewsArticle(props) {
             }
             {isNewsScrap &&
                 <button className={styles.scrap}
-                    onClick={createNewsScrap}>
+                    onClick={deleteNewsScrap}
+                >
                     <img src="../../../assets/NewsArticle/scrap_complete.png"></img>
                 </button>
             }
+
             <div className={styles.articleContent}>
                 <div className={styles.articleSentences}>
                     <div>
-                        {splitSentenceIntoWords(articleSentences[currentSentenceIndex]).map((word, index) => {
+                        {articleSentences[currentSentenceIndex] && splitSentenceIntoWords(articleSentences[currentSentenceIndex]).map((word, index) => {
                             const matchingWord = articleWords.find((highlightWord) =>
                                 isWordMatching(word, highlightWord)
                             );
@@ -221,9 +265,14 @@ function NewsArticle(props) {
                             );
                         })}
                     </div>
-                    <div>{translatedSentence} </div>
+                    {articleSentences[currentSentenceIndex] && (
+                        <div>
+                            {translatedSentence}
+                        </div>
+                    )}
                 </div>
             </div>
+
             <div className={styles.pageMoving}>
                 <button onClick={goToPreviousIndex} className={styles.pageButton}>이전</button>
                 <p className={styles.pageNumbers}>
@@ -231,7 +280,8 @@ function NewsArticle(props) {
                 <button onClick={goToNextIndex} className={styles.pageButton}>다음</button>
             </div>
 
-            {isModalOpen &&
+            {
+                isModalOpen &&
                 <ArticleModal
                     modalProps={{
                         word: clickWord,
@@ -241,7 +291,7 @@ function NewsArticle(props) {
                 ></ArticleModal>
             }
 
-        </div>
+        </div >
     );
 
 }

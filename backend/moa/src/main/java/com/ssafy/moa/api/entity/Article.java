@@ -27,7 +27,7 @@ public class Article {
     private String articleTitle;
 
     @NotNull
-    @Column(name = "article_content", length = 1000)
+    @Column(name = "article_content", columnDefinition = "TEXT")
     private String articleContent;
 
     @NotNull

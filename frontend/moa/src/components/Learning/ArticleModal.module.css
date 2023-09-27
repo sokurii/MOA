@@ -12,7 +12,7 @@
     position: absolute;
     width: 330px;
     height: 370px;
-    left: 45px;
+    left: 42px;
     top: 232px;
     z-index: 2;
 
@@ -25,7 +25,7 @@
     width: 148.05px;
     height: 58px;
     left: 30px;
-    top: 30px;
+    top: 20px;
     text-align: left;
 }
 
@@ -33,6 +33,7 @@
     position: absolute;
     width: 105px;
     height: 36px;
+    top: 18px;
 
     font-family: 'Inter';
     font-style: normal;
@@ -74,8 +75,8 @@
 .wordTranslation {
     position: absolute;
     width: 270px;
-    height: 105.78px;
-    top: 100px;
+    height: 120px;
+    top: 90px;
     left: 20px;
 
     background: #F2F7FF;
@@ -133,4 +134,104 @@
     text-align: center;
 
     color: #FFFFFF;
+}
+
+.chatGPTQuestion {
+    position: absolute;
+    width: 259px;
+    height: 50px;
+    left: 20px;
+    top: 60px;
+
+    background: #0980D0;
+    border-radius: 16px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 19px;
+    text-align: left;
+    padding: 15px;
+
+    color: #FFFFFF;
+
+}
+
+.chatGptLogo {
+    position: absolute;
+    width: 40px;
+    height: 35px;
+    left: 23px;
+    top: 150px;
+}
+
+.chatGPTAnswer {
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 290px;
+    height: 150px;
+    left: 20px;
+    top: 200px;
+
+    background: #FFFFFF;
+    border: 1px solid #0980D0;
+    border-radius: 5px;
+
+    overflow: scroll;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 19px;
+    text-align: left;
+
+    padding: 5px;
+
+    color: #000000;
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent
+    }
+}
+
+.chatGptTitle {
+    position: absolute;
+    top: 20px;
+    width: 330px;
+}
+
+.leftArrow {
+    position: absolute;
+    left: 8%;
+    top: 7px;
+    border: none;
+    background-color: transparent;
+}
+
+.chatGptTitleName {
+    position: absolute;
+    width: 43px;
+    height: 24px;
+
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    /* identical to box height */
+    letter-spacing: 0.065em;
+
+    left: 43%;
+    color: #000000;
 }
