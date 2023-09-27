@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.annotations.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Document(indexName = "media-info-example")
+@Document(indexName = "media-info-imgs")
 @Mapping(mappingPath = "elastic/media-mapping.json")
 @Setting(settingPath = "elastic/media-setting.json")
 public class MediaInfoDocument {
@@ -64,8 +64,11 @@ public class MediaInfoDocument {
     @Field(type = FieldType.Text, analyzer = "korean")
     private String description;
 
+    @Field(type = FieldType.Text)
+    private String realImg;
+
     @Builder
-    public MediaInfoDocument(String id, String placeNm, String placeTy, String operTime, String restTime, String rstdeQuidCn, String addr, Float latitude, Float longitude, Long telNo, Integer seqNo, String mediaTy, String titleNm, String titleNmKind, String relatePlaceDc, Integer lastUpdtDe, String description) {
+    public MediaInfoDocument(String id, String placeNm, String placeTy, String operTime, String restTime, String rstdeQuidCn, String addr, Float latitude, Float longitude, Long telNo, Integer seqNo, String mediaTy, String titleNm, String titleNmKind, String relatePlaceDc, Integer lastUpdtDe, String description, String realImg) {
         this.id = id;
         this.placeNm = placeNm;
         this.placeTy = placeTy;
@@ -83,6 +86,7 @@ public class MediaInfoDocument {
         this.relatePlaceDc = relatePlaceDc;
         this.lastUpdtDe = lastUpdtDe;
         this.description = description;
+        this.realImg = realImg;
     }
 
     @Override
@@ -105,21 +109,7 @@ public class MediaInfoDocument {
                 ", relatePlaceDc='" + relatePlaceDc + '\'' +
                 ", lastUpdtDe=" + lastUpdtDe +
                 ", description='" + description + '\'' +
+                ", realImg='" + realImg + '\'' +
                 '}';
     }
-
-
-//    @Id
-//    private Long id;
-//    private Geo geo;
-//    private Media media;
-//    private String description;
-//
-//    @Builder
-//    public MediaInfo(Long id, Geo geo, Media media, String description) {
-//        this.id = id;
-//        this.geo = geo;
-//        this.media = media;
-//        this.description = description;
-//    }
 }

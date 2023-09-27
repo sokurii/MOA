@@ -1,5 +1,6 @@
 {
   "properties": {
+    "realImg" : { "type": "text" },
     "placeNm": { "type": "text" },
     "placeTy": { "type": "text" },
     "operTime": { "type": "text" },
