@@ -9,21 +9,24 @@ import { Link } from 'react-router-dom';
 
 import BackButton from '../../../components/BackButton';
 import DiaryItem from '../../../components/DiaryItem';
+import Logo from '../../../components/Logo';
+
+import styles from './ExchangeDiary.module.css'
 
 function ExchangeDiary(props) {
   const [diaries, setDiaries] = useState([]);
 
   useEffect(() => {
     diaryApi.getDiaryList()
-    .then((response) => {
-      console.log(response.data);
-      setDiaries(response.data.response);
-    })
-    .catch((e) => {
-      const error = e.error;
-      console.log('교환일기 전체 조회 에러 발생');
-      console.log(e);
-    })
+      .then((response) => {
+        console.log(response.data);
+        setDiaries(response.data.response);
+      })
+      .catch((e) => {
+        const error = e.error;
+        console.log('교환일기 전체 조회 에러 발생');
+        console.log(e);
+      })
   }, []);
 
   const navigate = useNavigate();
@@ -35,7 +38,8 @@ function ExchangeDiary(props) {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
+      <Logo></Logo>
       <p>교환일기</p>
 
       <div>

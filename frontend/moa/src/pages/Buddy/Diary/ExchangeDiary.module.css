@@ -1,0 +1,7 @@
+.container {
+    position: relative;
+    width: 412px;
+    height: 915px;
+    background: url("../../../../public/assets/Background/exchange_diary_background.png");
+    overflow: hidden;
+}

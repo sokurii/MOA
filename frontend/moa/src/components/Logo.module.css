@@ -1,0 +1,15 @@
+.logoDiv {
+    position: absolute;
+    width: 412px;
+    height: 120px;
+    left: 0px;
+    top: 0px;
+
+    background: #FFFFFF;
+    box-shadow: 4px 4px 16px rgba(181, 178, 178, 0.25), -4px -4px 16px #F0FFF3;
+}
+
+.logoImg {
+    width: 75px;
+    margin-top: 10%;
+}
