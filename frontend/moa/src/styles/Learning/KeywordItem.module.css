@@ -1,7 +1,6 @@
 .display{
     display: flex;
     margin-top: 18px;
-    margin-left: 20px;
 }
 
 .blueBtn {
@@ -9,6 +8,7 @@
     height: 41px;
     border: none;
     font-weight: bold;
+    margin-left: 20px;
     font-size: 16px;
     color: #FFFFFF;
     background: linear-gradient(132.52deg, #B5CCF9 -0.88%, #6C99F0 126.31%);    

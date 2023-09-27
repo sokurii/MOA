@@ -31,14 +31,20 @@
     margin: 17px auto;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
 }
+
+.wrapContainer {
+    padding: 10px 32px;
+}
+
 .middleTop {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    text-align: left;
 }
 
 .fontContainer {
     display: flex;
-    margin-left: 32px;
     padding-top: 30px;
     align-items: flex-end;
 }
