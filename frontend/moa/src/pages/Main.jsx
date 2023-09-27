@@ -14,7 +14,7 @@ const mainPageStyle = {
 };
 
 const mainAreaContainerStyle = {
-  marginBottom: '64px',
+  // marginBottom: '64px',
 }
 
 const bottomBarContainerStyle = {
@@ -45,6 +45,9 @@ function Main(props) {
         <Link to="/intro">
           <button>첫 화면으로 이동</button>
         </Link>
+      </div>
+      <div>
+        <p>안녕, User!</p>
       </div>
       <div style={mainAreaContainerStyle}>
         <MainArea />
