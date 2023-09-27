@@ -8,7 +8,6 @@ import MyPage from './MyPage';
 const mainAreaStyle = {
   overflow: 'hidden',
   height: '100vh',
-  display: 'flex',
   touchAction: 'pan-y', // 세로 드래그는 화면 위로 스크롤되도록 설정
 };
 
@@ -20,7 +19,7 @@ const slideStyle = {
 
 function MainArea(props) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const components = [LearningHome, QuizHome, ChattingHome, BuddyHome, MyPage];
+  const components = [LearningHome, QuizHome, BuddyHome];
   const containerRef = useRef(null);
   let touchStartX = 0;
   let touchEndX = 0;

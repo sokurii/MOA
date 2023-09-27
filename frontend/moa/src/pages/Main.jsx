@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import AppBar from '../components/AppBar';
 import MainArea from '../components/MainArea';
 import BottomBar from '../components/BottomBar';
-import BackButton from '../components/BackButton';
 
 const mainPageStyle = {
   display: 'flex',
@@ -15,7 +13,7 @@ const mainPageStyle = {
 
 const mainAreaContainerStyle = {
   // marginBottom: '64px',
-}
+};
 
 const bottomBarContainerStyle = {
   position: 'fixed',
@@ -24,23 +22,21 @@ const bottomBarContainerStyle = {
   right: '0',
   width: '100%',
   boxSizing: 'border-box',
+  transition: 'bottom 0.3s ease', // 트랜지션 효과 추가
 };
 
 function Main(props) {
   const isLoggedIn = props.inLoggedIn;
-  const navigate = useNavigate();
+  const [isBottomBarVisible, setBottomBarVisible] = useState(false);
 
-  // useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     // 로그인되어 있지 않으면 Intro 페이지로 리디렉션합니다.
-  //     navigate('/intro');
-  //   }
-  // }, []);
+  const toggleBottomBar = () => {
+    setBottomBarVisible(!isBottomBarVisible);
+  };
 
   return (
     <div style={mainPageStyle}>
       <AppBar />
-      {/* 첫 화면 이동을 위해 임시로 만든 버튼 */}
+      {/* 첫 화면 이동을 위한 버튼 */}
       <div>
         <Link to="/intro">
           <button>첫 화면으로 이동</button>
@@ -53,7 +49,13 @@ function Main(props) {
         <MainArea />
       </div>
       {/* bottombar */}
-      <div style={bottomBarContainerStyle}>
+      <div
+        style={{
+          ...bottomBarContainerStyle,
+          bottom: isBottomBarVisible ? '0' : '-56px', // 나타날 때와 숨길 때의 위치 조절
+        }}
+        onClick={toggleBottomBar}
+      >
         <BottomBar />
       </div>
     </div>

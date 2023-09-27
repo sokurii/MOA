@@ -8,9 +8,10 @@ import { useAppDispatch } from '../store'; // useDispatch를 사용하는 부분
 import { setAccessToken } from '../store';
 
 const appBarStyle = {
+  display: 'flex', // Flexbox 컨테이너 설정
+  justifyContent: 'space-between', // 로고 이미지와 로그아웃 버튼 사이 공간을 최대화
   padding: '0 10px',
   marginBottom: '10px',
-  display: 'flex',
   alignItems: 'center',
   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
 };
@@ -19,7 +20,7 @@ const imgContainerStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  margin: 'auto',
+  marginLeft: '120px',
 };
 
 const imgStyle = {

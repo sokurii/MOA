@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import BackButton from './BackButton';
 import QuestionModal from './Quiz/QuestionModal';
 
+const linkStyle = {
+  textDecoration: 'none', // 밑줄 제거
+  color: 'inherit', // 링크 색상을 상위 요소에서 상속
+};
+
 const quizHomeStyle = {
   padding: '30px',
   backgroundImage: `
@@ -68,14 +73,16 @@ function QuizHome(props) {
 
   return (
     <div style={quizHomeStyle}>
-      <div className="quiz-button" style={quizButtonStyle}>
-        <p style={buttonTitleStyle}>퀴즈풀기</p>
-        <p style={buttonContentStyle}>
-          일상 한국어를 공부해봐요!
-          <br />
-          모아로 단어 퀴즈를 풀어보세요
-        </p>
-      </div>
+      <Link to="/quiz" style={linkStyle}>
+        <div className="quiz-button" style={quizButtonStyle}>
+          <p style={buttonTitleStyle}>퀴즈풀기</p>
+          <p style={buttonContentStyle}>
+            일상 한국어를 공부해봐요!
+            <br />
+            모아로 단어 퀴즈를 풀어보세요
+          </p>
+        </div>
+      </Link>
       <div className="collection-button" style={incorrectNoteButtonStyle}>
         <p style={buttonTitleStyle}>오답노트</p>
         <p style={buttonContentStyle}>설명</p>

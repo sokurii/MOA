@@ -1,4 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+const linkStyle = {
+  textDecoration: 'none', // 밑줄 제거
+  color: 'inherit', // 링크 색상을 상위 요소에서 상속
+};
 
 const learningHomeStyle = {
   padding: '30px',
@@ -45,14 +51,16 @@ const collectionButtonStyle = {
 function LearningHome(props) {
   return (
     <div style={learningHomeStyle}>
-      <div className="news-button" style={newsButtonStyle}>
-        <p style={buttonTitleStyle}>뉴스보기</p>
-        <p style={buttonContentStyle}>
-          원하는 키워드 트렌드를 확인하고
-          <br />
-          그와 관련된 뉴스를 읽어보세요
-        </p>
-      </div>
+      <Link to="/koreanlearning" style={linkStyle}>
+        <div style={newsButtonStyle}>
+          <p style={buttonTitleStyle}>뉴스보기</p>
+          <p style={buttonContentStyle}>
+            원하는 키워드 트렌드를 확인하고
+            <br />
+            그와 관련된 뉴스를 읽어보세요
+          </p>
+        </div>
+      </Link>
       <div className="collection-button" style={collectionButtonStyle}>
         <p style={buttonTitleStyle}>Collection</p>
         <p style={buttonContentStyle}>설명</p>

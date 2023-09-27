@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const bottomBarStyle = {
   marginTop: '10px',
-  padding: '10px',
+  padding: '20px 0',
   display: 'flex',
   justifyContent: 'space-evenly',
   backgroundColor: 'white',
