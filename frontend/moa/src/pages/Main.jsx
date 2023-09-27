@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
+import AppBar from '../components/AppBar';
 import BackButton from '../components/BackButton';
 
 function Main(props) {
@@ -17,7 +18,7 @@ function Main(props) {
 
   return (
     <div>
-      <p>Main Page</p>
+      <AppBar />
       <div>
         <Link to="/chatting">
           <button>채팅</button>
