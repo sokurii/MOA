@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import BackButton from '../../../components/BackButton';
-import BalanceGameListItem from '../../../components/BalanceGame/BalanceGameListItem';
+import BalanceGameCardItem from '../../../components/BalanceGame/BalanceGameCardItem';
 
 function UpdateBalanceGame(props) {
   const [balanceGameList, setBalanceGameList] = useState([]);
@@ -9,14 +9,14 @@ function UpdateBalanceGame(props) {
   
   useEffect(() => {
     const initialList = Array.from({ length: 3 }, (_, index) => (
-      <BalanceGameListItem key={index} />
+      <BalanceGameCardItem key={index} />
     ));
     setBalanceGameList(initialList);
   }, []);
   
   const addBalanceGame = () => {
     if (balanceGameList.length < 10) {
-      setBalanceGameList([...balanceGameList, <BalanceGameListItem key={balanceGameList.length} />]);
+      setBalanceGameList([...balanceGameList, <BalanceGameCardItem key={balanceGameList.length} />]);
     }
   };
   

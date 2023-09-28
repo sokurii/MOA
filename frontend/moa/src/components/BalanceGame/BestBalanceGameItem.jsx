@@ -3,16 +3,19 @@ import React, { useState, useEffect } from 'react';
 import { balanceGameApi } from '../../api/balanceGameApi';
 
 const bestBalanceGameItemStyle = {
-  margin: '10px',
+  margin: '10px auto',
   padding: '20px',
   backgroundColor: 'white',
   borderRadius: '16px',
   boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-
+  width: '80%',
 };
 
 const timeContainerStyle = {
   display: 'flex',
+  justifyContent: 'flex-end',
+  fontSize: '12px',
+  fontWeight: '700',
 };
 
 const timeStyle = {
@@ -76,8 +79,7 @@ function BestBalanceGameItem({ balanceGameId, balanceGameTitle }) {
     <div style={bestBalanceGameItemStyle}>
       <div style={timeContainerStyle}>
         <div style={timeStyle}>
-          <p style={{ margin: '0', padding: '0 5px' }}>{ time }초</p>
-          <p style={{ margin: '0', padding: '0 5px' }}>{ round }라운드 </p>
+          <p style={{ margin: '0', padding: '0 5px' }}>{ time }초 &nbsp; { round }라운드 </p>
         </div>
       </div>
       <div style={titleContainerStyle}>

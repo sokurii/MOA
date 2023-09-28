@@ -8,7 +8,7 @@ import AppBar from '../../../components/AppBar';
 import BalanceGameItem from '../../../components/BalanceGame/BalanceGameItem';
 import BestBalanceGameItem from '../../../components/BalanceGame/BestBalanceGameItem';
 
-const bestBalanceGameContainerStyle = {
+const balanceGameContainerStyle = {
   padding: '10px 0'
 };
 
@@ -17,7 +17,7 @@ const titleCommentContainerStyle = {
   display: 'flex',
   flexDirection: 'column',
   textAlign: 'left',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
 };
 
 const balanceGameStyle = {
@@ -27,10 +27,19 @@ const balanceGameStyle = {
   backgroundSize: 'cover', // 배경 이미지 크기 조절
   backgroundRepeat: 'no-repeat', // 배경 이미지 반복 없음
   backgroundPosition: 'center', // 배경 이미지 중앙 정렬
+  width: '100%', // 화면 전체 너비를 차지하도록 설정
+  height: '100vh', // 화면 전체 높이를 차지하도록 설정
+};
+
+const bestBalanceGameListStyle = {
+  padding: '0 10px',
 };
 
 const balanceGameListStyle = {
-  padding: '0 10px',
+  marginTop: '10px',
+  padding: '30px 20px',
+  background: 'white',
+  borderRadius: '40px 40px 0 0',
 };
 
 const titleStyle = {
@@ -46,6 +55,20 @@ const commentStyle = {
   fontSize: '14px',
   fontWeight: '400',
 };
+
+const createButtonStyle = {
+  background: 'linear-gradient(180deg, #FDE5FF 0%, #F9E1BD 100%)',
+  border: 'none',
+  margin: '10px 20px',
+  padding: '10px 20px',
+  borderRadius: '16px',
+  cursor: 'pointer',
+  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  fontSize: '16px',
+  fontWeight: '700',
+};
+
+///////////////////////////////////////
 
 function BalanceGame(props) {
   const [balanceGames, setBalanceGames] = useState([]);
@@ -91,12 +114,14 @@ function BalanceGame(props) {
   return (
     <div style={balanceGameStyle}>
       <AppBar />
-      <div style={bestBalanceGameContainerStyle}>
+
+      {/* 인기 밸런스 게임 */}
+      <div style={balanceGameContainerStyle}>
         <div style={titleCommentContainerStyle}>
           <p style={titleStyle}>HOT한 밸런스 게임</p>
           <p style={commentStyle}>유저들의 선택을 받은 인기 밸런스 게임을 해보세요</p>
         </div>
-        <div style={balanceGameListStyle}>
+        <div style={bestBalanceGameListStyle}>
           {bestBalanceGames.length === 0 ? (
             <p>인기 밸런스 게임이 없습니다.</p>
           ) : (
@@ -104,7 +129,10 @@ function BalanceGame(props) {
                 const { balanceGameId, balanceGameTitle } = bestBalanceGame;
 
                 return (
-                  <div key={index}>
+                  <div
+                    key={index}
+                    onClick={() => handleBalanceGameClick(bestBalanceGame)}
+                  >
                     <BestBalanceGameItem
                       balanceGameId={balanceGameId}
                       balanceGameTitle={balanceGameTitle}
@@ -117,16 +145,16 @@ function BalanceGame(props) {
         </div>
       </div>
 
-      <hr />
-
-      <div>
-        <div>
-          <div>
-
+      {/* 전체 밸런스 게임 */}
+      <div style={balanceGameContainerStyle}>
+        <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+          <div style={titleCommentContainerStyle}>
+            <p style={titleStyle}>전체 밸런스 게임 목록</p>
+            <p style={commentStyle}>더 많은 게임들을 확인할 수 있어요!</p>
           </div>
           <div>
             <Link to="/buddy/balancegame/create">
-              <button>생성하기</button>
+              <button style={createButtonStyle}>생성하기</button>
             </Link>
           </div>
         </div>
