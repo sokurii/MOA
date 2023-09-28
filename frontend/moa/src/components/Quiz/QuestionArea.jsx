@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { quizApi } from '../../api/quizApi';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
+import MenuHeader from '../MenuHeader';
+import styles from '../../styles/Quiz/WordQuiz.module.css'
 
 function QuestionArea(props) {
   const [quizData, setQuizData] = useState([]);
@@ -78,9 +80,9 @@ function QuestionArea(props) {
 
       if (isAnswerCorrect){
         setCorrectAnswers(correctAnswers + 1);
-        setAnswerMessage('정답입니다!');
+        setAnswerMessage('맞았어요!');
       } else {
-        setAnswerMessage('틀렸습니다!')
+        setAnswerMessage('틀렸어요!')
       }
 
       setShowAnswerModal(true);
@@ -140,6 +142,7 @@ function QuestionArea(props) {
 
   return (
     <div>
+      <MenuHeader title="단어퀴즈"/>
       {currentQuiz ? (
         <div>
           <h1>
@@ -147,18 +150,28 @@ function QuestionArea(props) {
           </h1>
           {currentQuiz.quizCategoryId === 2 ? (
             <div>
-              <p>다음 단어를 듣고 맞춰보세요</p>
-              <button onClick={toggleListening}>
-                {isListening ? "듣기 중지" : "듣기"}
-              </button>
+              <p className={styles.quizTitle}>다음 단어를 듣고 맞춰보세요</p>
+              <div className={styles.questionContainer}>
+
+                <div onClick={toggleListening}
+                className={styles.questionArea}>
+                  <img src={process.env.PUBLIC_URL + '/assets/Quiz/quizSound.png'} 
+                  alt="듣기" /> 
+                  {/* <p>{isListening ? "듣기 중지" : "듣기"}</p> */}
+                </div>
+              </div>
             </div>
           ) : (
             <div>
-              <p>다음 단어의 뜻을 맞춰보세요</p>
-              <h1>{currentQuiz.quizQuestion}</h1> 
+              <p className={styles.quizTitle}>다음 단어의 뜻을 맞춰보세요</p>
+              <div className={styles.questionContainer}>
+                <div className={styles.questionArea}>
+                  <p>{currentQuiz.quizQuestion}</p>
+                </div>
+              </div>
             </div>
           )}
-          <ul>
+          <ul className={styles.quizUl}>
             {currentQuiz.quizAnswerList.map((answer,answerIndex) =>(
               <button 
                 key = {answerIndex}
@@ -166,6 +179,7 @@ function QuestionArea(props) {
                   checkAnswer(answer);
                 }}
                 disabled={isCorrect !== null}
+                className={styles.selectBtn}
               >
                 {answer}
               </button>
@@ -183,7 +197,6 @@ function QuestionArea(props) {
 
       <Modal show={showAnswerModal} >
         <Modal.Body>{answerMessage}</Modal.Body>
-
       </Modal>
     </div>
   );

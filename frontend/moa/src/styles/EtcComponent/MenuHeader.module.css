@@ -1,0 +1,28 @@
+.header{
+  width: 100%;
+  height: 121px;
+  background-color: white;
+  box-shadow: -4px -4px 16px 0px #F0FFF3, 4px 4px 16px 0px rgba(181, 178, 178, 0.25);
+}
+
+.headerContainer{
+  padding: 76.42px 0 20.58px;
+  position: relative;
+}
+
+.headerContainer img{
+  position: absolute;
+  left: 14.4px;
+  bottom: 13.96px;
+  z-index: 1;
+  display: block;
+}
+
+.headerText{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: bold;
+  font-size: 20px;
+}

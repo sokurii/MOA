@@ -1,0 +1,66 @@
+.quizTitle{
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 31px;
+  margin-bottom: 19px;
+  text-align: start;
+  /* display: flex; */
+}
+
+.questionContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.questionArea{
+  margin: 0 20px 0;
+  width: 350px;
+  height: 210px;
+
+  border-radius: 18px;
+  border: 7px solid rgba(222, 255, 149, 0.91);
+  background: #FFF;
+  filter: drop-shadow(-9px -9px 16px rgba(255, 255, 255, 0.60)) drop-shadow(9px 9px 16px rgba(226, 226, 227, 0.60));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.questionArea p{
+  text-align: center;
+  margin: 0;
+  font-family: "Ganpan";
+  font-size: 32px;
+}
+
+button img{
+  width: 79px;
+}
+
+.quizUl{
+  margin-top: 51px;
+  padding: 0 20px 0;
+}
+
+.selectBtn{
+  width: calc(50% - 15px); /* 50% 너비에서 5px 간격을 뺀 값 */
+  margin: 7.5px;
+  /* margin: 10px; */
+  /* width: 50%; */
+  /* gap: 10px; */
+  /* width: 167.606px; */
+  height: 98.81px;
+  padding: 25px 21px;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Ganpan";
+  font-size: 24px;
+
+  border-style: none;
+  border-radius: 18px;
+  background: var(--SELECT, radial-gradient(50% 50% at 50% 50%, #FFF 48.23%, #FAF8F8 100%), radial-gradient(50% 50% at 50% 50%, #FFF 0%, rgba(255, 255, 255, 0.00) 100%));
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.20));
+}

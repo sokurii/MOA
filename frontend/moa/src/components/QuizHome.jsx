@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import BackButton from './BackButton';
-import QuestionModal from './Quiz/QuestionModal';
+// import QuestionModal from './Quiz/QuestionModal';
 
 const linkStyle = {
   textDecoration: 'none', // 밑줄 제거
