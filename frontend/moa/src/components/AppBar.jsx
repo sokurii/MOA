@@ -8,6 +8,7 @@ import { useAppDispatch } from '../store'; // useDispatch를 사용하는 부분
 import { setAccessToken } from '../store';
 
 const appBarStyle = {
+  background: 'white',
   display: 'flex', // Flexbox 컨테이너 설정
   justifyContent: 'space-between', // 로고 이미지와 로그아웃 버튼 사이 공간을 최대화
   padding: '0 10px',

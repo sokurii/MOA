@@ -3,7 +3,7 @@ import { openChatApi } from '../../api/chatApi';
 import MyTalk from '../MyTalk';
 import OpponentTalk from '../OpponentTalk';
 import SockJS from 'sockjs-client';
-import { Stomp } from '@stomp/stompjs';
+import Stomp from 'stompjs';
 
 const chatContainerStyle = {
   margin: '20px',
@@ -58,20 +58,22 @@ function ChattingArea({ openChatId }) {
   useEffect(() => {
     if (stompClient) {
       stompClient.connect({}, () => {
-        console.log('WebSocket 연결 상태:', stompClient.connected);
         stompClient.subscribe(`/sub/chat/open/${openChatId}`, (message) => {
           try {
             const newMessage = JSON.parse(message.body);
+            console.log(newMessage);
             setMessages((prevMessages) => [...prevMessages, newMessage]);
           } catch (error) {
             console.log('subscribe 콜백 함수에서 에러 발생:', error);
           }
         }, {});
 
+        console.log(stompClient.subscriptions);
+
         stompClient.send(`/pub/chat/open/${openChatId}`, {},
         JSON.stringify({
           messageType: 'OPEN_ENTER',
-          roomType: 2,
+          roomType: 1,
           roomId: openChatId,
           sender: sender,
           message: null,
@@ -111,7 +113,7 @@ function ChattingArea({ openChatId }) {
         stompClient.disconnect();
       }
     };
-  }, [stompClient]);
+  }, [openChatId, stompClient]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault(); // 폼 제출 기능 비활성화
@@ -122,7 +124,7 @@ function ChattingArea({ openChatId }) {
       if (stompClient && stompClient.connected) {
         stompClient.send(`/pub/chat/open/${openChatId}`, {}, JSON.stringify({
           messageType: 'OPEN_TALK',
-          roomType: 2,
+          roomType: 1,
           roomId: openChatId,
           sender: sender,
           message: inputMyText,
