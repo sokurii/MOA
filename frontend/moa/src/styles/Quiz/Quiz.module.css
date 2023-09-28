@@ -1,0 +1,80 @@
+.quizContainer{
+  margin: 0px 20px 0;
+}
+
+/* 텍스트 */
+.textArea{
+  text-align: start;
+  padding-left: 11px;
+  margin-bottom: 23.19px;
+  margin-top: 42.37px;
+}
+
+.textArea p{
+  margin: 0;
+  font-size: 14px;
+}
+.titleFont{
+  font-size: 20px  !important;
+  font-weight: bold !important;
+}
+
+
+/* 카드 스타일 */
+.quizCardContainer{
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 9.19px;
+
+  box-shadow: -9px -9px 16px 0px rgba(255, 255, 255, 0.60), 9px 9px 16px 0px rgba(226, 226, 227, 0.60);
+}
+
+.quizCardContainer img{
+  display: block;
+  /* margin: 0 auto; */
+}
+
+.quizCardText{
+  position: absolute;
+}
+
+.quizCardText p{
+  font-size: 14px;
+  margin: 0;
+}
+.cardMainFont{
+  font-family: 'Ganpan' !important;
+  font-size: 28px !important;
+  color: #4D5F4F;
+}
+
+a{
+  text-decoration: none;
+}
+
+
+/* 다시풀기 컨테이너 */
+.quizThird{
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 9.19px;
+  height: 129.63px;
+
+  box-shadow: -9px -9px 16px 0px rgba(255, 255, 255, 0.60), 9px 9px 16px 0px rgba(226, 226, 227, 0.60);
+  border-radius: 17.949px;
+  border: 2px solid var(--this, rgba(230, 245, 138, 0.79));
+  background: #FFF;
+}
+
+.quizThird p{
+  margin: 0;
+  font-size: 14px;
+}

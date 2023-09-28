@@ -15,9 +15,12 @@ import KoreanLearning from './pages/Learning/KoreanLearning';
 import LearningKeyword from './pages/Learning/LearningMyKeyword';
 import WordLearning from './pages/Learning/WordLearning';
 import KoreanLearningDefault from './pages/Learning/KoreanLearningDefault';
-import QnABoard from './pages/QnA/QnABoard';
-import Quiz from './components/QuizHome';
+// import QnABoard from './pages/QnA/QnABoard';
+import Quiz from './pages/Quiz/Quiz';
+import QuestionPage from './pages/Quiz/QuestionPage';
 import IncorrectNote from './pages/Quiz/IncorrectNote';
+import BuddyHome from './components/BuddyHome';
+import QuizResult from './pages/Quiz/QuizResult';
 import BuddyHome from './components/BuddyHome';
 import ExchangeDiary from './pages/Buddy/Diary/ExchangeDiary';
 import ExchangeDiaryDetail from './pages/Buddy/Diary/ExchangeDiaryDetail';
@@ -55,11 +58,11 @@ function App() {
           <Route path='/koreanlearning/article' element= {<NewsArticle />} />
           <Route path='/koreanlearning/keyword' element= {<LearningKeyword />} />
           <Route path='/koreanlearning/default' element= {<KoreanLearningDefault />} />
-
-          <Route path="/qna-board" element={<QnABoard />} />
           
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/quiz/question-page" element={<QuestionPage />} />
           <Route path="/quiz/incorrect-note" element={<IncorrectNote />} />
+          <Route path="/quiz/quiz-result" element={<QuizResult />} />
 
           <Route path="/buddy" element={<BuddyHome />} />
 

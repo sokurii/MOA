@@ -15,6 +15,7 @@ const appBarStyle = {
   marginBottom: '10px',
   alignItems: 'center',
   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+  height: '7.5625rem',
 };
 
 const imgContainerStyle = {
