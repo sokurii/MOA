@@ -1,7 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userApi } from '../api/userApi';
+
+import AppBar from '../components/AppBar';
 import BackButton from '../components/BackButton';
+
+const labelStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  fontWeight: '700',
+};
+
+const labelKorStyle = {
+  fontSize: '18px',
+  marginRight: '5px',
+};
+
+const labelEngStyle = {
+  fontSize: '16px',
+};
+
+const inputStyle = {
+  borderBottom: '1px solid #92BB69', // 밑줄 스타일
+  borderLeft: 'none',
+  borderRight: 'none',
+  borderTop: 'none',
+  margin: '10px auto',
+  width: '100%',
+  height: '30px',
+};
+
 
 function SignUp(props) {
   const navigate = useNavigate();
@@ -111,9 +139,7 @@ function SignUp(props) {
         const isForeigner = res.memberIsForeigner;
         console.log('회원가입 성공', response);
         alert('회원가입 성공!');
-        navigate('/matching', {
-          state: { isForeigner },
-        });
+        navigate('/login');
       } else {
         console.log('회원가입 오류: ', response.data.error.message);
       }
@@ -139,21 +165,30 @@ function SignUp(props) {
 
   return (
     <div>
-      <p>SignUp Page</p>
+      <AppBar />
       <div className='signUpContainer'>
         <div>
-          <label htmlFor="" className="inputTitle">나는</label>
+          <label style={labelStyle} htmlFor="" className="inputTitle">
+            <span style={labelKorStyle}>나는</span>
+            <span style={labelEngStyle}>I'm</span>
+          </label>
           <input type="radio" id="foreigner" name="memberIsForeigner" value="true"/>외국인
           <input type="radio" id="korean" name="memberIsForeigner" value="false"/>한국인
         </div>
 
         <div className="inputForm">
-          <label htmlFor="memberName" className="inputTitle">이름</label>
-          <input type="text" id="memberName" name="memberName" onChange={handleInputChange}/>
+          <label style={labelStyle} htmlFor="memberName" className="inputTitle">
+            <span style={labelKorStyle}>이름</span>
+            <span style={labelEngStyle}>Name</span>
+          </label>
+          <input style={inputStyle} type="text" id="memberName" name="memberName" onChange={handleInputChange}/>
         </div>
 
         <div className="inputForm">
-          <label htmlFor="nationName" className="inputTitle">국적</label>
+          <label style={labelStyle} htmlFor="nationName" className="inputTitle">
+            <span style={labelKorStyle}>국적</span>
+            <span style={labelEngStyle}>Nationality</span>
+          </label>
           <select name="nationName" onChange={handleInputChange}>
             {nations.map((nation) => (
               <option key={nation.nationCode} value={nation.nationName}>
@@ -164,14 +199,20 @@ function SignUp(props) {
         </div>
 
         <div className="inputForm">
-          <label htmlFor="memberGender" className="inputTitle">성별</label>
+          <label style={labelStyle} htmlFor="memberGender" className="inputTitle">
+            <span style={labelKorStyle}>성별</span>
+            <span style={labelEngStyle}>Gender</span>
+          </label>
           <input type="radio" id="man" name="memberGender" value="2" onChange={handleInputChange}/>남자
           <input type="radio" id="woman" name="memberGender" value="1" onChange={handleInputChange}/>여자
         </div>
 
         <div className="inputForm">
-          <label htmlFor="memberEmail" className="inputTitle">이메일</label>
-          <input type="text" id="memberEmail" name="memberEmail" onChange={handleInputChange}/>
+          <label style={labelStyle} htmlFor="memberEmail" className="inputTitle">
+            <span style={labelKorStyle}>이메일</span>
+            <span style={labelEngStyle}>Email</span>
+          </label>
+          <input style={inputStyle} type="text" id="memberEmail" name="memberEmail" onChange={handleInputChange}/>
         </div>
         
         {/* 이메일 인증 */}
@@ -187,17 +228,23 @@ function SignUp(props) {
         {/* 인증 번호 입력란 */}
         {verificationSent ? (
           <div className='inputForm'>
-            <label htmlFor="verificationCode" className='inputTitle'>인증번호</label>
-            <input type='text' id='verificationCode' name='verificationCode' onChange={handleInputChange} />
+            <label style={labelStyle} htmlFor="verificationCode" className='inputTitle'>
+              <span style={labelKorStyle}>인증번호</span>
+              <span style={labelEngStyle}>Verification Code</span>
+            </label>
+            <input style={inputStyle} type='text' id='verificationCode' name='verificationCode' onChange={handleInputChange} />
             <button onClick={handleVerificationCode}>인증확인</button>
           </div>
         ) : null}
 
 
         <div className="inputForm">
-          <label htmlFor="memberPassword" className="inputTitle">비밀번호</label>
+          <label style={labelStyle} htmlFor="memberPassword" className="inputTitle">
+            <span style={labelKorStyle}>비밀번호</span>
+            <span style={labelEngStyle}>Password</span>
+          </label>
           <form>
-            <input type="password" id="memberPassword" name="memberPassword" onChange={handleInputChange} autoComplete="off" />
+            <input style={inputStyle} type="password" id="memberPassword" name="memberPassword" onChange={handleInputChange} autoComplete="off" />
             <p>
               {passwordValid ? '사용가능한 비밀번호 입니다' : '영어, 숫자, 특수문자 포함한 8글자 이상이어야 합니다'}
             </p>
