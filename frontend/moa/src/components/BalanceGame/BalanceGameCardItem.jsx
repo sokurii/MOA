@@ -32,12 +32,14 @@ const vsContainerStyle = {
 
 const vStyle = {
   color: '#E57373',
+  fontFamily: 'Ganpan',
   fontSize: '20px',
   fontWeight: '400',
 };
 
 const sStyle = {
   color: '#0980D0',
+  fontFamily: 'Ganpan',
   fontSize: '20px',
   fontWeight: '400',
 };

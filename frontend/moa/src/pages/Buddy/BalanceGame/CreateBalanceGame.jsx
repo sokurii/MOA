@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { balanceGameApi } from '../../../api/balanceGameApi';
 
-import BackButton from '../../../components/BackButton';
+import MenuHeader from '../../../components/MenuHeader';
 import BalanceGameCardItem from '../../../components/BalanceGame/BalanceGameCardItem';
 
 const createBalanceGameStyle = {
@@ -15,16 +15,6 @@ const createBalanceGameStyle = {
   backgroundPosition: 'center', // 배경 이미지를 가운데 정렬합니다.
   width: '100%', // 화면 전체 너비를 차지하도록 설정
   height: '100vh', // 화면 전체 높이를 차지하도록 설정
-};
-
-const appBarStyle = {
-  marginBottom: '10px',
-  padding: '10px',
-  background: 'white',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
 };
 
 const pageTitleStyle = {
@@ -198,12 +188,7 @@ function CreateBalanceGame(props) {
   return (
     <div style={createBalanceGameStyle}>
       {/* appbar */}
-      <div style={appBarStyle}>
-        <BackButton />
-        <div>
-          <p style={pageTitleStyle}>밸런스 게임 생성</p>
-        </div>
-      </div>
+      <MenuHeader title='밸런스 게임 생성' />
 
       {/* 제목 */}
       <div style={containerStyle}>
