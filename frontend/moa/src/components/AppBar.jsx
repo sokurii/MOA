@@ -56,9 +56,10 @@ function AppBar(props) {
     dispatch(setIsMatching(null));
 
     if (!Cookies.get('refreshToken')) {
-      alert('로그아웃 되었습니다');
+      // alert('로그아웃 되었습니다');
       // 로그인 페이지로 이동
       navigate('/login');
+
     } else {
       console.log('로그아웃 오류 발생');
     };

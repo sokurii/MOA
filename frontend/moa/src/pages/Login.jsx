@@ -38,7 +38,9 @@ function Login(props) {
         const refreshToken = response.data.response.refreshToken.substring(7);
         Cookies.set('refreshToken', refreshToken, { expires: 7 });
 
+        // alert('로그인 성공!');
         navigate('/');
+
       } else {
         console.log('로그인 오류:', response.data.error.message);
         setLoginError('로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요');
