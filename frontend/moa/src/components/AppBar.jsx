@@ -5,7 +5,7 @@ import { userApi } from '../api/userApi';
 import Cookies from 'js-cookie';
 
 import { useAppDispatch } from '../store'; // useDispatch를 사용하는 부분을 변경
-import { setAccessToken } from '../store';
+import { setAccessToken, setIsMatching } from '../store';
 
 const appBarStyle = {
   background: 'white',
@@ -53,6 +53,7 @@ function AppBar(props) {
 
     // Redux 스토어에서 accessToken 업데이트
     dispatch(setAccessToken(null));
+    dispatch(setIsMatching(null));
 
     if (!Cookies.get('refreshToken')) {
       alert('로그아웃 되었습니다');

@@ -5,13 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 const initialState = {
   // 임시로 하드코딩 적용(로그인 시 토큰 자동 저장하는 식으로 바꿀 예정)
   accessToken: localStorage.getItem('accessToken') || null,
+  isMatching: null,
 };
 
 // Actions
 const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
+const SET_IS_MATCHING = 'SET_IS_MATCHING';
 
 // 액션 생성자 함수 정의
 export const setAccessToken = (accessToken) => ({ type: SET_ACCESS_TOKEN, accessToken });
+export const setIsMatching = (isMatching) => ({ type: SET_IS_MATCHING, isMatching })
 
 // AccessToken을 다루는 리듀서 함수
 const accessTokenReducer = (state = initialState.accessToken, action) => {
@@ -25,9 +28,19 @@ const accessTokenReducer = (state = initialState.accessToken, action) => {
   }
 };
 
+const isMatchingReducer = (state = initialState.isMatching, action) => {
+  switch (action.type) {
+    case SET_IS_MATCHING:
+      return action.isMatching;
+    default:
+      return state;
+  }
+}
+
 // 루트 리듀서
 const rootReducer = combineReducers({
   accessToken: accessTokenReducer, // 추가: AccessToken 리듀서를 루트 리듀서에 포함
+  isMatching: isMatchingReducer,
 });
 
 // Redux 스토어 생성
