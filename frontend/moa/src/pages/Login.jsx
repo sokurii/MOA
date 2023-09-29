@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { userApi } from '../api/userApi';
 import Cookies from 'js-cookie';
 import { useAppDispatch } from '../store'; // useDispatch를 사용하는 부분을 변경
@@ -36,9 +36,10 @@ function Login(props) {
         dispatch(setAccessToken(accessToken));
 
         const refreshToken = response.data.response.refreshToken.substring(7);
+        
         Cookies.set('refreshToken', refreshToken, { expires: 7 });
-
-        // alert('로그인 성공!');
+        alert('로그인 성공!');
+        window.location.reload();
         navigate('/');
 
       } else {
@@ -79,6 +80,9 @@ function Login(props) {
 
           <input type="submit" value="로그인" /> {/* 폼 제출 버튼 */}
         </form>
+        <Link to="/signup">
+          <button>회원가입</button>
+        </Link>
 
         {loginError && <p className='error'>{loginError}</p>}
       </div>

@@ -81,14 +81,14 @@ function App() {
 
               <Route path="/buddy/koreatour" element={<KoreaTour />} />
               
-              <Route path="*" element={<NotFound404 />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </>
           ) : ( // refreshToken이 없는 경우
             <>
               <Route path="/intro" element={<Intro />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/*" element={<Navigate to="/login" />} />
+              <Route path="/*" element={<Navigate to="/intro" />} />
             </>
           )}
         </Routes>    
