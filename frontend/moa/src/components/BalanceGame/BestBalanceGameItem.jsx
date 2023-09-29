@@ -47,6 +47,8 @@ const reactionStyle = {
   padding: '5px 10px',
   background: '#F6E8F5',
   borderRadius: '60px',
+  fontSize: '16px',
+  fontWeight: '700',
 };
 
 function BestBalanceGameItem({ balanceGameId, balanceGameTitle }) {

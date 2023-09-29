@@ -17,7 +17,6 @@ const createBalanceGameStyle = {
   height: '100vh', // 화면 전체 높이를 차지하도록 설정
 };
 
-
 const appBarStyle = {
   marginBottom: '10px',
   padding: '10px',
@@ -35,7 +34,7 @@ const pageTitleStyle = {
 };
 
 const containerStyle = {
-  margin: '20px auto',
+  margin: '30px auto',
 };
 
 const inputStyle = {
@@ -72,6 +71,41 @@ const buttonStyle = {
   border: 'none',
   borderRadius: '18px',
   background: 'linear-gradient(184deg, #ECC2F7 7%, #B17AD3 82%)',
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+};
+
+const addRemoveButtonContainerStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  margin: '20px',
+};
+
+const addRemoveButtonStyle = {
+  padding: '16px',
+  border: 'none',
+  borderRadius: '18px',
+  width: '47.5%',
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+  color: 'white',
+  fontSize: '16px',
+  fontWeight: '700',
+  cursor: 'pointer',
+};
+
+const timesetButtonContainerStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  margin: '10px auto',
+};
+
+const timesetButtonStyle = {
+  margin: '10px auto',
+  padding: '7px 27px',
+  fontSize: '18px',
+  fontWeight: '700',
+  color: 'violet',
+  border: 'none',
+  borderRadius: '100px',
   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
 };
 
@@ -190,43 +224,62 @@ function CreateBalanceGame(props) {
         <p style={titleStyle}>밸런스 게임 카드</p>
         <p style={commentStyle}>최소 3개, 최대 10개까지 생성할 수 있어요</p>
         {balanceGameListItems}
-        <button onClick={addBalanceGame} disabled={isAddButtonDisabled}>+</button>
-        <button onClick={removeBalanceGame} disabled={isRemoveButtonDisabled}>-</button>
+        <div style={addRemoveButtonContainerStyle}>
+          <button 
+            style={{...addRemoveButtonStyle,
+              background: isAddButtonDisabled ? 'gray' : 'linear-gradient(184deg, #ECC2F7 7%, #B17AD3 82%)',
+              cursor: isAddButtonDisabled ? 'not-allowed' : 'pointer'
+            }}
+            onClick={addBalanceGame}
+            disabled={isAddButtonDisabled}
+          >
+            카드추가
+          </button>
+          <button 
+            style={{...addRemoveButtonStyle,
+              background: isAddButtonDisabled ? 'gray' : 'linear-gradient(184deg, #ECC2F7 7%, #B17AD3 82%)',
+              cursor: isAddButtonDisabled ? 'not-allowed' : 'pointer'
+            }}
+            onClick={removeBalanceGame}
+            disabled={isRemoveButtonDisabled}
+          >
+            카드제거
+          </button>
+        </div>
       </div>
 
       {/* 시간 설정 */}
       <div style={containerStyle}>
         <p style={titleStyle}>제한시간</p>
-        <label>
-          <input
-            type="radio"
-            name="time"
-            value="30초"
-            checked={selectedTime === 30}
-            onChange={() => handleTimeSelection(30)}
-          />
-          30초
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="time"
-            value="60초"
-            checked={selectedTime === 60}
-            onChange={() => handleTimeSelection(60)}
-          />
-          60초
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="time"
-            value="90초"
-            checked={selectedTime === 90}
-            onChange={() => handleTimeSelection(90)}
-          />
-          90초
-        </label>
+        <div style={timesetButtonContainerStyle}>
+          <button
+            onClick={() => handleTimeSelection(30)}
+            style={{ ...timesetButtonStyle, 
+              background: selectedTime === 30 ? 'linear-gradient(184deg, #ECC2F7 7%, #B17AD3 82%)' : 'white',
+              color: selectedTime === 30 ? 'white' : 'violet',
+            }}
+          >
+            30초
+          </button>
+          <button
+            onClick={() => handleTimeSelection(60)}
+            style={{ ...timesetButtonStyle,
+              background: selectedTime === 60 ? 'linear-gradient(184deg, #ECC2F7 7%, #B17AD3 82%)' : 'white',
+              color: selectedTime === 60 ? 'white' : 'violet',
+            }}
+          >
+            60초
+          </button>
+          <button
+            onClick={() => handleTimeSelection(90)}
+            style={{ ...timesetButtonStyle,
+              background: selectedTime === 90 ? 'linear-gradient(184deg, #ECC2F7 7%, #B17AD3 82%)' : 'white',
+              color: selectedTime === 90 ? 'white' : 'violet',
+            }}
+          >
+            90초
+          </button>
+        </div>
       </div>
 
       {/* 생성 버튼 */}
