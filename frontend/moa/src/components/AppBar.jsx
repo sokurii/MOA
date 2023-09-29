@@ -44,22 +44,24 @@ function AppBar(props) {
   const dispatch = useAppDispatch();
 
   // 로그아웃 핸들러 함수
-  const handleLogout = async () => {
-    try{
-      const response = await userApi.logout();
+  const handleLogout = () => {
+    // Cookies에서 refreshToken 삭제
+    Cookies.remove('refreshToken');
 
-      if (response.data.success){
-        console.log('로그아웃 성공');
-        Cookies.remove('refreshToken');
-        dispatch(setAccessToken(null));
-        navigate('/login');
-      } else {
-        console.error('로그아웃 오류:', response.data.error.message);
-      }
-    } catch(error) {
-      console.error('API Request Error:', error);
-    }
-  }
+    // localStorage에서 accessToken 삭제
+    localStorage.removeItem('accessToken');
+
+    // Redux 스토어에서 accessToken 업데이트
+    dispatch(setAccessToken(null));
+
+    if (!Cookies.get('refreshToken')) {
+      alert('로그아웃 되었습니다');
+      // 로그인 페이지로 이동
+      navigate('/login');
+    } else {
+      console.log('로그아웃 오류 발생');
+    };
+  };
 
   return (
     <div style={appBarStyle}>

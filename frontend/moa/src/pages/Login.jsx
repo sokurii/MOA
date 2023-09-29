@@ -7,7 +7,7 @@ import { setAccessToken } from '../store';
 
 function Login(props) {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch(); // useDispatch 훅을 사용하여 디스패치 함수를 가져옵니다.
+  const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({
     memberEmail: '',
@@ -33,9 +33,8 @@ function Login(props) {
       if (response.data.success) {
         console.log('로그인 성공', response);
         const accessToken = response.data.response.accessToken.substring(7);
-        dispatch(setAccessToken(accessToken));  // redux store에 accessToken 저장
+        dispatch(setAccessToken(accessToken));
 
-        // refreshToken 쿠키 설정
         const refreshToken = response.data.response.refreshToken.substring(7);
         Cookies.set('refreshToken', refreshToken, { expires: 7 });
 
@@ -54,23 +53,33 @@ function Login(props) {
     <div>
       <p>Login Page</p>
       <div className='loginContainer'>
-        <div className="inputForm">
-          <label htmlFor="memberEmail" className="inputTitle">이메일</label>
-          <input type="text" id="memberEmail" name="memberEmail" onChange={handleInputChange} />
-        </div>
+        <form onSubmit={handleLogin}> {/* 폼 제출 이벤트 핸들러 */}
+          <div className="inputForm">
+            <label htmlFor="memberEmail" className="inputTitle">이메일</label>
+            <input
+              type="text"
+              id="memberEmail"
+              name="memberEmail"
+              onChange={handleInputChange}
+            />
+          </div>
 
-        <div className="inputForm">
-          <label htmlFor="memberPassword" className="inputTitle">비밀번호</label>
-          <form>
-            <input type="password" id="memberPassword" name="memberPassword" onChange={handleInputChange} autoComplete="off" />
-          </form>
-        </div>
+          <div className="inputForm">
+            <label htmlFor="memberPassword" className="inputTitle">비밀번호</label>
+            <input
+              type="password"
+              id="memberPassword"
+              name="memberPassword"
+              onChange={handleInputChange}
+              autoComplete="off"
+            />
+          </div>
 
-        <button type="submit" onClick={handleLogin}>로그인</button>
+          <input type="submit" value="로그인" /> {/* 폼 제출 버튼 */}
+        </form>
+
         {loginError && <p className='error'>{loginError}</p>}
-        {/* <MainButton text="로그인" to="/main" /> */}
       </div>
-      {/* <BackButton /> */}
     </div>
   );
 }
