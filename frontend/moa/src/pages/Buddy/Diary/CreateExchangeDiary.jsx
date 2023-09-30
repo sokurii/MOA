@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import MenuHeader from '../../../components/MenuHeader';
 import styles from '../Diary/CreateExchangeDiary.module.css'
 
+import { WOW } from 'wowjs';
+
+
 function CreateExchangeDiary() {
   const [exchangeDiaryContent, setExchangeDiaryContent] = useState('');
   const [imageFile, setImageFile] = useState(null);
@@ -16,6 +19,12 @@ function CreateExchangeDiary() {
     const week = ['일', '월', '화', '수', '목', '금', '토'];
     setTodayDate(`${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()} (${week[today.getDay()]})`);
   }, [])
+
+  useEffect(() => {
+    // wowjs 초기화
+    const wow = new WOW();
+    wow.init();
+  }, []);
 
   const navigate = useNavigate();
 
@@ -77,7 +86,7 @@ function CreateExchangeDiary() {
     <div>
       <div className={styles.container}>
         <MenuHeader title="일기쓰기"></MenuHeader>
-        <div className={styles.diaryInside}>
+        <div className={styles.diaryInside + ' wow fadeInLeft'}>
           <img
             className={styles.diaryInsideImg}
             src={process.env.PUBLIC_URL + '/assets/ExchangeDiary/diary_inside.png'}></img>

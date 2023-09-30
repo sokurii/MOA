@@ -35,6 +35,7 @@ import KoreaTour from './pages/Buddy/KoreaTour';
 import NotFound404 from './pages/NotFound404';
 import RelatedNews from './components/Learning/RelatedNews';
 import NewsArticle from './pages/Learning/NewsArticle';
+import ExchangeDiaryContent from './pages/Buddy/Diary/ExchangeDiaryContent';
 
 function App() {
   const refreshToken = Cookies.get('refreshToken');
@@ -49,19 +50,19 @@ function App() {
             <>
               <Route path="/" element={<Main />} />
 
-              <Route path="/matching" element={<Matching />}/>
+              <Route path="/matching" element={<Matching />} />
 
-              <Route path="/chatting" element={<ChattingHome />}/>
-              <Route path="/chatting/buddy" element={<BuddyChattingModal />}/>
-              <Route path="/chatting/openchat" element={<OpenChattingModal />}/>
-              <Route path="/chatting/openchat/:id" element={<OpenChattingDetail />}/>
+              <Route path="/chatting" element={<ChattingHome />} />
+              <Route path="/chatting/buddy" element={<BuddyChattingModal />} />
+              <Route path="/chatting/openchat" element={<OpenChattingModal />} />
+              <Route path="/chatting/openchat/:id" element={<OpenChattingDetail />} />
 
               <Route path="/koreanlearning" element={<KoreanLearning />} />
               <Route path="/koreanlearning/word" element={<WordLearning />} />
-              <Route path='/koreanlearning/article' element= {<NewsArticle />} />
-              <Route path='/koreanlearning/keyword' element= {<LearningKeyword />} />
-              <Route path='/koreanlearning/default' element= {<KoreanLearningDefault />} />
-              
+              <Route path='/koreanlearning/article' element={<NewsArticle />} />
+              <Route path='/koreanlearning/keyword' element={<LearningKeyword />} />
+              <Route path='/koreanlearning/default' element={<KoreanLearningDefault />} />
+
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/quiz/question-page" element={<QuestionPage />} />
               <Route path="/quiz/incorrect-note" element={<IncorrectNote />} />
@@ -71,6 +72,7 @@ function App() {
 
               <Route path="/buddy/exchangediary" element={<ExchangeDiary />} />
               <Route path="/buddy/exchangediary/:id" element={<ExchangeDiaryDetail />} />
+              <Route path="/buddy/exchangediary/content" element={<ExchangeDiaryContent />} />
               <Route path="/buddy/exchangediary/create" element={<CreateExchangeDiary />} />
               <Route path="/buddy/exchangediary/:id/update" element={<UpdateExchangeDiary />} />
 
@@ -80,7 +82,7 @@ function App() {
               <Route path="/buddy/balancegame/:id/update" element={<UpdateBalanceGame />} />
 
               <Route path="/buddy/koreatour" element={<KoreaTour />} />
-              
+
               <Route path="*" element={<Navigate to="/" />} />
             </>
           ) : ( // refreshToken이 없는 경우
@@ -91,7 +93,7 @@ function App() {
               <Route path="/*" element={<Navigate to="/intro" />} />
             </>
           )}
-        </Routes>    
+        </Routes>
       </div>
     </BrowserRouter>
   );

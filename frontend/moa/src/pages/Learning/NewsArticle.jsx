@@ -222,22 +222,26 @@ function NewsArticle(props) {
             <div className={styles.articleDate}>{articleDate}</div>
             <button className={styles.listenToSound} onClick={() =>
                 speech(articleSentences[currentSentenceIndex])}>
-                <img src="../../../assets/NewsArticle/listen-to-sound.png" alt=""></img>
+                <img src="../../../assets/NewsArticle/listen-to-sound.png"
+                    style={{ width: "35px", height: "35px", paddingTop: "5px" }} alt=""></img>
             </button>
             <button className={styles.recordSound}>
-                <img src="../../../assets/NewsArticle/record-sound.png"></img>
+                <img src="../../../assets/NewsArticle/record-sound.png"
+                    style={{ width: "35px", height: "35px", paddingTop: "5px" }}></img>
             </button>
             {!isNewsScrap &&
                 <button className={styles.scrap}
                     onClick={createNewsScrap}>
-                    <img src="../../../assets/NewsArticle/scrap.png"></img>
+                    <img src="../../../assets/NewsArticle/scrap.png"
+                        style={{ width: "35px", height: "35px" }}></img>
                 </button>
             }
             {isNewsScrap &&
                 <button className={styles.scrap}
                     onClick={deleteNewsScrap}
                 >
-                    <img src="../../../assets/NewsArticle/scrap_complete.png"></img>
+                    <img src="../../../assets/NewsArticle/scrap_complete.png"
+                        style={{ width: "35px", height: "35px" }}></img>
                 </button>
             }
 

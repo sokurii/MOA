@@ -104,12 +104,14 @@ function ArticleModal(props) {
             {/* <div className={styles.wordPronunciation}>[]</div> */}
             {!isWordScrap &&
               <button className={styles.scrap} onClick={createWordScrap}>
-                <img src="../../../assets/NewsArticle/scrap.png"></img>
+                <img src="../../../assets/NewsArticle/scrap.png"
+                  style={{ width: "35px", height: "35px" }}></img>
               </button>
             }
             {isWordScrap &&
               <button className={styles.scrap} onClick={deleteWordScrap}>
-                <img src="../../../assets/NewsArticle/scrap_complete.png"></img>
+                <img src="../../../assets/NewsArticle/scrap_complete.png"
+                  style={{ width: "35px", height: "35px" }}></img>
               </button>
             }
           </div>

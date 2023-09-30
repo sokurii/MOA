@@ -1,0 +1,132 @@
+.react-calendar,
+.react-calendar *,
+.react-calendar *:before,
+.react-calendar *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.react-calendar button {
+    margin: 0;
+    border: 0;
+    outline: none;
+}
+
+.react-calendar button:enabled:hover {
+    cursor: pointer;
+}
+
+.react-calendar__navigation {
+    display: flex;
+    height: 44px;
+    margin-bottom: 1em;
+}
+
+.react-calendar__navigation button {
+    color: #f88800;
+    min-width: 44px;
+    background: none;
+    font-size: 20px;
+    margin-top: 8px;
+
+    font-family: 'KCC-Ganpan';
+    font-style: normal;
+}
+
+.react-calendar__navigation button:disabled {
+    background-color: #f0f0f0;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+    background-color: #e6e6e6;
+}
+
+.react-calendar__month-view__weekdays {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.75em;
+    color: #474747;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    padding: 0.5em;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: #d10000;
+}
+
+.react-calendar__tile {
+    text-align: center;
+    background: none;
+    height: 35px;
+    margin-top: 20px !important;
+    /* 타일 간의 마진 조절 */
+    /* display: flex; */
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    /* background-color: blue; */
+
+}
+
+abbr[title] {
+    text-decoration: none;
+    font-family: 'SUITE-Regular';
+    font-weight: bold;
+    font-size: 17px;
+}
+
+
+/*hover, focus, 선택됐을 시 */
+.react-calendar__tile:enabled:hover abbr,
+.react-calendar__tile:enabled:focus abbr,
+.react-calendar__tile--active abbr {
+    background: rgb(209, 231, 215) !important;
+    border-radius: 50% !important;
+    padding: 5%;
+}
+
+
+.react-calendar__tile--now abbr {
+    background: #ffbb69 !important;
+    padding: 5%;
+    border-radius: 50% !important;
+}
+
+
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: #ffbb69;
+    border-radius: 50%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 1px;
+}
+
+.foreignerDot {
+    height: 8px;
+    width: 8px;
+    background-color: rgb(209, 231, 215);
+    border-radius: 50%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 1px;
+}
+
+
+.dotDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* background-color: red; */
+}

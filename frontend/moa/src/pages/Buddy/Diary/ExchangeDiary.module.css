@@ -14,6 +14,7 @@
     top: calc(50% - 584px/2 + 18px);
 
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    animation-duration: 2s !important;
 }
 
 .diaryTitle {
@@ -68,14 +69,14 @@
 
 .button_view {
     position: absolute;
-    bottom: 330px;
-    left: 100px;
+    top: 325px;
+    left: 145px;
 }
 
 .button_write {
     position: absolute;
-    bottom: 275px;
-    left: 100px;
+    top: 380px;
+    left: 145px;
 }
 
 .diaryCharacterImg {
@@ -83,7 +84,7 @@
     width: 113px;
     height: 60.17px;
     left: 150px;
-    top: 295px;
+    top: 275px;
 }
 
 @font-face {
