@@ -5,7 +5,6 @@ import com.ssafy.moa.api.entity.ExchangeDiary;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,8 +12,7 @@ import java.util.stream.Collectors;
 
 public class ExchangeDiaryDto {
 
-    @Value("${spring.cloud.gcp.storage.bucket}")
-    private static String bucketName;
+    private static String bucketName = "diary_storage";;
     private static final String url = "https://storage.googleapis.com/";
     @Getter
     @NoArgsConstructor

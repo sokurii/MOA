@@ -9,15 +9,18 @@ import com.ssafy.moa.api.repository.*;
 import com.ssafy.moa.api.service.ExchangeDiaryService;
 import com.ssafy.moa.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
@@ -46,7 +49,7 @@ public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
                 .build();
         storage.create(blobInfo, multipartFile.getInputStream());
 
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
         ExchangeDiary exchangeDiary = ExchangeDiary.builder()
                 .exchangeDiaryContent(exchangeDiaryRequest.getExchangeDiaryContent())
                 .exchangeDiaryPicture(uuid)
@@ -63,15 +66,14 @@ public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
     public List<ExchangeDiaryDetailResponse> findExchangeDiary(Member member) {
         Member buddyMember = findBuddyMember(member);
         List<ExchangeDiary> diaryList = exchangeDiaryRepository.findByMemberOrMember(member, buddyMember);
-        System.out.println("diaryList.size() = " + diaryList.size());
         return ExchangeDiaryResponse.builder().exchangeDiaryList(diaryList).build().getExchangeDiaryResponseList();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ExchangeDiaryDetailResponse> findExchangeDiaryByMonth(Member member, Integer month) {
+    public List<ExchangeDiaryDetailResponse> findExchangeDiaryByMonth(Member member, Integer year, Integer month) {
         Member buddyMember = findBuddyMember(member);
-        List<ExchangeDiary> diaryList = exchangeDiaryRepository.findMonth(member, buddyMember, month);
+        List<ExchangeDiary> diaryList = exchangeDiaryRepository.findMonth(member, buddyMember, year, month);
         return ExchangeDiaryResponse.builder().exchangeDiaryList(diaryList).build().getExchangeDiaryResponseList();
     }
 
@@ -92,6 +94,39 @@ public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
                 .exchangeDiaryImgUrl(imgUrl)
                 .exchangeDiaryDate(exchangeDiary.getExchangeDiaryDate())
                 .build();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Boolean isExchangeDiaryToday(Member member) {
+        // 내가 오늘 안 했고, 버디는 쓴 경우
+        // TODO: 1. 오늘 내가 적은 지 확인
+        boolean todayIWrite = exchangeDiaryRepository.findToday(member);
+        log.info("todayIWrite: " + String.valueOf(todayIWrite));
+        if(!todayIWrite) return false;
+
+        // TODO: 2. 버디가 적은 지 확인
+        if(member.getMemberIsForeigner()) { // 외국인이면
+            log.info("Am I Foreigner ? ");
+            Foreigner foreigner = foreignerRepository.findByMember(member).get();
+            Buddy buddy = buddyRepository.findByForeigner(foreigner).get();
+            Member koreanMember = buddy.getKorean().getMember();
+            boolean todayBuddyWrite = exchangeDiaryRepository.findToday(koreanMember);
+            log.info("todayBuddyWrite: " + String.valueOf(todayBuddyWrite));
+
+            if(!todayBuddyWrite) return true;
+        }
+        else {
+            log.info("Am I Korean ? ");
+            Korean korean = koreanRepository.findByMember(member).get();
+            Buddy buddy = buddyRepository.findByKorean(korean).get();
+            Member foreignerMember = buddy.getForeigner().getMember();
+            boolean todayBuddyWrite = exchangeDiaryRepository.findToday(foreignerMember);
+            log.info("todayBuddyWrite: " + String.valueOf(todayBuddyWrite));
+
+            if(!todayBuddyWrite) return true;
+        }
+        return false;
     }
 
     @Override
