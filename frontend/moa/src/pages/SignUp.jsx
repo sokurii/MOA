@@ -5,6 +5,45 @@ import { userApi } from '../api/userApi';
 import AppBar from '../components/AppBar';
 import BackButton from '../components/BackButton';
 
+const signupStyle = {
+  minHeight: '100vh',
+};
+
+const signupContainerStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-evenly',
+  padding: '20px 30px',
+};
+
+const inputContainerStyle = {
+  margin: '15px 0',
+};
+
+const radioContainerStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  margin: '10px 0',
+};
+
+const radioStyle = {
+  display: 'flex',
+  width: '50%',
+};
+
+const radioButtonStyle = {
+  marginRight: '10px',
+};
+
+const radioLabelStyle = {
+  fontWeight: '500'
+};
+
+const radioLabelKorStyle = {
+  fontSize: '18px',
+  marginRight: '5px',
+};
+
 const labelStyle = {
   display: 'flex',
   alignItems: 'center',
@@ -12,15 +51,17 @@ const labelStyle = {
 };
 
 const labelKorStyle = {
-  fontSize: '18px',
+  fontSize: '20px',
   marginRight: '5px',
 };
 
 const labelEngStyle = {
-  fontSize: '16px',
+  fontSize: '18px',
 };
 
 const inputStyle = {
+  fontSize: '18px',
+  fontWeight: '500',
   borderBottom: '1px solid #92BB69', // 밑줄 스타일
   borderLeft: 'none',
   borderRight: 'none',
@@ -28,6 +69,43 @@ const inputStyle = {
   margin: '10px auto',
   width: '100%',
   height: '30px',
+};
+
+const optionStyle = {
+};
+
+const verificationButtonStyle = {
+  margin: '10px auto',
+  padding: '12px',
+  background: 'white',
+  border: 'none',
+  borderRadius: '10px',
+  boxShadow: '0px 10px 10px rgba(196, 221, 124, 0.25)',
+  color: '#92BB69',
+  fontSize: '20px',
+  fontWeight: '700',
+  width: '100%',
+};
+
+const noticeStyle = {
+  fontSize: '14px',
+  fontWeight: '400',
+};
+
+const buttonContainerStyle = {
+
+};
+
+const signupButtonStyle = {
+  background: 'linear-gradient(104deg, #C4DD7C 0%, #A6CC38 100%)',
+  color: 'white',
+  fontSize: '20px',
+  fontWeight: '700',
+  width: '100%',
+  border: 'none',
+  borderRadius: '18px',
+  margin: '20px auto',
+  padding: '12px 0',
 };
 
 
@@ -164,19 +242,33 @@ function SignUp(props) {
   };
 
   return (
-    <div>
+    <div style={signupStyle}>
       <AppBar />
-      <div className='signUpContainer'>
-        <div>
+      <div style={signupContainerStyle} className='signUpContainer'>
+        <div style={inputContainerStyle}>
           <label style={labelStyle} htmlFor="" className="inputTitle">
             <span style={labelKorStyle}>나는</span>
             <span style={labelEngStyle}>I'm</span>
           </label>
-          <input type="radio" id="foreigner" name="memberIsForeigner" value="true"/>외국인
-          <input type="radio" id="korean" name="memberIsForeigner" value="false"/>한국인
+          <div style={radioContainerStyle}>
+            <div style={radioStyle}>
+              <input style={radioButtonStyle} type="radio" id="foreigner" name="memberIsForeigner" value="true"/>
+              <label style={radioLabelStyle} htmlFor="foreigner">
+                <span style={radioLabelKorStyle}>외국인</span>
+                <span>Foreigner</span>
+              </label>
+            </div>
+            <div style={radioStyle}>
+              <input style={radioButtonStyle} type="radio" id="korean" name="memberIsForeigner" value="false"/>
+              <label style={radioLabelStyle} htmlFor="korean">
+                <span style={radioLabelKorStyle}>한국인</span>
+                <span>Korean</span>
+              </label>
+            </div>
+          </div>
         </div>
 
-        <div className="inputForm">
+        <div style={inputContainerStyle} className="inputForm">
           <label style={labelStyle} htmlFor="memberName" className="inputTitle">
             <span style={labelKorStyle}>이름</span>
             <span style={labelEngStyle}>Name</span>
@@ -184,30 +276,44 @@ function SignUp(props) {
           <input style={inputStyle} type="text" id="memberName" name="memberName" onChange={handleInputChange}/>
         </div>
 
-        <div className="inputForm">
+        <div style={inputContainerStyle} className="inputForm">
           <label style={labelStyle} htmlFor="nationName" className="inputTitle">
             <span style={labelKorStyle}>국적</span>
             <span style={labelEngStyle}>Nationality</span>
           </label>
-          <select name="nationName" onChange={handleInputChange}>
+          <select style={inputStyle} name="nationName" onChange={handleInputChange}>
             {nations.map((nation) => (
-              <option key={nation.nationCode} value={nation.nationName}>
+              <option style={optionStyle} key={nation.nationCode} value={nation.nationName}>
                 {nation.nationName}
               </option>
             ))}
           </select>
         </div>
 
-        <div className="inputForm">
+        <div style={inputContainerStyle} className="inputForm">
           <label style={labelStyle} htmlFor="memberGender" className="inputTitle">
             <span style={labelKorStyle}>성별</span>
             <span style={labelEngStyle}>Gender</span>
           </label>
-          <input type="radio" id="man" name="memberGender" value="2" onChange={handleInputChange}/>남자
-          <input type="radio" id="woman" name="memberGender" value="1" onChange={handleInputChange}/>여자
+          <div style={radioContainerStyle}>
+            <div style={radioStyle}>
+              <input style={radioButtonStyle} type="radio" id="man" name="memberGender" value="2" onChange={handleInputChange}/>
+              <label style={radioLabelStyle} htmlFor="man">
+                <span style={radioLabelKorStyle}>남자</span>
+                <span>Man</span>
+              </label>
+            </div>
+            <div style={radioStyle}>
+              <input style={radioButtonStyle} type="radio" id="woman" name="memberGender" value="1" onChange={handleInputChange}/>
+              <label style={radioLabelStyle} label htmlFor="woman">
+                <span style={radioLabelKorStyle}>여자</span>
+                <span>Woman</span>
+              </label>
+            </div>
+          </div>
         </div>
 
-        <div className="inputForm">
+        <div style={inputContainerStyle} className="inputForm">
           <label style={labelStyle} htmlFor="memberEmail" className="inputTitle">
             <span style={labelKorStyle}>이메일</span>
             <span style={labelEngStyle}>Email</span>
@@ -216,7 +322,9 @@ function SignUp(props) {
         </div>
         
         {/* 이메일 인증 */}
-        <button onClick={handleSendVerificationCode}>인증번호 전송</button>
+        <div style={buttonContainerStyle}>
+          <button style={verificationButtonStyle} onClick={handleSendVerificationCode}>인증번호 전송</button>
+        </div>
 
         {/* 인증 시 타이머*/}
         {timerStarted ? (
@@ -227,7 +335,7 @@ function SignUp(props) {
         ) : null}
         {/* 인증 번호 입력란 */}
         {verificationSent ? (
-          <div className='inputForm'>
+          <div style={inputContainerStyle} className='inputForm'>
             <label style={labelStyle} htmlFor="verificationCode" className='inputTitle'>
               <span style={labelKorStyle}>인증번호</span>
               <span style={labelEngStyle}>Verification Code</span>
@@ -238,24 +346,23 @@ function SignUp(props) {
         ) : null}
 
 
-        <div className="inputForm">
+        <div style={inputContainerStyle} className="inputForm">
           <label style={labelStyle} htmlFor="memberPassword" className="inputTitle">
             <span style={labelKorStyle}>비밀번호</span>
             <span style={labelEngStyle}>Password</span>
           </label>
           <form>
             <input style={inputStyle} type="password" id="memberPassword" name="memberPassword" onChange={handleInputChange} autoComplete="off" />
-            <p>
+            <span style={noticeStyle}>
               {passwordValid ? '사용가능한 비밀번호 입니다' : '영어, 숫자, 특수문자 포함한 8글자 이상이어야 합니다'}
-            </p>
+            </span>
           </form>
         </div>
-
-        <button onClick={handleForSubmit}>회원가입</button>
+        <div style={buttonContainerStyle}>
+          <button button style={signupButtonStyle} onClick={handleForSubmit}>회원가입</button>
+        </div>
 
       </div>
-
-      <BackButton />
     </div>
   );
 }
