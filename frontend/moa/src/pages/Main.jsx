@@ -36,12 +36,6 @@ function Main(props) {
   return (
     <div style={mainPageStyle}>
       <AppBar />
-      {/* 첫 화면 이동을 위한 버튼 */}
-      <div>
-        <Link to="/intro">
-          <button>첫 화면으로 이동</button>
-        </Link>
-      </div>
       <div>
         <p>안녕, User!</p>
       </div>

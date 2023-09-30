@@ -3,7 +3,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { userApi } from '../api/userApi';
 import Cookies from 'js-cookie';
 import { useAppDispatch } from '../store'; // useDispatch를 사용하는 부분을 변경
-import { setAccessToken } from '../store';
+import { setAccessToken, setIsForeigner, setIsMatching } from '../store';
+
+import LoginLoading from '../components/LoginLoading';
 
 const loginStyle = {
   display: 'flex',
@@ -91,6 +93,7 @@ function Login(props) {
   });
 
   const [loginError, setLoginError] = useState('');
+  const [isLogin, setIsLogin] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -115,8 +118,7 @@ function Login(props) {
         
         Cookies.set('refreshToken', refreshToken, { expires: 7 });
         alert('로그인 성공!');
-        window.location.reload();
-        navigate('/');
+        setIsLogin(true);
 
       } else {
         console.log('로그인 오류:', response.data.error.message);
@@ -174,6 +176,7 @@ function Login(props) {
 
       </div>
       {loginError && <p className='error'>{loginError}</p>}
+      {isLogin && <LoginLoading />}
     </div>
   );
 }

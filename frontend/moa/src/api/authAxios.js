@@ -12,6 +12,8 @@ const AuthInterceptor = (config) => {
 
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
+  } else {
+    console.log('accessToken이 존재하지 않습니다');
   }
 
   return config;

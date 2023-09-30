@@ -1,3 +1,4 @@
+import { authAxios } from "./authAxios";
 import { nonAuthAxios } from "./nonAuthAxios";
 
 export const matchingApi = {
@@ -9,5 +10,8 @@ export const matchingApi = {
 
   // 매칭
   matching : (data) => nonAuthAxios.post('buddy/match', data),
+
+  // 매칭 여부 조회:
+  isMatching: () => authAxios.get('buddy/whether'),
 
 };

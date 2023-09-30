@@ -1,39 +1,63 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
+import store from '../store';
 
+import ProgressBar from "../components/Matching/ProgressBar";
 import ConfirmButton from "../components/ConfirmButton";
+
+import MatchingIntro from "../components/Matching/MatchingIntro";
 import BuddyInterest from "../components/Matching/BuddyInterest";
 import BuddyGender from "../components/Matching/BuddyGender";
 import LoadingMatching from "../components/Matching/LoadingMatching";
 import SuccessMatching from "../components/Matching/SuccessMatching";
 import KoreanBuddy from "../components/Matching/KoreanBuddy";
 
+const state = store.getState();
+
+const matchingStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'hidden',
+  minHeight: '100vh',
+};
+
+const buttonContainerStyle = {
+  display: 'flex',
+  margin: '20px 0',
+};
+
+const buttonStyle = {
+  background: 'linear-gradient(104deg, #C4DD7C 0%, #A6CC38 100%)',
+  color: 'white',
+  fontSize: '20px',
+  fontWeight: '700',
+  width: '100%',
+  border: 'none',
+  borderRadius: '18px',
+  margin: '20px 10px',
+  padding: '12px 0',
+};
+
 function Matching() {
-  // const location = useLocation();
-  // const foreigner = location.state.isForeigner;
+  const isForeigner = state.isForeigner;
+  // console.log(isForeigner);
 
-  // console.log(foreigner);
-
-  const [isForeigner, setIsForeigner] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
 
   useEffect(() => {
-    // Your useEffect logic here
-  }, []);
+    if (currentStep === 4) {
+      setTimeout(() => {
+        setCurrentStep(currentStep + 1);
+      }, 5000);
+    }
+  }, [currentStep]);
 
   const handleStartClick = () => {
     setCurrentStep(isForeigner ? 2 : 1);
   };
 
   const steps = [
-    <div>
-      {isForeigner ? (
-        <h3>반가워요! 멋진 한국인 친구 버디를 만나보세요</h3>
-      ) : (
-        <h3>한국을 좋아하는 외국인 친구의 버디가 되어보세요</h3>
-      )}
-      <ConfirmButton text="시작하기" onClick={handleStartClick} />
-    </div>,
+    <MatchingIntro />,
     <KoreanBuddy />,
     <BuddyInterest />,
     <BuddyGender />,
@@ -57,20 +81,23 @@ function Matching() {
   
   const stepsStyle = {
     display: "flex",
+    flex: '1',
     transition: "transform 0.3s ease-in-out",
-    width: "100%",
     transform: `translateX(${translateValue}%)`,
   }
 
   const stepStyle = {
     flex: "0 0 100%",
+    width: "100%",
+    flexShrink: '0',
   }
 
 
   return (
-    <>
-      <div>매칭 페이지</div>
+    <div style={matchingStyle}>
       {/* 외국인 관심사 등록일 경우 KoreanBuddy 컴포넌트가 안나옴*/}
+
+      {currentStep === 0 || currentStep === 4 || currentStep === 5 ? null : <ProgressBar />}
 
       <div style={stepsStyle}>
         {steps.map((step, index) => {
@@ -81,9 +108,46 @@ function Matching() {
           );
         })}
       </div>
-      {currentStep > 1 && !(isForeigner && currentStep === 2) ? <button onClick={handlePrevClick}>이전 단계</button> : null}
-      {currentStep && currentStep < steps.length - 1 ? <button onClick={handleNextClick}>다음 단계</button> : null}
-    </>
+      <div style={buttonContainerStyle}>
+        {(() => {
+          switch (currentStep) {
+            case 0:
+              return (
+                <ConfirmButton text='시작하기' onClick={handleStartClick} />
+              );
+
+            case 1:
+              return (
+                <ConfirmButton text='다음단계' onClick={handleNextClick} />
+              );
+            
+            case 2:
+              if (isForeigner) {
+                return (
+                  <ConfirmButton text='다음단계' onClick={handleNextClick} />
+                );
+              }
+              return (
+                <>
+                  <ConfirmButton text='이전단계' onClick={handlePrevClick} />
+                  <ConfirmButton text='다음단계' onClick={handleNextClick} />
+                </>
+              );
+
+            case 3:
+              return (
+                <>
+                  <ConfirmButton text='이전단계' onClick={handlePrevClick} />
+                  <ConfirmButton text='매칭하기' onClick={handleNextClick} />
+                </>
+              )
+
+            case 4 || 5:
+              return null
+          }
+        })()}
+      </div>
+    </div>
   );
 }
 
