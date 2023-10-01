@@ -9,6 +9,8 @@ import { userApi } from '../api/userApi';
 import { matchingApi } from '../api/matchingApi';
 
 const loginLoadingStyle = {
+  display: 'flex',
+  justifyContent: 'center',
   minHeight: '100vh',
 }
 
@@ -34,7 +36,11 @@ function LoginLoading(props) {
     .then((response) => {
       const res = response.data.response;
       console.log('매칭여부:' + res);
-      dispatch(setIsMatching(res));
+      if (res) {
+        dispatch(setIsMatching(true));
+      } else {
+        dispatch(setIsMatching(false));
+      };
     })
     .catch((error) => {
       console.log(`매칭여부 조회 오류 : ${error}`);

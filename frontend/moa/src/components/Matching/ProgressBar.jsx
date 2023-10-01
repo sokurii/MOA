@@ -8,7 +8,7 @@ const state = store.getState();
 const progressBarContainerStyle = {
   display: 'flex',
   justifyContent: 'space-between',
-  margin: '20px 0'
+  margin: '30px 10px'
 };
 
 function ProgressBar(props) {
