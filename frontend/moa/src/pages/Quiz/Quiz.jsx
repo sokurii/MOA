@@ -4,16 +4,6 @@ import AppBar from '../../components/AppBar';
 import styles from '../../styles/Quiz/Quiz.module.css'
 
 function Quiz(props) {
-  // const [questions, setQuestions] = useState([]);
-
-  // const makeWordQuiz = (() => {
-  //   // 단어 퀴즈 질문을 생성하는 논리를 작성하세요.
-  // });
-
-  // useEffect(() => {
-  //   // useEffect 로직을 작성하세요.
-  // }, [])
-
 
   return (
     <div>
@@ -34,7 +24,7 @@ function Quiz(props) {
             </div>
           </Link>
 
-          <Link to="/quiz/incorrect-note">
+          <Link to="/quiz/sentence-quiz">
             <div className={styles.quizCardContainer}>
               <img src={process.env.PUBLIC_URL + '/assets/Quiz/sentenceCard.png'} alt="문장퀴즈" /> 
               <div className={styles.quizCardText}>
