@@ -66,7 +66,7 @@ function ExchangeDiaryContent() {
     return (
         <div>
             <div className={styles.container}>
-                <MenuHeader title="나의 일기"></MenuHeader>
+                <MenuHeader title="교환일기"></MenuHeader>
                 <div className={styles.diaryInside + ' wow fadeInLeft'} >
                     <img
                         className={styles.diaryInsideImg}

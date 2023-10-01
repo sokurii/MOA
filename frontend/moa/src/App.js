@@ -74,7 +74,7 @@ function App() {
               <Route path="/quiz/quiz-result" element={<QuizResult />} />
 
               <Route path="/buddy/exchangediary" element={<ExchangeDiary />} />
-              <Route path="/buddy/exchangediary/:id" element={<ExchangeDiaryDetail />} />
+              <Route path="/buddy/exchangediary/:exchangeDiaryId" element={<ExchangeDiaryDetail />} />
               <Route path="/buddy/exchangediary/content" element={<ExchangeDiaryContent />} />
               <Route path="/buddy/exchangediary/create" element={<CreateExchangeDiary />} />
               <Route path="/buddy/exchangediary/:id/update" element={<UpdateExchangeDiary />} />
