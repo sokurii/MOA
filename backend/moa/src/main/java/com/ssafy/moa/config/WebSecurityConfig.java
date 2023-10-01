@@ -29,24 +29,7 @@ public class WebSecurityConfig {
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/member/signup/**").permitAll()
-                                .requestMatchers("/member/login").permitAll()
-                                .requestMatchers("/nation").permitAll()
-                                .requestMatchers("/swagger-ui/**").permitAll()
-                                .requestMatchers("/v3/**").permitAll()
-                                .requestMatchers("/translation/**").permitAll()
-                                .requestMatchers("/buddy/**").permitAll()
-                                .requestMatchers("/test/**").permitAll()
-                                .requestMatchers("/balance/**").permitAll()
-                                .requestMatchers("/media/**").permitAll()
-                                .requestMatchers("/open-chat/**").permitAll()
-                                .requestMatchers("/chat-gpt/**").permitAll()
-                                .requestMatchers("/scrap/**").permitAll()
-                                .requestMatchers("/chat/**").permitAll()
-                                .requestMatchers("/quiz/**").permitAll()
-                                .requestMatchers("/chat/**").permitAll()
-                                .requestMatchers("/ws-stomp/**").permitAll()
-                                .requestMatchers("/keyword/**").permitAll()
+                                .requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated())
                 .apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
