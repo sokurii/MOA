@@ -27,6 +27,7 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         response.setCharacterEncoding("utf-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
 
         try{
             filterChain.doFilter(request, response);
