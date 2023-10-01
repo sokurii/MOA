@@ -8,7 +8,7 @@ const buttonStyle = {
   width: '100%',
   border: 'none',
   borderRadius: '18px',
-  margin: '20px 10px',
+  margin: '10px 5px',
   padding: '12px 0',
 };
 

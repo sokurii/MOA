@@ -18,6 +18,7 @@ const introduceStyle = {
   textAlign: 'left',
   fontSize: '24px',
   fontWeight: '700',
+  marginBottom: '50px',
 };
 
 const introduceKorStyle = {
