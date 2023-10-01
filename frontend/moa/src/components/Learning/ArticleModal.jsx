@@ -45,7 +45,7 @@ function ArticleModal(props) {
   const createWordScrap = () => {
     const data = {
       wordName: word,
-      wordMean: '테스트', // 나중에 파파고 번역한 거 값 넘겨주기
+      wordMean: translatedWord, // 나중에 파파고 번역한 거 값 넘겨주기
     }
 
     learningApi.createWordScrap(data)
@@ -99,43 +99,42 @@ function ArticleModal(props) {
       <div className={styles.modalBackground} onClick={onCloseModal}></div>
       <div className={styles.container}>
         {!chatGptAsk && ( // chatGPTAsk가 false일 때만 아래 내용을 렌더링
-          <div className={styles.wordTitle}>
-            <div className={styles.wordKoreanTitle}>{word}</div>
-            {/* <div className={styles.wordPronunciation}>[]</div> */}
-            {!isWordScrap &&
-              <button className={styles.scrap} onClick={createWordScrap}>
-                <img src="../../../assets/NewsArticle/scrap.png"
-                  style={{ width: "35px", height: "35px" }}></img>
+          <>
+            <div className={styles.wordTitle}>
+              <div className={styles.wordKoreanTitle}>{word}</div>
+              {!isWordScrap &&
+                <button className={styles.scrap} onClick={createWordScrap}>
+                  <img src="../../../assets/NewsArticle/scrap.png"
+                    style={{ width: "28px", height: "28px" }}></img>
+                </button>
+              }
+              {isWordScrap &&
+                <button className={styles.scrap} onClick={deleteWordScrap}>
+                  <img src="../../../assets/NewsArticle/scrap_complete.png"
+                    style={{ width: "28px", height: "35px" }}></img>
+                </button>
+              }
+            </div>
+            <div className={styles.wordTranslation}>{translatedWord}</div>
+            <div className={styles.wordButton}>
+              <button className={styles.chatGptButton}
+                onClick={goChatGPTAsk}>
+                GPT에게 <br /> 물어보기
               </button>
-            }
-            {isWordScrap &&
-              <button className={styles.scrap} onClick={deleteWordScrap}>
-                <img src="../../../assets/NewsArticle/scrap_complete.png"
-                  style={{ width: "35px", height: "35px" }}></img>
+              <button className={styles.BuddyButton}>
+                버디에게 <br /> 물어보기
               </button>
-            }
-          </div>
-        )}
-        {!chatGptAsk && ( // chatGPTAsk가 false일 때만 아래 내용을 렌더링
-          <div className={styles.wordTranslation}>{translatedWord}</div>
-        )}
-        {!chatGptAsk && ( // chatGPTAsk가 false일 때만 아래 내용을 렌더링
-          <div className={styles.wordButton}>
-            <button className={styles.chatGptButton}
-              onClick={goChatGPTAsk}>
-              GPT에게 <br /> 물어보기
-            </button>
-            <button className={styles.BuddyButton}>
-              버디에게 <br /> 물어보기
-            </button>
-          </div>
+            </div>
+
+          </>
         )}
         {chatGptAsk && (
-          <div>
+          <>
             <div className={styles.chatGptTitle}>
               <button className={styles.leftArrow}
                 onClick={closeChatGpt}>
                 <img src='../../../assets/NewsArticle/left_arrow.png'
+                  className={styles.leftArrowImg}
                 ></img>
               </button>
               <div className={styles.chatGptTitleName}>GPT</div>
@@ -151,7 +150,7 @@ function ArticleModal(props) {
               className={styles.chatGPTAnswer}>
               {text}
             </div>
-          </div>
+          </>
 
         )}
       </div>
