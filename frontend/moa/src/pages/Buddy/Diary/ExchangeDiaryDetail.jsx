@@ -105,9 +105,8 @@ function ExchangeDiaryDetail() {
           <h5>내용 : {diaryContent}</h5>
         </div>
       </div>
-      <hr />
-      <BackButton />
-    </div>
+      <hr /> */}
+    </div >
   );
 }
 
