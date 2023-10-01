@@ -5,7 +5,6 @@ import Cookies from 'js-cookie';
 import { useAppDispatch } from '../store'; // useDispatch를 사용하는 부분을 변경
 import { setAccessToken, setIsForeigner, setIsMatching } from '../store';
 
-import LoginLoading from '../components/LoginLoading';
 
 const loginStyle = {
   display: 'flex',
@@ -117,8 +116,7 @@ function Login(props) {
         const refreshToken = response.data.response.refreshToken.substring(7);
         
         Cookies.set('refreshToken', refreshToken, { expires: 7 });
-        alert('로그인 성공!');
-        setIsLogin(true);
+        navigate('/login-load');
 
       } else {
         console.log('로그인 오류:', response.data.error.message);
@@ -176,7 +174,6 @@ function Login(props) {
 
       </div>
       {loginError && <p className='error'>{loginError}</p>}
-      {isLogin && <LoginLoading />}
     </div>
   );
 }

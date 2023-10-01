@@ -33,13 +33,15 @@ function LoginLoading(props) {
     matchingApi.isMatching()
     .then((response) => {
       const res = response.data.response;
-      console.log(res);
+      console.log('매칭여부:' + res);
+      dispatch(setIsMatching(res));
     })
     .catch((error) => {
       console.log(`매칭여부 조회 오류 : ${error}`);
     })
 
     setTimeout(() => {
+      window.location.reload();
       if (isMatching) {
         navigate('/');
       } else {

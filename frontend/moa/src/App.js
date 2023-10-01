@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import store from './store';
 import Cookies from 'js-cookie';
 
 import Intro from './pages/Intro';
 import Main from './pages/Main';
 import Login from './pages/Login';
+import LoginLoading from './pages/LoginLoading';
 import SignUp from './pages/SignUp';
 import Matching from './pages/Matching';
 import ChattingHome from './components/ChattingHome';
@@ -39,13 +41,16 @@ import NewsArticle from './pages/Learning/NewsArticle';
 import ExchangeDiaryContent from './pages/Buddy/Diary/ExchangeDiaryContent';
 
 function App() {
+  const state = store.getState();
+  const accessToken = state.accessToken;
+  const isMatching = state.isMatching;
   const refreshToken = Cookies.get('refreshToken');
 
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          {refreshToken ? ( // refreshToken이 있는 경우
+          {refreshToken? ( // refreshToken이 있는 경우
             <>
               <Route path="/" element={<Main />} />
 
@@ -87,6 +92,7 @@ function App() {
             <>
               <Route path="/intro" element={<Intro />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/login-load" element={<LoginLoading />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/*" element={<Navigate to="/intro" />} />
             </>
