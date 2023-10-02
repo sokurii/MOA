@@ -96,3 +96,47 @@
 
     color: #FC9F33;
 }
+
+.diaryNoContent {
+    position: absolute;
+    left: 80px;
+    top: 140px;
+}
+
+.diaryNoContentDesc {
+    margin-top: 10px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.065em;
+
+    color: #000000;
+}
+
+.diaryNoContentBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+
+    width: 226px;
+    height: 41px;
+    margin-top: 10px;
+
+    background: linear-gradient(185.83deg, #FFD88D 4.86%, #FC9F31 80.61%);
+    border: none;
+    border-radius: 18px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    font-family: 'SUITE-Regular';
+    /* identical to box height */
+
+    color: #FFFFFF;
+}

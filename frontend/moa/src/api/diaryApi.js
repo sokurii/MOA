@@ -5,7 +5,7 @@ export const diaryApi = {
   getDiaryList: (year, month) => authAxios.get(`buddy/diary/${year}/${month}`),
 
   // 교환일기 상세 조회
-  getDiaryDetail: (exchangeDiaryId) => authAxios.get(`buddy/diary/${exchangeDiaryId}`),
+  getDiaryDetail: (exchangeDiaryDate) => authAxios.get(`buddy/diary/day/${exchangeDiaryDate}`),
 
   // 교환일기 생성
   createDiary: (data) => authAxios.post('buddy/diary', data),

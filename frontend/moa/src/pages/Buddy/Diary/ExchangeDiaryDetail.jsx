@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { useLocation } from 'react-router-dom';
 import { diaryApi } from '../../../api/diaryApi';
+import { userApi } from '../../../api/userApi';
 
+import { Link } from 'react-router-dom';
 import styles from '../Diary/ExchangeDiaryDetail.module.css'
-import BackButton from '../../../components/BackButton';
 import MenuHeader from '../../../components/MenuHeader';
 
 import { WOW } from 'wowjs';
@@ -12,40 +12,66 @@ import moment from 'moment';
 import 'moment/locale/ko'; // 한국어 로케일 추가
 
 function ExchangeDiaryDetail() {
-  const { exchangeDiaryId } = useParams();
+  const { exchangeDiaryDate } = useParams();
 
-  const [diaryContent, setDiaryContent] = useState('');
-  const [imgUrl, setImgUrl] = useState('');
+  const [memberIsForeigner, setMemberIsForeigner] = useState();
+
   const [date, setDate] = useState('');
-  const [name, setName] = useState('');
+
+  const [diaries, setDiaries] = useState();
+  const [myDiary, setMyDiary] = useState();
+  const [buddyDiary, setBuddyDiary] = useState();
+
+  const [isMyDiary, setIsMyDiary] = useState(true);
 
   const week = ['일', '월', '화', '수', '목', '금', '토'];
 
-
   useEffect(() => {
-    console.log(exchangeDiaryId);
-    diaryApi.getDiaryDetail(exchangeDiaryId)
+    userApi.getMemberInfo()
       .then((response) => {
         const res = response.data.response;
-        const member = res.member;
-        console.log(res);
-        console.log(member);
-        setDiaryContent(res.exchangeDiaryContent);
-        setImgUrl(res.exchangeDiaryImgUrl);
+        if (res.memberIsForeigner) {
+          setMemberIsForeigner(true);
+        }
+        else {
+          setMemberIsForeigner(false);
+        }
+      })
+      .catch((error) => {
+        console.error("다이어리 멤버 조회 오류", error);
+      })
+  }, [])
+
+  useEffect(() => {
+    diaryApi.getDiaryDetail(exchangeDiaryDate)
+      .then((response) => {
+        const diaries = response.data.response;
+        setDiaries(diaries);
 
         moment.locale('ko');
-        const diaryDate = moment(res.exchangeDiaryDate);
+        const diaryDate = moment(diaries[0].exchangeDiaryDate);
         setDate(diaryDate.format('YYYY/MM/DD (ddd)'));
-        console.log(date);
-        setName(member.memberName);
-
       })
       .catch((error) => {
         console.log('교환일기 상세조회 오류');
         console.log(error);
       });
+  }, [exchangeDiaryDate]);
 
-  }, [exchangeDiaryId]);
+  // 교환 일기 설정
+  useEffect(() => {
+    if (diaries) {
+      diaries.forEach((diary) => {
+        if (memberIsForeigner === diary.member.memberIsForeigner) {
+          setMyDiary(diary);
+        }
+        else {
+          setBuddyDiary(diary);
+        }
+
+      })
+    }
+  }, [diaries])
 
   useEffect(() => {
     // wowjs 초기화
@@ -54,38 +80,128 @@ function ExchangeDiaryDetail() {
     wow.sync();
   }, []);
 
-  const navigate = useNavigate();
+  const moveToBuddyDiaryPage = () => {
+    setIsMyDiary(false);
+  }
 
-  const handleUpdateExchangeDiaryClick = () => {
-    navigate(`/buddy/exchangediary/${exchangeDiaryId}/update`, {
-      state: { exchangeDiaryId }, // 밸런스게임 데이터를 state에 전달
-    });
-  };
+  const moveToMyDiaryPage = () => {
+    setIsMyDiary(true);
+  }
 
   return (
     <div>
       <div className={styles.container}>
         <MenuHeader title="교환일기"></MenuHeader>
         <div className={styles.diaryInside + ' wow fadeInLeft'} >
-          <img
-            className={styles.diaryInsideImg}
-            src={process.env.PUBLIC_URL + '/assets/ExchangeDiary/diary_inside.png'}></img>
-          <div className={styles.diaryDate}>{date}</div>
+          {isMyDiary &&
+            <>
+              {myDiary &&
+                <>
+                  <img
+                    className={styles.diaryInsideImg}
+                    src={process.env.PUBLIC_URL + '/assets/ExchangeDiary/diary_inside.png'}></img>
+                  <div className={styles.diaryDate}>{date}</div>
 
-          <div className={styles.diaryPhoto}>
-            <img
-              src='https://storage.googleapis.com/diary_storage/diary/1f074c33-7959-41ad-97a7-31093d6997f2'
-              style={{ maxWidth: '100%', maxHeight: '100%' }}></img>
-          </div>
+                  <div className={styles.diaryPhoto}>
+                    <img
+                      src={myDiary.exchangeDiaryImgUrl}
+                      style={{ maxWidth: '100%', maxHeight: '100%' }}></img>
+                  </div>
 
-          <div className={styles.diaryContent}>
-            {diaryContent}
-          </div>
+                  <div className={styles.diaryContent}>
+                    {myDiary.exchangeDiaryContent}
+                  </div>
 
-          <div className={styles.moveToNextPage}>
-            버디가 쓴 일기 보기 &gt;
-          </div>
+                  <div className={styles.moveToNextPage}
+                    onClick={moveToBuddyDiaryPage}>
+                    버디가 쓴 일기 보기 &gt;
+                  </div>
+                </>
+              }
+              {!myDiary &&
+                <>
+                  <img
+                    className={styles.diaryInsideImg}
+                    src={process.env.PUBLIC_URL + '/assets/ExchangeDiary/diary_inside.png'}></img>
+                  <div className={styles.diaryDate}>{date}</div>
+
+                  <div className={styles.diaryNoContent}>
+                    <img
+                      src={process.env.PUBLIC_URL + '/assets/ExchangeDiary/diary_lock.png'}></img>
+                    <div
+                      className={styles.diaryNoContentDesc}>
+                      일기를 <br />
+                      작성하지 않았어요
+                    </div>
+                    <Link to="/buddy/exchangediary/create">
+                      <button
+                        className={styles.diaryNoContentBtn}>일기쓰기</button>
+                    </Link>
+                  </div>
+
+                  <div className={styles.moveToNextPage}
+                    onClick={moveToBuddyDiaryPage}>
+                    버디가 쓴 일기 보기 &gt;
+                  </div>
+                </>
+              }
+            </>
+          }
+
+          {!isMyDiary &&
+            <>
+              {buddyDiary &&
+                <>
+                  <img
+                    className={styles.diaryInsideImg}
+                    src={process.env.PUBLIC_URL + '/assets/ExchangeDiary/diary_inside.png'}></img>
+                  <div className={styles.diaryDate}>{date}</div>
+
+                  <div className={styles.diaryPhoto}>
+                    <img
+                      src={buddyDiary.exchangeDiaryImgUrl}
+                      style={{ maxWidth: '100%', maxHeight: '100%' }}></img>
+                  </div>
+
+                  <div className={styles.diaryContent}>
+                    {buddyDiary.exchangeDiaryContent}
+                  </div>
+
+                  <div className={styles.moveToNextPage}
+                    onClick={moveToMyDiaryPage}>
+                    내가 쓴 일기 보기 &gt;
+                  </div>
+                </>
+              }
+              {!buddyDiary &&
+                <>
+                  <img
+                    className={styles.diaryInsideImg}
+                    src={process.env.PUBLIC_URL + '/assets/ExchangeDiary/diary_inside.png'}></img>
+                  <div className={styles.diaryDate}>{date}</div>
+
+                  <div className={styles.diaryNoContent}>
+                    <img
+                      src={process.env.PUBLIC_URL + '/assets/ExchangeDiary/diary_lock.png'}></img>
+                    <div
+                      className={styles.diaryNoContentDesc}>
+                      버디가 일기를 <br />
+                      작성하지 않았어요
+                    </div>
+                    <button
+                      className={styles.diaryNoContentBtn}>버디에게 채팅하기</button>
+                  </div>
+
+                  <div className={styles.moveToNextPage}
+                    onClick={moveToMyDiaryPage}>
+                    내가 쓴 일기 보기 &gt;
+                  </div>
+                </>}
+            </>
+
+          }
         </div>
+
 
 
 
