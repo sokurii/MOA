@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import LearningHome from './LearningHome';
 import QuizHome from './QuizHome';
-import ChattingHome from './ChattingHome';
+import ChattingHome from '../ChattingHome';
 import BuddyHome from './BuddyHome';
-import MyPage from './MyPage';
+import MyPage from '../MyPage';
 
 const mainAreaStyle = {
   overflow: 'hidden',

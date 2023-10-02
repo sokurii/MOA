@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import BackButton from './BackButton';
+import BackButton from '../BackButton';
 
 const linkStyle = {
   textDecoration: 'none', // 밑줄 제거

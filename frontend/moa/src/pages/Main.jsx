@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import AppBar from '../components/AppBar';
-import MainArea from '../components/MainArea';
+import MainArea from '../components/Main/MainArea';
 import BottomBar from '../components/BottomBar';
 
 const mainPageStyle = {
