@@ -79,9 +79,17 @@ public class ExchangeDiaryServiceImpl implements ExchangeDiaryService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<ExchangeDiaryDetailResponse> findExchangeDiaryByDay(Member member, String day) {
+        Member buddyMember = findBuddyMember(member);
+        List<ExchangeDiary> diaryList = exchangeDiaryRepository.findDay(member, buddyMember, day);
+        return ExchangeDiaryResponse.builder().exchangeDiaryList(diaryList).build().getExchangeDiaryResponseList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public ExchangeDiaryDetailResponse findExchangeDiaryDetail(Long exchangeDiaryId) {
         ExchangeDiary exchangeDiary = exchangeDiaryRepository.findByExchangeDiaryId(exchangeDiaryId);
-        String imgUrl = url + bucketName + "/" + exchangeDiary.getExchangeDiaryPicture();
+        String imgUrl =url + bucketName + "/diary/" + exchangeDiary.getExchangeDiaryPicture();
 
         Member member = exchangeDiary.getMember();
         MemberDto memberDto = MemberDto.builder()

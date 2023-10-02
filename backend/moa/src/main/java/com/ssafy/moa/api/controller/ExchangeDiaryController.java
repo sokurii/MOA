@@ -62,6 +62,15 @@ public class ExchangeDiaryController {
         return success(exchangeDiaryService.findExchangeDiaryByMonth(member, year, month));
     }
 
+    @GetMapping("/day/{day}")
+    @Operation(summary = "교환일기 날짜 별로 조회", description = "day는 2023-02-21 이런 식으로 문자열로 보내기")
+    public ApiResult<List<ExchangeDiaryDetailResponse>> getExchangeDiaryByDay(@RequestHeader("Authorization") String header, @PathVariable("day") String day) {
+        String token = header.substring(7);
+        Long memberId = jwtTokenProvider.extractMemberId(token);
+        Member member = memberService.findMember(memberId);
+        return success(exchangeDiaryService.findExchangeDiaryByDay(member, day));
+    }
+
     @DeleteMapping("/{exchangeDiaryId}")
     @Operation(summary = "교환일기 삭제")
     public ApiResult<Long> deleteExchangeDiary(@RequestHeader("Authorization") String header, @PathVariable Long exchangeDiaryId) {
