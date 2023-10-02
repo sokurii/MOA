@@ -44,7 +44,7 @@ public class QuizServiceImpl implements QuizService {
         return quizQuestionDtoList;
     }
 
-    // 단어 퀴즈 한 개씩 제출 API
+    // 퀴즈 한 개씩 제출 API
     @Override
     public QuizSubmitRespDto submitWordQuiz(Long memberId, QuizSubmitReqDto quizSubmitReqDto) {
         // quiz
@@ -60,12 +60,17 @@ public class QuizServiceImpl implements QuizService {
             Member member = memberRepository.findByMemberId(memberId)
                     .orElseThrow(() -> new NotFoundException(memberId + "에 해당하는 member가 없습니다."));
 
-            QuizWrongAnswer quizWrongAnswer = QuizWrongAnswer.builder()
-                    .member(member)
-                    .quiz(dailyKoreanQuiz)
-                    .build();
+            QuizWrongAnswer existingWrongAnswer = quizWrongAnswerRepository.findByMemberIdAndQuizId(memberId, quizId);
 
-            quizWrongAnswerRepository.save(quizWrongAnswer);
+            if(existingWrongAnswer == null) {
+                QuizWrongAnswer quizWrongAnswer = QuizWrongAnswer.builder()
+                        .member(member)
+                        .quiz(dailyKoreanQuiz)
+                        .build();
+
+                quizWrongAnswerRepository.save(quizWrongAnswer);
+            }
+
         }
 
         return QuizSubmitRespDto.builder()

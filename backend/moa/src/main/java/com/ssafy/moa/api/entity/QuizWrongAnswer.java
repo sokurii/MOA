@@ -32,4 +32,12 @@ public class QuizWrongAnswer {
         this.quiz = quiz;
     }
 
+    @Override
+    public String toString() {
+        return "QuizWrongAnswer{" +
+                "wrongQuizAnswerId=" + wrongQuizAnswerId +
+                ", member=" + member +
+                ", quiz=" + quiz +
+                '}';
+    }
 }

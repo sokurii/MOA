@@ -4,6 +4,9 @@ import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.moa.api.dto.quiz.QuizQuestionDto;
+import com.ssafy.moa.api.entity.DailyKoreanQuiz;
+import com.ssafy.moa.api.entity.Member;
+import com.ssafy.moa.api.entity.QuizWrongAnswer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -65,4 +68,6 @@ public class QuizWrongAnswerQueryRepositoryImpl implements QuizWrongAnswerQueryR
                         .and(quizWrongAnswer.quiz.quizId.eq(quizId)))
                 .execute();
     }
+
+
 }
