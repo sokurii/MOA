@@ -3,19 +3,19 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styles from '../../styles/Quiz/QuizResult.module.css';
 
 function QuizResult(props) {
-  // const location = props.location;
   const location = useLocation();
   const { state } = location;
 
+  const { correctAnswers, quizMessage } = state || {};
+
   const navigate = useNavigate();
   const handleOtherQuiz = () => {
-    navigate('/quiz/question-page');
+    navigate(-1);
   };
   const handleGoBack= () => {
     navigate('/quiz');
   };
 
-  // const correctAnswers = props.location.state?.correctAnswers || 0;
 
   return (
     <div>
@@ -26,14 +26,15 @@ function QuizResult(props) {
       />
       <div className={styles.quizResultContainer}>
         <p className={styles.resultTitle}>결과</p>
+        <p className={styles.resultMsg}>{correctAnswers}문제 맞혔어요!</p>
+
         <img 
           src={process.env.PUBLIC_URL + '/assets/Quiz/resultImg.png'} 
           alt="결과아이콘"
           className={styles.resultImg} 
         />
         <div className={styles.resultText}>
-          <p>총 {state}문제를</p>
-          <p>맞혔습니다</p>
+          <p>{quizMessage}</p>
         </div>
 
         <div className={styles.resultBtn}>

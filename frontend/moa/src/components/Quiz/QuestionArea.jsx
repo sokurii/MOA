@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import MenuHeader from '../MenuHeader';
 import styles from '../../styles/Quiz/WordQuiz.module.css'
+import ModalDialog from 'react-bootstrap/esm/ModalDialog';
 
 function QuestionArea(props) {
   const [quizData, setQuizData] = useState([]);
@@ -17,6 +18,13 @@ function QuestionArea(props) {
 
   const [isCorrect, setIsCorrect] = useState(null);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+
+  const [isButtonSelected, setIsButtonSelected] = useState(null);
+
+  const handleButtonClick = (answer,index) => {
+    checkAnswer(answer,index)
+    setIsButtonSelected(index);
+  }
 
   useEffect(() => {
     // 퀴즈 데이터 가져오기
@@ -104,8 +112,11 @@ function QuestionArea(props) {
       setCurrentQuizindex(currentQuizIndex + 1);
       setIsListening(false); 
       setIsCorrect(null); 
+      setIsButtonSelected(null);
     } else {
       setShowResultButton(true);
+      setIsButtonSelected(null);
+      handleShowResult();
     }
   }; 
 
@@ -131,8 +142,10 @@ function QuestionArea(props) {
         correctQuizAnswerCnt : correctAnswers,
       });
       console.log('퀴즈 완료 응답', response.data);
+
+      const quizMessage = response.data.response.quizMessage;
       
-      navigate('/quiz/quiz-result',{ state : correctAnswers });
+      navigate('/quiz/quiz-result',{ state : {correctAnswers, quizMessage} });
     } catch (error) {
       console.error('퀴즈 완료 API 호출 중 에러:', error);
     }
@@ -145,12 +158,12 @@ function QuestionArea(props) {
       <MenuHeader title="단어퀴즈"/>
       {currentQuiz ? (
         <div>
-          <h1>
-            문제 {currentQuizIndex + 1} 번 
-          </h1>
+          <p>
+            문제 {currentQuizIndex + 1} / 15
+          </p>
           {currentQuiz.quizCategoryId === 2 ? (
             <div>
-              <p className={styles.quizTitle}>다음 단어를 듣고 맞춰보세요</p>
+              <p className={styles.quizTitle}>다음 단어를 듣고 맞혀보세요</p>
               <div className={styles.questionContainer}>
 
                 <div onClick={toggleListening}
@@ -163,7 +176,7 @@ function QuestionArea(props) {
             </div>
           ) : (
             <div>
-              <p className={styles.quizTitle}>다음 단어의 뜻을 맞춰보세요</p>
+              <p className={styles.quizTitle}>다음 단어의 뜻을 맞혀보세요</p>
               <div className={styles.questionContainer}>
                 <div className={styles.questionArea}>
                   <p>{currentQuiz.quizQuestion}</p>
@@ -175,28 +188,38 @@ function QuestionArea(props) {
             {currentQuiz.quizAnswerList.map((answer,answerIndex) =>(
               <button 
                 key = {answerIndex}
-                onClick={() => {
-                  checkAnswer(answer);
-                }}
-                disabled={isCorrect !== null}
-                className={styles.selectBtn}
+                onClick={() => handleButtonClick(answer,answerIndex)}
+                // disabled={isCorrect !== null}
+                className={`${styles.selectBtn} ${isButtonSelected === answerIndex ? styles.selected : ''}`}
               >
                 {answer}
               </button>
             ))}
           </ul>
-          {showResultButton ? (
+          {/* {showResultButton ? (
             <button onClick={handleShowResult}>결과보기</button>
           ) : (
             <div></div>
-          )}
+          )} */}
         </div>
       ) : (
         <p>로딩중...</p>
       )}
 
-      <Modal show={showAnswerModal} >
-        <Modal.Body>{answerMessage}</Modal.Body>
+      <Modal show={showAnswerModal} className={styles.resultModal}>
+          <Modal.Body className={styles.resultModalContent}>        
+            {answerMessage === '맞았어요!' ? (
+              <div className={styles.correctMessage}>
+                <img src={process.env.PUBLIC_URL + '/assets/Quiz/success.png'} alt="듣기" /> 
+                <p>맞았어요!</p>
+              </div>
+            ):(
+              <div className={styles.incorrectMessage}>
+                <img src={process.env.PUBLIC_URL + '/assets/Quiz/fail.png'} alt="듣기" /> 
+                <p>틀렸어요</p>
+              </div>
+            )}
+          </Modal.Body>
       </Modal>
     </div>
   );
