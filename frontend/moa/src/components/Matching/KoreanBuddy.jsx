@@ -10,10 +10,30 @@ const introCommentStyle = {
   textAlign: 'left',
   fontSize: '24px',
   fontWeight: '700',
+  marginBottom: '180px',
 };
 
 const selectOptionContainerStyle = {
+  textAlign: 'left',
+  fontSize: '28px',
+  marginBottom: '220px',
+};
 
+const selectBoxStyle = {
+  background: 'transparent',
+  fontSize: '18px',
+  fontWeight: '500',
+  borderBottom: '1px solid #92BB69', // 밑줄 스타일
+  borderLeft: 'none',
+  borderRight: 'none',
+  borderTop: 'none',
+  // margin: '10px auto',
+  height: '30px',
+};
+
+const topCommentStyle = {
+  display: 'flex',
+  alignItems: 'center',
 };
 
 function KoreanBuddy(){
@@ -27,8 +47,8 @@ function KoreanBuddy(){
         </span>
       </div>
       <div style={selectOptionContainerStyle}>
-        <div>
-          <select>
+        <div style={topCommentStyle}>
+          <select style={selectBoxStyle}>
             <option value="미국">미국</option>
             <option value="일본">일본</option>
             <option value="중국">중국</option>
