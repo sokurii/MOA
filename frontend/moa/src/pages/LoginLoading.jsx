@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import store from '../store';
@@ -10,10 +10,26 @@ import { matchingApi } from '../api/matchingApi';
 
 const loginLoadingStyle = {
   display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
   justifyContent: 'center',
   minHeight: '100vh',
-}
+};
 
+const imageContainerStyle = {
+  margin: '10px',
+};
+
+const imageStyle = {
+  margin: '5px',
+  width: '70px',
+  height: '70px',
+};
+
+const commentStyle = {
+  fontSize: '24px',
+  fontWeight: '700',
+}
 
 function LoginLoading(props) {
   const state = store.getState();
@@ -57,9 +73,35 @@ function LoginLoading(props) {
     
   }, []);
 
+  // 애니메이션 관련
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const imageUrls = [
+    process.env.PUBLIC_URL + '/assets/Logo/Logo_M.png',
+    process.env.PUBLIC_URL + '/assets/Logo/Logo_O.png',
+    process.env.PUBLIC_URL + '/assets/Logo/Logo_A.png',
+  ];
+
+  const changeImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imageUrls.length);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(changeImage, 500); // 0.5초마다 이미지 변경
+  
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 clearInterval
+  }, []);
+
+  const currentImageUrl = imageUrls[currentImageIndex];
+
   return (
     <div style={loginLoadingStyle}>
-      <span>로그인 중입니다</span>
+      <div style={imageContainerStyle}>
+        <img style={imageStyle} src={currentImageUrl} alt="로고" />
+      </div>
+      <div style={commentStyle}>
+        <span>로그인 중입니다!</span>
+      </div>
     </div>
   );
 }
