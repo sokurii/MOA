@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../../components/Logo';
+import AppBar from '../../components/AppBar';
 import Default from '../../styles/Learning/KoreanLearningDefault.module.css';
 
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 function KoreanLearningDefault(props) {
   return (
     <div>
-      <Logo />
+      <AppBar />
       <div className={Default.font}> View words about...</div>
       <div className={Default.container}>
         <img src="../../../assets/news/default.png" alt="default logo" style={{ width: '330px', height: '387px', marginTop: '10%' }}/>

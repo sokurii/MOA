@@ -25,11 +25,12 @@ export const learningApi = {
     // Most Popular Word
     getPopularWord: () => bigDataAxios.get(`words/top?top_n=50`),
 
-    // 단어로 연관 문장 조회
-    getPopularWord: (word) => bigDataAxios.get(`articles/with_word?word=${word}`),
-
     // 단어로 연관 기사 조회
-    getPopularWord: (word) => bigDataAxios.get(`sentences/with_word?word=${word}`),
+    getRelatedNewsByWord: (data) => bigDataAxios.get(`articles/with_word?word=${data}`),
+
+    // 단어로 연관 문장 조회
+    getRelatedNewsBySentence: (word) => bigDataAxios.get(`sentences/with_word?word=${word}`),
+
     // 뉴스 스크랩 등록
     createNewsScrap: (data) => authAxios.post('scrap/news', data),
 

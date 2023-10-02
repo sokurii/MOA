@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import KeywordItem from '../../components/Learning/KeywordItem';
 import WordCloud from '../../components/Learning/WordCloud';
 import PopularWords from '../../components/Learning/PopularWords';
-import Logo from '../../components/Logo';
+import AppBar from '../../components/AppBar';
 import Korean from '../../styles/Learning/KoreanLearning.module.css';
 import { Link } from 'react-router-dom';
 import { learningApi } from '../../api/learningApi';
@@ -17,13 +17,12 @@ function KoreanLearning(props) {
         const res = response.data;
         setWords(res);
         setPopularWords(res);
-        console.log(res);
       })
   }, []);
 
   return (
     <div >
-      <Logo />  
+      <AppBar />
       <div className={Korean.displayWord}>
         <div className={Korean.font}> View words about...</div>
         <Link to="/koreanlearning/keyword">

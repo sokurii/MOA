@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import News from '../../styles/Learning/Word.module.css';
-
+import KeywordModal from '../../components/Learning/KeywordModal';
 
 function WordLogo(props) {
     const { word } = props;
-    console.log(word);
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    // 모달 열기 함수
+    const openModal = () => {
+      setModalOpen(true);
+    };
+  
+    // 모달 닫기 함수
+    const closeModal = () => {
+      setModalOpen(false);
+    };
+
 
     return (
         <div className={News.middleContainer}>
@@ -21,7 +32,8 @@ function WordLogo(props) {
                         <img className={News.soundImg} src="../../../assets/news/volumeHigh.png" alt=""></img>
                     </button>
                 </div>
-                <button className={News.askButton}>
+                <button className={News.askButton}
+                    onClick={openModal}>
                     <div className={News.askFont}>Ask to AI</div>
                 </button>
             </div>

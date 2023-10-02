@@ -1,7 +1,6 @@
 .displayPlus {
     display: flex;
     flex-direction: row;
-    margin: 0 auto;
     margin-top: 10%;
 }
 .displayPlusFont{
@@ -21,7 +20,30 @@
     font-size: 20px;
 }
 
-
 .display{
     margin-top: 42px;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.newsAbout {
+    font-size: 22px;
+    font-weight: 300;
+}
+
+.word {
+    color: #0980D0;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.line {
+    margin: 30px 20px;
+    border-top: 1px solid #0980D0;
 }
