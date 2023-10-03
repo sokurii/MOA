@@ -54,7 +54,7 @@ public class ChatController {
         return success(chatService.getChatMessage(roomId, 2));
     }
 
-    @GetMapping("/chat/open-chat/{roomId}")
+    @GetMapping("/chat/open/{roomId}")
     public ApiUtils.ApiResult<List<ChatDto.ChatMessageResponse>> getOpenChatMessage(@PathVariable Long roomId) {
         return success(chatService.getChatMessage(roomId, 1));
     }
