@@ -1,5 +1,5 @@
 import React from 'react';
-import BackButton from '../../../components/BackButton';
+import BackButton from '../../../components/Buttons/BackButton';
 
 function UpdateExchangeDiary(props) {
   return (

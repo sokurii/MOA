@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userApi } from '../api/userApi';
 
-import AppBar from '../components/AppBar';
-import BackButton from '../components/BackButton';
+import AppBar from '../components/ETC/AppBar';
 
 const signupStyle = {
   minHeight: '100vh',
@@ -213,8 +212,6 @@ function SignUp(props) {
       const response = await userApi.signUp(formData);
 
       if (response.data.success) {
-        const res = response.data.response;
-        const isForeigner = res.memberIsForeigner;
         console.log('회원가입 성공', response);
         alert('회원가입 성공!');
         navigate('/login');

@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-import { balanceGameApi } from '../../api/balanceGameApi';
+import React from 'react';
 
 const balanceGameItemStyle = {
   display: 'flex',
@@ -39,20 +37,6 @@ const titleStyle = {
 };
 
 function BalanceGameItem({ balanceGameId, balanceGameTitle }) {
-
-  // useEffect(() => {
-  //   balanceGameApi.getBalanceGameDetail(balanceGameId)
-  //   .then((response) => {
-  //     const res = response.data.response;
-  //     const gameList = res.balanceGameList;    
-  //     setRound(gameList.length);  
-  //   })
-  //   .catch((error) => {
-  //     console.log('상세 밸런스게임 조회 에러 발생');
-  //     console.error(error);
-  //   });
-
-  // }, [balanceGameId, balanceGameTitle]);
 
   return (
     // 가로로 나열

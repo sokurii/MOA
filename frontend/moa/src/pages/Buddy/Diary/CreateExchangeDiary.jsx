@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { diaryApi } from '../../../api/diaryApi';
 import { useNavigate } from 'react-router-dom';
-import MenuHeader from '../../../components/MenuHeader';
+import MenuHeader from '../../../components/ETC/MenuHeader';
 import styles from '../Diary/CreateExchangeDiary.module.css'
 
 import { WOW } from 'wowjs';

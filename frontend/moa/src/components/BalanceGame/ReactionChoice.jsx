@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { balanceGameApi } from '../../api/balanceGameApi';
 
 
-import BackButton from '../BackButton';
+import BackButton from '../Buttons/BackButton';
 
 function ReactionChoice({ balanceGameId }) {
   const [selectedButton, setSelectedButton] = useState(null);

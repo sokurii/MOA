@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { quizApi } from '../../api/quizApi';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
-import MenuHeader from '../MenuHeader';
+import MenuHeader from '../ETC/MenuHeader';
 import styles from '../../styles/Quiz/WordQuiz.module.css'
 import ModalDialog from 'react-bootstrap/esm/ModalDialog';
 

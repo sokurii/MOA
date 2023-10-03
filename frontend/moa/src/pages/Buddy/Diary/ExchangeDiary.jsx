@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import styles from './ExchangeDiary.module.css'
-import AppBar from '../../../components/AppBar';
+import AppBar from '../../../components/ETC/AppBar';
 
 import { WOW } from 'wowjs';
 

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router';
 
 import { openChatApi } from '../../api/chatApi';
 
-import BackButton from '../../components/BackButton';
+import BackButton from '../../components/Buttons/BackButton';
 import ChattingArea from '../../components/Chatting/ChattingArea';
 
 const titleBarStyle = {

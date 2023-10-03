@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import store from '../store';
 import { useAppDispatch, useAppSelector } from '../store';
 import { setIsForeigner, setIsMatching } from '../store';
 import { setUserInfo } from '../store/userInfo';
@@ -74,7 +73,7 @@ function LoginLoading(props) {
       }
     }, 3000);
     
-  }, []);
+  }, [dispatch, navigate]);
 
   // 애니메이션 관련
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import store from '../store';
 
-import AppBar from '../components/AppBar';
+import AppBar from '../components/ETC/AppBar';
 import MainArea from '../components/Main/MainArea';
-import BottomBar from '../components/BottomBar';
+import BottomBar from '../components/ETC/BottomBar';
 
 const mainPageStyle = {
   display: 'flex',
@@ -33,7 +32,6 @@ const userNameStyle = {
 
 const mainAreaContainerStyle = {
   flex: '1',
-  // marginBottom: '64px',
 };
 
 const bottomBarContainerStyle = {
@@ -47,7 +45,6 @@ const bottomBarContainerStyle = {
 };
 
 function Main(props) {
-  const isLoggedIn = props.inLoggedIn;
   const [isBottomBarVisible, setBottomBarVisible] = useState(false);
 
   const state = store.getState();

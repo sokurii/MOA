@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import { balanceGameApi } from '../../../api/balanceGameApi';
 
-import MenuHeader from '../../../components/MenuHeader';
+import MenuHeader from '../../../components/ETC/MenuHeader';
 import BuddyChatArea from '../../../components/BalanceGame/BuddyChatArea';
 import BalanceGameModal from '../../../components/BalanceGame/BalanceGameModal';
 

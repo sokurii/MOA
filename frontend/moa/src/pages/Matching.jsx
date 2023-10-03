@@ -3,7 +3,7 @@ import { useLocation } from "react-router";
 import store from '../store';
 
 import ProgressBar from "../components/Matching/ProgressBar";
-import ConfirmButton from "../components/ConfirmButton";
+import ConfirmButton from "../components/Buttons/ConfirmButton";
 
 import MatchingIntro from "../components/Matching/MatchingIntro";
 import BuddyInterest from "../components/Matching/BuddyInterest";

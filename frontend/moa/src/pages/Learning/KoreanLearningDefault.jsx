@@ -1,5 +1,5 @@
 import React from 'react';
-import AppBar from '../../components/AppBar';
+import AppBar from '../../components/ETC/AppBar';
 import Default from '../../styles/Learning/KoreanLearningDefault.module.css';
 
 import { Link } from 'react-router-dom';

@@ -1,6 +1,6 @@
 // import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AppBar from '../../components/AppBar';
+import AppBar from '../../components/ETC/AppBar';
 import styles from '../../styles/Quiz/Quiz.module.css'
 
 function Quiz(props) {

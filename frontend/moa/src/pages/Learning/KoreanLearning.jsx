@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import KeywordItem from '../../components/Learning/KeywordItem';
 import WordCloud from '../../components/Learning/WordCloud';
 import PopularWords from '../../components/Learning/PopularWords';
-import AppBar from '../../components/AppBar';
+import AppBar from '../../components/ETC/AppBar';
 import Korean from '../../styles/Learning/KoreanLearning.module.css';
 import { Link } from 'react-router-dom';
 import { learningApi } from '../../api/learningApi';

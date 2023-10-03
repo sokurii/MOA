@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import store from '../store';
 
-import CloseButton from './CloseButton';
+import CloseButton from './Buttons/CloseButton';
 
 
 const profileStyle = {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import BackButton from '../../components/BackButton';
+import BackButton from '../../components/Buttons/BackButton';
 import KoreaTourSearch from '../../components/KoreaTourSearch';
 import KoreaTourMap from '../../components/KoreaTourMap';
 import KoreaTourSearchResult from '../../components/KoreaTourSearchResult';

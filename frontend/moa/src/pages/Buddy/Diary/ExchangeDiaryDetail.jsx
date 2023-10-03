@@ -5,7 +5,7 @@ import { userApi } from '../../../api/userApi';
 
 import { Link } from 'react-router-dom';
 import styles from '../Diary/ExchangeDiaryDetail.module.css'
-import MenuHeader from '../../../components/MenuHeader';
+import MenuHeader from '../../../components/ETC/MenuHeader';
 
 import { WOW } from 'wowjs';
 import moment from 'moment';

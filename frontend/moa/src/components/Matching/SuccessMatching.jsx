@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
-import ConfirmButton from "../ConfirmButton";
+import ConfirmButton from "../Buttons/ConfirmButton";
 
 const successStyle = {
   display: 'flex',

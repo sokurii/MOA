@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AppBar from '../../components/AppBar';
+import AppBar from '../../components/ETC/AppBar';
 import KeywordAdd from '../../components/Learning/KeywordAdd';
 import News from '../../styles/Learning/LearningMyKeyword.module.css';
 import { Link } from 'react-router-dom';

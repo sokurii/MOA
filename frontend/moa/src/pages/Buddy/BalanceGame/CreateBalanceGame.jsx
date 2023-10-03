@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { balanceGameApi } from '../../../api/balanceGameApi';
 
-import MenuHeader from '../../../components/MenuHeader';
+import MenuHeader from '../../../components/ETC/MenuHeader';
 import BalanceGameCardItem from '../../../components/BalanceGame/BalanceGameCardItem';
 
 const createBalanceGameStyle = {

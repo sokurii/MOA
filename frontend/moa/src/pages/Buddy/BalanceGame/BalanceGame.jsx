@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { balanceGameApi } from '../../../api/balanceGameApi';
 
-import AppBar from '../../../components/AppBar';
+import AppBar from '../../../components/ETC/AppBar';
 import BalanceGameItem from '../../../components/BalanceGame/BalanceGameItem';
 import BestBalanceGameItem from '../../../components/BalanceGame/BestBalanceGameItem';
 

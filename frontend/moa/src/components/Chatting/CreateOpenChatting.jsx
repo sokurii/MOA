@@ -5,7 +5,7 @@ import store from '../../store';
 
 import { useNavigate } from 'react-router-dom';
 
-import CloseButton from '../CloseButton';
+import CloseButton from '../Buttons/CloseButton';
 
 const createOpenChatStyle = {
   background: 'linear-gradient(to bottom, #ffffff, silver)',
@@ -80,11 +80,6 @@ function CreateOpenChatting(props) {
   const [openChatTitle, setOpenChatTitle] = useState('');
   const [openChatContent, setOpenChatContent] = useState('');
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 변경
-
-  // const state = store.getState();
-  // const accessToken = state.accessToken;
-
-  // console.log(accessToken);
 
   const navigate = useNavigate();
 

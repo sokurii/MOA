@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CloseButton from '../CloseButton';
+import CloseButton from '../Buttons/CloseButton';
 import Loading from '../Loading';
 
 const openChatEntranceStyle = {

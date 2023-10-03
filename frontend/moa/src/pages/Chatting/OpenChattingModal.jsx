@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import BackButton from '../../components/BackButton';
+import BackButton from '../../components/Buttons/BackButton';
 import OpenChattingList from '../../components/Chatting/OpenChattingList';
 import CreateOpenChatting from '../../components/Chatting/CreateOpenChatting';
 

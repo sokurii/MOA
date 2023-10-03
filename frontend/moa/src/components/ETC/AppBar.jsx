@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { userApi } from '../api/userApi';
+import { userApi } from '../../api/userApi';
 import Cookies from 'js-cookie';
 
-import { setIsForeigner, useAppDispatch } from '../store';
-import { setAccessToken, setIsMatching } from '../store';
-import { setUserInfo } from '../store/userInfo';
+import { setIsForeigner, useAppDispatch } from '../../store';
+import { setAccessToken, setIsMatching } from '../../store';
+import { setUserInfo } from '../../store/userInfo';
 
-import Profile from './Profile';
+import Profile from '../Profile';
 
 const appBarStyle = {
   background: 'white',

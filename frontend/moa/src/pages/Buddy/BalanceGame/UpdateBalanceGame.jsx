@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import BackButton from '../../../components/BackButton';
+import BackButton from '../../../components/Buttons/BackButton';
 import BalanceGameCardItem from '../../../components/BalanceGame/BalanceGameCardItem';
 
 function UpdateBalanceGame(props) {

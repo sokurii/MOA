@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { userApi } from '../api/userApi';
 import Cookies from 'js-cookie';
 import { useAppDispatch } from '../store';
