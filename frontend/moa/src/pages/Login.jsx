@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { userApi } from '../api/userApi';
 import Cookies from 'js-cookie';
-import { useAppDispatch } from '../store'; // useDispatch를 사용하는 부분을 변경
-import { setAccessToken, setIsForeigner, setIsMatching } from '../store';
-
+import { useAppDispatch } from '../store';
+import { setAccessToken } from '../store';
 
 const loginStyle = {
   display: 'flex',
@@ -61,7 +60,7 @@ const labelEngStyle = {
 };
 
 const inputStyle = {
-  borderBottom: '1px solid #92BB69', // 밑줄 스타일
+  borderBottom: '1px solid #92BB69',
   borderLeft: 'none',
   borderRight: 'none',
   borderTop: 'none',
@@ -82,6 +81,7 @@ const buttonStyle = {
   padding: '12px 0',
 };
 
+
 function Login(props) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -92,7 +92,17 @@ function Login(props) {
   });
 
   const [loginError, setLoginError] = useState('');
-  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    // loginError가 변경될 때마다 애니메이션을 위해 opacity를 변경
+    if (loginError) {
+      const timer = setTimeout(() => {
+        setLoginError(''); // 일정 시간 후에 loginError 초기화
+      }, 5000); // 5초 후에 사라지도록 설정 (1000ms = 1초)
+      
+      return () => clearTimeout(timer); // 컴포넌트가 언마운트 될 때 타이머 제거
+    }
+  }, [loginError]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -106,7 +116,10 @@ function Login(props) {
     e.preventDefault();
 
     try {
-      const response = await userApi.login(formData.memberEmail, formData.memberPassword);
+      const response = await userApi.login(
+        formData.memberEmail,
+        formData.memberPassword
+      );
 
       if (response.data.success) {
         console.log('로그인 성공', response);
@@ -114,30 +127,53 @@ function Login(props) {
         dispatch(setAccessToken(accessToken));
 
         const refreshToken = response.data.response.refreshToken.substring(7);
-        
+
         Cookies.set('refreshToken', refreshToken, { expires: 7 });
         navigate('/login-load');
-
       } else {
         console.log('로그인 오류:', response.data.error.message);
-        setLoginError('로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요');
+        setLoginError('로그인에 실패했습니다.\n이메일 또는 비밀번호를 확인하세요.');
       }
     } catch (error) {
       console.log('API Request Error:', error);
-      setLoginError('로그인 중 오류가 발생했습니다. 나중에 다시 시도하세요');
+      setLoginError('로그인 중 오류가 발생했습니다.\n나중에 다시 시도하세요.');
     }
+  };
+
+  const loginErrorStyle = {
+    background: 'white',
+    borderRadius: '18px',
+    fontSize: '16px',
+    fontWeight: '700',
+    padding: '5px 10px',
+    width: '80%',
+    margin: '20px auto',
+    position: 'fixed',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    bottom: '50px',
+    transition: 'opacity 1s ease-in-out', // 애니메이션 효과
+    opacity: loginError ? 1 : 0,
+    whiteSpace: 'pre-line' // 줄바꿈
   };
 
   return (
     <div style={loginStyle}>
-      <div className='loginContainer' style={loginContainerStyle}>
+      <div className="loginContainer" style={loginContainerStyle}>
         <div style={logoContainerStyle}>
-          <img style={logoStyle} src={process.env.PUBLIC_URL + '/assets/Logo/MoaLogo.png'} alt="로고" />
+          <img
+            style={logoStyle}
+            src={process.env.PUBLIC_URL + '/assets/Logo/MoaLogo.png'}
+            alt="로고"
+          />
         </div>
-        <form onSubmit={handleLogin}> {/* 폼 제출 이벤트 핸들러 */}
+        <form onSubmit={handleLogin}>
           <div style={inputFormContainerStyle}>
             <div style={inputFormStyle} className="inputForm">
-              <label style={labelStyle} htmlFor="memberEmail" className="inputTitle">
+              <label
+                style={labelStyle}
+                htmlFor="memberEmail"
+                className="inputTitle"
+              >
                 <span style={labelKorStyle}>이메일</span>
                 <span style={labelEngStyle}>Email</span>
               </label>
@@ -151,7 +187,11 @@ function Login(props) {
             </div>
 
             <div style={inputFormStyle} className="inputForm">
-              <label style={labelStyle} htmlFor="memberPassword" className="inputTitle">
+              <label
+                style={labelStyle}
+                htmlFor="memberPassword"
+                className="inputTitle"
+              >
                 <span style={labelKorStyle}>비밀번호</span>
                 <span style={labelEngStyle}>Password</span>
               </label>
@@ -166,14 +206,15 @@ function Login(props) {
             </div>
           </div>
 
-          <input style={buttonStyle} type="submit" value="로그인" /> {/* 폼 제출 버튼 */}
+          <input style={buttonStyle} type="submit" value="로그인" />
         </form>
-        {/* <Link to="/signup">
-          <button>회원가입</button>
-        </Link> */}
 
       </div>
-      {loginError && <p className='error'>{loginError}</p>}
+      {loginError && (
+        <div style={loginErrorStyle}>
+          <p className="error">{loginError}</p>
+        </div>
+      )}
     </div>
   );
 }
