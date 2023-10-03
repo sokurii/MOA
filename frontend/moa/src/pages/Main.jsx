@@ -15,7 +15,7 @@ const mainPageStyle = {
 
 const appBarContainerStyle = {
   position: 'fixed',
-  zIndex: '1',
+  zIndex: '2',
   width: '100vw',
   flex: '0',
 };

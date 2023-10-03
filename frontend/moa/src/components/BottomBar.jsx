@@ -10,6 +10,7 @@ const bottomBarStyle = {
   boxShadow: '0px -4px 6px rgba(0, 0, 0, 0.1)', // 그림자 스타일
   borderTopLeftRadius: '16px',
   borderTopRightRadius: '16px',
+  width: '100%',
 };
 
 function BottomBar(props) {
@@ -28,7 +29,7 @@ function BottomBar(props) {
         <img src={process.env.PUBLIC_URL + '/assets/Logo/buddy.png'} alt="버디" />
       </Link>
       <div>
-        <img src={process.env.PUBLIC_URL + '/assets/Logo/mypage.png'} alt="프로필" />
+        <img src={process.env.PUBLIC_URL + '/assets/Logo/Profile.png'} alt="프로필" />
       </div>
     </div>
   );
