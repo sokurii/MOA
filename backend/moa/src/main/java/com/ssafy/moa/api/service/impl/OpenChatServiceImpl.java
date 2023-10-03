@@ -31,6 +31,7 @@ public class OpenChatServiceImpl implements OpenChatService {
     private final OpenChatRepository openChatRepository;
     private final OpenChatMemberRepository openChatMemberRepository;
     private final ChatRoomRepository chatRoomRepository;
+    private final MemberService memberService;
     private final String bucketName = "diary_storage";
     private final Storage storage;
 
@@ -73,6 +74,25 @@ public class OpenChatServiceImpl implements OpenChatService {
                 .openChat(findOpenChat(openChatId))
                 .build();
         return openChatMemberRepository.save(openChatMember).getOpenChatMemberId();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Long saveOpenChatMember(String memberId, String openChatId) {
+        Member member = memberService.findMember(Long.valueOf(memberId));
+        OpenChatMember openChatMember = OpenChatMember.builder()
+                .member(member)
+                .openChat(findOpenChat(Long.valueOf(openChatId)))
+                .build();
+        return openChatMemberRepository.save(openChatMember).getOpenChatMemberId();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Boolean findOpenChatMember(String sender, String openChatId) {
+        Member member = memberService.findMember(Long.valueOf(sender));
+        if(openChatRepository.findByOpenChatIdAndMember(Long.valueOf(openChatId), member).isPresent()) return true;
+        return false;
     }
 
     @Override
