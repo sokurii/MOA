@@ -45,6 +45,11 @@ function App() {
   const isMatching = state.isMatching;
   const refreshToken = Cookies.get('refreshToken');
 
+  console.log(accessToken);
+
+  console.log(isMatching);
+
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -53,7 +58,7 @@ function App() {
             <>
               <Route path="/" element={<Main />} />
 
-              <Route path="/matching" element={<Matching />} />
+              {!isMatching && <Route path="/matching" element={<Matching />} />}
 
               <Route path="/chatting" element={<ChattingHome />} />
               <Route path="/chatting/buddy" element={<BuddyChattingModal />} />

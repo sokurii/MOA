@@ -6,8 +6,13 @@ const linkStyle = {
   color: 'inherit', // 링크 색상을 상위 요소에서 상속
 };
 
+const buttonContainerStyle = {
+  marginTop: '150px',
+};
+
 const learningHomeStyle = {
   padding: '30px',
+  height: '100vh',
   backgroundImage: `
     url(${process.env.PUBLIC_URL}/assets/Background/news_background.png)
   `,
@@ -51,19 +56,21 @@ const collectionButtonStyle = {
 function LearningHome(props) {
   return (
     <div style={learningHomeStyle}>
-      <Link to="/koreanlearning" style={linkStyle}>
-        <div style={newsButtonStyle}>
-          <p style={buttonTitleStyle}>뉴스보기</p>
-          <p style={buttonContentStyle}>
-            원하는 키워드 트렌드를 확인하고
-            <br />
-            그와 관련된 뉴스를 읽어보세요
-          </p>
+      <div style={buttonContainerStyle}>
+        <Link to="/koreanlearning" style={linkStyle}>
+          <div style={newsButtonStyle}>
+            <p style={buttonTitleStyle}>뉴스보기</p>
+            <p style={buttonContentStyle}>
+              원하는 키워드 트렌드를 확인하고
+              <br />
+              그와 관련된 뉴스를 읽어보세요
+            </p>
+          </div>
+        </Link>
+        <div className="collection-button" style={collectionButtonStyle}>
+          <p style={buttonTitleStyle}>Collection</p>
+          <p style={buttonContentStyle}>설명</p>
         </div>
-      </Link>
-      <div className="collection-button" style={collectionButtonStyle}>
-        <p style={buttonTitleStyle}>Collection</p>
-        <p style={buttonContentStyle}>설명</p>
       </div>
     </div>
   );

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import store from '../store';
-import { useAppDispatch } from '../store';
+import { useAppDispatch, useAppSelector } from '../store';
 import { setIsForeigner, setIsMatching } from '../store';
+import { setUserInfo } from '../store/userInfo';
 
 import { userApi } from '../api/userApi';
 import { matchingApi } from '../api/matchingApi';
@@ -32,8 +33,7 @@ const commentStyle = {
 }
 
 function LoginLoading(props) {
-  const state = store.getState();
-  const isMatching = state.isMatching;
+  const isMatching = useAppSelector((state) => state.isMatching);
   
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -43,6 +43,8 @@ function LoginLoading(props) {
     .then((response) => {
       const res = response.data.response;
       console.log(res);
+      dispatch(setUserInfo(res));
+      dispatch(setIsForeigner(res.memberIsForeigner));
     })
     .catch((error) => {
       console.log(`유저 정보 조회 오류 : ${error}`);
@@ -61,6 +63,7 @@ function LoginLoading(props) {
     .catch((error) => {
       console.log(`매칭여부 조회 오류 : ${error}`);
     })
+
 
     setTimeout(() => {
       window.location.reload();

@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import BackButton from '../BackButton';
-// import QuestionModal from './Quiz/QuestionModal';
-
 const linkStyle = {
   textDecoration: 'none', // 밑줄 제거
   color: 'inherit', // 링크 색상을 상위 요소에서 상속
@@ -11,12 +8,17 @@ const linkStyle = {
 
 const quizHomeStyle = {
   padding: '30px',
+  height: '100vh',
   backgroundImage: `
     url(${process.env.PUBLIC_URL}/assets/Background/quiz_background.png)
   `,
   backgroundSize: 'cover', // 배경 이미지 크기 조절
   backgroundRepeat: 'no-repeat', // 배경 이미지 반복 없음
   backgroundPosition: 'center', // 배경 이미지 중앙 정렬
+};
+
+const buttonContainerStyle = {
+  marginTop: '150px',
 };
 
 const quizButtonStyle = {
@@ -52,40 +54,24 @@ const incorrectNoteButtonStyle = {
 };
 
 function QuizHome(props) {
-  const [questions, setQuestions] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false); // 모달 가시성을 관리할 상태 추가
-
-  const makeWordQuiz = (() => {
-    // 단어 퀴즈 질문을 생성하는 논리를 작성하세요.
-  });
-
-  useEffect(() => {
-    // useEffect 로직을 작성하세요.
-  }, [])
-
-  const openModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setIsModalVisible(false);
-  };
 
   return (
     <div style={quizHomeStyle}>
-      <Link to="/quiz" style={linkStyle}>
-        <div className="quiz-button" style={quizButtonStyle}>
-          <p style={buttonTitleStyle}>퀴즈풀기</p>
-          <p style={buttonContentStyle}>
-            일상 한국어를 공부해봐요!
-            <br />
-            모아로 단어 퀴즈를 풀어보세요
-          </p>
+      <div style={buttonContainerStyle}>
+        <Link to="/quiz" style={linkStyle}>
+          <div className="quiz-button" style={quizButtonStyle}>
+            <p style={buttonTitleStyle}>퀴즈풀기</p>
+            <p style={buttonContentStyle}>
+              일상 한국어를 공부해봐요!
+              <br />
+              모아로 단어 퀴즈를 풀어보세요
+            </p>
+          </div>
+        </Link>
+        <div className="collection-button" style={incorrectNoteButtonStyle}>
+          <p style={buttonTitleStyle}>오답노트</p>
+          <p style={buttonContentStyle}>설명</p>
         </div>
-      </Link>
-      <div className="collection-button" style={incorrectNoteButtonStyle}>
-        <p style={buttonTitleStyle}>오답노트</p>
-        <p style={buttonContentStyle}>설명</p>
       </div>
     </div>
   );
