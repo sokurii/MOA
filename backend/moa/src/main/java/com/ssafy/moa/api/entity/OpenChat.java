@@ -34,4 +34,16 @@ public class OpenChat {
         this.openChatImgUrl = openChatImgUrl;
         this.member = member;
     }
+
+    @Override
+    public String toString() {
+        return "OpenChat{" +
+                "openChatId=" + openChatId +
+                ", openChatTitle='" + openChatTitle + '\'' +
+                ", openChatContent='" + openChatContent + '\'' +
+                ", openChatImgUrl='" + openChatImgUrl + '\'' +
+                ", member=" + member +
+                ", openChatMember=" + openChatMember +
+                '}';
+    }
 }

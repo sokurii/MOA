@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface OpenChatMemberRepository extends JpaRepository<OpenChatMember, Long> {
     Integer countByOpenChat(OpenChat openChat);
     void deleteByMember(Member member);
-    Optional<OpenChatMember> findByOpenChatMemberIdAndMember(Long openChatId, Member member);
+    Optional<OpenChatMember> findByOpenChatAndMember(OpenChat openChat, Member member);
 }
