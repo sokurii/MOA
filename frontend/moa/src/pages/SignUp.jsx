@@ -341,7 +341,7 @@ function SignUp(props) {
               <span style={labelEngStyle}>Verification Code</span>
             </label>
             <input style={inputStyle} type='text' id='verificationCode' name='verificationCode' onChange={handleInputChange} />
-            <button onClick={handleVerificationCode}>인증확인</button>
+            <button style={verificationButtonStyle} onClick={handleVerificationCode}>인증확인</button>
           </div>
         ) : null}
 
