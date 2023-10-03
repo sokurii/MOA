@@ -91,7 +91,7 @@ public class OpenChatServiceImpl implements OpenChatService {
     @Transactional(readOnly = true)
     public Boolean findOpenChatMember(String sender, String openChatId) {
         Member member = memberService.findMember(Long.valueOf(sender));
-        if(openChatRepository.findByOpenChatIdAndMember(Long.valueOf(openChatId), member).isPresent()) return true;
+        if(openChatMemberRepository.findByOpenChatMemberIdAndMember(Long.valueOf(openChatId), member).isPresent()) return true;
         return false;
     }
 

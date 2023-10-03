@@ -37,7 +37,9 @@ public class ChatController {
             chatRoomRepository.enterOpenChatRoom(message.getRoomId());
             message.setMessage(message.getSender() + "이 들어왔습니다.");
             redisPublisher.publish(chatRoomRepository.getOpenChatTopic(message.getRoomId()), message);
+            log.info(message.getRoomId() + " " + message.getSender());
             if(openChatService.findOpenChatMember(message.getSender(), message.getRoomId())) {
+                log.info("find");
                 return;
             }
             openChatService.saveOpenChatMember(message.getSender(), message.getRoomId());
