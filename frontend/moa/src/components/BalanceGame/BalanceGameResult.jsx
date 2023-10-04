@@ -1,11 +1,12 @@
 import React from 'react';
 
+import MenuHeader from '../ETC/MenuHeader';
 import ReactionChoice from './ReactionChoice';
 
 function BalanceGameResult({ balanceGameId, selectedOptions }) {
   return (
     <div>
-      <h3>결과</h3>
+      <MenuHeader title='밸런스 게임 결과' />
 
       {/* 테이블 형태로 만들고 싶음 */}
       {selectedOptions.map((option, index) => {

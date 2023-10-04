@@ -102,7 +102,7 @@ function BuddyHome(props) {
         </Link>
       </div>
 
-      <div onClick={() => navigateTo('/buddy/balancegame')}>     
+      <div onClick={() => navigateTo('/buddy/koreatour')}>     
         <Link to="/buddy/koreatour" style={linkStyle}>
           <div className="korea-tour-button" style={koreaTourButtonStyle}>
             <p style={buttonTitleStyle}>랜선여행</p>

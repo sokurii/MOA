@@ -25,12 +25,12 @@ function BottomBar(props) {
       <Link to="/chatting">
         <img src={process.env.PUBLIC_URL + '/assets/Logo/chat.png'} alt="채팅" />
       </Link>
-      <Link to="/buddy">
+      <Link to="/buddy/balancegame">
         <img src={process.env.PUBLIC_URL + '/assets/Logo/buddy.png'} alt="버디" />
       </Link>
-      <div>
+      <Link to="/buddy/koreatour">
         <img src={process.env.PUBLIC_URL + '/assets/Logo/Profile.png'} alt="프로필" />
-      </div>
+      </Link>
     </div>
   );
 }

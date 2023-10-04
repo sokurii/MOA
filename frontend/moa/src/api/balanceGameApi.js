@@ -21,5 +21,5 @@ export const balanceGameApi = {
   deleteBalanceGame : (balanceGameId) => nonAuthAxios.delete(`balance/${balanceGameId}`),
 
   // 밸런스게임 반응 등록
-  reaction : (data) => nonAuthAxios.post('balance/reaction', data),
+  reaction : (data) => authAxios.post('balance/reaction', data),
 }

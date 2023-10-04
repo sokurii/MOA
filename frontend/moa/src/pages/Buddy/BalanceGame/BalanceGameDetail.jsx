@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 import { balanceGameApi } from '../../../api/balanceGameApi';
 
 import MenuHeader from '../../../components/ETC/MenuHeader';
-import BuddyChatArea from '../../../components/BalanceGame/BuddyChatArea';
 import BalanceGameModal from '../../../components/BalanceGame/BalanceGameModal';
 
 const balanceGameDetailStyle = {
@@ -175,67 +174,68 @@ function BalanceGameDetail(props) {
 
   return (
     <div style={balanceGameDetailStyle}>
-      <MenuHeader title='밸런스 게임' />
+      {!isModalOpen ? <>
+        <MenuHeader title='밸런스 게임' />
 
-      {/* 게임 정보 */}
-      <div style={gameInfoStyle}>
-        <div style={titleContainerStyle}>
-          <span>{ title }</span>
-        </div>
-        <div style={roundTimeContainerStyle}>
-          <div style={whiteDivStyle}>
-            <span>{ balanceGameList.length }라운드</span>
+        {/* 게임 정보 */}
+        <div style={gameInfoStyle}>
+          <div style={titleContainerStyle}>
+            <span>{ title }</span>
           </div>
-          <div style={whiteDivStyle}>
-            <span>{ time }초</span>
+          <div style={roundTimeContainerStyle}>
+            <div style={whiteDivStyle}>
+              <span>{ balanceGameList.length }라운드</span>
+            </div>
+            <div style={whiteDivStyle}>
+              <span>{ time }초</span>
+            </div>
           </div>
-        </div>
-        <div style={reactionContainerStyle}>
-          <div style={reactionStyle}>
-            <p style={{ margin: '0' }}>😍 { goodCount }</p>
-          </div>
-          <div style={reactionStyle}>
-            <p style={{ margin: '0' }}>😐 { normalCount }</p>
-          </div>
-          <div style={reactionStyle}>
-            <p style={{ margin: '0' }}>😥 { badCount }</p>
-          </div>
-        </div>
-      </div>
-      
-      {/* 수정 및 삭제 버튼 */}
-      <div>
-        <button onClick={() => handleUpdateBalanceGameClick()}>수정하기</button>
-        <button onClick={deleteBalanceGame}>삭제하기</button>
-      </div>
-
-      {/* 유저 정보 */}
-      <div style={userInfoStyle}>
-        <span style={readyStyle}>게임을 준비하세요</span>
-        <div style={nameContainerStyle}>
-          <div style={whiteDivStyle}>
-            <span>버디 이름</span>
-          </div>
-          <div style={whiteDivStyle}>
-            <span>유학생 이름</span>
+          <div style={reactionContainerStyle}>
+            <div style={reactionStyle}>
+              <p style={{ margin: '0' }}>😍 { goodCount }</p>
+            </div>
+            <div style={reactionStyle}>
+              <p style={{ margin: '0' }}>😐 { normalCount }</p>
+            </div>
+            <div style={reactionStyle}>
+              <p style={{ margin: '0' }}>😥 { badCount }</p>
+            </div>
           </div>
         </div>
-      </div>
+        
+        {/* 수정 및 삭제 버튼 */}
+        <div>
+          <button onClick={() => handleUpdateBalanceGameClick()}>수정하기</button>
+          <button onClick={deleteBalanceGame}>삭제하기</button>
+        </div>
 
-      {/* 실시간 채팅 화면 */}
-      {/* <BuddyChatArea /> */}
+        {/* 유저 정보 */}
+        <div style={userInfoStyle}>
+          <span style={readyStyle}>게임을 준비하세요</span>
+          <div style={nameContainerStyle}>
+            <div style={whiteDivStyle}>
+              <span>버디 이름</span>
+            </div>
+            <div style={whiteDivStyle}>
+              <span>유학생 이름</span>
+            </div>
+          </div>
+        </div>
 
-      <div style={buttonContainerStyle}>
-        <button style={buttonStyle} onClick={handleStartClick}>시작하기</button>
-      </div>
+        {/* 실시간 채팅 화면 */}
+        {/* <BuddyChatArea /> */}
 
-      {isModalOpen &&
+        <div style={buttonContainerStyle}>
+          <button style={buttonStyle} onClick={handleStartClick}>시작하기</button>
+        </div>
+      </> : <>
         <BalanceGameModal
           balanceGameId={balanceGameId}
           balanceGameList={balanceGameList}
           time={time}
-        />}
-
+          isOpen={isModalOpen}
+        />
+      </>}
     </div>
   );
 }
