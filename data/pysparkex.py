@@ -1,26 +1,39 @@
+import findspark
+import pyspark
+import json
+
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import udf
+from pyspark.sql.functions import udf, col, split, explode, lit, count, coalesce, sum
 from pyspark.sql.types import IntegerType, StringType, StructType, StructField
 from konlpy.tag import Okt
 from pymongo import MongoClient
-from sklearn.feature_extraction.text import TfidfVectorizer
+from pyspark import SparkContext, SparkConf
 
-# Spark 세션 생성
+findspark.init()
+
+conf = SparkConf()
+conf.set("spark.hadoop.fs.defaultFS", "hdfs://localhost:9000")
+
+# Spark session
 spark = SparkSession.builder \
     .appName("Data Preprocessing") \
+    .config("spark.local.dir", "/home/ubuntu/dataex/tmp") \
+    .config("spark.mongodb.input.uri", "mongodb://localhost:27017/moa") \
+    .config("spark.mongodb.output.uri", "mongodb://localhost:27017/moa") \
+    .config("spark.sql.pivotMaxValues", 100000) \
     .getOrCreate()
 
-# JSON 파일 경로
-json_path = "hdfs://localhost:9000/user/ubuntu/article_data.json"
+# JSON file path
+json_path = "/home/ubuntu/article_data.json"
 
-# JSON 파일을 읽어와 Python 리스트로 변환
+# JSON convert to python list
 with open(json_path, 'r', encoding='utf-8') as json_file:
     data = json.load(json_file)
     
-# 형태소 분석을 위한 KoNLPy 객체 생성
+# konlpy object
 okt = Okt()
 
-# 불용어 목록
+# stopwords list
 stopwords = set(['"', ',', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\\', '\\\\', '△',
      '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '=', '+', '[', ']',
       '{', '}', '|', '\\', ';', ':', '<', '>', '.', ',', '?', '/', '~', '`', "'", '"',
@@ -45,33 +58,33 @@ stopwords = set(['"', ',', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
      '한다', '한테', '할', '해', '해야', '했다', '후', '히', '돼다', '밝히다', '지난', '며', '위',
      '까지', '위해', '제', '이번', '부터', '차', '오다', '시', '및', '날', '달', '뉴스', '김',
      '라며', '대다', '간', '에도', '계', '당', '연', '이후', '권', '성', '이상', '들다', '조', '비',
-     'kr', '최근', 'LG', '\n\n\n\n', '\\n\\n\\n\\n'])
+     'kr', '최근', 'LG', '\n\n\n\n', '\\n\\n\\n\\n', '연합뉴스', '뉴시스'])
 
-# 문장과 단어 데이터를 저장할 리스트
+# data lists
 articles_data = []
 sentences_data = []
 words_data = []
-tfidf_data = []
 
 for i, article in enumerate(data):
-    # 기사 데이터 저장
-    articles_data.append({"article_id": i, "title": article["title"], "content": article["main"], "date": article["date"], "section": article["section"], "url": article["url"]})
-    
-    sentences = article["main"].split(".")
-    for sentence_id, sentence in enumerate(sentences):
-        # 문장 데이터 저장
-        sentences_data.append({"article_id": i, "sentence_id": sentence_id, "sentence": sentence})
+    try:
+        articles_data.append({"article_id": i, "title": article["title"], "content": article.get("main", ""), "date": article.get("date", ""), "section": article.get("section", ""), "url": article.get("url", "")})
         
-        # 형태소 분석 및 불용어 제거하여 단어 추출
-        words = okt.morphs(sentence, stem=True)
-        words = [word for word in words if word not in stopwords]
-        for word_id, word in enumerate(words):
-            if len(word) <= 1 or word[0] in ',".0123456789\\△!@#$%^&*()_-=+[]{}|\\;:<>.,/?~`\'"\\n\\t\\':
-                continue
+        sentences = article.get("main", "").split(".")
+        for sentence_id, sentence in enumerate(sentences):
+            sentences_data.append({"article_id": i, "sentence_id": sentence_id, "sentence": sentence})
+            
+            words = okt.morphs(sentence, stem=True)
+            words = [word for word in words if word not in stopwords]
+            for word_id, word in enumerate(words):
+                if len(word) <= 1 or word[0] in ',".0123456789\\△!@#$%^&*()_-=+[]{}|\\;:<>.,/?~`\'"\\n\\t\\':
+                    continue
 
-            words_data.append({"article_id": i, "sentence_id": sentence_id, "word_id": word_id, "word": word})
+                words_data.append({"article_id": i, "sentence_id": sentence_id, "word_id": word_id, "word": word})
+    except KeyError as e:
+        print(f"KeyError in article {i}: {e}")
+        continue
 
-# articles_data DataFrame 생성
+# articles_data DataFrame
 articles_schema = StructType([
     StructField("article_id", IntegerType(), False),
     StructField("title", StringType(), True),
@@ -83,7 +96,7 @@ articles_schema = StructType([
 
 articles_df = spark.createDataFrame(articles_data, schema=articles_schema)
 
-# sentences_data DataFrame 생성
+# sentences_data DataFrame
 sentences_schema = StructType([
     StructField("article_id", IntegerType(), False),
     StructField("sentence_id", IntegerType(), False),
@@ -92,7 +105,7 @@ sentences_schema = StructType([
 
 sentences_df = spark.createDataFrame(sentences_data, schema=sentences_schema)
 
-# words_data DataFrame 생성
+# words_data DataFrame
 words_schema = StructType([
     StructField("article_id", IntegerType(), False),
     StructField("sentence_id", IntegerType(), False),
@@ -102,50 +115,53 @@ words_schema = StructType([
 
 words_df = spark.createDataFrame(words_data, schema=words_schema)
 
-# MongoDB에 저장
+# PyMongo MongoDB
 mongo_uri = "mongodb://localhost:27017/"
 client = MongoClient(mongo_uri)
 db = client["moa"]
+# DB drop
+#collection_names = db.list_collection_names()
+collection_names = ['articlesample', 'sentencesample', 'wordsample']
+for collection_name in collection_names:
+    db[collection_name].drop()
+    
+# articles_data MongoDB
+articles_data = [article.asDict() for article in articles_df.collect()]
+db["articlesample"].insert_many(articles_data)
 
-# articles_data MongoDB에 저장
-articles_df.write \
-    .option("collection", "articlesample") \
-    .mode("overwrite") \
-    .format("com.mongodb.spark.sql.DefaultSource") \
-    .save()
+# sentences_data MongoDB
+sentences_data = [sentence.asDict() for sentence in sentences_df.collect()]
+db["sentencesample"].insert_many(sentences_data)
 
-# sentences_data MongoDB에 저장
-sentences_df.write \
-    .option("collection", "sentencesample") \
-    .mode("overwrite") \
-    .format("com.mongodb.spark.sql.DefaultSource") \
-    .save()
+# words_data MongoDB
+words_data = [word.asDict() for word in words_df.collect()]
+db["wordsample"].insert_many(words_data)
 
-# words_data MongoDB에 저장
-words_df.write \
-    .option("collection", "wordsample") \
-    .mode("overwrite") \
-    .format("com.mongodb.spark.sql.DefaultSource") \
-    .save()
+# sentiment result
+sentiment_results_data = []
+for i, article in enumerate(data):
+    try:
+        # random sentiment
+        sentiment_result = np.random.choice(["positive", "negative", "neutral"])
+        
+        sentiment_results_data.append({"article_id": i, "sentiment": sentiment_result})
+    except KeyError as e:
+        print(f"KeyError in article {i}: {e}")
+        continue
 
-# TF-IDF 벡터화
-from sklearn.feature_extraction.text import TfidfVectorizer
+# sentiment_results_df MongoDB
+sentiment_results_schema = StructType([
+    StructField("article_id", IntegerType(), False),
+    StructField("sentiment", StringType(), True)
+])
 
-corpus = [article["content"] for article in articles_data]
+sentiment_results_df = spark.createDataFrame(sentiment_results_data, schema=sentiment_results_schema)
 
-tfidf_vectorizer = TfidfVectorizer()
-tfidf_matrix = tfidf_vectorizer.fit_transform(corpus)
+sentiment_results_data = sentiment_results_df.select("article_id", "sentiment").collect()
+sentiment_results_list = [(row.article_id, row.sentiment) for row in sentiment_results_data]
 
-# MongoDB에 TF-IDF 벡터 저장
-mongo_uri = "mongodb://localhost:27017/"
-client = MongoClient(mongo_uri)
-db = client["moa"]
-collection = db["articlesample"]
+for article_id, sentiment_result in sentiment_results_list:
+    sentiment_results_collection.update_one({"article_id": article_id}, {"$set": {"sentiment": sentiment_result}}, upsert=True)
 
-for i, article in enumerate(articles_data):
-    tfidf_vector = tfidf_matrix[i].toarray().tolist()[0]
-    article["tfidf_vector"] = tfidf_vector
-    collection.update_one({"article_id": article["article_id"]}, {"$set": {"tfidf_vector": tfidf_vector}})
-
-# Spark 세션 종료
+# Spark session stop
 spark.stop()
