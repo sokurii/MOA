@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MemberInfoDto {
 
+    private Long memberId;
     private Boolean memberIsForeigner;
     private String memberName;
     private String memberKoreaName;
@@ -22,8 +23,9 @@ public class MemberInfoDto {
     private Integer memberRequiredExp;
 
     @Builder
-    public MemberInfoDto(Boolean memberIsForeigner, String memberName, String memberKoreaName, String memberImgAddress, String memberNationName,
+    public MemberInfoDto(Long memberId, Boolean memberIsForeigner, String memberName, String memberKoreaName, String memberImgAddress, String memberNationName,
                          Long memberLevelId, String memberLevelName, Integer memberLevelGrade, Integer memberExp, Integer memberRequiredExp) {
+        this.memberId = memberId;
         this.memberIsForeigner = memberIsForeigner;
         this.memberName = memberName;
         this.memberKoreaName = memberKoreaName;

@@ -90,7 +90,7 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
     // Level 정보와 함께 외국인 Member 정보를 조회한다.
     @Override
     public MemberInfoDto getForeignerMemberInfoWithLevel(Long memberId) {
-        Tuple tuple = jpaQueryFactory.select(member.memberIsForeigner, member.memberName, foreigner.foreignerKoreaName, member.memberImgAddress,
+        Tuple tuple = jpaQueryFactory.select(member.memberId, member.memberIsForeigner, member.memberName, foreigner.foreignerKoreaName, member.memberImgAddress,
                 nationCode1.nationName, level.levelId, level.levelName, level.levelGrade, member.memberExp, level.requiredExp)
                 .from(member)
                 .innerJoin(level).on(member.memberLevel.eq(level))
@@ -100,6 +100,7 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
                 .fetchOne();
 
         return MemberInfoDto.builder()
+                .memberId(tuple.get(member.memberId))
                 .memberIsForeigner(tuple.get(member.memberIsForeigner))
                 .memberName(tuple.get(member.memberName))
                 .memberKoreaName(tuple.get(foreigner.foreignerKoreaName))
@@ -116,7 +117,7 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
     // Level 정보와 함께 한국인 Member 정보를 조회한다.
     @Override
     public MemberInfoDto getKoreanMemberInfoWithLevel(Long memberId) {
-        Tuple tuple = jpaQueryFactory.select(member.memberName, member.memberImgAddress, nationCode1.nationName)
+        Tuple tuple = jpaQueryFactory.select(member.memberId, member.memberName, member.memberImgAddress, nationCode1.nationName)
                 .from(member)
                 .innerJoin(korean).on(member.memberId.eq(korean.member.memberId))
                 .leftJoin(nationCode1).on(korean.nationCode.eq(nationCode1))
@@ -124,6 +125,7 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
                 .fetchOne();
 
         return MemberInfoDto.builder()
+                .memberId(tuple.get(member.memberId))
                 .memberName(tuple.get(member.memberName))
                 .memberImgAddress(tuple.get(member.memberImgAddress))
                 .memberNationName(tuple.get(nationCode1.nationName))
