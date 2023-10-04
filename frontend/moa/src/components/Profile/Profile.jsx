@@ -128,6 +128,7 @@ const commentStyle = {
 function Profile({ onClose }) {
   const state = store.getState();
   const userInfo = state.userInfo;
+  const isForeigner = JSON.parse(userInfo).memberIsForeigner;
   const profileImgUrl = JSON.parse(userInfo).memberImgAddress;
   const memberName = JSON.parse(userInfo).memberName;
   const nation = JSON.parse(userInfo).memberNationName;
@@ -197,42 +198,45 @@ function Profile({ onClose }) {
           <span style={userInfoDetailStyle}>버디와 함께한 지 { withBuddyDays }일!</span>
         </div>
       </div>
-      <div style={expLevelContainerStyle}>
-        <div style={labelStyle}>
-          <span style={titleStyle}>경험치 및 레벨</span>
-          <div style={levelTableStyle} onClick={openLevelTable}>
-            레벨 표
-          </div>
-        </div>
-        <div style={expLevelStyle}>
-          <div style={expLevelTopStyle}>
-            <div style={levelStyle} onClick={toggleTaekeuk}>
-              <div style={levelSymbolStyle}>
-                <img src={process.env.PUBLIC_URL + `/assets/level/Lv${levelId}.png`} alt={`레벨${levelId}`} />
-              </div>
-              <div>
-                <span>{ levelName } Lv. { levelGrade }</span>
-              </div>
-            </div>
-            <div style={expStyle}>
-              <span>{ exp } / { requiredExp }</span>
-              <div style={expBarStyle}>
-                <div style={filledExpBarStyle}></div>
-              </div>
+
+      {isForeigner && (
+        <div style={expLevelContainerStyle}>
+          <div style={labelStyle}>
+            <span style={titleStyle}>경험치 및 레벨</span>
+            <div style={levelTableStyle} onClick={openLevelTable}>
+              레벨 표
             </div>
           </div>
-          <div style={commentStyle}>
-            <span>레벨 클릭 시 태극기 진척도를 확인할 수 있어요!</span>
+          <div style={expLevelStyle}>
+            <div style={expLevelTopStyle}>
+              <div style={levelStyle} onClick={toggleTaekeuk}>
+                <div style={levelSymbolStyle}>
+                  <img src={process.env.PUBLIC_URL + `/assets/level/Lv${levelId}.png`} alt={`레벨${levelId}`} />
+                </div>
+                <div>
+                  <span>{ levelName } Lv. { levelGrade }</span>
+                </div>
+              </div>
+              <div style={expStyle}>
+                <span>{ exp } / { requiredExp }</span>
+                <div style={expBarStyle}>
+                  <div style={filledExpBarStyle}></div>
+                </div>
+              </div>
+            </div>
+            <div style={commentStyle}>
+              <span>레벨 클릭 시 태극기 진척도를 확인할 수 있어요!</span>
+            </div>
           </div>
+          {isTaekeukOpen && <div><img src={process.env.PUBLIC_URL + `/assets/TaekeukFlag/Lv${levelId}_All.png`} alt={`레벨${levelId}`} /></div>}
+          {isLevelTableOpen && 
+            <div>
+              <CloseButton onClose={closeLevelTable}/>
+              <LevelTable />
+            </div>
+          }
         </div>
-        {isTaekeukOpen && <div><img src={process.env.PUBLIC_URL + `/assets/TaekeukFlag/Lv${levelId}_All.png`} alt={`레벨${levelId}`} /></div>}
-        {isLevelTableOpen && 
-          <div>
-            <CloseButton onClose={closeLevelTable}/>
-            <LevelTable />
-          </div>
-        }
-      </div>
+      )}
     </div>
   );
 }
