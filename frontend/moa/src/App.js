@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import LoginLoading from './pages/LoginLoading';
 import SignUp from './pages/SignUp';
 import Matching from './pages/Matching';
-import ChattingHome from './components/ChattingHome';
+import ChattingHome from './pages/Chatting/ChattingHome';
 import BuddyChattingModal from './pages/Chatting/BuddyChattingModal';
 import OpenChattingModal from './pages/Chatting/OpenChattingModal';
 import OpenChattingDetail from './pages/Chatting/OpenChattingDetail';
