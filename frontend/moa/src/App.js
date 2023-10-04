@@ -33,7 +33,8 @@ import BalanceGame from './pages/Buddy/BalanceGame/BalanceGame';
 import BalanceGameDetail from './pages/Buddy/BalanceGame/BalanceGameDetail';
 import CreateBalanceGame from './pages/Buddy/BalanceGame/CreateBalanceGame';
 import UpdateBalanceGame from './pages/Buddy/BalanceGame/UpdateBalanceGame';
-import KoreaTour from './pages/Buddy/KoreaTour';
+import KoreaTour from './pages/Buddy/KoreaTour/KoreaTour';
+import KoreaTourResult from './pages/Buddy/KoreaTour/KoreaTourResult';
 import NotFound404 from './pages/NotFound404';
 import RelatedNews from './components/Learning/RelatedNews';
 import NewsArticle from './pages/Learning/NewsArticle';
@@ -90,6 +91,7 @@ function App() {
               <Route path="/buddy/balancegame/:id/update" element={<UpdateBalanceGame />} />
 
               <Route path="/buddy/koreatour" element={<KoreaTour />} />
+              <Route path="/buddy/koreatour/:mediaPlace" element={<KoreaTourResult />} />
 
               <Route path="*" element={<Navigate to="/" />} />
             </>
