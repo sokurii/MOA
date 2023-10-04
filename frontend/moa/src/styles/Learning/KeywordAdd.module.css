@@ -1,4 +1,4 @@
-.display-middle{
+.display-middle {
     display: flex;
     margin-top: 18px;
     margin-left: 20px;
@@ -11,4 +11,18 @@
     border-radius: 18px;
     box-shadow: 5px 5px 5px #F3F9FF;
     line-height: 55px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.deleteBtn {
+    border: none;
+    background: transparent;
+    float: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.keywordName {
+    margin-left: 40px;
 }

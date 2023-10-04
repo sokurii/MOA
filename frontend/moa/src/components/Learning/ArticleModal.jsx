@@ -3,13 +3,22 @@ import React, { Fragment, useEffect, useState } from 'react';
 import styles from './ArticleModal.module.css';
 
 function ArticleModal(props) {
-  const { word, onCloseModal, translatedWord } = props.modalProps;
+  const { word, onCloseModal, translatedWord, isChatGptAsk } = props.modalProps;
 
   const [isWordScrap, setIsWordScrap] = useState(null);
   const [chatGptAsk, setChatGptAsk] = useState(false);
   const [chatGptAnswer, setChatGptAnswer] = useState('');
   const [text, setText] = useState('');
   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (isChatGptAsk) {
+      setChatGptAsk(true);
+    }
+    else {
+      setChatGptAsk(false);
+    }
+  }, []);
 
   // 타이핑 효과
   useEffect(() => {
@@ -73,19 +82,24 @@ function ArticleModal(props) {
   // chatGPT에게 물어보는 상태로 변경
   const goChatGPTAsk = () => {
     setChatGptAsk(true);
-    const data = {
-      question: "what does " + word + " means in English?",
-    }
-
-    learningApi.askToChatGpt(data)
-      .then((response) => {
-        console.log(response);
-        setChatGptAnswer(response.data.response);
-      })
-      .catch((error) => {
-        console.log('chat gpt 오류', error);
-      })
   }
+
+  useEffect(() => {
+    if (chatGptAsk) {
+      const data = {
+        question: "what does " + word + " means in English?",
+      }
+
+      learningApi.askToChatGpt(data)
+        .then((response) => {
+          console.log(response);
+          setChatGptAnswer(response.data.response);
+        })
+        .catch((error) => {
+          console.log('chat gpt 오류', error);
+        })
+    }
+  }, [chatGptAsk])
 
   const closeChatGpt = () => {
     setChatGptAsk(false);
@@ -131,12 +145,15 @@ function ArticleModal(props) {
         {chatGptAsk && (
           <>
             <div className={styles.chatGptTitle}>
-              <button className={styles.leftArrow}
-                onClick={closeChatGpt}>
-                <img src='../../../assets/NewsArticle/left_arrow.png'
-                  className={styles.leftArrowImg}
-                ></img>
-              </button>
+              {!isChatGptAsk && (
+                <button className={styles.leftArrow}
+                  onClick={closeChatGpt}>
+                  <img src='../../../assets/NewsArticle/left_arrow.png'
+                    className={styles.leftArrowImg}
+                  ></img>
+                </button>
+              )}
+
               <div className={styles.chatGptTitleName}>GPT</div>
             </div>
             <div

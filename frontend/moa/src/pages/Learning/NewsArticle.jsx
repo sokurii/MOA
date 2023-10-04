@@ -306,6 +306,7 @@ function NewsArticle(props) {
                             word: clickWord,
                             onCloseModal: closeModal,
                             translatedWord: translatedWord,
+                            isChatGptAsk: false,
                         }}
                     ></ArticleModal>
                 }

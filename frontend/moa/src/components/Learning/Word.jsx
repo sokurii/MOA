@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import News from '../../styles/Learning/Word.module.css';
 import KeywordModal from '../../components/Learning/KeywordModal';
 import { learningApi } from '../../api/learningApi';
+import ArticleModal from '../../components/Learning/ArticleModal';
 
 function WordLogo(props) {
     const { word } = props;
@@ -10,12 +11,12 @@ function WordLogo(props) {
 
     // 모달 열기 함수
     const openModal = () => {
-      setModalOpen(true);
+        setModalOpen(true);
     };
-  
+
     // 모달 닫기 함수
     const closeModal = () => {
-      setModalOpen(false);
+        setModalOpen(false);
     };
 
 
@@ -55,34 +56,49 @@ function WordLogo(props) {
 
     useEffect(() => {
         learningApi.translateText(word.word)
-          .then((response) => {
-            const res = response.data.response;
-            setTranslatedSentence(res);
-          })
+            .then((response) => {
+                const res = response.data.response;
+                setTranslatedSentence(res);
+            })
     }, []);
 
     return (
-        <div className={News.middleContainer}>
-            <div className={News.wrapContainer}>
-                <div className={News.middleTop}>
-                    <div>
-                        <div className={News.fontContainer}>
-                            <div className={News.topLeftFont}> { word.word } </div>
-                            <div className={News.topRightFont}>  &nbsp; {translatedSentence}</div> <br />
+        <>
+            <div className={News.middleContainer}>
+                <div className={News.wrapContainer}>
+                    <div className={News.middleTop}>
+                        <div>
+                            <div className={News.fontContainer}>
+                                <div className={News.topLeftFont}> {word.word} </div>
+                                <div className={News.topRightFont}>  &nbsp; {translatedSentence}</div> <br />
+                            </div>
+                            {/* <div className={News.topLeftFont}>[Yeshi dan-eo]</div> */}
                         </div>
-                        {/* <div className={News.topLeftFont}>[Yeshi dan-eo]</div> */}
+                        <button className={News.soundContainer} onClick={() =>
+                            speech(word.word)}>
+                            <img className={News.soundImg} src="../../../assets/news/volumeHigh.png" alt=""></img>
+                        </button>
                     </div>
-                    <button className={News.soundContainer} onClick={() =>
-                    speech(word.word)}>
-                        <img className={News.soundImg} src="../../../assets/news/volumeHigh.png" alt=""></img>
+                    <button className={News.askButton}
+                        onClick={openModal}>
+                        <div className={News.askFont}>Ask to AI</div>
                     </button>
+
                 </div>
-                <button className={News.askButton}
-                    onClick={openModal}>
-                    <div className={News.askFont}>Ask to AI</div>
-                </button>
+
+
             </div>
-        </div>
+            {
+                isModalOpen &&
+                <ArticleModal
+                    modalProps={{
+                        word: word.word,
+                        onCloseModal: closeModal,
+                        isChatGptAsk: true,
+                    }}
+                ></ArticleModal>
+            }
+        </>
     );
 }
 

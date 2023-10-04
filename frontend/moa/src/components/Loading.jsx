@@ -34,7 +34,7 @@ function Loading(props) {
   const state = store.getState();
   const isLoading = state.isLoading;
   const dispatch = useAppDispatch();
-    // 애니메이션 관련
+  // 애니메이션 관련
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const imageUrls = [
@@ -49,7 +49,7 @@ function Loading(props) {
 
   useEffect(() => {
     const interval = setInterval(changeImage, 500); // 0.5초마다 이미지 변경
-  
+
     return () => clearInterval(interval); // 컴포넌트 언마운트 시 clearInterval
   }, []);
 
