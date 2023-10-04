@@ -9,6 +9,7 @@ import com.ssafy.moa.api.repository.BuddyMessageRepository;
 import com.ssafy.moa.api.repository.ChatRoomRepository;
 import com.ssafy.moa.api.repository.OpenChatMessageRepository;
 import com.ssafy.moa.api.service.ChatService;
+import com.ssafy.moa.api.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Slf4j
@@ -25,6 +27,7 @@ import java.util.List;
 public class ChatServiceImpl implements ChatService {
 
     private final ObjectMapper objectMapper;
+    private final MemberService memberService;
     private final OpenChatMessageRepository chatRoomRepository;
     private final BuddyMessageRepository buddyMessageRepository;
 
@@ -43,7 +46,7 @@ public class ChatServiceImpl implements ChatService {
                     .roomId(Long.valueOf(message.getRoomId()))
                     .sender(message.getSender())
                     .message(message.getMessage())
-                    .time(LocalDateTime.now())
+                    .time(LocalDateTime.now((ZoneId.of("Asia/Seoul"))))
                     .build();
             chatRoomRepository.save(openChatMessage);
         }
@@ -52,7 +55,7 @@ public class ChatServiceImpl implements ChatService {
                     .roomId(Long.valueOf(message.getRoomId()))
                     .sender(message.getSender())
                     .message(message.getMessage())
-                    .time(LocalDateTime.now())
+                    .time(LocalDateTime.now((ZoneId.of("Asia/Seoul"))))
                     .build();
             buddyMessageRepository.save(buddyMessage);
         }
@@ -64,6 +67,7 @@ public class ChatServiceImpl implements ChatService {
             List<OpenChatMessage> roomList = chatRoomRepository.findByRoomIdOrderByTimeDesc(roomId);
             ChatDto.ChatMessageListResponse response = ChatDto.ChatMessageListResponse.builder()
                     .chatMessageList(roomList)
+                    .memberService(memberService)
                     .build();
             return response.getChatMessageResponseList();
         }

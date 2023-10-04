@@ -2,9 +2,12 @@ package com.ssafy.moa.api.dto;
 
 import com.ssafy.moa.api.entity.BuddyMessage;
 import com.ssafy.moa.api.entity.OpenChatMessage;
+import com.ssafy.moa.api.service.MemberService;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,12 +18,14 @@ public class ChatDto {
     @Getter
     @NoArgsConstructor
     public static class ChatMessageResponse {
+        private String name;
         private String sender;
         private String message;
         private LocalDateTime time;
 
         @Builder
-        public ChatMessageResponse(String sender, String message, LocalDateTime time) {
+        public ChatMessageResponse(String name, String sender, String message, LocalDateTime time) {
+            this.name = name;
             this.sender = sender;
             this.message = message;
             this.time = time;
@@ -32,10 +37,13 @@ public class ChatDto {
         List<ChatMessageResponse> chatMessageResponseList;
 
         @Builder
-        public ChatMessageListResponse(List<OpenChatMessage> chatMessageList) {
+        public ChatMessageListResponse(List<OpenChatMessage> chatMessageList, MemberService memberService) {
+
             List<ChatMessageResponse> chatList = chatMessageList.stream()
                     .map(chatMessage -> {
+                        String memberName = memberService.findMember(Long.valueOf(chatMessage.getSender())).getMemberName();
                         return ChatMessageResponse.builder()
+                                .name(memberName)
                                 .sender(chatMessage.getSender())
                                 .message(chatMessage.getMessage())
                                 .time(chatMessage.getTime())

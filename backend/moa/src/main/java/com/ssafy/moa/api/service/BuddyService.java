@@ -9,5 +9,5 @@ public interface BuddyService {
     Long findMatchingBuddy(Long memberId);
     Integer deleteBuddy(Long memberId);
     Long findWithBuddyDate(Long memberId);
-    Integer findBuddy(Member member);
+    Long findBuddy(Member member);
 }

@@ -76,8 +76,8 @@ public class BuddyController {
     }
 
     @GetMapping("/whether")
-    @Operation(summary = "버디 여부 조회")
-    public ApiResult<Integer> findBuddy(@RequestHeader("Authorization") String header) {
+    @Operation(summary = "버디 여부 조회", description = "0으로 리턴되면 버디가 없음, 그 이외의 숫자는 buddyId")
+    public ApiResult<Long> findBuddy(@RequestHeader("Authorization") String header) {
         String token = header.substring(7);
         Long memberId = jwtTokenProvider.extractMemberId(token);
         Member member = memberService.findMember(memberId);

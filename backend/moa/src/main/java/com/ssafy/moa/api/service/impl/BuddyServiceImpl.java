@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -215,18 +216,20 @@ public class BuddyServiceImpl implements BuddyService {
 
     @Override
     @Transactional(readOnly = true)
-    public Integer findBuddy(Member member) {
+    public Long findBuddy(Member member) {
         if(member.getMemberIsForeigner()) {
             Foreigner foreigner = foreignerRepository.findByMember(member)
                     .orElseThrow(() -> new NotFoundException("Not Found Foreigner"));
-            if(buddyRepository.findByForeigner(foreigner).isPresent()) return 1;
-            else return 0;
+            Optional<Buddy> buddy = buddyRepository.findByForeigner(foreigner);
+            if(!buddy.isPresent()) return 0L;
+            return buddy.get().getBuddyId();
         }
         else {
             Korean korean = koreanRepository.findByMember(member)
                     .orElseThrow(() -> new NotFoundException("Not Found Korean"));
-            if(buddyRepository.findByKorean(korean).isPresent()) return 1;
-            else return 0;
+            Optional<Buddy> buddy = buddyRepository.findByKorean(korean);
+            if(!buddy.isPresent()) return 0L;
+            return buddy.get().getBuddyId();
         }
     }
 }
