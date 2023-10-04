@@ -3,8 +3,8 @@
 .container {
     position: relative;
     width: 412px;
-    height: 915px;
-    background: linear-gradient(180deg, rgba(49, 116, 248, 0.25) 8.12%, rgba(114, 159, 245, 0) 81.04%), #FFFFFF;
+    height: 791px;
+    background: url("../../../public/assets/Background/news_background.png");
 }
 
 .backgroundImg {
@@ -16,9 +16,9 @@
 .articleContent {
     position: absolute;
     width: 412px;
-    height: 567px;
+    height: 400px;
     left: 0px;
-    top: 320px;
+    top: 270px;
 
     background: #FFFFFF;
     border-radius: 40px 40px 0px 0px;
@@ -29,7 +29,7 @@
     width: 350px;
     height: 81px;
     left: 31px;
-    top: 90px;
+    top: 30px;
 
     font-family: 'Inter', sans-serif;
     font-style: normal;
@@ -45,7 +45,7 @@
     width: 340px;
     height: 370px;
     left: calc(50% - 328px/2 - 2px);
-    top: 50px;
+    top: 40px;
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -73,7 +73,7 @@
     width: 350px;
     height: 39px;
     left: 34px;
-    top: 800px;
+    top: 720px;
 
     background: linear-gradient(90deg, #D1E0FD 15.94%, rgba(255, 255, 255, 0) 51.56%, #D1E0FD 85.21%);
     border-radius: 16px;
@@ -122,7 +122,7 @@
     width: 51px;
     height: 51px;
     left: 31px;
-    top: 250px;
+    top: 200px;
 
     background: #FFFFFF;
     border: 2.37209px solid rgba(255, 255, 255, 0.2);
@@ -135,7 +135,7 @@
     width: 51px;
     height: 51px;
     left: 101px;
-    top: 250px;
+    top: 200px;
 
     background: #FFFFFF;
     border: 2.37209px solid rgba(255, 255, 255, 0.2);
@@ -148,7 +148,7 @@
     width: 51px;
     height: 51px;
     left: 330px;
-    top: 250px;
+    top: 200px;
     padding-left: 7px;
     padding-top: 7px;
     background: #FFFFFF;
@@ -169,7 +169,7 @@
     width: 62.55px;
     height: 21px;
     left: 280px;
-    top: 190px;
+    top: 150px;
 
     font-family: 'Inter', sans-serif;
     font-style: normal;

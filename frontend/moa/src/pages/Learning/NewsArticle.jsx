@@ -3,12 +3,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { learningApi } from '../../api/learningApi';
 import styles from './NewsArticle.module.css'
 import ArticleModal from '../../components/Learning/ArticleModal';
+import MenuHeader from '../../components/ETC/MenuHeader';
+import { useParams } from 'react-router';
 
 function NewsArticle(props) {
 
-    // const articleWords = [
-    //     "법원", "출석", "단식"
-    // ]
+    const { articleId } = useParams();
 
     const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
     const [translatedSentence, setTranslatedSentence] = useState('');
@@ -17,7 +17,6 @@ function NewsArticle(props) {
     const [isModalOpen, setIsModalOpen] = useState(false); //모달 관련
     const [clickWord, setClickWord] = useState(null);
 
-    const [articleId, setArticleId] = useState(null);
     const [articleTitle, setArticleTitle] = useState('');
     const [articleContent, setArticleContent] = useState('');
     const [articleSentences, setArticleSentences] = useState([]);
@@ -26,10 +25,9 @@ function NewsArticle(props) {
     const [articleWords, setArticleWords] = useState([]);
 
     useEffect(() => {
-        learningApi.getNews(1)
+        learningApi.getNews(articleId)
             .then((response) => {
                 const newsData = response.data;
-                setArticleId(newsData.article_id);
                 setArticleTitle(newsData.title);
                 setArticleContent(newsData.content);
                 setArticleDate(newsData.date);
@@ -44,7 +42,7 @@ function NewsArticle(props) {
     }, []);
 
     useEffect(() => {
-        learningApi.getNewsWords(1)
+        learningApi.getNewsWords(articleId)
             .then((response) => {
                 console.log(response.data);
                 setArticleWords(response.data);
@@ -57,7 +55,7 @@ function NewsArticle(props) {
     // 스크랩 여부 확인
     useEffect(() => {
         if (articleContent !== '') {
-            learningApi.getIsNewsScrap(1) // 나중에 articleId 값 받아오면 넣어주기 
+            learningApi.getIsNewsScrap(articleId) // 나중에 articleId 값 받아오면 넣어주기 
                 .then((response) => {
                     console.log(response.data.response);
                     if (response.data.response) {
@@ -225,93 +223,95 @@ function NewsArticle(props) {
 
 
     return (
-        <div className={styles.container}>
+        <>
 
-            <img src="../../../assets/NewsArticle/background-img.png" className={styles.backgroundImg}></img>
+            <MenuHeader title="뉴스보기"></MenuHeader>
+            <div className={styles.container}>
 
-            <div className={styles.articleTitle}>{articleTitle}</div>
-            <div className={styles.articleDate}>{articleDate}</div>
-            <button className={styles.listenToSound} onClick={() =>
-                speech(articleSentences[currentSentenceIndex])}>
-                <img src="../../../assets/NewsArticle/listen-to-sound.png"
-                    style={{ width: "35px", height: "35px", paddingTop: "5px" }} alt=""></img>
-            </button>
-            <button className={styles.recordSound}>
-                <img src="../../../assets/NewsArticle/record-sound.png"
-                    style={{ width: "35px", height: "35px", paddingTop: "5px" }}></img>
-            </button>
-            {!isNewsScrap &&
-                <button className={styles.scrap}
-                    onClick={createNewsScrap}>
-                    <img src="../../../assets/NewsArticle/scrap.png"
-                        style={{ width: "30px", height: "30px" }}></img>
+                <div className={styles.articleTitle}>{articleTitle}</div>
+                <div className={styles.articleDate}>{articleDate}</div>
+                <button className={styles.listenToSound} onClick={() =>
+                    speech(articleSentences[currentSentenceIndex])}>
+                    <img src="../../../assets/NewsArticle/listen-to-sound.png"
+                        style={{ width: "35px", height: "35px", paddingTop: "5px" }} alt=""></img>
                 </button>
-            }
-            {isNewsScrap &&
-                <button className={styles.scrap}
-                    onClick={deleteNewsScrap}
-                >
-                    <img src="../../../assets/NewsArticle/scrap_complete.png"
-                        style={{ width: "28px", height: "35px" }}></img>
+                <button className={styles.recordSound}>
+                    <img src="../../../assets/NewsArticle/record-sound.png"
+                        style={{ width: "35px", height: "35px", paddingTop: "5px" }}></img>
                 </button>
-            }
+                {!isNewsScrap &&
+                    <button className={styles.scrap}
+                        onClick={createNewsScrap}>
+                        <img src="../../../assets/NewsArticle/scrap.png"
+                            style={{ width: "30px", height: "30px" }}></img>
+                    </button>
+                }
+                {isNewsScrap &&
+                    <button className={styles.scrap}
+                        onClick={deleteNewsScrap}
+                    >
+                        <img src="../../../assets/NewsArticle/scrap_complete.png"
+                            style={{ width: "28px", height: "35px" }}></img>
+                    </button>
+                }
 
-            <div className={styles.articleContent}>
-                <div className={styles.articleSentences}>
-                    <div>
-                        {articleSentences[currentSentenceIndex] && splitSentenceIntoWords(articleSentences[currentSentenceIndex]).map((word, index) => {
-
-                            const matchingWord = articleWords.find((highlightWord) =>
-                                isWordMatching(word, highlightWord)
-                            );
-
-                            const matchingWordLength = matchingWord ? matchingWord.length : 0;
-                            const startIdx = word.indexOf(matchingWord);
-                            return (
-                                <span>
-                                    <span>{word.substring(0, startIdx)}</span>
-                                    <span
-                                        key={index}
-                                        className={matchingWord
-                                            ? styles.highlightWord : ''}
-                                        onClick={() => {
-                                            if (matchingWord) {
-                                                wordModal(matchingWord);
-                                                translateWord(matchingWord);
-                                            }
-                                        }}>{word.substring(startIdx, startIdx + matchingWordLength)}
-                                    </span>{word.substring(startIdx + matchingWordLength)}{' '}
-                                </span>
-                            );
-                        })}
-                    </div>
-                    {articleSentences[currentSentenceIndex] && (
+                <div className={styles.articleContent}>
+                    <div className={styles.articleSentences}>
                         <div>
-                            {translatedSentence}
+                            {articleSentences[currentSentenceIndex] && splitSentenceIntoWords(articleSentences[currentSentenceIndex]).map((word, index) => {
+
+                                const matchingWord = articleWords.find((highlightWord) =>
+                                    isWordMatching(word, highlightWord)
+                                );
+
+                                const matchingWordLength = matchingWord ? matchingWord.length : 0;
+                                const startIdx = word.indexOf(matchingWord);
+                                return (
+                                    <span>
+                                        <span>{word.substring(0, startIdx)}</span>
+                                        <span
+                                            key={index}
+                                            className={matchingWord
+                                                ? styles.highlightWord : ''}
+                                            onClick={() => {
+                                                if (matchingWord) {
+                                                    wordModal(matchingWord);
+                                                    translateWord(matchingWord);
+                                                }
+                                            }}>{word.substring(startIdx, startIdx + matchingWordLength)}
+                                        </span>{word.substring(startIdx + matchingWordLength)}{' '}
+                                    </span>
+                                );
+                            })}
                         </div>
-                    )}
+                        {articleSentences[currentSentenceIndex] && (
+                            <div>
+                                {translatedSentence}
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
 
-            <div className={styles.pageMoving}>
-                <button onClick={goToPreviousIndex} className={styles.pageButton}>이전</button>
-                <p className={styles.pageNumbers}>
-                    {currentSentenceIndex + 1} / {articleSentences.length}</p>
-                <button onClick={goToNextIndex} className={styles.pageButton}>다음</button>
-            </div>
+                <div className={styles.pageMoving}>
+                    <button onClick={goToPreviousIndex} className={styles.pageButton}>이전</button>
+                    <p className={styles.pageNumbers}>
+                        {currentSentenceIndex + 1} / {articleSentences.length}</p>
+                    <button onClick={goToNextIndex} className={styles.pageButton}>다음</button>
+                </div>
 
-            {
-                isModalOpen &&
-                <ArticleModal
-                    modalProps={{
-                        word: clickWord,
-                        onCloseModal: closeModal,
-                        translatedWord: translatedWord,
-                    }}
-                ></ArticleModal>
-            }
+                {
+                    isModalOpen &&
+                    <ArticleModal
+                        modalProps={{
+                            word: clickWord,
+                            onCloseModal: closeModal,
+                            translatedWord: translatedWord,
+                        }}
+                    ></ArticleModal>
+                }
 
-        </div >
+            </div >
+        </>
     );
 
 }
