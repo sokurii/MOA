@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { userApi } from '../../api/userApi';
-import Cookies from 'js-cookie';
 
-import { setIsForeigner, useAppDispatch } from '../../store';
-import { setAccessToken, setIsMatching } from '../../store';
-import { setUserInfo } from '../../store/userInfo';
+import { useAppDispatch } from '../../store';
 
 import Profile from '../Profile/Profile';
 
@@ -26,6 +22,7 @@ const imgContainerStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  marginLeft: '130px',
 };
 
 const imgStyle = {
@@ -33,16 +30,8 @@ const imgStyle = {
   margin: '10px auto',
 };
 
-const logoutButtonStyle = {
-  background: 'linear-gradient(to bottom, lightgreen, green)',
-  color: 'white',
-  border: 'none',
-  padding: '10px 20px',
-  borderRadius: '32px',
-  cursor: 'pointer',
-};
-
 const profileButtonStyle = {
+  marginRight: '20px',
   cursor: 'pointer',
 };
 
@@ -56,9 +45,6 @@ const modalContainerStyle = {
 };
 
 function AppBar(props) {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   // 프로필 모달 열기 함수
@@ -71,24 +57,6 @@ function AppBar(props) {
     setIsProfileModalOpen(false);
   };
 
-  // 로그아웃 핸들러 함수
-  const handleLogout = () => {
-    Cookies.remove('refreshToken');
-    localStorage.removeItem('accessToken');
-    dispatch(setAccessToken(null));
-    dispatch(setIsMatching(null));
-    dispatch(setIsForeigner(null));
-    dispatch(setUserInfo(null));
-
-    if (!Cookies.get('refreshToken')) {
-      alert('로그아웃 되었습니다');
-      window.location.reload();
-      navigate('/login');
-    } else {
-      console.log('로그아웃 오류 발생');
-    }
-  };
-
   // 프로필 모달이 열리거나 닫힐 때 모달 위치를 조절하는 효과를 위한 useEffect
   useEffect(() => {
     const modalContainer = document.getElementById('modal-container');
@@ -99,13 +67,6 @@ function AppBar(props) {
 
   return (
     <div style={appBarStyle}>
-      <div>
-        {Cookies.get('refreshToken') ? (
-          <button style={logoutButtonStyle} onClick={handleLogout}>
-            로그아웃
-          </button>
-        ) : null}
-      </div>
       <Link style={imgContainerStyle} to="/">
         <img
           style={imgStyle}

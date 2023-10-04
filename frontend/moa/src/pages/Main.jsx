@@ -71,29 +71,25 @@ function Main(props) {
 
   return (
     <div style={mainPageStyle}>
-      {isLoading ? <Loading /> : (
-        <>
-          <div style={appBarContainerStyle}>
-            <AppBar />
-          </div>
-          <div style={userNameStyle}>
-            <p>안녕, { memberName }!</p>
-          </div>
-          <div style={mainAreaContainerStyle}>
-            <MainArea />
-          </div>
-          {/* bottombar */}
-          <div
-            style={{
-              ...bottomBarContainerStyle,
-              bottom: isBottomBarVisible ? '0' : '-56px', // 나타날 때와 숨길 때의 위치 조절
-            }}
-            onClick={toggleBottomBar}
-          >
-            <BottomBar />
-          </div>
-        </>
-      )}
+      <div style={appBarContainerStyle}>
+        <AppBar />
+      </div>
+      <div style={userNameStyle}>
+        <p>안녕, { memberName }!</p>
+      </div>
+      <div style={mainAreaContainerStyle}>
+        <MainArea />
+      </div>
+      {/* bottombar */}
+      <div
+        style={{
+          ...bottomBarContainerStyle,
+          bottom: isBottomBarVisible ? '0' : '-56px', // 나타날 때와 숨길 때의 위치 조절
+        }}
+        onClick={toggleBottomBar}
+      >
+        <BottomBar />
+      </div>
     </div>
   );
 }

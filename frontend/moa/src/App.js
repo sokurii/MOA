@@ -66,7 +66,6 @@ function App() {
 
   return (
     <div className="App">
-      {isLoading ? <Loading /> : (
       <BrowserRouter>
         <Routes>
           {refreshToken ? ( // refreshToken이 있는 경우
@@ -124,7 +123,6 @@ function App() {
           )}
         </Routes>
       </BrowserRouter>
-      )}
     </div>
   );
 }

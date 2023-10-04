@@ -1,9 +1,17 @@
 import React from 'react';
 
+const buttonStyle = {
+  fontSize: '20px',
+  fontFamily: 'Ganpan',
+  border: 'none',
+  background: 'transparent',
+  cursor: 'pointer',
+};
+
 function CloseButton({ onClose }) {
   return (
     <div>
-      <button onClick={onClose}>닫기</button>
+      <button style={buttonStyle} onClick={onClose}>X</button>
     </div>
   );
 }

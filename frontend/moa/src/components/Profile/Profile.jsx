@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
+import { useNavigate } from 'react-router-dom';
 import store from '../../store';
 import { matchingApi } from '../../api/matchingApi';
+import Cookies from 'js-cookie';
+
+import { setIsForeigner, useAppDispatch } from '../../store';
+import { setAccessToken, setIsMatching } from '../../store';
+import { setUserInfo } from '../../store/userInfo';
 
 import CloseButton from '../Buttons/CloseButton';
 import LevelTable from './LevelTable';
@@ -21,6 +27,17 @@ const profileStyle = {
   fontFamily: 'Ganpan',
 };
 
+const logoutButtonStyle = {
+  background: 'linear-gradient(to bottom, lightgreen, green)',
+  color: 'white',
+  border: 'none',
+  margin: '5px',
+  padding: '5px 20px',
+  borderRadius: '32px',
+  cursor: 'pointer',
+  fontFamily: 'Ganpan',
+};
+
 
 const userInfoStyle = {
   display: 'flex',
@@ -33,6 +50,10 @@ const userInfoStyle = {
 };
 
 const buttonContainerStyle = {
+  padding: '5px',
+  display: 'flex',
+  justifyContent: 'right',
+  alignItems: 'center',
   background: ' rgba(101, 208, 113, 0.25)',
 };
 
@@ -138,6 +159,9 @@ function Profile({ onClose }) {
   const levelName = JSON.parse(userInfo).memberLevelName;
   const levelGrade = JSON.parse(userInfo).memberLevelGrade;
 
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const [isTaekeukOpen, setIsTaekeukOpen] = useState(false);
   const [isLevelTableOpen, setIsLevelTableOpen] = useState(false);
   const [withBuddyDays, setWithBuddyDays] = useState(0);
@@ -154,6 +178,23 @@ function Profile({ onClose }) {
     });
   });
 
+  // 로그아웃 핸들러 함수
+  const handleLogout = () => {
+    Cookies.remove('refreshToken');
+    localStorage.removeItem('accessToken');
+    dispatch(setAccessToken(null));
+    dispatch(setIsMatching(null));
+    dispatch(setIsForeigner(null));
+    dispatch(setUserInfo(null));
+
+    if (!Cookies.get('refreshToken')) {
+      alert('로그아웃 되었습니다');
+      window.location.reload();
+      navigate('/login');
+    } else {
+      console.log('로그아웃 오류 발생');
+    }
+  };
 
 
   const toggleTaekeuk = () => {
@@ -186,6 +227,9 @@ function Profile({ onClose }) {
   return (
     <div style={profileStyle}>
       <div style={buttonContainerStyle}>
+        <button style={logoutButtonStyle} onClick={handleLogout}>
+          로그아웃
+        </button>
         <CloseButton onClose={onClose}/>
       </div>
       <div style={userInfoStyle}>
@@ -231,7 +275,14 @@ function Profile({ onClose }) {
           {isTaekeukOpen && <div><img src={process.env.PUBLIC_URL + `/assets/TaekeukFlag/Lv${levelId}_All.png`} alt={`레벨${levelId}`} /></div>}
           {isLevelTableOpen && 
             <div>
-              <CloseButton onClose={closeLevelTable}/>
+              <div style={{
+                padding: '5px',
+                display: 'flex',
+                justifyContent: 'right',
+                alignItems: 'center',
+              }}>
+                <CloseButton onClose={closeLevelTable}/>
+              </div>
               <LevelTable />
             </div>
           }
