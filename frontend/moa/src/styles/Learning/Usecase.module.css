@@ -2,7 +2,6 @@
     display: flex;
     margin: 18px auto;
     width: 348px;
-    height: 124px;
     padding: 17px 16px;
     justify-content: center;
     align-items: center;
@@ -16,6 +15,7 @@
     text-align: left;
     line-height: normal;
     font-size: 16px;
+    font-weight: 400;
 }
 
 .secondFont {

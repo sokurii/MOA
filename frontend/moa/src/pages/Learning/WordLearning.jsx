@@ -46,7 +46,7 @@ function WordLearning(props) {
         <div className={News.display}>
           <div className={News.font}> Usecases </div>
         </div>
-        <Usecase/>
+        <Usecase word={word}/>
         <div className={News.displayPlus}>
           <div className={News.font}> Related News </div>
           <div className={News.displayPlusRightFont} onClick={() => handleButtonClick(news.slice(0, 10))}>더보기</div>
