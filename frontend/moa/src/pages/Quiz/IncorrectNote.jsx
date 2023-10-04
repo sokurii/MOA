@@ -2,6 +2,7 @@ import React, {useState,useEffect} from 'react';
 import { quizApi } from '../../api/quizApi';
 import { Link } from 'react-router-dom';
 import styles from '../../styles/Quiz/IncorrectNote.module.css';
+import MenuHeader from '../../components/ETC/MenuHeader';
 // import IncorrectNoteList from '../../components/Quiz/IncorrectNoteList';
 
 
@@ -40,21 +41,31 @@ function IncorrectNote(props) {
 
   return (
     <div>
+      <MenuHeader title="다시풀기"/>
       <img src={process.env.PUBLIC_URL + '/assets/Quiz/resultBg.png'} 
         alt="다시풀기배경" className={styles.retryBg}/> 
       <div className={styles.retryContainer}>
-        <p>내가 틀린 문제는</p>
-        <p>{wrongAnswerCount}문제</p>
-        <p>오늘 풀 문제는</p>
-        <input
-          type="number"
-          value={myQuizCnt}
-          onChange={handleMyQuiz} 
-        />
-         <Link to="/incorrect-note-list">풀기</Link>
-         {/* <Link to={{ pathname:"/incorrect-note-list", state:{myQuizCnt}}}>풀기</Link> 이걸로 해야함 */}
+        <div>
+          <div className={styles.wrongCnt}>
+            <p>내가 틀린 문제는</p>
+            <span  style={{ color: '#BF1F1F'}}>{wrongAnswerCount}</span><span> 문제</span>
+          </div>
+          <div className={styles.wrongCnt}>
+            <p>오늘 풀 문제는</p>
+            <input
+              type="number"
+              value={myQuizCnt}
+              onChange={handleMyQuiz} 
+              style={{ color: '#0980D0'}}
+            /><span> 문제</span>
+          </div>
+          <div className={styles.retryBtn}>
+            <Link to="/incorrect-note-list">풀기</Link>
+          </div>
+          {/* <Link to={{ pathname:"/incorrect-note-list", state:{myQuizCnt}}}>풀기</Link> 이걸로 해야함 */}
 
-        {/* <IncorrectNoteList /> */}
+          {/* <IncorrectNoteList /> */}
+        </div>
       </div>
     </div>
   );

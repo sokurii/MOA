@@ -291,7 +291,11 @@ function IncorrectNoteList() {
             <div className={styles.correctMessage}>
               <img src={process.env.PUBLIC_URL + '/assets/Quiz/success.png'} alt="듣기" /> 
               <p>맞았어요!</p>
-              <button onClick={handleExcludeButtonClick}>다시풀기에서 제외</button>
+              <button 
+                onClick={handleExcludeButtonClick}
+                className={styles.excludeBtn}>
+                다시풀기에서 제외
+              </button>
             </div>
           ):(
             <div className={styles.incorrectMessage}>
