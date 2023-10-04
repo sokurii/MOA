@@ -10,6 +10,7 @@ import java.util.List;
 public interface MediaInfoRepository extends ElasticsearchRepository<MediaInfoDocument,String> {
     List<MediaInfoDocument> findByTitleNmOrRelatePlaceDc(String mediaName1, String mediaName2);
     List<MediaInfoDocument> findByMediaTy(String mediaType);
+    List<MediaInfoDocument> findByTitleNm(String mediaType);
     List<MediaInfoDocument> findByRelatePlaceDc(String mediaName);
     List<MediaInfoDocument> findByMediaTyAndTitleNm(String mediaType, String mediaName);
 }
