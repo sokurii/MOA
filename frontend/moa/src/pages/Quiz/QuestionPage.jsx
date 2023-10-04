@@ -1,6 +1,7 @@
 import React from 'react';
 import QuestionArea from '../../components/Quiz/QuestionArea';
 
+
 // function QuestionMPage(props) {
 function QuestionPage() {
   return (

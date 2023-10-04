@@ -24,6 +24,7 @@ import Quiz from './pages/Quiz/Quiz';
 import QuestionPage from './pages/Quiz/QuestionPage';
 import SentenceQuiz from './pages/Quiz/SentenceQuiz';
 import IncorrectNote from './pages/Quiz/IncorrectNote';
+import IncorrectNoteList from './pages/Quiz/IncorrectNoteList';
 import QuizResult from './pages/Quiz/QuizResult';
 import ExchangeDiary from './pages/Buddy/Diary/ExchangeDiary';
 import ExchangeDiaryDetail from './pages/Buddy/Diary/ExchangeDiaryDetail';
@@ -87,6 +88,7 @@ function App() {
               <Route path="/quiz/question-page" element={<QuestionPage />} />
               <Route path="/quiz/sentence-quiz" element={<SentenceQuiz />} />
               <Route path="/quiz/incorrect-note" element={<IncorrectNote />} />
+              <Route path="/quiz/incorrect-note-list" element={<IncorrectNoteList />} />
               <Route path="/quiz/quiz-result" element={<QuizResult />} />
 
               <Route path="/buddy/exchangediary" element={<ExchangeDiary />} />

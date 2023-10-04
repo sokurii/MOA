@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import { balanceGameApi } from '../../../api/balanceGameApi';

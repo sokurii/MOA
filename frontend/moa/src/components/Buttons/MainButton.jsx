@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 function MainButton({ text, to }) {
   const navigate = useNavigate();

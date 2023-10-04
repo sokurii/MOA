@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import MenuHeader from '../ETC/MenuHeader';
 import styles from '../../styles/Quiz/WordQuiz.module.css'
-import ModalDialog from 'react-bootstrap/esm/ModalDialog';
+// import TimeBar from './TimeBar';
 
 function QuestionArea(props) {
   const [quizData, setQuizData] = useState([]);
@@ -18,6 +18,7 @@ function QuestionArea(props) {
 
   const [isCorrect, setIsCorrect] = useState(null);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+
 
   const [isButtonSelected, setIsButtonSelected] = useState(null);
 
@@ -158,12 +159,10 @@ function QuestionArea(props) {
       <MenuHeader title="단어퀴즈"/>
       {currentQuiz ? (
         <div>
-          <p>
-            문제 {currentQuizIndex + 1} / 15
-          </p>
+          {/* <TimeBar totalTime={15} /> */}
           {currentQuiz.quizCategoryId === 2 ? (
             <div>
-              <p className={styles.quizTitle}>다음 단어를 듣고 맞혀보세요</p>
+              <p className={styles.quizTitle}>{currentQuizIndex + 1}. 다음 단어를 듣고 맞혀보세요</p>
               <div className={styles.questionContainer}>
 
                 <div onClick={toggleListening}
@@ -176,7 +175,7 @@ function QuestionArea(props) {
             </div>
           ) : (
             <div>
-              <p className={styles.quizTitle}>다음 단어의 뜻을 맞혀보세요</p>
+              <p className={styles.quizTitle}>{currentQuizIndex + 1}. 다음 단어의 뜻을 맞혀보세요</p>
               <div className={styles.questionContainer}>
                 <div className={styles.questionArea}>
                   <p>{currentQuiz.quizQuestion}</p>
