@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { openChatApi } from '../../api/chatApi';
+
+import store from '../../store';
 import MyTalk from '../MyTalk';
 import OpponentTalk from '../OpponentTalk';
 import SockJS from 'sockjs-client';
@@ -33,7 +35,9 @@ function ChattingArea({ openChatId }) {
   const [stompClient, setStompClient] = useState(null);
 
   // 이름 등의 사용자 정보는 store에 저장해서 꺼내 쓰는 식으로 해야할 듯
-  const [sender, setSender] = useState('18');
+  const state = store.getState();
+  const userInfo = state.userInfo;
+  const sender = JSON.parse(userInfo).memberName;
 
   // useEffect(() => {
   //   // 비동기 함수를 정의
