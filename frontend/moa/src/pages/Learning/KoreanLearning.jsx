@@ -32,7 +32,7 @@ function KoreanLearning(props) {
           <div className={Korean.displayWord}>
             <div className={Korean.font}> View words about...</div>
             <Link to="/koreanlearning/keyword">
-              <img src="../../../assets/news/modifyKeyword.png" style={{ width: '20px' }}></img>
+              <img src="../../../assets/news/modifyKeyword.png" className={Korean.modify}></img>
             </Link>
           </div>
           <KeywordItem />

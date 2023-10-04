@@ -8,6 +8,9 @@
 .displayWord{
     display: flex;
     margin-top: 42px;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-self: stretch;
 }
 
 .display{
@@ -30,4 +33,9 @@
     margin-top: 22px;
     border-radius: 18px;
     background: rgba(203, 220, 253, 0.79);
+}
+
+.modify {
+    width: 20px;
+    margin-right: 20px;
 }
