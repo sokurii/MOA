@@ -32,6 +32,15 @@
       "eas": {
         "projectId": "b952813c-10f5-45fe-a106-9ff94a3a4326"
       }
+    },
+    "webview": {
+      "sourceConfig": {
+        "overrides": {
+          "https://moamore.site": {
+            "trust": "always"
+          }
+        }
+      }
     }
   }
 }
