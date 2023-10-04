@@ -40,20 +40,30 @@ import RelatedNews from './components/Learning/RelatedNews';
 import NewsArticle from './pages/Learning/NewsArticle';
 import ExchangeDiaryContent from './pages/Buddy/Diary/ExchangeDiaryContent';
 
+import Loading from './components/Loading';
+
 function App() {
   const state = store.getState();
   const accessToken = state.accessToken;
   const isMatching = state.isMatching;
   const refreshToken = Cookies.get('refreshToken');
 
-  console.log(accessToken);
+  const [isLoading, setIsLoading] = useState(false);
 
-  console.log(isMatching);
+  useEffect(() => {
+    const startLoading = () => {
+      setIsLoading(true);
+      // 3초 후에 isLoading 상태를 false로 설정
+      setTimeout(() => setIsLoading(false), 3000);
+    };
 
+    startLoading();
+  }, []);
 
   return (
-    <BrowserRouter>
-      <div className="App">
+    <div className="App">
+      {isLoading ? <Loading /> : (
+      <BrowserRouter>
         <Routes>
           {refreshToken ? ( // refreshToken이 있는 경우
             <>
@@ -105,8 +115,9 @@ function App() {
             </>
           )}
         </Routes>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+      )}
+    </div>
   );
 }
 

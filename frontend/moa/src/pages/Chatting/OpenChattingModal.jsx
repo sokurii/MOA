@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import BackButton from '../../components/Buttons/BackButton';
+import MenuHeader from '../../components/ETC/MenuHeader';
 import OpenChattingList from '../../components/Chatting/OpenChattingList';
 import CreateOpenChatting from '../../components/Chatting/CreateOpenChatting';
 
 const openChatPageStyle = {
-  background: 'linear-gradient(to bottom, #ffffff, silver)',
-  padding: '10px 0px',
+  minHeight: '100vh',
+  backgroundImage: `
+    url(${process.env.PUBLIC_URL}/assets/Background/chatting_background.png)
+  `,
+  backgroundSize: 'cover', // 배경 이미지 크기 조절
+  backgroundRepeat: 'no-repeat', // 배경 이미지 반복 없음
+  backgroundPosition: 'center', // 배경 이미지 중앙 정렬
 };
 
 const inputStyle = {
@@ -51,7 +56,7 @@ function OpenChattingModal(props) {
 
   return (
     <div style={openChatPageStyle}>
-      <BackButton text='←' />
+      <MenuHeader title="오픈 채팅"/>
       <h2 style={headerStyle}>오픈 채팅방 목록</h2>
       <input
         style={inputStyle}

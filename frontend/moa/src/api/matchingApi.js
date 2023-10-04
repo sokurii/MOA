@@ -14,4 +14,7 @@ export const matchingApi = {
   // 매칭 여부 조회:
   isMatching: () => authAxios.get('buddy/whether'),
 
+  // 버디와 함께 한 날짜
+  withBuddy: () => authAxios.get('buddy'),
+
 };

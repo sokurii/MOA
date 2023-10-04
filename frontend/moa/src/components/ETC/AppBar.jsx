@@ -8,7 +8,7 @@ import { setIsForeigner, useAppDispatch } from '../../store';
 import { setAccessToken, setIsMatching } from '../../store';
 import { setUserInfo } from '../../store/userInfo';
 
-import Profile from '../Profile';
+import Profile from '../Profile/Profile';
 
 const appBarStyle = {
   background: 'white',

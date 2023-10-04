@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import Loading from '../Loading';
+import { setIsLoading } from '../../store/isLoading';
+import { useAppDispatch } from '../../store';
+
 
 const linkStyle = {
   textDecoration: 'none', // 밑줄 제거
@@ -10,6 +12,10 @@ const linkStyle = {
 
 const buttonContainerStyle = {
   marginTop: '150px',
+};
+
+const buttonStyle = {
+
 };
 
 const buddyHomeStyle = {
@@ -64,20 +70,16 @@ const koreaTourButtonStyle = {
 };
 
 function BuddyHome(props) {
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   // 페이지 이동 함수
   const navigateTo = (path) => {
-    setIsLoading(true); // 로딩 상태 설정
-    setTimeout(() => {
       navigate(path); // 3초 후에 페이지 이동
-    }, 3000); // 3초 (3000 밀리초) 설정
   };
 
   return (
     <div style={buddyHomeStyle}>
-      {isLoading && <Loading />}
       <div style={buttonContainerStyle}>
       {/* <Link to="/buddy/exchangediary" style={linkStyle} onClick={() => navigateTo('/buddy/exchangediary')}> */}
         <div className="diary-button" style={diaryButtonStyle} onClick={() => navigateTo('/buddy/exchangediary')}>
@@ -91,19 +93,23 @@ function BuddyHome(props) {
       {/* </Link> */}
       </div>
 
-      <Link to="/buddy/balancegame" style={linkStyle} onClick={() => navigateTo('/buddy/balancegame')}>
-        <div className="balance-game-button" style={balanceGameButtonStyle}>
-          <p style={buttonTitleStyle}>밸런스게임</p>
-          <p style={buttonContentStyle}>설명</p>
-        </div>
-      </Link>
+      <div onClick={() => navigateTo('/buddy/balancegame')}>
+        <Link to="/buddy/balancegame" style={linkStyle}>
+          <div className="balance-game-button" style={balanceGameButtonStyle}>
+            <p style={buttonTitleStyle}>밸런스게임</p>
+            <p style={buttonContentStyle}>설명</p>
+          </div>
+        </Link>
+      </div>
 
-      <Link to="/buddy/koreatour" style={linkStyle} onClick={() => navigateTo('/buddy/koreatour')}>
-        <div className="korea-tour-button" style={koreaTourButtonStyle}>
-          <p style={buttonTitleStyle}>랜선여행</p>
-          <p style={buttonContentStyle}>설명</p>
-        </div>
-      </Link>
+      <div onClick={() => navigateTo('/buddy/balancegame')}>     
+        <Link to="/buddy/koreatour" style={linkStyle}>
+          <div className="korea-tour-button" style={koreaTourButtonStyle}>
+            <p style={buttonTitleStyle}>랜선여행</p>
+            <p style={buttonContentStyle}>설명</p>
+          </div>
+        </Link>
+      </div>
     </div>
   );
 }

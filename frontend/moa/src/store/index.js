@@ -2,6 +2,7 @@ import { createStore, combineReducers } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { userInfoReducer } from './userInfo';
+import { isLoadingReducer } from './isLoading';
 
 // 초기 상태
 const initialState = {
@@ -58,6 +59,7 @@ const rootReducer = combineReducers({
   isMatching: isMatchingReducer,
   isForeigner: isForeignerReducer,
   userInfo: userInfoReducer,
+  isLoading: isLoadingReducer,
 });
 
 // Redux 스토어 생성

@@ -12,6 +12,10 @@ const chatContainerStyle = {
   borderRadius: '5px',
 };
 
+const chatAreaStyle = {
+  height: '70vh',
+};
+
 const inputStyle = {
   margin: '10px',
   padding: '10px',
@@ -135,7 +139,7 @@ function ChattingArea({ openChatId }) {
 
   return (
     <div style={chatContainerStyle}>
-      <div>
+      <div style={chatAreaStyle}>
         {messages.map((message, index) =>
           message.sender === sender ? (
             <MyTalk key={index} talk={message.message} />
