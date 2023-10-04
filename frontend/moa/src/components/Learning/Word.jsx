@@ -18,6 +18,41 @@ function WordLogo(props) {
       setModalOpen(false);
     };
 
+
+    let voices = [];
+
+    useEffect(() => {
+        setVoiceList();
+    })
+
+    const setVoiceList = () => {
+        voices = window.speechSynthesis.getVoices();
+    };
+
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = setVoiceList;
+    }
+
+    const speech = (text) => {
+        const lang = "ko-KR";
+        let utterThis = new SpeechSynthesisUtterance(text);
+
+        utterThis.lang = lang;
+        utterThis.rate = 0.8;
+
+        const korVoice = voices.find(
+            (elem) => elem.lang === lang || elem.lang === lang.replace("-", "_")
+        );
+
+        if (korVoice) {
+            utterThis.voice = korVoice;
+        } else {
+            return;
+        }
+
+        window.speechSynthesis.speak(utterThis);
+    };
+
     useEffect(() => {
         learningApi.translateText(word.word)
           .then((response) => {
@@ -37,7 +72,8 @@ function WordLogo(props) {
                         </div>
                         {/* <div className={News.topLeftFont}>[Yeshi dan-eo]</div> */}
                     </div>
-                    <button className={News.soundContainer}>
+                    <button className={News.soundContainer} onClick={() =>
+                    speech(word.word)}>
                         <img className={News.soundImg} src="../../../assets/news/volumeHigh.png" alt=""></img>
                     </button>
                 </div>
