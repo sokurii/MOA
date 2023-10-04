@@ -3,6 +3,7 @@ import { diaryApi } from '../../../api/diaryApi';
 import { useNavigate } from 'react-router-dom';
 import MenuHeader from '../../../components/ETC/MenuHeader';
 import styles from '../Diary/CreateExchangeDiary.module.css'
+import Swal from "sweetalert2";
 
 import { WOW } from 'wowjs';
 
@@ -48,7 +49,7 @@ function CreateExchangeDiary() {
   };
 
   const exchangeDiaryRequest = {
-    exchangeDiaryContent: exchangeDiaryContent,
+    exchangeDiaryContent: exchangeDiaryContent.replace(/\n/g, "<br>"),
   };
 
   const createDiary = () => {
@@ -69,7 +70,10 @@ function CreateExchangeDiary() {
     diaryApi.createDiary(formData, { headers })
       .then((response) => {
         if (response.data.success) {
-          alert('일기가 생성되었습니다!');
+          Swal.fire({
+            icon: 'success',
+            text: '일기가 작성되었어요!'
+          })
           navigate('/buddy/exchangediary');
         } else {
           console.log('교환일기 생성 실패:', response.data.error.message);
@@ -79,8 +83,6 @@ function CreateExchangeDiary() {
         console.error('교환일기 생성 에러 발생:', error);
       });
   };
-
-
 
   return (
     <div>

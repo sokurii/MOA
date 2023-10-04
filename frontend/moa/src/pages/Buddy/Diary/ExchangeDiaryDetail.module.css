@@ -59,6 +59,8 @@
     overflow-y: auto;
 
     text-align: left;
+
+    white-space: pre-line;
 }
 
 .diaryContentInput::-webkit-scrollbar {
