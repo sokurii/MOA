@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { matchingApi } from '../../api/matchingApi';
 
 import AppBar from '../../components/ETC/AppBar';
-import BuddyChattingModal from './BuddyChattingModal';
-import OpenChattingModal from './OpenChattingModal';
+import Loading from '../../components/Loading';
 
 const chatHomeStyle = {
   height: '100vh',
@@ -96,38 +96,71 @@ const buttonContentStyle = {
 };
 
 function ChattingHome(props) {
+  const [buddyId, setBuddyId] = useState(null);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect (() => {
+    matchingApi.isMatching()
+    .then((response) => {
+      const res = response.data.response;
+      console.log(res); 
+      setBuddyId(res);
+    })
+    .catch((error) => {
+      alert('매칭된 버디가 없습니다');
+    });
+  }, [])
+
+  const navigate = useNavigate();
+
+  const handleBuddyChatClick = () => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      navigate('/chatting/buddy', {
+        state: {
+          buddyId,
+        },
+      });
+    }, 2000);
+  };
 
   return (
     <div style={chatHomeStyle}>
-      <AppBar />
-      <div style={introduceStyle}>
-        <div style={titleStyle}>채팅하기</div>
-        <div style={commentStyle}>
-          <span>
-            버디 혹은 다양한 사람들과 채팅을 해보세요!
-            <br />
-            어느새 한국어 실력이 늘어있을 거예요!
-          </span>
-        </div>
-      </div>
-      <div style={buttonContainerStyle}>
-        <Link to="/chatting/buddy" style={linkStyle}>
-          <div style={buddyChatButtonStyle}>
-            <span style={buttonTitleStyle}>버디와 1:1 대화하기</span>
-            <span style={buttonContentStyle}>
-              나와 매칭된 버디와 친해지기
-            </span>
+      {isLoading ? (
+          <Loading />
+        ) : (
+        <>
+          <AppBar />
+          <div style={introduceStyle}>
+            <div style={titleStyle}>채팅하기</div>
+            <div style={commentStyle}>
+              <span>
+                버디 혹은 다양한 사람들과 채팅을 해보세요!
+                <br />
+                어느새 한국어 실력이 늘어있을 거예요!
+              </span>
+            </div>
           </div>
-        </Link>
-        <Link to="/chatting/openchat" style={linkStyle}>
-          <div style={openChatButtonStyle}>
-            <span style={buttonTitleStyle}>오픈 채팅방 참여하기</span>
-            <span style={buttonContentStyle}>
-              관심사에 따른 단체 채팅방
-            </span>
+          <div style={buttonContainerStyle}>
+            <div style={buddyChatButtonStyle} onClick={handleBuddyChatClick}>
+              <span style={buttonTitleStyle}>버디와 1:1 대화하기</span>
+              <span style={buttonContentStyle}>
+                나와 매칭된 버디와 친해지기
+              </span>
+            </div>
+            <Link to="/chatting/openchat" style={linkStyle}>
+              <div style={openChatButtonStyle}>
+                <span style={buttonTitleStyle}>오픈 채팅방 참여하기</span>
+                <span style={buttonContentStyle}>
+                  관심사에 따른 단체 채팅방
+                </span>
+              </div>
+            </Link>
           </div>
-        </Link>
-      </div>
+        </>
+      )}
     </div>
   );
 }

@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { openChatApi } from '../../api/chatApi';
 
 import store from '../../store';
-import MyTalk from '../MyTalk';
-import OpponentTalk from '../OpponentTalk';
+import BuddyMyTalk from '../BuddyMyTalk';
+import BuddyOpponentTalk from '../BuddyOpponentTalk';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
@@ -16,6 +16,7 @@ const chatContainerStyle = {
 
 const chatAreaStyle = {
   height: '70vh',
+  overflowY: 'auto',
 };
 
 const inputStyle = {
@@ -27,7 +28,7 @@ const inputStyle = {
   border: 'none',
 };
 
-function ChattingArea({ openChatId }) {
+function BuddyChatArea({ buddyId }) {
   const [inputMyText, setInputMyText] = useState(''); // 나의 텍스트 입력 상태
   const [messages, setMessages] = useState([]); // 대화 메세지 저장용
   const [stompClient, setStompClient] = useState(null);
@@ -37,13 +38,13 @@ function ChattingArea({ openChatId }) {
   const sender = JSON.parse(userInfo).memberName;
 
   useEffect(() => {
-    openChatApi.openChatLog(openChatId)
+    openChatApi.buddyChatLog(buddyId)
     .then((response) => {
       const res = response.data.response;
       setMessages(res.reverse());
     })
     .catch((error) => {
-      console.log('오픈 채팅기록 소환 에러 발생');
+      console.log('버디 채팅기록 소환 에러 발생');
       console.log(error);
     })
   }, [messages]);
@@ -60,16 +61,20 @@ function ChattingArea({ openChatId }) {
         stompClient.subscribe(`/sub/chat/message`, (message) => {
           try {
             const newMessage = JSON.parse(message.body);
+            console.log(newMessage);
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
           } catch (error) {
             console.log('subscribe 콜백 함수에서 에러 발생:', error);
           }
         }, {});
 
+        console.log(stompClient.subscriptions);
+
         stompClient.send(`/pub/chat/message`, {},
         JSON.stringify({
-          messageType: 'OPEN_ENTER',
-          roomType: 1,
-          roomId: openChatId,
+          messageType: 'BUDDY_ENTER',
+          roomType: 2,
+          roomId: buddyId,
           sender: sender,
           message: null,
         })
@@ -83,21 +88,22 @@ function ChattingArea({ openChatId }) {
         stompClient.disconnect();
       }
     };
-  }, [openChatId, stompClient]);
+  }, [buddyId, stompClient]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault(); // 폼 제출 기능 비활성화
 
     if (inputMyText.trim() !== '') {
+      // 엔터 키를 누르면 나의 메시지를 배열에 추가합니다.
       if (stompClient && stompClient.connected) {
         stompClient.send(`/pub/chat/message`, {}, JSON.stringify({
-          messageType: 'OPEN_TALK',
-          roomType: 1,
-          roomId: openChatId,
+          messageType: 'BUDDY_TALK',
+          roomType: 2,
+          roomId: buddyId,
           sender: sender,
           message: inputMyText,
         }));
-      }
+      };
       setInputMyText('');
     }
   };
@@ -107,9 +113,9 @@ function ChattingArea({ openChatId }) {
       <div style={chatAreaStyle}>
         {messages.map((message, index) =>
           message.sender === sender ? (
-            <MyTalk key={index} talk={message.message} />
+            <BuddyMyTalk key={index} talk={message.message} />
           ) : (
-            <OpponentTalk key={index} talk={message.message} />
+            <BuddyOpponentTalk key={index} talk={message.message} />
           )
         )}
       </div>
@@ -127,4 +133,4 @@ function ChattingArea({ openChatId }) {
   );
 }
 
-export default ChattingArea;
+export default BuddyChatArea;

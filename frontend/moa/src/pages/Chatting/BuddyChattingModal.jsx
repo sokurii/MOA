@@ -1,6 +1,7 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import MenuHeader from '../../components/ETC/MenuHeader';
-import ChattingArea from '../../components/Chatting/ChattingArea';
+import BuddyChatArea from '../../components/Chatting/BuddyChatArea';
 
 const buddyChatStyle = {
   height: '100vh',
@@ -13,11 +14,14 @@ const buddyChatStyle = {
 };
 
 function BuddyChattingModal(props) {
-
+  const location = useLocation();
+  const state = location.state;
+  const buddyId = state.buddyId;
+  
   return (
     <div style={buddyChatStyle}>
       <MenuHeader title="버디 채팅"/>
-      <ChattingArea />
+      <BuddyChatArea buddyId={buddyId}/>
     </div>
   );
 }

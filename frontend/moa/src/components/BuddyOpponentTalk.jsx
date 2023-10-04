@@ -5,14 +5,14 @@ const opponentTalkStyle = {
   margin: '5px',
   padding: '10px',
   width: '75%',
-  background: '',
-  color: '#B4E4FF',
-  borderRadius: '18px',
+  color: '#B88CD3',
+  background: '#FCF3FB',
+  borderRadius: '5px',
   textAlign: 'left',
   boxShadow: '0px 4px 4px rgba(128.33, 106.45, 128.78, 0.10)',
 }
 
-function OpponentTalk({ talk }) {
+function BuddyOpponentTalk({ talk }) {
   return (
     <div>
       <div className="opponent-talk-area" style={opponentTalkStyle}>
@@ -22,4 +22,4 @@ function OpponentTalk({ talk }) {
   );
 }
 
-export default OpponentTalk;
+export default BuddyOpponentTalk;

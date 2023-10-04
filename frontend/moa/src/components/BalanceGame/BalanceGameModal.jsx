@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import MenuHeader from '../ETC/MenuHeader';
 import BalanceGameResult from './BalanceGameResult';
-import BuddyChatArea from './BuddyChatArea';
 import ProgressBar from './ProgressBar';
 
 const balanceGamePlayStyle = {
@@ -227,7 +226,7 @@ function BalanceGameModal({ balanceGameId, balanceGameList, time, isOpen }) {
               )}
             </div>
           </div>
-          <BuddyChatArea />
+          {/* <BuddyChatArea /> */}
         </div>
       ) : (
         <div>
