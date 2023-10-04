@@ -6,7 +6,8 @@ import AppBar from '../components/ETC/AppBar';
 
 const signupStyle = {
   minHeight: '100vh',
-};
+  fontFamily: 'Pretendard-Regular'
+}
 
 const signupContainerStyle = {
   display: 'flex',
@@ -130,7 +131,7 @@ function SignUp(props) {
   useEffect(() => {
     const passwordValid = validatePassword(formData.memberPassword);
     setPasswordValid(passwordValid);
-    
+
     // 국가 정보 조회
     fetchNations();
   }, [formData.memberPassword]);
@@ -197,8 +198,8 @@ function SignUp(props) {
       } else {
         console.log('인증 실패 :', response.data.error.message);
         alert('인증에 실패하였습니다');
-      } 
-    } catch(error){
+      }
+    } catch (error) {
       console.log('API Request Error:', error);
       alert('인증코드 확인 중 오류가 발생했습니다. 다시 시도해주세요')
     }
@@ -224,8 +225,8 @@ function SignUp(props) {
   };
 
   // 국가 정보 조회
-  const fetchNations = async () =>{
-    try{
+  const fetchNations = async () => {
+    try {
       const response = await userApi.getNations();
 
       if (response.data.success) {
@@ -249,14 +250,20 @@ function SignUp(props) {
           </label>
           <div style={radioContainerStyle}>
             <div style={radioStyle}>
-              <input style={radioButtonStyle} type="radio" id="foreigner" name="memberIsForeigner" value="true"/>
+              <input style={radioButtonStyle} type="radio" id="foreigner" name="memberIsForeigner" value="true"
+                onChange={handleInputChange} />
               <label style={radioLabelStyle} htmlFor="foreigner">
                 <span style={radioLabelKorStyle}>외국인</span>
                 <span>Foreigner</span>
               </label>
             </div>
             <div style={radioStyle}>
-              <input style={radioButtonStyle} type="radio" id="korean" name="memberIsForeigner" value="false"/>
+              <input style={radioButtonStyle}
+                type="radio"
+                id="korean"
+                name="memberIsForeigner"
+                value="false"
+                onChange={handleInputChange} />
               <label style={radioLabelStyle} htmlFor="korean">
                 <span style={radioLabelKorStyle}>한국인</span>
                 <span>Korean</span>
@@ -270,22 +277,25 @@ function SignUp(props) {
             <span style={labelKorStyle}>이름</span>
             <span style={labelEngStyle}>Name</span>
           </label>
-          <input style={inputStyle} type="text" id="memberName" name="memberName" onChange={handleInputChange}/>
+          <input style={inputStyle} type="text" id="memberName" name="memberName" onChange={handleInputChange} />
         </div>
 
-        <div style={inputContainerStyle} className="inputForm">
-          <label style={labelStyle} htmlFor="nationName" className="inputTitle">
-            <span style={labelKorStyle}>국적</span>
-            <span style={labelEngStyle}>Nationality</span>
-          </label>
-          <select style={inputStyle} name="nationName" onChange={handleInputChange}>
-            {nations.map((nation) => (
-              <option style={optionStyle} key={nation.nationCode} value={nation.nationName}>
-                {nation.nationName}
-              </option>
-            ))}
-          </select>
-        </div>
+        {formData.memberIsForeigner !== 'false' && (
+          <div style={inputContainerStyle} className="inputForm">
+            <label style={labelStyle} htmlFor="nationName" className="inputTitle">
+              <span style={labelKorStyle}>국적</span>
+              <span style={labelEngStyle}>Nationality</span>
+            </label>
+            <select style={inputStyle} name="nationName" onChange={handleInputChange}>
+              {nations.map((nation) => (
+                <option style={optionStyle} key={nation.nationCode} value={nation.nationName}>
+                  {nation.nationName}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
 
         <div style={inputContainerStyle} className="inputForm">
           <label style={labelStyle} htmlFor="memberGender" className="inputTitle">
@@ -294,14 +304,14 @@ function SignUp(props) {
           </label>
           <div style={radioContainerStyle}>
             <div style={radioStyle}>
-              <input style={radioButtonStyle} type="radio" id="man" name="memberGender" value="2" onChange={handleInputChange}/>
+              <input style={radioButtonStyle} type="radio" id="man" name="memberGender" value="2" onChange={handleInputChange} />
               <label style={radioLabelStyle} htmlFor="man">
                 <span style={radioLabelKorStyle}>남자</span>
                 <span>Man</span>
               </label>
             </div>
             <div style={radioStyle}>
-              <input style={radioButtonStyle} type="radio" id="woman" name="memberGender" value="1" onChange={handleInputChange}/>
+              <input style={radioButtonStyle} type="radio" id="woman" name="memberGender" value="1" onChange={handleInputChange} />
               <label style={radioLabelStyle} label htmlFor="woman">
                 <span style={radioLabelKorStyle}>여자</span>
                 <span>Woman</span>
@@ -315,9 +325,9 @@ function SignUp(props) {
             <span style={labelKorStyle}>이메일</span>
             <span style={labelEngStyle}>Email</span>
           </label>
-          <input style={inputStyle} type="text" id="memberEmail" name="memberEmail" onChange={handleInputChange}/>
+          <input style={inputStyle} type="text" id="memberEmail" name="memberEmail" onChange={handleInputChange} />
         </div>
-        
+
         {/* 이메일 인증 */}
         <div style={buttonContainerStyle}>
           <button style={verificationButtonStyle} onClick={handleSendVerificationCode}>인증번호 전송</button>
