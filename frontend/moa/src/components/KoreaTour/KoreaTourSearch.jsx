@@ -1,9 +1,15 @@
 import React , { useState, useEffect }from 'react';
-
+import { koreaTourApi } from "../../api/KoreaTourApi";
 function KoreaTourSearch(props) {
 
   const onChange = (event) => {
     props.setMediaName(event.target.value);
+    console.log(event.target.value);
+    koreaTourApi.getAutoComplete(event.target.value).then((response) => {
+      // setMediaPlaceList(response.data.response);
+      console.log(response.data.response);
+    });
+
   }
 
   return (

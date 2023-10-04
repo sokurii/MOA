@@ -12,6 +12,11 @@ function KoreaTour(props) {
 
   const onChange = (event) => {
     setMediaName(event.target.value);
+    console.log(event.target.value);
+    koreaTourApi.getAutoComplete(event.target.value).then((response) => {
+      // setMediaPlaceList(response.data.response);
+      console.log(response.data.response);
+    });
   }
 
   const handleSearchClick = () => {
