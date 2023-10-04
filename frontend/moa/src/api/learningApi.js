@@ -37,6 +37,9 @@ export const learningApi = {
     // 뉴스 스크랩 삭제
     deleteNewsScrap: (articleId) => authAxios.delete(`scrap/news/delete?type=news&articleId=${articleId}`),
 
+    // 뉴스 스크랩 전체 조회
+    getNewsScrap: () => authAxios.get('scrap/news'),
+
     // 뉴스 기사 조회
     getNews: (articleId) => bigDataAxios.get(`articles/${articleId}`),
 
@@ -51,6 +54,9 @@ export const learningApi = {
 
     // 단어 스크랩 삭제
     deleteWordScrap: (wordName) => authAxios.delete(`scrap/words/delete-news/${wordName}`),
+
+    // 단어 스크랩 조회
+    getWordScrap: () => authAxios.get('scrap/words'),
 
     // chat GPT에게 질문하기
     askToChatGpt: (data) => nonAuthAxios.post('/chat-gpt', data)

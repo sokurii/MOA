@@ -5,6 +5,14 @@
     box-shadow: 4px 4px 16px rgba(181, 178, 178, 0.25), -4px -4px 16px #F0FFF3;
 }
 
+.collectionContainer {
+    position: relative;
+    width: 412px;
+    height: 104px;
+    /* box-shadow: -4px -4px 16px 0px #F0FFF3, 4px 4px 16px 0px rgba(181, 178, 178, 0.25); */
+    background-color: #CBDCFD;
+}
+
 .leftWrap {
     position: absolute;
     top: 70%;

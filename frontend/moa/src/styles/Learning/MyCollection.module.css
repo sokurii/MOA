@@ -1,0 +1,58 @@
+.wordContainer {
+    display: flex;
+    width: 349px;
+    padding: 31px 15px;
+    flex-direction: column;
+    align-items: center;
+    margin: 14px auto;
+    border-radius: 18px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.background {
+    background: url('../../../public/assets/Background/collection_background.png') no-repeat;
+    height: 844px;
+}
+
+.fontContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+.wordFont {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.plusFont {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.middleTopContainer {
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+}
+.middleContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 75px;
+    padding: 0px 22px;
+    margin-top: 24px;
+    align-self: stretch;
+    text-align: left;
+    border-radius: 15px;
+    border: 1px solid #13621B;
+}
+
+.myWordFont {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.scrapContainer {
+    margin: 30px;
+}
