@@ -43,7 +43,10 @@ function KoreanLearning(props) {
           <div className={Korean.display}>
             <div className={Korean.font}>Most Popular Word</div>
           </div>
-          <PopularWords popularWords={popularWords} />
+          <div className={Korean.popularWordsDiv}>
+            <PopularWords popularWords={popularWords} />
+          </div>
+
         </>
       )}
 

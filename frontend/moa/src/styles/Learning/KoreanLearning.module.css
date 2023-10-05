@@ -5,7 +5,7 @@
     font-size: 20px;
 }
 
-.displayWord{
+.displayWord {
     display: flex;
     margin-top: 42px;
     justify-content: space-between;
@@ -13,7 +13,7 @@
     align-self: stretch;
 }
 
-.display{
+.display {
     margin-top: 42px;
 }
 
@@ -38,4 +38,12 @@
 .modify {
     width: 20px;
     margin-right: 20px;
+}
+
+.popularWordsDiv {
+    height: 350px;
+    overflow-y: scroll;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

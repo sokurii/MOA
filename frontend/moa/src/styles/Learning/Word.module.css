@@ -34,9 +34,11 @@
     width: 350px;
     flex-shrink: 0;
     border-radius: 18px;
-    background: var(--mainBlue, rgba(203, 220, 253, 0.79));
     margin: 17px auto;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+    background: rgba(203, 220, 253, 0.79);
+    /* thiss */
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 18px;
 }
 
 .wrapContainer {
@@ -51,9 +53,7 @@
 }
 
 .fontContainer {
-    display: flex;
     padding-top: 30px;
-    align-items: flex-end;
 }
 
 .fontBrContainer {
@@ -65,15 +65,22 @@
 .topLeftFont {
     color: #2C432E;
     font-size: 20px;
+    font-weight: 700;
+    position: absolute;
+    left: 58px;
+    top: 50px;
 }
 
 .topRightFont {
     color: #2C432E;
-    font-size: 14px;
+    font-size: 17px;
+    position: absolute;
+    left: 50px;
+    top: 75px;
 }
 
 .soundContainer {
-    margin-left: 41px;
+    margin-left: 190px;
     width: 51px;
     height: 51px;
     /* margin-bottom: 0px; */
@@ -93,6 +100,7 @@
     width: 286px;
     height: 39px;
     margin-top: 18px;
+    margin-bottom: 18px;
     display: inline-flex;
     padding: 10px 50px;
     justify-content: center;

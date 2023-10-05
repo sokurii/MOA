@@ -20,7 +20,6 @@
     width: 350px;
     height: 55px;
     border-radius: 18px;
-    box-shadow: 5px 5px 5px #F3F9FF;
     line-height: 55px;
 }
 
@@ -34,6 +33,10 @@
     margin-top: 22px;
     border-radius: 18px;
     background: linear-gradient(132.52deg, #B5CCF9 -0.88%, #6C99F0 126.31%);
+    /* blueshadow */
+    box-shadow: 0px 10px 20px rgba(170, 198, 252, 0.3), inset 4px 4px 8px rgba(170, 198, 252, 0.25), inset -8px -8px 12px rgba(170, 198, 252, 0.3);
+    border-radius: 18px;
+    font-family: 'Pretendard-Regular';
 }
 
 .keywordBtn {
@@ -45,8 +48,11 @@
     font-size: 18px;
     margin-top: 22px;
     border-radius: 18px;
+    font-family: 'Pretendard-Regular';
 
     background: rgba(203, 220, 253, 0.79);
+    /* blueshadow */
+    box-shadow: 0px 10px 20px rgba(170, 198, 252, 0.3), inset 4px 4px 8px rgba(170, 198, 252, 0.25), inset -8px -8px 12px rgba(170, 198, 252, 0.25);
 }
 
 .keywordInput {
