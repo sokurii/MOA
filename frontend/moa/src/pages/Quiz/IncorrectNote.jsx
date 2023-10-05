@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import { quizApi } from '../../api/quizApi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../styles/Quiz/IncorrectNote.module.css';
 import MenuHeader from '../../components/ETC/MenuHeader';
 // import IncorrectNoteList from '../../components/Quiz/IncorrectNoteList';
@@ -25,20 +25,15 @@ function IncorrectNote(props) {
   }, []);
 
   const handleMyQuiz = (e) => {
-    const newQuiz = parseInt(e.target.value, 10);
+    const inputValue = e.target.value;
+    const newQuiz = inputValue ? parseInt(inputValue, 10) : '';
     setMyQuizCnt(newQuiz);
+    console.log(newQuiz)
   }
-  
-  // const updateMyQuiz = async () => {
-  //   try{
-  //     const response = await quizApi.getRandomWrongAnswer({quizWrongCount: myQuizCnt});
-  //     // console.log('풀 문제 수', myQuizCnt);
-  //     console.log('다시풀기', response.data);
-  //   } catch(error){
-  //     console.error('풀 문제 수 업데이트 중 에러 발생', error);
-  //   }
-  // };
-
+  const navigate = useNavigate();
+  const handleRetryQuiz = () => {
+    navigate('/quiz/incorrect-note-list',{ state : {myQuizCnt} });
+  }
   return (
     <div>
       <MenuHeader title="다시풀기"/>
@@ -59,12 +54,10 @@ function IncorrectNote(props) {
               style={{ color: '#0980D0'}}
             /><span> 문제</span>
           </div>
-          <div className={styles.retryBtn}>
-            <Link to="/incorrect-note-list">풀기</Link>
+          <div className={styles.retryBtn} onClick={handleRetryQuiz}>
+            풀기
+            {/* <Link to={{ pathname:"/quiz/incorrect-note-list", state:{myQuizCnt}}}>풀기</Link> */}
           </div>
-          {/* <Link to={{ pathname:"/incorrect-note-list", state:{myQuizCnt}}}>풀기</Link> 이걸로 해야함 */}
-
-          {/* <IncorrectNoteList /> */}
         </div>
       </div>
     </div>

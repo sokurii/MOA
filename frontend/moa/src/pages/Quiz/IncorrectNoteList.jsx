@@ -7,8 +7,8 @@ import Modal from 'react-bootstrap/Modal';
 // import IncorrectNoteListItem from './IncorrectNoteListItem';
 
 function IncorrectNoteList() {
-  // const location = useLocation(); 나중 
-  // const { myQuizCnt } = location.state || {}; 나중
+  const location = useLocation(); 
+  const { myQuizCnt } = location.state 
 
   const [quizData, setQuizData] = useState([]);
   const [currentQuizIndex, setCurrentQuizindex] = useState(0);
@@ -26,6 +26,24 @@ function IncorrectNoteList() {
   const [correctAnswers, setCorrectAnswers] = useState(0);
 
   const [isButtonSelected, setIsButtonSelected] = useState(null);
+
+  // 틀린문제 퀴즈 가져오기
+  useEffect(() => {
+    const updateMyQuiz = async () => {
+      try {
+        const response = await quizApi.getRandomWrongAnswer({quizWrongCount: myQuizCnt}) 
+        setQuizData(response.data.response);
+        console.log('다시 풀 문제:', response.data.response);
+      } catch(error){
+        console.error('풀 문제 수 업데이트 중 에러', error);
+      }
+    };
+
+    if (quizData.length === 0) {
+      updateMyQuiz();
+    }
+  }, [myQuizCnt, quizData]);
+
 
   // 단어퀴즈 버튼
   const handleButtonClick = (answer,index) => {
@@ -88,6 +106,7 @@ function IncorrectNoteList() {
       if (currentQuiz.quizCategoryId === 3 || currentQuiz.quizCategoryId === 4) {
         setSentence([]);
       }
+      setIsCorrect(isAnswerCorrect);
     } catch (error) {
       console.error('정답 확인 중 에러 발생 :', error);
     }
@@ -124,27 +143,7 @@ function IncorrectNoteList() {
     }
   }
 
-  // 틀린문제 퀴즈 가져오기
-  useEffect(() => {
-      const updateMyQuiz = async () => {
-        try {
-          const response = await quizApi.getRandomWrongAnswer({quizWrongCount: 10})
-          // const response = await quizApi.getRandomWrongAnswer({quizWrongCount: myQuizCnt}) 나중
-          // console.log('다시 풀 문제:', response.data.response);
-          setQuizData(response.data.response);
-        } catch(error){
-          console.error('풀 문제 수 업데이트 중 에러', error);
-        }
-      };
-      // updateMyQuiz();
 
-      if (quizData.length === 0) {
-        updateMyQuiz();
-      }
-  },[]);
-
-  // console.log(quizData[currentQuizIndex])
-  // },[myQuizCnt]) 나중
 
   // TTS 
   useEffect(() => {

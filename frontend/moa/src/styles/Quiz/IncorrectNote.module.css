@@ -61,7 +61,7 @@ border-radius: 18px;
 background: var(--ex, linear-gradient(104deg, #C4DD7C 32.8%, #A6CC38 101.6%));
 }
 
-.retryBtn a{
+.retryBtn{
   color: white;
   font-size: 18px;
   font-weight: bold;
