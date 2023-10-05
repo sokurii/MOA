@@ -31,7 +31,6 @@
     left: 31px;
     top: 30px;
 
-    font-family: 'Pretendard-Regular';
     font-style: normal;
     font-weight: 700;
     font-size: 26px;
@@ -46,7 +45,7 @@
     height: 370px;
     left: calc(50% - 328px/2 - 2px);
     top: 40px;
-    font-family: 'Pretendard-Regular';
+
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
@@ -90,7 +89,6 @@
     border-radius: 20px;
     border: none;
     background-color: transparent;
-    font-family: 'Pretendard-Regular';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -102,7 +100,6 @@
     width: 29px;
     height: 17px;
 
-    font-family: 'Pretendard-Regular';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -171,7 +168,6 @@
     left: 280px;
     top: 150px;
 
-    font-family: 'Pretendard-Regular';
     font-style: normal;
     font-weight: 400;
     font-size: 15px;

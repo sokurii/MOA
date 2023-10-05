@@ -2,7 +2,6 @@
     display: flex;
     margin-top: 18px;
     margin-left: 20px;
-    font-family: 'Pretendard-Regular'
 }
 
 .container {
@@ -14,7 +13,6 @@
     line-height: 55px;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-family: 'Pretendard-Regular'
 }
 
 .deleteBtn {
@@ -23,10 +21,8 @@
     float: right;
     margin-top: 20px;
     margin-right: 20px;
-    font-family: 'Pretendard-Regular'
 }
 
 .keywordName {
     margin-left: 40px;
-    font-family: 'Pretendard-Regular'
 }

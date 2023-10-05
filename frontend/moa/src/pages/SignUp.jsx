@@ -6,7 +6,6 @@ import AppBar from '../components/ETC/AppBar';
 
 const signupStyle = {
   minHeight: '100vh',
-  fontFamily: 'Pretendard-Regular'
 }
 
 const signupContainerStyle = {
