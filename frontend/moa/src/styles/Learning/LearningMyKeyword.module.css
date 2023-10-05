@@ -13,6 +13,7 @@
 
 .display {
     margin-top: 42px;
+    font-family: 'Pretendard-Regular'
 }
 
 .container {
@@ -22,6 +23,7 @@
     border-radius: 18px;
     box-shadow: 5px 5px 5px #F3F9FF;
     line-height: 55px;
+    font-family: 'Pretendard-Regular'
 }
 
 .btn {
@@ -34,6 +36,7 @@
     margin-top: 22px;
     border-radius: 18px;
     background: linear-gradient(132.52deg, #B5CCF9 -0.88%, #6C99F0 126.31%);
+    font-family: 'Pretendard-Regular';
 }
 
 .keywordBtn {
@@ -45,6 +48,8 @@
     font-size: 18px;
     margin-top: 22px;
     border-radius: 18px;
+
+    font-family: 'Pretendard-Regular';
 
     background: rgba(203, 220, 253, 0.79);
 }
@@ -58,7 +63,7 @@
     line-height: 55px;
     border: none;
 
-    font-family: 'Nunito Sans';
+    font-family: 'Pretendard-Regular';
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
