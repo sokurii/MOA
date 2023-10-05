@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import MenuHeader from "../../components/ETC/MenuHeader";
 import styles from '../../styles/Quiz/WordQuiz.module.css';
 import Modal from 'react-bootstrap/Modal';
+import TimeBar from "../../components/Quiz/TimeBar";
 
 function SentenceQuiz(props) {
   const [sentenceData, setSentenceData] = useState([]);
@@ -20,8 +21,15 @@ function SentenceQuiz(props) {
   const [showAnswerModal, setShowAnswerModal] = useState(false);
   const [isCorrect, setIsCorrect] = useState(null);
   const [correctAnswers,setCorrectAnswers] = useState(0);
-  
+
+  const [timeBarTotalTime, setTimeBarTotalTime] = useState(20);
+  const [isTimeOut, setIsTimeOut] = useState(false);
+
   const currentSentence = sentenceData[sentenceIndex];
+
+  // const handleTimeup = () => {
+  //   checkAnswer();
+  // }
 
   const handleButtonClick = (answer) => {
     setSentence([...sentence, answer])
@@ -120,6 +128,15 @@ const checkAnswer = async () =>{
     console.error('정답 확인 중 에러 발생:', error);
   }
 }
+
+  // 시간 초과 함수
+  const handleTimeOut = () => {
+    setIsTimeOut(true);
+    setTimeout(() => {
+      setIsTimeOut(false);
+      handleNextQuiz();
+    }, 1000);
+  };
 
   // 한 문제씩 가져오기
   const handleNextQuiz = () => {
@@ -222,6 +239,14 @@ const checkAnswer = async () =>{
               </div>
             )}
           </Modal.Body>
+      </Modal>
+      <Modal show={isTimeOut} className={styles.resultModal}>
+        <Modal.Body className={styles.resultModalContent}>
+          <div className={styles.incorrectMessage}>
+            <img src={process.env.PUBLIC_URL + '/assets/Quiz/fail.png'} alt="시간 초과" />
+            <p>시간 초과</p>
+          </div>
+        </Modal.Body>
       </Modal>
     </div>
   );

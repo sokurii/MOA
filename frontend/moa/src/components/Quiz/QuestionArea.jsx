@@ -107,6 +107,15 @@ function QuestionArea(props) {
     }
   }
 
+  // 시간 초과 함수
+  const handleTimeOut = () => {
+    setIsTimeOut(true);
+    setTimeout(() => {
+      setIsTimeOut(false);
+      handleNextQuiz();
+    }, 1000);
+  };
+
   // 한 문제씩 가져오는 함수
   const handleNextQuiz = () => {
     if (currentQuizIndex < quizData.length - 1) {
@@ -219,6 +228,14 @@ function QuestionArea(props) {
               </div>
             )}
           </Modal.Body>
+      </Modal>
+      <Modal show={isTimeOut} className={styles.resultModal}>
+        <Modal.Body className={styles.resultModalContent}>
+          <div className={styles.incorrectMessage}>
+            <img src={process.env.PUBLIC_URL + '/assets/Quiz/fail.png'} alt="시간 초과" />
+            <p>시간 초과</p>
+          </div>
+        </Modal.Body>
       </Modal>
     </div>
   );
