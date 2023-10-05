@@ -49,8 +49,9 @@ public class BuddyController {
     public ApiResult<Long> createForeignerBuddy(@RequestHeader("Authorization") String header) {
         String token = header.substring(7);
         Long memberId = jwtTokenProvider.extractMemberId(token);
-        memberService.findMember(memberId);
-        Long matchingBuddy = buddyService.findMatchingBuddy(memberId);
+        Member member = memberService.findMember(memberId);
+
+        Long matchingBuddy = buddyService.findMatchingBuddy(member);
         if(matchingBuddy != null) {
             chatRoomRepository.createBuddyRoom(matchingBuddy+"","버디 채팅");
         }

@@ -12,10 +12,17 @@ public class InterestQueryRepositoryImpl implements InterestQueryRepository{
     private final JPAQueryFactory jpaQueryFactory;
     @Override
     public Integer countByInterest(Long koreanId, Long foreignId) {
-        return Math.toIntExact(jpaQueryFactory.select(interest.interestCode.count())
+        Long count = jpaQueryFactory.select(interest.interestCode.count())
                 .from(interest)
                 .where(interest.member.memberId.in(koreanId, foreignId))
                 .groupBy(interest.interestCode)
-                .having(interest.member.memberId.count().gt(1)).fetchOne());
+                .having(interest.member.memberId.count().gt(1)).fetchOne();
+
+        return count != null ? count.intValue() : 0;
+//        return Math.toIntExact(jpaQueryFactory.select(interest.interestCode.count())
+//                .from(interest)
+//                .where(interest.member.memberId.in(koreanId, foreignId))
+//                .groupBy(interest.interestCode)
+//                .having(interest.member.memberId.count().gt(1)).fetchOne());
     }
 }

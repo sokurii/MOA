@@ -83,10 +83,8 @@ public class BuddyServiceImpl implements BuddyService {
     }
 
     @Override
-    public Long findMatchingBuddy(Long memberId) {
+    public Long findMatchingBuddy(Member member) {
         // memberId로 외국인인지 판별
-        Member member = memberService.findMember(memberId);
-
         // 외국인이면
         if(member.getMemberIsForeigner()) {
             log.info("foreigner");
@@ -149,7 +147,6 @@ public class BuddyServiceImpl implements BuddyService {
             if(!foreignerBuddyGenderAndNation.isEmpty()) {
                 for(Foreigner foreigner : foreignerBuddyGenderAndNation) {
                     Integer count = interestRepository.countByInterest(member.getMemberId(), foreigner.getMember().getMemberId());
-                    log.info(String.valueOf(count));
                     if(count > 0) {
                         Buddy buddy = Buddy.builder()
                                 .korean(korean)
@@ -158,6 +155,7 @@ public class BuddyServiceImpl implements BuddyService {
                         return buddyRepository.save(buddy).getBuddyId();
                     }
                 }
+                log.info("3");
                 Buddy buddy = Buddy.builder()
                         .korean(korean)
                         .foreigner(foreignerBuddyGenderAndNation.get(0))
