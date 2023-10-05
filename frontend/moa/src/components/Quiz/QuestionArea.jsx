@@ -22,8 +22,8 @@ function QuestionArea(props) {
 
   const [isButtonSelected, setIsButtonSelected] = useState(null);
 
-  const handleButtonClick = (answer,index) => {
-    checkAnswer(answer,index)
+  const handleButtonClick = (answer, index) => {
+    checkAnswer(answer, index)
     setIsButtonSelected(index);
   }
 
@@ -31,8 +31,8 @@ function QuestionArea(props) {
     // 퀴즈 데이터 가져오기
     const fetchQuizData = async () => {
       try {
-        const response = await quizApi.getWordQuiz(); 
-        setQuizData(response.data.response); 
+        const response = await quizApi.getWordQuiz();
+        setQuizData(response.data.response);
       } catch (error) {
         console.error('퀴즈 데이터 가져오는 중 에러 발생:', error);
       }
@@ -42,7 +42,7 @@ function QuestionArea(props) {
     if (quizData.length === 0 && !showResultButton) {
       fetchQuizData();
     }
-  },[quizData, showResultButton]); // 퀴즈가 바뀔 때만
+  }, [quizData, showResultButton]); // 퀴즈가 바뀔 때만
 
   // TTS 
   useEffect(() => {
@@ -66,7 +66,7 @@ function QuestionArea(props) {
     utterThis.rate = 0.8;
 
     const korVoice = voices.find(
-      (elem) => elem.lang === lang || elem.lang === lang.replace("-","_")
+      (elem) => elem.lang === lang || elem.lang === lang.replace("-", "_")
     );
 
     if (korVoice) {
@@ -82,12 +82,12 @@ function QuestionArea(props) {
     try {
       const response = await quizApi.submitAnswer({
         quizId: currentQuiz.quizId,
-        quizSubmitAnswer: userAnswer, 
+        quizSubmitAnswer: userAnswer,
       });
 
       const isAnswerCorrect = response.data.response.isQuizCorrect;
 
-      if (isAnswerCorrect){
+      if (isAnswerCorrect) {
         setCorrectAnswers(correctAnswers + 1);
         setAnswerMessage('맞았어요!');
       } else {
@@ -108,27 +108,27 @@ function QuestionArea(props) {
   }
 
   // 시간 초과 함수
-  const handleTimeOut = () => {
-    setIsTimeOut(true);
-    setTimeout(() => {
-      setIsTimeOut(false);
-      handleNextQuiz();
-    }, 1000);
-  };
+  // const handleTimeOut = () => {
+  //   setIsTimeOut(true);
+  //   setTimeout(() => {
+  //     setIsTimeOut(false);
+  //     handleNextQuiz();
+  //   }, 1000);
+  // };
 
   // 한 문제씩 가져오는 함수
   const handleNextQuiz = () => {
     if (currentQuizIndex < quizData.length - 1) {
       setCurrentQuizindex(currentQuizIndex + 1);
-      setIsListening(false); 
-      setIsCorrect(null); 
+      setIsListening(false);
+      setIsCorrect(null);
       setIsButtonSelected(null);
     } else {
       setShowResultButton(true);
       setIsButtonSelected(null);
       handleShowResult();
     }
-  }; 
+  };
 
   const currentQuiz = quizData[currentQuizIndex];
 
@@ -146,16 +146,16 @@ function QuestionArea(props) {
   // 결과
   // const location = useLocation();
   const navigate = useNavigate();
-  const handleShowResult = async() => {
+  const handleShowResult = async () => {
     try {
       const response = await quizApi.finishQuiz({
-        correctQuizAnswerCnt : correctAnswers,
+        correctQuizAnswerCnt: correctAnswers,
       });
       console.log('퀴즈 완료 응답', response.data);
 
       const quizMessage = response.data.response.quizMessage;
-      
-      navigate('/quiz/quiz-result',{ state : {correctAnswers, quizMessage} });
+
+      navigate('/quiz/quiz-result', { state: { correctAnswers, quizMessage } });
     } catch (error) {
       console.error('퀴즈 완료 API 호출 중 에러:', error);
     }
@@ -165,7 +165,7 @@ function QuestionArea(props) {
 
   return (
     <div>
-      <MenuHeader title="단어퀴즈"/>
+      <MenuHeader title="단어퀴즈" />
       {currentQuiz ? (
         <div>
           {/* <TimeBar totalTime={15} /> */}
@@ -175,9 +175,9 @@ function QuestionArea(props) {
               <div className={styles.questionContainer}>
 
                 <div onClick={toggleListening}
-                className={styles.questionArea}>
-                  <img src={process.env.PUBLIC_URL + '/assets/Quiz/quizSound.png'} 
-                  alt="듣기" /> 
+                  className={styles.questionArea}>
+                  <img src={process.env.PUBLIC_URL + '/assets/Quiz/quizSound.png'}
+                    alt="듣기" />
                   {/* <p>{isListening ? "듣기 중지" : "듣기"}</p> */}
                 </div>
               </div>
@@ -193,10 +193,10 @@ function QuestionArea(props) {
             </div>
           )}
           <ul className={styles.quizUl}>
-            {currentQuiz.quizAnswerList.map((answer,answerIndex) =>(
-              <button 
-                key = {answerIndex}
-                onClick={() => handleButtonClick(answer,answerIndex)}
+            {currentQuiz.quizAnswerList.map((answer, answerIndex) => (
+              <button
+                key={answerIndex}
+                onClick={() => handleButtonClick(answer, answerIndex)}
                 // disabled={isCorrect !== null}
                 className={`${styles.selectBtn} ${isButtonSelected === answerIndex ? styles.selected : ''}`}
               >
@@ -215,21 +215,21 @@ function QuestionArea(props) {
       )}
 
       <Modal show={showAnswerModal} className={styles.resultModal}>
-          <Modal.Body className={styles.resultModalContent}>        
-            {answerMessage === '맞았어요!' ? (
-              <div className={styles.correctMessage}>
-                <img src={process.env.PUBLIC_URL + '/assets/Quiz/success.png'} alt="듣기" /> 
-                <p>맞았어요!</p>
-              </div>
-            ):(
-              <div className={styles.incorrectMessage}>
-                <img src={process.env.PUBLIC_URL + '/assets/Quiz/fail.png'} alt="듣기" /> 
-                <p>틀렸어요</p>
-              </div>
-            )}
-          </Modal.Body>
+        <Modal.Body className={styles.resultModalContent}>
+          {answerMessage === '맞았어요!' ? (
+            <div className={styles.correctMessage}>
+              <img src={process.env.PUBLIC_URL + '/assets/Quiz/success.png'} alt="듣기" />
+              <p>맞았어요!</p>
+            </div>
+          ) : (
+            <div className={styles.incorrectMessage}>
+              <img src={process.env.PUBLIC_URL + '/assets/Quiz/fail.png'} alt="듣기" />
+              <p>틀렸어요</p>
+            </div>
+          )}
+        </Modal.Body>
       </Modal>
-      <Modal show={isTimeOut} className={styles.resultModal}>
+      <Modal className={styles.resultModal}>
         <Modal.Body className={styles.resultModalContent}>
           <div className={styles.incorrectMessage}>
             <img src={process.env.PUBLIC_URL + '/assets/Quiz/fail.png'} alt="시간 초과" />
