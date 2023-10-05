@@ -35,15 +35,19 @@ function BuddyChatArea({ buddyId }) {
 
   const state = store.getState();
   const userInfo = state.userInfo;
-  const sender = JSON.parse(userInfo).memberId;
+  const sender = JSON.parse(userInfo).memberId.toString();
 
-  const chatAreaRef = useRef(null);
+  const chatAreaRef = useRef();
 
   useEffect(() => {
     openChatApi.buddyChatLog(buddyId)
     .then((response) => {
       const res = response.data.response;
       setMessages(res.reverse());
+
+      if (chatAreaRef.current) {
+        chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
+      }
     })
     .catch((error) => {
       console.log('버디 채팅기록 소환 에러 발생');
@@ -112,7 +116,10 @@ function BuddyChatArea({ buddyId }) {
 
   return (
     <div style={chatContainerStyle}>
-      <div style={chatAreaStyle}>
+      <div 
+        style={chatAreaStyle}
+        ref={chatAreaRef}
+      >
         {messages.map((message, index) =>
           message.sender === sender ? (
             <BuddyMyTalk key={index} talk={message.message} />
@@ -122,7 +129,7 @@ function BuddyChatArea({ buddyId }) {
         )}
       </div>
       <hr />
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit}> 
         <input
           style={inputStyle}
           type="text"

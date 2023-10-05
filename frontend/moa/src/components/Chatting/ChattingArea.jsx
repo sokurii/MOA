@@ -37,7 +37,7 @@ function ChattingArea({ openChatId }) {
   const userInfo = state.userInfo;
   const sender = JSON.parse(userInfo).memberId.toString();
 
-  const chatAreaRef = useRef(null);
+  const chatAreaRef = useRef();
 
   useEffect(() => {
     openChatApi.openChatLog(openChatId)
@@ -111,7 +111,10 @@ function ChattingArea({ openChatId }) {
 
   return (
     <div style={chatContainerStyle}>
-      <div style={{...chatAreaStyle, ...{ ref: chatAreaRef }}}>
+      <div 
+        style={chatAreaStyle}
+        ref={chatAreaRef}
+      >
       {messages.map((message, index) => {
         return message.sender === sender ? (
           <MyTalk key={index} talk={message.message} />
