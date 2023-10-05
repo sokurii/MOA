@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './ExchangeDiary.module.css'
 import AppBar from '../../../components/ETC/AppBar';
+import Loading from '../../../components/Loading';
 
 import { matchingApi } from '../../../api/matchingApi'
 
@@ -19,7 +20,9 @@ function ExchangeDiary(props) {
   const [isBuddyHave, setIsBuddyHave] = useState(null);
   const [todayDate, setTodayDate] = useState();
   const [isWriteDiary, setIsWriteDiary] = useState();
-  const [memberName, setMemberName] = useState();
+  const [isWriteDiaryCheck, setIsWriteDiaryCheck] = useState(false);
+  const [memberId, setMemberId] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const today = new Date();
@@ -45,10 +48,14 @@ function ExchangeDiary(props) {
   }, [])
 
   useEffect(() => {
+    console.log(isWriteDiary);
+  }, [isWriteDiary])
+
+  useEffect(() => {
     userApi.getMemberInfo()
       .then((response) => {
         const memberData = response.data.response;
-        setMemberName(memberData.memberName);
+        setMemberId(memberData.memberId);
       })
       .catch((error) => {
         console.error("다이어리 멤버 조회 오류", error);
@@ -56,7 +63,7 @@ function ExchangeDiary(props) {
   }, [])
 
   useEffect(() => {
-    if (todayDate !== undefined) {
+    if (todayDate !== undefined && memberId !== undefined) {
       diaryApi.getDiaryDetail(todayDate)
         .then((response) => {
           const diaryData = response.data.response;
@@ -67,27 +74,28 @@ function ExchangeDiary(props) {
             setIsWriteDiary(true);
           }
           else if (diaryData.length === 1) {
-            if (diaryData[0].member.memberName === memberName) {
+            if (diaryData[0].member.memberId === memberId) {
               setIsWriteDiary(true);
             }
             else {
+              console.log(memberId);
               setIsWriteDiary(false);
             }
           }
+          setIsLoading(false);
         })
         .catch((error) => {
           console.error(error);
         })
     }
 
-  }, [todayDate]);
+  }, [todayDate, memberId]);
 
   return (
     <div className={styles.container}>
       <AppBar></AppBar>
-
-
-      {isBuddyHave && (
+      {isLoading && <Loading />}
+      {!isLoading && isBuddyHave && (
         <>
           <div className={styles.diary + ' wow fadeInUp'}>
             <img
@@ -118,7 +126,7 @@ function ExchangeDiary(props) {
         </>
       )}
 
-      {!isBuddyHave && (
+      {!isLoading && !isBuddyHave && (
         <>
           <div className={styles.modalContainer}>
             <img

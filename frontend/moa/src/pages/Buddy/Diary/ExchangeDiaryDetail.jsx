@@ -164,7 +164,7 @@ function ExchangeDiaryDetail() {
                   </div>
 
                   <div className={styles.diaryContent}>
-                    {buddyDiary.exchangeDiaryContent}
+                    {buddyDiary.exchangeDiaryContent.replace(/<br>/g, "\n")}
                   </div>
 
                   <div className={styles.moveToNextPage}
