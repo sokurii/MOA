@@ -43,8 +43,6 @@ import NotFound404 from './pages/NotFound404';
 import NewsArticle from './pages/Learning/NewsArticle';
 import ExchangeDiaryContent from './pages/Buddy/Diary/ExchangeDiaryContent';
 
-import Loading from './components/Loading';
-
 function App() {
   const state = store.getState();
   const accessToken = state.accessToken;

@@ -182,7 +182,7 @@ function Profile({ onClose }) {
   const handleLogout = () => {
     Cookies.remove('refreshToken');
     localStorage.removeItem('accessToken');
-    dispatch(setAccessToken(null));
+    dispatch(setAccessToken(''));
     dispatch(setIsMatching(null));
     dispatch(setIsForeigner(null));
     dispatch(setUserInfo(null));

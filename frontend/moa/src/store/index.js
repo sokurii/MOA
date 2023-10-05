@@ -6,9 +6,9 @@ import { isLoadingReducer } from './isLoading';
 
 // 초기 상태
 const initialState = {
-  accessToken: localStorage.getItem('accessToken') || null,
-  isMatching: localStorage.getItem('isMatching') || null,
-  isForeigner: localStorage.getItem('isForeigner') || null,
+  accessToken: localStorage.getItem('accessToken') || '',
+  isMatching: localStorage.getItem('isMatching') || '',
+  isForeigner: localStorage.getItem('isForeigner') || '',
 };
 
 // Actions

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from '../../store';
-
+import store from '../../store';
 import Profile from '../Profile/Profile';
 
 const appBarStyle = {
@@ -47,6 +45,11 @@ const modalContainerStyle = {
 function AppBar(props) {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
+  const state = store.getState();
+  const accessToken = state.accessToken;
+
+  console.log(accessToken);
+
   // 프로필 모달 열기 함수
   const openProfileModal = () => {
     setIsProfileModalOpen(true);
@@ -74,12 +77,14 @@ function AppBar(props) {
           alt="로고"
         />
       </Link>
-      <div style={profileButtonStyle} onClick={openProfileModal}>
-        <img
-          src={process.env.PUBLIC_URL + '/assets/Logo/Profile.png'}
-          alt="프로필"
-        />
-      </div>
+      {accessToken && (
+        <div style={profileButtonStyle} onClick={openProfileModal}>
+          <img
+            src={process.env.PUBLIC_URL + '/assets/Logo/Profile.png'}
+            alt="프로필"
+          />
+        </div>
+      )}
       {isProfileModalOpen && (
         <div
           id="modal-container" // 모달 컨테이너의 ID 설정
