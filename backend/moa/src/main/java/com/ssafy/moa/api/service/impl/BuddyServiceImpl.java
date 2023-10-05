@@ -32,11 +32,10 @@ public class BuddyServiceImpl implements BuddyService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Long saveKoreanBuddyInfo(KoreanBuddyPostRequest buddyKoreanPostRequest) {
+    public Long saveKoreanBuddyInfo(Member member, KoreanBuddyPostRequest buddyKoreanPostRequest) {
         NationCode nationCode = nationRepository.findByNationCode(buddyKoreanPostRequest.getNationCode())
                 .orElseThrow(() -> new NotFoundException("Not Found Nation Code"));
 
-        Member member = memberService.findMember(buddyKoreanPostRequest.getMemberId());
         Korean korean = Korean.builder()
                 .koreanLikeGender(buddyKoreanPostRequest.getGender())
                 .member(member)
@@ -68,7 +67,6 @@ public class BuddyServiceImpl implements BuddyService {
         // 선호하는 성별 저장
         foreigner.update(foreignerBuddyPostRequest.getGender());
         foreignerRepository.save(foreigner);
-
 
         // 관심사 등록
         for(int i : foreignerBuddyPostRequest.getInterest()) {

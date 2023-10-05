@@ -8,7 +8,6 @@ public class BuddyDto {
 
     @Getter
     public static class KoreanBuddyPostRequest {
-        private long memberId;
         private int nationCode;
         private List<Integer> interest;
         private int gender;

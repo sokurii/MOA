@@ -31,8 +31,8 @@ public class BuddyController {
     public ApiResult<Long> createKoreanBuddy(@RequestHeader("Authorization") String header, @RequestBody KoreanBuddyPostRequest koreanBuddyPostRequest) {
         String token = header.substring(7);
         Long memberId = jwtTokenProvider.extractMemberId(token);
-        memberService.findMember(memberId);
-        return success(buddyService.saveKoreanBuddyInfo(koreanBuddyPostRequest));
+        Member member = memberService.findMember(memberId);
+        return success(buddyService.saveKoreanBuddyInfo(member, koreanBuddyPostRequest));
     }
 
     @PostMapping("/foreigner")
