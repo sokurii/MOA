@@ -19,13 +19,16 @@ const appBarStyle = {
 const imgContainerStyle = {
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
-  marginLeft: '130px',
+  // justifyContent: 'center',
 };
 
 const imgStyle = {
   width: '50%',
-  margin: '10px auto',
+  margin: '10px 20px',
+};
+
+const appBarIconContainerStyle = {
+  display: 'flex',
 };
 
 const profileButtonStyle = {
@@ -78,11 +81,19 @@ function AppBar(props) {
         />
       </Link>
       {accessToken && (
-        <div style={profileButtonStyle} onClick={openProfileModal}>
-          <img
-            src={process.env.PUBLIC_URL + '/assets/Logo/Profile.png'}
-            alt="프로필"
-          />
+        <div style={appBarIconContainerStyle}>
+          <Link style={profileButtonStyle} to="/chatting">
+            <img
+              src={process.env.PUBLIC_URL + '/assets/Logo/chat.png'}
+              alt="채팅"
+            />
+          </Link>
+          <div style={profileButtonStyle} onClick={openProfileModal}>
+            <img
+              src={process.env.PUBLIC_URL + '/assets/Logo/Profile.png'}
+              alt="프로필"
+            />
+          </div>
         </div>
       )}
       {isProfileModalOpen && (
