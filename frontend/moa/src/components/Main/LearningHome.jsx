@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/Main/Main.module.css';
-
+import { keywordApi } from '../../api/keywordApi';
 
 function LearningHome(props) {
+  const [isKeyword, setKeyword] = useState('');
   const navigate = useNavigate()
   const handleClick = () => {
-    navigate('/koreanlearning')
+    if(isKeyword.length === 0) {
+      navigate('/koreanlearning/default')
+    } else {
+      navigate('/koreanlearning')
+    }
   }
   const navigateTo = (path) => {
       navigate(path); // 3초 후에 페이지 이동
   };
+
+  useEffect(() => {
+    keywordApi.getKeywords()
+      .then((response) => {
+        const res = response.data.response;
+        console.log("res: " + JSON.stringify(res));
+        setKeyword(res);
+      })
+  }, []);
 
   return (
     <div>

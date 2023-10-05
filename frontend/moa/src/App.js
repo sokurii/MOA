@@ -40,7 +40,6 @@ import UpdateBalanceGame from './pages/Buddy/BalanceGame/UpdateBalanceGame';
 import KoreaTour from './pages/Buddy/KoreaTour/KoreaTour';
 import KoreaTourResult from './pages/Buddy/KoreaTour/KoreaTourResult';
 import NotFound404 from './pages/NotFound404';
-import RelatedNews from './components/Learning/RelatedNews';
 import NewsArticle from './pages/Learning/NewsArticle';
 import ExchangeDiaryContent from './pages/Buddy/Diary/ExchangeDiaryContent';
 
