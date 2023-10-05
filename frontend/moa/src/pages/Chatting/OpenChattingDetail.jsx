@@ -61,13 +61,13 @@ function OpenChattingDetail(props) {
     })
   }, [openChatId]);
 
-  const deleteOpenChat = () => {
-    openChatApi.deleteOpenChatRoom(openChatId)
-    .then((response) => {
-      alert('오픈채팅방이 삭제되었습니다');
-      navigate('/chatting');
-    })
-  };
+  // const deleteOpenChat = () => {
+  //   openChatApi.deleteOpenChatRoom(openChatId)
+  //   .then((response) => {
+  //     alert('오픈채팅방이 삭제되었습니다');
+  //     navigate('/chatting');
+  //   })
+  // };
 
   return (
     <div style={openChatRoomStyle}>
@@ -77,7 +77,7 @@ function OpenChattingDetail(props) {
         </div>
         <p style={titleStyle}>{ title }</p>
         <p style={memberCountStyle}>{ memberCount }</p>
-        <button onClick={deleteOpenChat}>오픈채팅방 삭제</button>
+        {/* <button onClick={deleteOpenChat}>오픈채팅방 삭제</button> */}
       </div>
       <ChattingArea
         openChatId={openChatId}

@@ -8,8 +8,6 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
 const chatContainerStyle = {
-  margin: '20px',
-  border: '1px solid #ccc',
   padding: '20px',
   borderRadius: '5px',
 };
@@ -22,10 +20,33 @@ const chatAreaStyle = {
 const inputStyle = {
   margin: '10px',
   padding: '10px',
-  width: '90%',
+  width: '80%',
   backgroundColor: '#f2f2f2',
   borderRadius: '32px',
   border: 'none',
+};
+
+const inputFormStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  background: '#F2F2F2',
+  borderRadius: '30px',
+};
+
+const buttonStyle = {
+  marginRight: '10px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  border: 'none',
+  padding: '5px',
+  background: 'transparent',
+};
+
+const iconStyle = {
+  width: '100%',
+  height: '100%',
 };
 
 function BuddyChatArea({ buddyId }) {
@@ -44,16 +65,21 @@ function BuddyChatArea({ buddyId }) {
     .then((response) => {
       const res = response.data.response;
       setMessages(res.reverse());
-
-      if (chatAreaRef.current) {
-        chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
-      }
     })
     .catch((error) => {
       console.log('버디 채팅기록 소환 에러 발생');
       console.log(error);
     })
   }, [messages]);
+
+  useEffect(() => {
+    const scrollToBottom = () => {
+      if (chatAreaRef.current) {
+        chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
+      }
+    };
+    scrollToBottom();
+  }, [messages])
 
   useEffect(() => {
     setStompClient(
@@ -110,6 +136,7 @@ function BuddyChatArea({ buddyId }) {
           message: inputMyText,
         }));
       };
+      chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
       setInputMyText('');
     }
   };
@@ -129,7 +156,7 @@ function BuddyChatArea({ buddyId }) {
         )}
       </div>
       <hr />
-      <form onSubmit={handleFormSubmit}> 
+      <form onSubmit={handleFormSubmit} style={inputFormStyle}> 
         <input
           style={inputStyle}
           type="text"
@@ -137,6 +164,9 @@ function BuddyChatArea({ buddyId }) {
           onChange={(e) => setInputMyText(e.target.value)}
           placeholder="메세지를 입력하세요"
         />
+        <button style={buttonStyle} type="submit">
+          <img style={iconStyle} src={process.env.PUBLIC_URL + '/assets/Chatting/submitIcon.png'} alt="전송" />
+        </button>
       </form>
     </div>
   );
