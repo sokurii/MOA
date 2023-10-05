@@ -61,7 +61,7 @@ function MyCollection(props) {
         <div className={Style.background}>
             <MenuHeader title="스크랩북" />
             <div >
-                <div className={Style.wordContainer}>
+                <div className={Style.scrapBoxContainer}>
                     <div className={Style.fontContainer}>
                         <div className={Style.wordFont}>단어장</div>
                         { word.length > 2 && (
@@ -70,7 +70,7 @@ function MyCollection(props) {
                     </div>
                     <WordLearning word={twoword}/>
                 </div>
-                <div className={Style.wordContainer}>
+                <div className={Style.scrapBoxContainer}>
                     <div className={Style.fontContainer}>
                         <div className={Style.wordFont}>나의 뉴스</div>
                         { news.length > 2 && (

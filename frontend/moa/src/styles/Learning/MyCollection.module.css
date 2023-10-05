@@ -1,13 +1,21 @@
+.scrapBoxContainer{
+    display: flex;
+    width: 349px;
+    padding: 31px 15px;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 18px;
+    background: #FFF;
+    margin: 14px auto;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
 .wordContainer {
     display: flex;
     width: 383px;
     padding: 31px 15px;
-    flex-direction: column;
     align-items: center;
-    margin: 14px auto;
     border-radius: 18px;
     background-color: #ffffff;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
 .background {
