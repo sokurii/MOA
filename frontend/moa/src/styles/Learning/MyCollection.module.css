@@ -53,16 +53,33 @@
 }
 .middleContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     min-height: 75px;
     padding: 5px 22px;
     margin: 7px 4px;
     /* align-self: stretch; */
+    justify-content: space-between;
     text-align: left;
-    justify-content: center;
+    /* justify-content: center; */
     border-radius: 15px;
     border: 1px solid #47A0DC;
     background-color: #ffffff;
+}
+
+.leftTextContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rightIconContainer {
+    display: flex;
+    align-items: center;
+}
+
+.imgBox {
+    width: 16px;
+    height: 16px;
 }
 
 .myWordKoreanFont {

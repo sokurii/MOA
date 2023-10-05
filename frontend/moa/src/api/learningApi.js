@@ -59,5 +59,11 @@ export const learningApi = {
     getWordScrap: () => authAxios.get('scrap/words'),
 
     // chat GPT에게 질문하기
-    askToChatGpt: (data) => nonAuthAxios.post('/chat-gpt', data)
+    askToChatGpt: (data) => nonAuthAxios.post('/chat-gpt', data),
+
+    // 스크랩북에서 단어 삭제
+    deleteWordScrapBook: (wordId) => authAxios.delete(`scrap/words/${wordId}`),
+
+    // 스크랩북에서 뉴스 삭제
+    deleteNewsScrapBook: (articleId) => authAxios.delete(`scrap/news/delete?type=scrap&articleId=${articleId}`),
 }
