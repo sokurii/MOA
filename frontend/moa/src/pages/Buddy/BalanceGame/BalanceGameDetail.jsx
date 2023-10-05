@@ -17,7 +17,7 @@ const balanceGameDetailStyle = {
   backgroundRepeat: 'no-repeat', // 배경 이미지 반복 없음
   backgroundPosition: 'center', // 배경 이미지 중앙 정렬
   width: '100%', // 화면 전체 너비를 차지하도록 설정
-  height: '100vh', // 화면 전체 높이를 차지하도록 설정
+  minHeight: '100vh', // 화면 전체 높이를 차지하도록 설정
 };
 
 const gameInfoStyle = {

@@ -6,13 +6,6 @@ import ProgressBar from './ProgressBar';
 
 const balanceGamePlayStyle = {
   fontFamily: 'Ganpan',
-  position: 'fixed',
-  top: 0,
-  right: '-100%',
-  bottom: 0,
-  width: '100%',
-  transition: 'right 0.3s ease-in-out',
-  zIndex: 999,
   backgroundImage: `
     url(${process.env.PUBLIC_URL}/assets/Background/buddy_background.png)
   `,
@@ -20,7 +13,7 @@ const balanceGamePlayStyle = {
   backgroundRepeat: 'no-repeat', // 배경 이미지 반복 없음
   backgroundPosition: 'center', // 배경 이미지 중앙 정렬
   width: '100%', // 화면 전체 너비를 차지하도록 설정
-  height: '100vh', // 화면 전체 높이를 차지하도록 설정
+  minHeight: '100vh', // 화면 전체 높이를 차지하도록 설정
 };
 
 const modalOpenStyle = {
@@ -233,6 +226,7 @@ function BalanceGameModal({ balanceGameId, balanceGameList, time, isOpen }) {
           {/* BalanceGameResult에 선택한 옵션 배열을 전달 */}
           <BalanceGameResult
             balanceGameId={balanceGameId}
+            balanceGameList={balanceGameList}
             selectedOptions={selectedOptions}
           />
         </div>
