@@ -216,23 +216,29 @@ public class QuizServiceImpl implements QuizService {
 
     public void updateMemberLevel(Member member) {
         // member level up 조건인지 확인하기
-        // 1. member의 현재 경험치와 레벨업 조건을 확인한다.
-        Integer requiredExp = member.getMemberLevel().getRequiredExp();
-        Integer memberExp = member.getMemberExp();
 
-        // 2. 사용자의 현재 경험치가 member 레벨 업 조건보다 크거나 같다면 레벨업을 한다.
-        if (memberExp >= requiredExp) {
-            Long newLevelId = member.getMemberLevel().getLevelId() + 1;
+        // 0. 현재 member의 레벨이 19이면 레벨업을 하지 못하도록 막는다.
+        Long memberLevel = member.getMemberLevel().getLevelId();
 
-            Level newLevel = levelRepository.findByLevelId(newLevelId)
-                    .orElseThrow(() -> new NotFoundException(newLevelId + "에 해당하는 레벨이 없습니다."));
+        if(memberLevel < 19) {
+            // 1. member의 현재 경험치와 레벨업 조건을 확인한다.
+            Integer requiredExp = member.getMemberLevel().getRequiredExp();
+            Integer memberExp = member.getMemberExp();
 
-            // 레벨업
-            member.updateMemberLevel(newLevel);
-            // 경험치 세팅
-            member.updateMemberExp(memberExp - requiredExp);
+            // 2. 사용자의 현재 경험치가 member 레벨 업 조건보다 크거나 같다면 레벨업을 한다.
+            if (memberExp >= requiredExp) {
+                Long newLevelId = member.getMemberLevel().getLevelId() + 1;
 
-            memberRepository.save(member);
+                Level newLevel = levelRepository.findByLevelId(newLevelId)
+                        .orElseThrow(() -> new NotFoundException(newLevelId + "에 해당하는 레벨이 없습니다."));
+
+                // 레벨업
+                member.updateMemberLevel(newLevel);
+                // 경험치 세팅
+                member.updateMemberExp(memberExp - requiredExp);
+
+                memberRepository.save(member);
+            }
         }
     }
 }
