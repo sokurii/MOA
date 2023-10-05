@@ -22,7 +22,7 @@ public class QuizWrongAnswer {
     private Member member;
 
     @NotNull
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "quiz_id")
     private DailyKoreanQuiz quiz;
 

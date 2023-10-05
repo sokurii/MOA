@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -27,6 +29,6 @@ public class DailyKoreanQuiz {
     @JoinColumn(name = "quiz_code")
     private QuizCode quizCode;
 
-    @OneToOne(mappedBy = "quiz")
-    private QuizWrongAnswer quizWrongAnswer;
+    @OneToMany(mappedBy = "quiz")
+    private List<QuizWrongAnswer> quizWrongAnswer;
 }

@@ -30,7 +30,7 @@ public class QDailyKoreanQuiz extends EntityPathBase<DailyKoreanQuiz> {
 
     public final StringPath quizQuestion = createString("quizQuestion");
 
-    public final QQuizWrongAnswer quizWrongAnswer;
+    public final ListPath<QuizWrongAnswer, QQuizWrongAnswer> quizWrongAnswer = this.<QuizWrongAnswer, QQuizWrongAnswer>createList("quizWrongAnswer", QuizWrongAnswer.class, QQuizWrongAnswer.class, PathInits.DIRECT2);
 
     public QDailyKoreanQuiz(String variable) {
         this(DailyKoreanQuiz.class, forVariable(variable), INITS);
@@ -51,7 +51,6 @@ public class QDailyKoreanQuiz extends EntityPathBase<DailyKoreanQuiz> {
     public QDailyKoreanQuiz(Class<? extends DailyKoreanQuiz> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.quizCode = inits.isInitialized("quizCode") ? new QQuizCode(forProperty("quizCode")) : null;
-        this.quizWrongAnswer = inits.isInitialized("quizWrongAnswer") ? new QQuizWrongAnswer(forProperty("quizWrongAnswer"), inits.get("quizWrongAnswer")) : null;
     }
 
 }
