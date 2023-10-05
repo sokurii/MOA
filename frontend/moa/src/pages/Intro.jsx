@@ -13,6 +13,7 @@ const introStyle = {
   justifyContent: 'center',
   minHeight: '100vh',
   padding: '0 30px',
+  fontFamily: 'Pretendard-Regular'
 };
 
 const introCommentStyle = {
