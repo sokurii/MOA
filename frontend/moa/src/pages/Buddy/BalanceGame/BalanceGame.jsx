@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import { balanceGameApi } from '../../../api/balanceGameApi';
 
 import AppBar from '../../../components/ETC/AppBar';
@@ -33,6 +37,7 @@ const balanceGameStyle = {
 
 const bestBalanceGameListStyle = {
   padding: '0 10px',
+  marginBottom: '10px',
 };
 
 const balanceGameListStyle = {
@@ -125,22 +130,26 @@ function BalanceGame(props) {
           {bestBalanceGames.length === 0 ? (
             <p>인기 밸런스 게임이 없습니다.</p>
           ) : (
-              bestBalanceGames.map((bestBalanceGame, index) => {
+            <Slider
+              infinite={true}
+              slidesToShow={1} // 한 번에 보여질 아이템 수
+              slidesToScroll={1} // 한 번에 스크롤할 아이템 수
+              dots={true}
+              arrows={false}
+            >
+              {bestBalanceGames.map((bestBalanceGame, index) => {
                 const { balanceGameId, balanceGameTitle } = bestBalanceGame;
 
                 return (
-                  <div
-                    key={index}
-                    onClick={() => handleBalanceGameClick(bestBalanceGame)}
-                  >
+                  <div key={index} onClick={() => handleBalanceGameClick(bestBalanceGame)}>
                     <BestBalanceGameItem
                       balanceGameId={balanceGameId}
                       balanceGameTitle={balanceGameTitle}
                     />
                   </div>
                 );
-              }
-            )
+              })}
+            </Slider>
           )}
         </div>
       </div>
