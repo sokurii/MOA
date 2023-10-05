@@ -1,6 +1,8 @@
 import { learningApi } from '../../api/learningApi';
 import React, { Fragment, useEffect, useState } from 'react';
 import styles from './ArticleModal.module.css';
+import { useNavigate } from 'react-router-dom';
+import { matchingApi } from '../../api/matchingApi';
 
 function ArticleModal(props) {
   const { word, onCloseModal, translatedWord, isChatGptAsk } = props.modalProps;
@@ -108,6 +110,30 @@ function ArticleModal(props) {
     setCount(0);
   }
 
+  const [buddyId, setBuddyId] = useState(null);
+
+  useEffect (() => {
+    matchingApi.isMatching()
+    .then((response) => {
+      const res = response.data.response;
+      console.log(res); 
+      setBuddyId(res);
+    })
+    .catch((error) => {
+      alert('매칭된 버디가 없습니다');
+    });
+  }, [])
+
+  const navigate = useNavigate();
+
+  const handleBuddyChatClick = () => {
+    navigate('/chatting/buddy', {
+      state: {
+        buddyId,
+      },
+    });
+  };
+
   return (
     <Fragment>
       <div className={styles.modalBackground} onClick={onCloseModal}></div>
@@ -135,7 +161,8 @@ function ArticleModal(props) {
                 onClick={goChatGPTAsk}>
                 GPT에게 <br /> 물어보기
               </button>
-              <button className={styles.BuddyButton}>
+              <button className={styles.BuddyButton}
+                onClick={handleBuddyChatClick}>
                 버디에게 <br /> 물어보기
               </button>
             </div>
