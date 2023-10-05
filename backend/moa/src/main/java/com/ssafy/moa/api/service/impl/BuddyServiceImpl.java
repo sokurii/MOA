@@ -209,7 +209,17 @@ public class BuddyServiceImpl implements BuddyService {
     @Transactional(readOnly = true)
     public Long findWithBuddyDate(Long memberId) {
         Member member = memberService.findMember(memberId);
-        LocalDate agoDate = buddyRepository.findByKorean(member.getKorean()).get().getCreatedAt();
+        LocalDate agoDate = null;
+        if(member.getMemberIsForeigner()) { // 외국인이면
+            Foreigner foreigner = member.getForeigner();
+            Buddy buddy = buddyRepository.findByForeigner(foreigner).get();
+            agoDate = buddy.getCreatedAt();
+        }
+        else {
+            Korean korean = member.getKorean();
+            Buddy buddy = buddyRepository.findByKorean(korean).get();
+            agoDate = buddy.getCreatedAt();
+        }
         Long daysDifference = ChronoUnit.DAYS.between(agoDate, LocalDate.now());
         return daysDifference;
     }
