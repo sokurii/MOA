@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 
 import { balanceGameApi } from '../../../api/balanceGameApi';
 
+import store from '../../../store';
+
 import MenuHeader from '../../../components/ETC/MenuHeader';
 import BalanceGameModal from '../../../components/BalanceGame/BalanceGameModal';
 
@@ -114,6 +116,9 @@ function BalanceGameDetail(props) {
   const balanceGameId = balanceGame.balanceGameId;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const state = store.getState();
+  const userInfo = state.userInfo;
+  const memberName = JSON.parse(userInfo).memberName;
   
   const handleStartClick = () => {
     setIsModalOpen(true);
@@ -204,20 +209,20 @@ function BalanceGameDetail(props) {
         </div>
         
         {/* 수정 및 삭제 버튼 */}
-        <div>
+        {/* <div>
           <button onClick={() => handleUpdateBalanceGameClick()}>수정하기</button>
           <button onClick={deleteBalanceGame}>삭제하기</button>
-        </div>
+        </div> */}
 
         {/* 유저 정보 */}
         <div style={userInfoStyle}>
           <span style={readyStyle}>게임을 준비하세요</span>
           <div style={nameContainerStyle}>
             <div style={whiteDivStyle}>
-              <span>버디 이름</span>
+              <span>버디</span>
             </div>
             <div style={whiteDivStyle}>
-              <span>유학생 이름</span>
+              <span>{ memberName }</span>
             </div>
           </div>
         </div>
