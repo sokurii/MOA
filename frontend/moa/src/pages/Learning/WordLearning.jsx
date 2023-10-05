@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import News from '../../styles/Learning/WordLearning.module.css';
-import WordLogo from '../../components/Learning/WordLogo';
+import MenuHeader from '../../components/ETC/MenuHeader'
 import Word from '../../components/Learning/Word';
 import Usecase from '../../components/Learning/Usecase';
 import RelatedNews from '../../components/Learning/RelatedNews';
@@ -44,7 +44,7 @@ function WordLearning(props) {
       {isLoading && <Loading />}
       {!isLoading && (
         <>
-          <WordLogo word={"단어"} />
+          <MenuHeader title="단어보기" />
           <div className={News.display}>
             <div className={News.font}> Word </div>
           </div>

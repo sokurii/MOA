@@ -1,6 +1,6 @@
 import React from 'react';
 import News from '../../styles/Learning/WordLearning.module.css';
-import WordLogo from '../../components/Learning/WordLogo';
+import MenuHeader from '../../components/ETC/MenuHeader'
 import RelatedNews from '../../components/Learning/RelatedNews';
 import { useLocation  } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ function WordLearning(props) {
     const word = location.state.word;
     return (
         <div >
-            <WordLogo word={"뉴스"}/>
+            <MenuHeader title="뉴스보기" />
             <div className={News.textContainer}>
                 <div className={News.newsAbout}>News About</div>
                 <div className={News.word}>{word.word}</div>

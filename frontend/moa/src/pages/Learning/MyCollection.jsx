@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Style from '../../styles/Learning/MyCollection.module.css';
-import CollectionLogo from '../../components/Learning/CollectionLogo';
+import MenuHeader from '../../components/ETC/MenuHeader'
 import { WordLearning, NewsLearning } from '../../components/Learning/ScrapMore';
 import { useLocation, useNavigate  } from 'react-router-dom';
 import { learningApi } from '../../api/learningApi';
@@ -59,7 +59,7 @@ function MyCollection(props) {
 
     return (
         <div className={Style.background}>
-            <CollectionLogo logo="스크랩북"/>
+            <MenuHeader title="스크랩북" />
             <div >
                 <div className={Style.wordContainer}>
                     <div className={Style.fontContainer}>
