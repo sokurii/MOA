@@ -72,7 +72,7 @@ function App() {
             <>
               <Route path="/" element={<Main />} />
 
-              {!isMatching && <Route path="/matching" element={<Matching />} />}
+              <Route path="/matching" element={<Matching />} />
 
               <Route path="/chatting" element={<ChattingHome />} />
               <Route path="/chatting/buddy" element={<BuddyChattingModal />} />

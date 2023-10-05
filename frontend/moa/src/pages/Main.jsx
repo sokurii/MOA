@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import store from '../store';
 import { useAppDispatch } from '../store';
-import { setIsLoading } from '../store/isLoading';
-
 import AppBar from '../components/ETC/AppBar';
 import MainArea from '../components/Main/MainArea';
 import BottomBar from '../components/ETC/BottomBar';

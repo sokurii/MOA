@@ -35,7 +35,9 @@ function BuddyChatArea({ buddyId }) {
 
   const state = store.getState();
   const userInfo = state.userInfo;
-  const sender = JSON.parse(userInfo).memberName;
+  const sender = JSON.parse(userInfo).memberId;
+
+  const chatAreaRef = useRef(null);
 
   useEffect(() => {
     openChatApi.buddyChatLog(buddyId)

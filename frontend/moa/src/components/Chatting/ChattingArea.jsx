@@ -16,6 +16,7 @@ const chatContainerStyle = {
 
 const chatAreaStyle = {
   height: '70vh',
+  overflowY: 'auto',
 };
 
 const inputStyle = {
@@ -34,13 +35,19 @@ function ChattingArea({ openChatId }) {
 
   const state = store.getState();
   const userInfo = state.userInfo;
-  const sender = JSON.parse(userInfo).memberName;
+  const sender = JSON.parse(userInfo).memberId.toString();
+
+  const chatAreaRef = useRef(null);
 
   useEffect(() => {
     openChatApi.openChatLog(openChatId)
     .then((response) => {
       const res = response.data.response;
       setMessages(res.reverse());
+
+      if (chatAreaRef.current) {
+        chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
+      }
     })
     .catch((error) => {
       console.log('오픈 채팅기록 소환 에러 발생');
@@ -104,14 +111,14 @@ function ChattingArea({ openChatId }) {
 
   return (
     <div style={chatContainerStyle}>
-      <div style={chatAreaStyle}>
-        {messages.map((message, index) =>
-          message.sender === sender ? (
-            <MyTalk key={index} talk={message.message} />
-          ) : (
-            <OpponentTalk key={index} talk={message.message} />
-          )
-        )}
+      <div style={{...chatAreaStyle, ...{ ref: chatAreaRef }}}>
+      {messages.map((message, index) => {
+        return message.sender === sender ? (
+          <MyTalk key={index} talk={message.message} />
+        ) : (
+          <OpponentTalk key={index} talk={message.message} />
+        );
+      })}
       </div>
       <hr />
       <form onSubmit={handleFormSubmit}>
