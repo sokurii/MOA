@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 import { balanceGameApi } from '../../../api/balanceGameApi';
+import { matchingApi } from '../../../api/matchingApi';
+import { userApi } from '../../../api/userApi';
 
 import store from '../../../store';
 
@@ -119,13 +121,13 @@ function BalanceGameDetail(props) {
   const state = store.getState();
   const userInfo = state.userInfo;
   const memberName = JSON.parse(userInfo).memberName;
-  
+
   const handleStartClick = () => {
     setIsModalOpen(true);
   };
-  
+
   const navigate = useNavigate();
-  
+
   // 밸런스 게임 수정 페이지 이동
   const handleUpdateBalanceGameClick = () => {
     navigate(`/buddy/balancegame/${balanceGameId}/update`, {
@@ -136,16 +138,16 @@ function BalanceGameDetail(props) {
   // 밸런스 게임 삭제
   const deleteBalanceGame = () => {
     balanceGameApi.deleteBalanceGame(balanceGameId)
-    .then((response) => {
-      alert('게임이 삭제되었습니다.');
-      navigate('/buddy/balancegame');
-    })
-    .catch((error) => {
-      console.log('밸런스 게임 삭제 에러 발생');
-      console.log(error);
-    })
+      .then((response) => {
+        alert('게임이 삭제되었습니다.');
+        navigate('/buddy/balancegame');
+      })
+      .catch((error) => {
+        console.log('밸런스 게임 삭제 에러 발생');
+        console.log(error);
+      })
   }
-  
+
   // 밸런스 게임 목록
   const [title, setTitle] = useState('');
   const [time, setTime] = useState(0);
@@ -153,29 +155,47 @@ function BalanceGameDetail(props) {
   const [goodCount, setGoodCount] = useState(0);
   const [normalCount, setNormalCount] = useState(0);
   const [badCount, setBadCount] = useState(0);
+  const [buddyId, setBuddyId] = useState(0);
+  const [buddyName, setBuddyName] = useState('');
 
   const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
     balanceGameApi.getBalanceGameDetail(balanceGameId)
-    .then((response) => {
-      const res = response.data.response;
-      console.log(res);
-      setTitle(res.balanceGameTitle);
-      setTime(res.balanceGameTime);
-      setBalanceGameList(res.balanceGameList);
-      setGoodCount(res.goodCount);
-      setNormalCount(res.normalCount);
-      setBadCount(res.badCount);
-    })
-    .catch((error) => {
-      console.log('상세 밸런스게임 조회 에러 발생');
-      console.error(error);
-    });
+      .then((response) => {
+        const res = response.data.response;
+        console.log(res);
+        setTitle(res.balanceGameTitle);
+        setTime(res.balanceGameTime);
+        setBalanceGameList(res.balanceGameList);
+        setGoodCount(res.goodCount);
+        setNormalCount(res.normalCount);
+        setBadCount(res.badCount);
+      })
+      .catch((error) => {
+        console.log('상세 밸런스게임 조회 에러 발생');
+        console.error(error);
+      });
 
     setDataLoaded(true);
 
   }, [dataLoaded]);
+
+  useEffect(
+    () => {
+      matchingApi.isMatching()
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("밸런스 게임 버디 조회 에러", error);
+        })
+    }, [buddyId]
+  )
+
+  useEffect(() => {
+
+  })
 
   return (
     <div style={balanceGameDetailStyle}>
@@ -185,29 +205,29 @@ function BalanceGameDetail(props) {
         {/* 게임 정보 */}
         <div style={gameInfoStyle}>
           <div style={titleContainerStyle}>
-            <span>{ title }</span>
+            <span>{title}</span>
           </div>
           <div style={roundTimeContainerStyle}>
             <div style={whiteDivStyle}>
-              <span>{ balanceGameList.length }라운드</span>
+              <span>{balanceGameList.length}라운드</span>
             </div>
             <div style={whiteDivStyle}>
-              <span>{ time }초</span>
+              <span>{time}초</span>
             </div>
           </div>
           <div style={reactionContainerStyle}>
             <div style={reactionStyle}>
-              <p style={{ margin: '0' }}>😍 { goodCount }</p>
+              <p style={{ margin: '0' }}>😍 {goodCount}</p>
             </div>
             <div style={reactionStyle}>
-              <p style={{ margin: '0' }}>😐 { normalCount }</p>
+              <p style={{ margin: '0' }}>😐 {normalCount}</p>
             </div>
             <div style={reactionStyle}>
-              <p style={{ margin: '0' }}>😥 { badCount }</p>
+              <p style={{ margin: '0' }}>😥 {badCount}</p>
             </div>
           </div>
         </div>
-        
+
         {/* 수정 및 삭제 버튼 */}
         {/* <div>
           <button onClick={() => handleUpdateBalanceGameClick()}>수정하기</button>
@@ -222,7 +242,7 @@ function BalanceGameDetail(props) {
               <span>버디</span>
             </div>
             <div style={whiteDivStyle}>
-              <span>{ memberName }</span>
+              <span>{memberName}</span>
             </div>
           </div>
         </div>

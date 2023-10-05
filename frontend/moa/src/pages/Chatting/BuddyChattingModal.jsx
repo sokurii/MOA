@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MenuHeader from '../../components/ETC/MenuHeader';
 import BuddyChatArea from '../../components/Chatting/BuddyChatArea';
@@ -17,18 +17,18 @@ function BuddyChattingModal(props) {
   const navigate = useNavigate();
   const handleBackClick = (e) => {
     navigate('/chatting');
-}
-  
+  }
+
   return (
     <div style={buddyChatStyle}>
-          <div className={styles.header}>
-      <div className={styles.headerContainer}>
-        <div onClick={(e) => handleBackClick(e)}>
-          <img src={process.env.PUBLIC_URL + '/assets/etcComponent/backBtn.png'} alt="뒤로가기" /> 
+      <div className={styles.header}>
+        <div className={styles.headerContainer}>
+          <div onClick={(e) => handleBackClick(e)}>
+            <img src={process.env.PUBLIC_URL + '/assets/etcComponent/backBtn.png'} alt="뒤로가기" />
+          </div>
+          <span className={styles.headerText}>버디 채팅</span>
         </div>
-        <span className={styles.headerText}>버디 채팅</span>
       </div>
-    </div>
 
       {/* <div className={styles.header}>
               <div className={styles.headerTop}>
@@ -36,7 +36,7 @@ function BuddyChattingModal(props) {
                   <span className={styles.title}>버디 채팅</span>
               </div>
           </div> */}
-      <BuddyChatArea buddyId={buddyId}/>
+      <BuddyChatArea buddyId={buddyId} />
     </div>
   );
 }

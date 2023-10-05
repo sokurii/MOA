@@ -8,8 +8,6 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
 const chatContainerStyle = {
-  margin: '20px',
-  border: '1px solid #ccc',
   padding: '20px',
   borderRadius: '5px',
 };
@@ -22,7 +20,7 @@ const chatAreaStyle = {
 const inputStyle = {
   margin: '10px',
   padding: '10px',
-  width: '90%',
+  width: '80%',
   backgroundColor: '#f2f2f2',
   borderRadius: '32px',
   border: 'none',
@@ -35,7 +33,6 @@ const inputFormStyle = {
   background: '#F2F2F2',
   borderRadius: '30px',
 };
-
 
 const buttonStyle = {
   marginRight: '10px',
@@ -66,17 +63,17 @@ function ChattingArea({ openChatId }) {
 
   useEffect(() => {
     openChatApi.openChatLog(openChatId)
-    .then((response) => {
-      const res = response.data.response;
-      setMessages(res.reverse());
-      if (chatAreaRef.current) {
-        chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
-      };
-    })
-    .catch((error) => {
-      console.log('오픈 채팅기록 소환 에러 발생');
-      console.log(error);
-    })
+      .then((response) => {
+        const res = response.data.response;
+        setMessages(res.reverse());
+        if (chatAreaRef.current) {
+          chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
+        };
+      })
+      .catch((error) => {
+        console.log('오픈 채팅기록 소환 에러 발생');
+        console.log(error);
+      })
   }, [messages]);
 
   useEffect(() => {
@@ -97,14 +94,14 @@ function ChattingArea({ openChatId }) {
         }, {});
 
         stompClient.send(`/pub/chat/message`, {},
-        JSON.stringify({
-          messageType: 'OPEN_ENTER',
-          roomType: 1,
-          roomId: openChatId,
-          sender: sender,
-          message: null,
-        })
-      );
+          JSON.stringify({
+            messageType: 'OPEN_ENTER',
+            roomType: 1,
+            roomId: openChatId,
+            sender: sender,
+            message: null,
+          })
+        );
       });
     }
 
@@ -135,17 +132,17 @@ function ChattingArea({ openChatId }) {
 
   return (
     <div style={chatContainerStyle}>
-      <div 
+      <div
         style={chatAreaStyle}
         ref={chatAreaRef}
       >
-      {messages.map((message, index) => {
-        return message.sender === sender ? (
-          <MyTalk key={index} talk={message.message} />
-        ) : (
-          <OpponentTalk key={index} talk={message.message} />
-        );
-      })}
+        {messages.map((message, index) => {
+          return message.sender === sender ? (
+            <MyTalk key={index} talk={message.message} />
+          ) : (
+            <OpponentTalk key={index} talk={message.message} />
+          );
+        })}
       </div>
       <hr />
       <form onSubmit={handleFormSubmit} style={inputFormStyle}>

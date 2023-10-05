@@ -61,15 +61,21 @@ const memberCountStyle = {
 const contentStyle = {
   fontSize: '20px',
   fontWeight: '400',
+  textAlign: 'left',
 };
 
 const entranceButtonStyle = {
-  width: '50%',
-  height: '40px',
-  background: 'linear-gradient(to bottom, lightgreen, green)',
-  color: 'white',
+  color: '#515151',
+  height: '50px',
+  padding: '10px 20px',
+
+  backgroundColor: '#E7E8FF',
+  fontSize: '17px',
+  fontFamily: 'Pretendard-Regular',
   border: 'none',
-  borderRadius: '32px',
+  borderRadius: '10px',
+
+  cursor: 'pointer',
 };
 
 const entranceButtonContainerStyle = {
@@ -100,28 +106,28 @@ function OpenChattingEntrance(props) {
   return (
     <div style={modalStyle}>
       {isLoading ? (
-          <Loading />
-        ) : (
-          <>
-            <CloseButton onClose={closeEntrance} />
-            <div style={imageContainerStyle}>
-              <img style={imageStyle} src={`https://storage.googleapis.com/diary_storage/open_chat/${imgUrl}`} alt="오픈채팅 사진" />
-              <div style={overlayStyle}></div>
+        <Loading />
+      ) : (
+        <>
+          <CloseButton onClose={closeEntrance} />
+          <div style={imageContainerStyle}>
+            <img style={imageStyle} src={`https://storage.googleapis.com/diary_storage/open_chat/${imgUrl}`} alt="오픈채팅 사진" />
+            <div style={overlayStyle}></div>
+          </div>
+          <div style={openChatInfoStyle}>
+            <div style={titleContainerStyle}>
+              <p style={titleStyle}>{title}</p>
+              <p style={memberCountStyle}>{memberCount}</p>
             </div>
-            <div style={openChatInfoStyle}>
-              <div style={titleContainerStyle}>
-                <p style={titleStyle}>{title}</p>
-                <p style={memberCountStyle}>{memberCount}</p>
-              </div>
-              <div style={contentStyle}>{content}</div>
-              <div style={entranceButtonContainerStyle}>
-                <button style={entranceButtonStyle} onClick={handleOpenChattingClick}>
-                  입장하기
-                </button>
-              </div>
+            <div style={contentStyle}>{content}</div>
+            <div style={entranceButtonContainerStyle}>
+              <button style={entranceButtonStyle} onClick={handleOpenChattingClick}>
+                입장하기
+              </button>
             </div>
-          </>
-        )}
+          </div>
+        </>
+      )}
     </div>
   );
 }

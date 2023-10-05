@@ -8,7 +8,12 @@ import { useNavigate } from 'react-router-dom';
 import CloseButton from '../Buttons/CloseButton';
 
 const createOpenChatStyle = {
-  background: 'linear-gradient(to bottom, #ffffff, silver)',
+  backgroundImage: `
+    url(${process.env.PUBLIC_URL}/assets/Background/chatting_background.png)
+  `,
+  backgroundSize: 'cover', // 배경 이미지 크기 조절
+  backgroundRepeat: 'no-repeat', // 배경 이미지 반복 없음
+  backgroundPosition: 'center', // 
   padding: '10px 0px',
   position: 'fixed',
   top: 0,
@@ -32,6 +37,7 @@ const modalOpenStyle = {
 };
 
 const labelStyle = {
+  width: '50px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -49,7 +55,7 @@ const titleInputStyle = {
   padding: '10px 20px',
   width: '80%',
   height: '20px',
-  backgroundColor: '#f2f2f2',
+  backgroundColor: '#ffffff',
   borderRadius: '20px',
   border: 'none',
   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
@@ -59,18 +65,24 @@ const contentInputStyle = {
   padding: '10px 20px',
   width: '80%',
   height: '40px',
-  backgroundColor: '#f2f2f2',
+  backgroundColor: '#ffffff',
   borderRadius: '20px',
   border: 'none',
   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
 };
 
 const createButtonStyle = {
-  background: 'linear-gradient(to bottom, lightgreen, green)',
-  color: 'white',
-  border: 'none',
+  color: '#515151',
+  height: '50px',
   padding: '10px 20px',
-  borderRadius: '32px',
+
+  backgroundColor: '#E7E8FF',
+  fontSize: '17px',
+  fontFamily: 'Pretendard-Regular',
+  border: 'none',
+  borderRadius: '10px',
+  boxShadow: '0 5px 5px rgba(0, 0, 0, 0.18)',
+
   cursor: 'pointer',
 };
 
@@ -99,20 +111,20 @@ function CreateOpenChatting(props) {
       openChatTitle: openChatTitle,
       openChatContent: openChatContent,
     };
-  
+
     const formData = new FormData();
-  
+
     // JSON 데이터를 문자열로 변환하고 Blob 객체로 만듭니다.
     const jsonBlob = new Blob([JSON.stringify(saveOpenChatRequest)], { type: "application/json" });
-  
+
     formData.append('saveOpenChatRequest', jsonBlob);
     formData.append('multipartFile', imageFile); // 이미지 파일 추가
-  
+
     // Content-Type 설정
     const headers = {
       'Content-Type': 'multipart/form-data',
     };
-  
+
     openChatApi.createOpenChatRoom(formData, { headers })
       .then((response) => {
         const openChatId = response.data.response;
@@ -127,7 +139,7 @@ function CreateOpenChatting(props) {
         console.log('오픈채팅방 생성 에러 발생');
         console.log(error);
       }
-    );
+      );
   };
 
   return (

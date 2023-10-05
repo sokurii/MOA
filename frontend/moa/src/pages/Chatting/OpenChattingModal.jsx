@@ -33,13 +33,26 @@ const headerStyle = {
 };
 
 const createOpenChatButtonStyle = {
-  background: 'linear-gradient(to bottom, lightgreen, green)',
-  color: 'white',
+  color: '#515151',
   border: 'none',
   padding: '10px 20px',
+  width: '300px',
+  height: '50px',
   borderRadius: '32px',
   cursor: 'pointer',
+
+  backgroundColor: '#E7E8FF',
+  fontSize: '20px',
+  fontFamily: 'Pretendard-Regular',
+  boxShadow: '0px 4px 4px rgba(128.33, 106.45, 128.78, 0.10)',
+
 };
+
+const openChatingListContainer = {
+  height: '620px',
+  overflow: 'scroll',
+  marginTop: '20px',
+}
 
 function OpenChattingModal(props) {
   // const modalStyle = props.isOpen ? { ...openChatModalStyle, ...modalOpenStyle } : openChatModalStyle;
@@ -56,18 +69,21 @@ function OpenChattingModal(props) {
 
   return (
     <div style={openChatPageStyle}>
-      <MenuHeader title="오픈 채팅"/>
+      <MenuHeader title="오픈 채팅" />
       <h2 style={headerStyle}>오픈 채팅방 목록</h2>
-      <input
+      {/* <input
         style={inputStyle}
         type="text"
-        placeholder="Search" />
+        placeholder="Search" /> */}
       <div>
         <button style={createOpenChatButtonStyle} onClick={openCreateModal}>오픈채팅방 생성</button>
       </div>
 
       <CreateOpenChatting isOpen={createModalOpen} onClose={closeCreateModal} />
-      <OpenChattingList />
+      <div style={openChatingListContainer}>
+        <OpenChattingList />
+      </div>
+
     </div>
   );
 }
