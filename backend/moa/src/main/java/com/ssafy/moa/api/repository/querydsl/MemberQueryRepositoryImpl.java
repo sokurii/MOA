@@ -117,10 +117,8 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
     // Level 정보와 함께 한국인 Member 정보를 조회한다.
     @Override
     public MemberInfoDto getKoreanMemberInfoWithLevel(Long memberId) {
-        Tuple tuple = jpaQueryFactory.select(member.memberId, member.memberName, member.memberImgAddress, nationCode1.nationName)
+        Tuple tuple = jpaQueryFactory.select(member.memberId, member.memberName, member.memberImgAddress)
                 .from(member)
-                .innerJoin(korean).on(member.memberId.eq(korean.member.memberId))
-                .leftJoin(nationCode1).on(korean.nationCode.eq(nationCode1))
                 .where(member.memberId.eq(memberId))
                 .fetchOne();
 
@@ -128,7 +126,6 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
                 .memberId(tuple.get(member.memberId))
                 .memberName(tuple.get(member.memberName))
                 .memberImgAddress(tuple.get(member.memberImgAddress))
-                .memberNationName(tuple.get(nationCode1.nationName))
                 .build();
     }
 
