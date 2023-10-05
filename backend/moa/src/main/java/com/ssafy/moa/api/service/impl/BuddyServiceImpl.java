@@ -225,9 +225,10 @@ public class BuddyServiceImpl implements BuddyService {
             return buddy.get().getBuddyId();
         }
         else {
-            Korean korean = koreanRepository.findByMember(member)
-                    .orElseThrow(() -> new NotFoundException("Not Found Korean"));
-            Optional<Buddy> buddy = buddyRepository.findByKorean(korean);
+            Optional<Korean> korean = koreanRepository.findByMember(member);
+            if(!korean.isPresent()) return 0L;
+
+            Optional<Buddy> buddy = buddyRepository.findByKorean(korean.get());
             if(!buddy.isPresent()) return 0L;
             return buddy.get().getBuddyId();
         }
