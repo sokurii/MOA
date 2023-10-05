@@ -10,7 +10,7 @@ function KoreanLearningDefault(props) {
       <AppBar />
       <div className={Default.font}> View words about...</div>
       <div className={Default.container}>
-        <img src="../../../assets/news/default.png" alt="default logo" style={{ width: '330px', height: '387px', marginTop: '10%' }}/>
+        <img src="../../../assets/news/default.png" alt="default logo" style={{ width: '330px', height: '387px', marginTop: '10%' }} />
         <Link to="/koreanlearning/keyword">
           <button className={Default.btn}>키워드 등록하기</button>
         </Link>

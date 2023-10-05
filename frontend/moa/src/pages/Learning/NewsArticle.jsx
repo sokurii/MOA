@@ -5,6 +5,7 @@ import styles from './NewsArticle.module.css'
 import ArticleModal from '../../components/Learning/ArticleModal';
 import MenuHeader from '../../components/ETC/MenuHeader';
 import { useParams } from 'react-router-dom';
+import Loading from '../../components/Loading'
 
 function NewsArticle(props) {
 
@@ -23,6 +24,8 @@ function NewsArticle(props) {
     const [articleDate, setArticleDate] = useState('');
     const [articleUrl, setArticleUrl] = useState('');
     const [articleWords, setArticleWords] = useState([]);
+
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         learningApi.getNews(articleId)
@@ -64,6 +67,7 @@ function NewsArticle(props) {
                     else {
                         setIsNewsScrap(false);
                     }
+                    setIsLoading(false);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -224,94 +228,101 @@ function NewsArticle(props) {
 
     return (
         <>
-
             <MenuHeader title="뉴스보기"></MenuHeader>
-            <div className={styles.container}>
+            {isLoading ? (
+                <Loading />
+            )
+                : (
+                    <>
+                        <div className={styles.container}>
 
-                <div className={styles.articleTitle}>{articleTitle}</div>
-                <div className={styles.articleDate}>{articleDate}</div>
-                <button className={styles.listenToSound} onClick={() =>
-                    speech(articleSentences[currentSentenceIndex])}>
-                    <img src="../../../assets/NewsArticle/listen-to-sound.png"
-                        style={{ width: "35px", height: "35px", paddingTop: "5px" }} alt=""></img>
-                </button>
-                <button className={styles.recordSound}>
-                    <img src="../../../assets/NewsArticle/record-sound.png"
-                        style={{ width: "35px", height: "35px", paddingTop: "5px" }}></img>
-                </button>
-                {!isNewsScrap &&
-                    <button className={styles.scrap}
-                        onClick={createNewsScrap}>
-                        <img src="../../../assets/NewsArticle/scrap.png"
-                            style={{ width: "30px", height: "30px" }}></img>
-                    </button>
-                }
-                {isNewsScrap &&
-                    <button className={styles.scrap}
-                        onClick={deleteNewsScrap}
-                    >
-                        <img src="../../../assets/NewsArticle/scrap_complete.png"
-                            style={{ width: "28px", height: "35px" }}></img>
-                    </button>
-                }
+                            <div className={styles.articleTitle}>{articleTitle}</div>
+                            <div className={styles.articleDate}>{articleDate}</div>
+                            <button className={styles.listenToSound} onClick={() =>
+                                speech(articleSentences[currentSentenceIndex])}>
+                                <img src="../../../assets/NewsArticle/listen-to-sound.png"
+                                    style={{ width: "35px", height: "35px", paddingTop: "5px" }} alt=""></img>
+                            </button>
+                            <button className={styles.recordSound}>
+                                <img src="../../../assets/NewsArticle/record-sound.png"
+                                    style={{ width: "35px", height: "35px", paddingTop: "5px" }}></img>
+                            </button>
+                            {!isNewsScrap &&
+                                <button className={styles.scrap}
+                                    onClick={createNewsScrap}>
+                                    <img src="../../../assets/NewsArticle/scrap.png"
+                                        style={{ width: "30px", height: "30px" }}></img>
+                                </button>
+                            }
+                            {isNewsScrap &&
+                                <button className={styles.scrap}
+                                    onClick={deleteNewsScrap}
+                                >
+                                    <img src="../../../assets/NewsArticle/scrap_complete.png"
+                                        style={{ width: "28px", height: "35px" }}></img>
+                                </button>
+                            }
 
-                <div className={styles.articleContent}>
-                    <div className={styles.articleSentences}>
-                        <div>
-                            {articleSentences[currentSentenceIndex] && splitSentenceIntoWords(articleSentences[currentSentenceIndex]).map((word, index) => {
+                            <div className={styles.articleContent}>
+                                <div className={styles.articleSentences}>
+                                    <div>
+                                        {articleSentences[currentSentenceIndex] && splitSentenceIntoWords(articleSentences[currentSentenceIndex]).map((word, index) => {
 
-                                const matchingWord = articleWords.find((highlightWord) =>
-                                    isWordMatching(word, highlightWord)
-                                );
+                                            const matchingWord = articleWords.find((highlightWord) =>
+                                                isWordMatching(word, highlightWord)
+                                            );
 
-                                const matchingWordLength = matchingWord ? matchingWord.length : 0;
-                                const startIdx = word.indexOf(matchingWord);
-                                return (
-                                    <span>
-                                        <span>{word.substring(0, startIdx)}</span>
-                                        <span
-                                            key={index}
-                                            className={matchingWord
-                                                ? styles.highlightWord : ''}
-                                            onClick={() => {
-                                                if (matchingWord) {
-                                                    wordModal(matchingWord);
-                                                    translateWord(matchingWord);
-                                                }
-                                            }}>{word.substring(startIdx, startIdx + matchingWordLength)}
-                                        </span>{word.substring(startIdx + matchingWordLength)}{' '}
-                                    </span>
-                                );
-                            })}
-                        </div>
-                        {articleSentences[currentSentenceIndex] && (
-                            <div>
-                                {translatedSentence}
+                                            const matchingWordLength = matchingWord ? matchingWord.length : 0;
+                                            const startIdx = word.indexOf(matchingWord);
+                                            return (
+                                                <span>
+                                                    <span>{word.substring(0, startIdx)}</span>
+                                                    <span
+                                                        key={index}
+                                                        className={matchingWord
+                                                            ? styles.highlightWord : ''}
+                                                        onClick={() => {
+                                                            if (matchingWord) {
+                                                                wordModal(matchingWord);
+                                                                translateWord(matchingWord);
+                                                            }
+                                                        }}>{word.substring(startIdx, startIdx + matchingWordLength)}
+                                                    </span>{word.substring(startIdx + matchingWordLength)}{' '}
+                                                </span>
+                                            );
+                                        })}
+                                    </div>
+                                    {articleSentences[currentSentenceIndex] && (
+                                        <div>
+                                            {translatedSentence}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        )}
-                    </div>
-                </div>
 
-                <div className={styles.pageMoving}>
-                    <button onClick={goToPreviousIndex} className={styles.pageButton}>이전</button>
-                    <p className={styles.pageNumbers}>
-                        {currentSentenceIndex + 1} / {articleSentences.length}</p>
-                    <button onClick={goToNextIndex} className={styles.pageButton}>다음</button>
-                </div>
+                            <div className={styles.pageMoving}>
+                                <button onClick={goToPreviousIndex} className={styles.pageButton}>이전</button>
+                                <p className={styles.pageNumbers}>
+                                    {currentSentenceIndex + 1} / {articleSentences.length}</p>
+                                <button onClick={goToNextIndex} className={styles.pageButton}>다음</button>
+                            </div>
 
-                {
-                    isModalOpen &&
-                    <ArticleModal
-                        modalProps={{
-                            word: clickWord,
-                            onCloseModal: closeModal,
-                            translatedWord: translatedWord,
-                            isChatGptAsk: false,
-                        }}
-                    ></ArticleModal>
-                }
+                            {
+                                isModalOpen &&
+                                <ArticleModal
+                                    modalProps={{
+                                        word: clickWord,
+                                        onCloseModal: closeModal,
+                                        translatedWord: translatedWord,
+                                        isChatGptAsk: false,
+                                    }}
+                                ></ArticleModal>
+                            }
 
-            </div >
+                        </div >
+                    </>
+                )}
+
         </>
     );
 
