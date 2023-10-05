@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import store from '../store';
+import store, { useAppDispatch, useAppSelector, setIsMatching } from '../store';
+import Swal from "sweetalert2";
+import { matchingApi } from "../api/matchingApi";
 
 import ProgressBar from "../components/Matching/ProgressBar";
 import ConfirmButton from "../components/Buttons/ConfirmButton";
@@ -40,10 +42,29 @@ const buttonStyle = {
 };
 
 function Matching() {
+
   const isForeigner = state.isForeigner;
   // console.log(isForeigner);
 
   const [currentStep, setCurrentStep] = useState(0);
+
+  // 버디 가입 정보
+  const [selectedInterest, setSelectedInterest] = useState([]);
+  const [selectedGender, setSelectedGender] = useState(null);
+  const [selectedNation, setSelectedNation] = useState(null);
+
+  const [buddyId, setBuddyId] = useState(null);
+
+  const [isAlert, setIsAlert] = useState(false);
+
+  if (!isAlert) {
+    setIsAlert(true);
+    Swal.fire({
+      icon: 'warning',
+      text: '버디를 매칭해주세요!',
+      confirmButtonColor: '#CBDCFD',
+    }); 
+  }
 
   useEffect(() => {
     if (currentStep === 4) {
@@ -54,16 +75,29 @@ function Matching() {
   }, [currentStep]);
 
   const handleStartClick = () => {
-    setCurrentStep(isForeigner ? 2 : 1);
+    console.log(isForeigner);
+    setCurrentStep(isForeigner == "true" ? 2 : 1);
   };
+
+  useEffect(() => {
+    console.log("선호성별 " + selectedGender);
+  }, [selectedGender]);
+
+  useEffect(() => {
+    console.log("관심사 " + selectedInterest);
+  }, [selectedInterest]);
+
+  useEffect(() => {
+    console.log("관심 나라 " + selectedNation);
+  }, [selectedNation]);
 
   const steps = [
     <MatchingIntro />,
-    <KoreanBuddy />,
-    <BuddyInterest />,
-    <BuddyGender />,
+    <KoreanBuddy setSelectedNation={ setSelectedNation} />,
+    <BuddyInterest setSelectedInterest={ setSelectedInterest} />,
+    <BuddyGender setSelectedGender={ setSelectedGender} />,
     <LoadingMatching />,
-    <SuccessMatching />,
+    <SuccessMatching buddyId={ buddyId} />,
   ];
 
   const handlePrevClick = () => {
@@ -75,6 +109,47 @@ function Matching() {
   const handleNextClick = () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const dispatch = useAppDispatch();
+  const handleMatching = () => {
+    if (isForeigner == "false") {
+      const data = {
+        nationCode: selectedNation,
+        interest: selectedInterest, 
+        gender: selectedGender
+      }
+      console.log(data);
+      matchingApi.koreanInfo((data)).then((response) => {
+        console.log(response);
+        matchingApi.matching().then((response) => {
+          console.log(response);
+          dispatch(setIsMatching("true"));
+          setBuddyId(response.data.response);
+          setCurrentStep(currentStep + 1);
+        })
+        .catch((error) => {
+          console.log('버디 매칭 오류 발생');
+          console.log(error);
+        })
+      })
+        .catch((error) => {
+          console.log('버디 매칭 오류 발생');
+          console.log(error);
+        })
+    }
+    else {
+      matchingApi.matching().then((response) => {
+        console.log(response);
+        dispatch(setIsMatching(true));
+        setBuddyId(response.data.response);
+        setCurrentStep(currentStep + 1);
+      })
+      .catch((error) => {
+        console.log('버디 매칭 오류 발생');
+        console.log(error);
+      })
     }
   };
 
@@ -141,7 +216,7 @@ function Matching() {
               return (
                 <>
                   <ConfirmButton text='이전단계' onClick={handlePrevClick} />
-                  <ConfirmButton text='매칭하기' onClick={handleNextClick} />
+                  <ConfirmButton text='매칭하기' onClick={handleMatching} />
                 </>
               )
 

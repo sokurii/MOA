@@ -21,7 +21,7 @@ public class Foreigner {
 
     @Column(length = 100)
     private String foreignerKoreaName;
-    private int foreignerLikeGender;
+    private int foreignerLikeGender=3;
 
     @OneToOne
     @JoinColumn(name = "member_id")

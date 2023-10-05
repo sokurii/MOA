@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import store from '../store';
 import { useAppDispatch } from '../store';
@@ -8,7 +9,6 @@ import BottomBar from '../components/ETC/BottomBar';
 
 import Loading from '../components/Loading';
 import styles from '../styles/Main/Main.module.css';
-
 
 // const mainAreaContainerStyle = {
 //   flex: '1',
@@ -36,9 +36,16 @@ function Main(props) {
 
   console.log(isLoading);
 
-  useEffect(() => {
-    
-  }, []);
+  // const { isMatching } = useParams();
+  // console.log("새로고침 " + isMatching);
+  // const [isreload, setIsreload] = useState(false);
+  // useEffect(() => {
+  //   // if (isMatching!=null) {
+  //   //   window.location.reload();
+  //   // }
+  //   // window.location.reload();
+  //   // setIsreload(true);
+  // }, [isMatching]);
 
 
   const toggleBottomBar = () => {

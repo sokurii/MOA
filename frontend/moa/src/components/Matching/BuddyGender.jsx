@@ -29,10 +29,17 @@ const buttonContainerStyle = {
   justifyContent: 'space-between',
 };
 
-function BuddyGender(){
+function BuddyGender(props){
   const [selectedGender, setSelectedGender] = useState(null);
 
   const handleGenderClick = (gender) => {
+    console.log(gender);
+    if (gender == "동성 친구") {
+      props.setSelectedGender(0);
+    }
+    else {
+      props.setSelectedGender(3);
+    }
     setSelectedGender(gender);
   };
 

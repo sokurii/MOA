@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const koreanBuddyStyle = {
   display: 'flex',
@@ -36,7 +36,17 @@ const topCommentStyle = {
   alignItems: 'center',
 };
 
-function KoreanBuddy(){
+function KoreanBuddy(props) {
+  const [selected, setSelected] = useState("71");
+
+  const handleSelect = (e) => {
+    setSelected(e.target.value);
+  };
+
+  useEffect(() => {
+    props.setSelectedNation(selected);
+  }, [selected]);
+
   return(
     <div style={koreanBuddyStyle}>
       <div style={introCommentStyle}>
@@ -48,11 +58,11 @@ function KoreanBuddy(){
       </div>
       <div style={selectOptionContainerStyle}>
         <div style={topCommentStyle}>
-          <select style={selectBoxStyle}>
-            <option value="미국">미국</option>
-            <option value="일본">일본</option>
-            <option value="중국">중국</option>
-            <option value="영국">영국</option>
+          <select style={selectBoxStyle} onChange={handleSelect} value={selected}>
+            <option value="71">미국</option>
+            <option value="177">일본</option>
+            <option value="183">중국</option>
+            <option value="155">영국</option>
           </select>
           <span>에서 온</span>
         </div>

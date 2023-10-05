@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { matchingApi } from '../../api/matchingApi';
 
 import ConfirmButton from "../Buttons/ConfirmButton";
-
+import store from '../../store';
 const successStyle = {
   display: 'flex',
   justifyContent: 'space-evenly',
@@ -24,11 +25,47 @@ const imageStyle = {
   height: '250px',
 };
 
-function SuccessMatching(){
+function SuccessMatching(props){
   const navigate = useNavigate();
+ 
+  const state = store.getState();
+  const isMatching = state.isMatching;
+  const buddyId = props.buddyId;
+
+  // useEffect (() => {
+  //   matchingApi.isMatching()
+  //   .then((response) => {
+  //     const res = response.data.response;
+  //     console.log("버디아이디 가져옴 "+res); 
+  //     setBuddyId(res);
+  //   })
+  //   .catch((error) => {
+  //     alert('매칭된 버디가 없습니다');
+  //   });
+  // }, [])
 
   const goToBuddyTalk = () => {
-    navigate('/chatting/buddy');
+    console.log("성공창 매칭여부 " + isMatching);
+    // if(isMatching=="true"){
+    //   navigate('/chatting/buddy');
+    // }
+    // navigate('/');
+    // setTimeout(() => {
+    //   console.log("navigate전 buddyId : " + buddyId);
+    //   navigate('/chatting/buddy2', {
+    //     state: {
+    //       buddyId,
+    //     },
+    //   });
+    // }, 2000);
+
+    console.log("navigate전 buddyId : " + buddyId);
+      navigate('/chatting/buddy2', {
+        state: {
+          buddyId,
+        },
+      });
+
   };
 
   const goToMain = () => {

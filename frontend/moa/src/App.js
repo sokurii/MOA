@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import store from './store';
 import Cookies from 'js-cookie';
+// import { useAppDispatch, useAppSelector } from '../store';
 
 import Intro from './pages/Intro';
 import Main from './pages/Main';
@@ -43,10 +44,13 @@ import NotFound404 from './pages/NotFound404';
 import NewsArticle from './pages/Learning/NewsArticle';
 import ExchangeDiaryContent from './pages/Buddy/Diary/ExchangeDiaryContent';
 
+import { matchingApi } from './api/matchingApi' 
+
 function App() {
   const state = store.getState();
+  console.log(state);
   const accessToken = state.accessToken;
-  const isMatching = state.isMatching;
+  var isMatching = state.isMatching;
   console.log(isMatching);
   const refreshToken = Cookies.get('refreshToken');
 
@@ -62,6 +66,26 @@ function App() {
     startLoading();
   }, []);
 
+  // 매칭관련
+  const [isBuddyHave, setIsBuddyHave] = useState(null);
+  useEffect(() => {
+    matchingApi.isMatching()
+    .then((response) => {
+      console.log("api "+response.data.response);
+      setIsBuddyHave(response.data.response);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+  }, []);
+  
+  useEffect(() => {
+    if (isBuddyHave != 0) {
+      console.log("매칭이 true로 바뀜");
+      isMatching = "true";
+    }
+}, [isBuddyHave]);
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -73,7 +97,8 @@ function App() {
               <Route path="/matching" element={<Matching />} />
 
               <Route path="/chatting" element={<ChattingHome />} />
-              <Route path="/chatting/buddy" element={isMatching!=="false" ? <BuddyChattingModal /> : <Navigate to="/matching" />} />
+              <Route path="/chatting/buddy" element={isMatching != "false" ? <BuddyChattingModal /> : <Navigate to="/matching" />} />
+              <Route path="/chatting/buddy2" element={<BuddyChattingModal />} />
               <Route path="/chatting/openchat" element={<OpenChattingModal />} />
               <Route path="/chatting/openchat/:id" element={<OpenChattingDetail />} />
 
