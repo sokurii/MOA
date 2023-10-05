@@ -68,8 +68,13 @@
     font-size: 17px;
     line-height: 135%;
 
+    font-family: 'Pretendard-Regular';
     text-align: center;
     /* or 20px */
 
     color: #71787d;
+}
+
+.keywordInput::placeholder {
+    color: #a9a9a9;
 }

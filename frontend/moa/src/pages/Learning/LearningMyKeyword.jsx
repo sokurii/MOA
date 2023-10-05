@@ -87,6 +87,7 @@ function LearningKeyword(props) {
           id='keywordInput'
           className={News.keywordInput}
           value={addKeyword}
+          placeholder="키워드를 입력해주세요."
           onChange={handleKeywordInputChange}>
         </input>
       </div>
