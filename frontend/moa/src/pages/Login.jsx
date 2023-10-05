@@ -175,7 +175,7 @@ function Login(props) {
                 className="inputTitle"
               >
                 <span style={labelKorStyle}>이메일</span>
-                <span style={labelEngStyle}>Email</span>
+                {/* <span style={labelEngStyle}>Email</span> */}
               </label>
               <input
                 style={inputStyle}
@@ -193,7 +193,7 @@ function Login(props) {
                 className="inputTitle"
               >
                 <span style={labelKorStyle}>비밀번호</span>
-                <span style={labelEngStyle}>Password</span>
+                {/* <span style={labelEngStyle}>Password</span> */}
               </label>
               <input
                 style={inputStyle}

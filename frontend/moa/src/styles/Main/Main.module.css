@@ -1,0 +1,117 @@
+.mainPageStyle{
+  display: flex;
+  flex-direction: column;
+  /* min-height: 100vh; */
+}
+
+/* .appBarContainer{
+  position: fixed;
+  z-index: '2';
+  width: 100vw;
+  flex: 0;
+} */
+
+.mainContainer{
+  margin: 40px 0 0;
+}
+
+.userNameStyle{
+  margin: 0;
+  margin-left: 31px;
+  text-align: start;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+
+/* 메인 카드 */
+.cardContainer{
+  display: inline-block;
+  margin-top: 17px;
+  position: relative;
+}
+
+.buttonContainer img{
+  margin: 0 20px 0;
+  border-radius: 18px;
+  box-shadow: 20px 20px 50px 0px rgba(94, 94, 94, 0.10);
+
+  margin-top: 59px;
+  left: 0;
+  width: 90%;
+}
+
+.textContainer{
+  position: absolute;
+  text-align: start;
+  margin-left: 27px;
+  top: 60px;
+}
+
+/* 서브카드 */
+.subCardContainer{
+  margin-top: 28px;
+  display: inline-block;
+  position: relative;
+}
+
+.subCardContainer img{
+  border-radius: 18px;
+  box-shadow: 20px 20px 50px 0px rgba(94, 94, 94, 0.10);
+  position: relative;  
+  /* z-index: -3;/ */
+}
+
+.subTextContainer{
+  position: absolute;
+  text-align: start;
+  z-index: 1;
+  margin-left: 27px;
+  top: 40px;
+}
+
+/* 카드  스타일링 */
+.homeTitleFont{
+  width: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  color: #284657;
+  margin: 0 0 7px;
+}
+
+.homeSubFont{
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  color: #284657;
+  margin: 0;
+}
+
+/* 버디 서브 카드 */
+.buddyCards{
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 28px 20px 0;
+}
+
+.buddyTitleFont{
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #284657;
+  margin: 0 0 7px;
+}
+
+.buddySubFont{
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  color: #284657;
+  margin: 0;
+}
+
+.subBuddyContainer{
+  display: inline-block;
+  position: relative;
+}
