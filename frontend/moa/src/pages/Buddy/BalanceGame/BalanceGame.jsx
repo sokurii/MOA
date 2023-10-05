@@ -11,6 +11,7 @@ import { balanceGameApi } from '../../../api/balanceGameApi';
 import AppBar from '../../../components/ETC/AppBar';
 import BalanceGameItem from '../../../components/BalanceGame/BalanceGameItem';
 import BestBalanceGameItem from '../../../components/BalanceGame/BestBalanceGameItem';
+import BottomBar from '../../../components/ETC/BottomBar';
 
 const balanceGameContainerStyle = {
   padding: '10px 0'
@@ -189,6 +190,8 @@ function BalanceGame(props) {
           )}
         </div>
       </div>
+
+      <BottomBar />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { matchingApi } from '../../api/matchingApi';
 
 import AppBar from '../../components/ETC/AppBar';
 import Loading from '../../components/Loading';
+import BottomBar from '../../components/ETC/BottomBar';
 
 const chatHomeStyle = {
   height: '100vh',
@@ -159,6 +160,7 @@ function ChattingHome(props) {
               </div>
             </Link>
           </div>
+          <BottomBar />
         </>
       )}
     </div>

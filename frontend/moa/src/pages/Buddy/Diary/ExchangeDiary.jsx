@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import styles from './ExchangeDiary.module.css'
 import AppBar from '../../../components/ETC/AppBar';
 import Loading from '../../../components/Loading';
+import BottomBar from '../../../components/ETC/BottomBar';
 
 import { matchingApi } from '../../../api/matchingApi'
 
@@ -140,6 +141,7 @@ function ExchangeDiary(props) {
                   </div>
                 </>
               )}
+              <BottomBar />
           </>
         )}
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Style from '../../styles/Learning/MyCollection.module.css';
 import MenuHeader from '../../components/ETC/MenuHeader'
+import BottomBar from '../../components/ETC/BottomBar';
 import { WordLearning, NewsLearning } from '../../components/Learning/ScrapMore';
 import { useLocation, useNavigate  } from 'react-router-dom';
 import { learningApi } from '../../api/learningApi';
@@ -80,6 +81,7 @@ function MyCollection(props) {
                     <NewsLearning news={twoNews}/>
                 </div>
             </div>
+            <BottomBar />
         </div>
     );
 }

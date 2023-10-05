@@ -4,7 +4,8 @@ import WordCloud from '../../components/Learning/WordCloud';
 import PopularWords from '../../components/Learning/PopularWords';
 import AppBar from '../../components/ETC/AppBar';
 import Korean from '../../styles/Learning/KoreanLearning.module.css';
-import Loading from '../../components/Loading'
+import Loading from '../../components/Loading';
+import BottomBar from '../../components/ETC/BottomBar';
 import { Link } from 'react-router-dom';
 import { learningApi } from '../../api/learningApi';
 
@@ -47,6 +48,7 @@ function KoreanLearning(props) {
             <PopularWords popularWords={popularWords} />
           </div>
 
+          <BottomBar />
         </>
       )}
 

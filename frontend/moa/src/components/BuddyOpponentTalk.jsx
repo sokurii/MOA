@@ -7,8 +7,9 @@ const opponentTalkStyle = {
   width: '75%',
   color: '#B88CD3',
   background: '#FCF3FB',
-  borderRadius: '5px',
+  borderRadius: '18px',
   textAlign: 'left',
+  fontSize: '20px',
   boxShadow: '0px 4px 4px rgba(128.33, 106.45, 128.78, 0.10)',
 }
 

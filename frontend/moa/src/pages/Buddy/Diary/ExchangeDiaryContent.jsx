@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import MenuHeader from '../../../components/ETC/MenuHeader';
 import styles from '../Diary/ExchangeDiaryContent.module.css'
 import Calendar from 'react-calendar';
+import BottomBar from '../../../components/ETC/BottomBar';
 import '../Diary/DiaryCalender.css';
 
 import moment from 'moment/moment';
@@ -129,6 +130,7 @@ function ExchangeDiaryContent() {
                     )}
                 </div>
             </div>
+            <BottomBar />
         </div>
     );
 }

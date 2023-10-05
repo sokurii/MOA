@@ -3,6 +3,7 @@ import { quizApi } from '../../api/quizApi';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../styles/Quiz/IncorrectNote.module.css';
 import MenuHeader from '../../components/ETC/MenuHeader';
+import BottomBar from '../../components/ETC/BottomBar';
 // import IncorrectNoteList from '../../components/Quiz/IncorrectNoteList';
 
 
@@ -60,6 +61,7 @@ function IncorrectNote(props) {
           </div>
         </div>
       </div>
+      <BottomBar />
     </div>
   );
 }

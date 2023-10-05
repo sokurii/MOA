@@ -1,5 +1,6 @@
 import React from 'react';
 import AppBar from '../../components/ETC/AppBar';
+import BottomBar from '../../components/ETC/BottomBar';
 import Default from '../../styles/Learning/KoreanLearningDefault.module.css';
 
 import { Link } from 'react-router-dom';
@@ -15,7 +16,7 @@ function KoreanLearningDefault(props) {
           <button className={Default.btn}>키워드 등록하기</button>
         </Link>
       </div>
-
+      <BottomBar />
     </div>
   );
 }

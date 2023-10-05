@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import AppBar from '../../../components/ETC/AppBar';
+import BottomBar from "../../../components/ETC/BottomBar";
 import { koreaTourApi } from "../../../api/KoreaTourApi";
 import styles from '../../../styles/KoreaTour/KoreaTourSearch.module.css';
 import styled from 'styled-components'
@@ -224,6 +225,7 @@ function KoreaTour(props) {
             </div>
           </div>
         </div>
+        <BottomBar />
       </div>
   );
 }

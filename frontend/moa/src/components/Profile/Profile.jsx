@@ -176,7 +176,7 @@ function Profile({ onClose }) {
       console.log('버디와 함께 한 날짜 조회 오류');
       console.log(error);
     });
-  });
+  }, []);
 
   // 로그아웃 핸들러 함수
   const handleLogout = () => {

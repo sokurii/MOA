@@ -25,7 +25,6 @@ import styles from '../styles/Main/Main.module.css';
 // };
 
 function Main(props) {
-  const [isBottomBarVisible, setBottomBarVisible] = useState(false);
   const dispatch = useAppDispatch();
 
   const state = store.getState();
@@ -47,22 +46,6 @@ function Main(props) {
   //   // setIsreload(true);
   // }, [isMatching]);
 
-
-  const toggleBottomBar = () => {
-    setBottomBarVisible(!isBottomBarVisible);
-  };
-
-  const bottomBarContainerStyle = {
-    position: 'fixed',
-    bottom: '0',
-    left: '0',
-    right: '0',
-    width: '100%',
-    boxSizing: 'border-box',
-    transition: 'bottom 0.3s ease', // 트랜지션 효과 추가
-  };
-  
-
   return (
     <div className={styles.mainPageStyle}>
       {isLoading ? <Loading /> : (
@@ -74,15 +57,7 @@ function Main(props) {
             <MainArea />
           </div>
 
-          <div
-            style={{
-              ...bottomBarContainerStyle,
-              bottom: isBottomBarVisible ? '0' : '-56px', // 나타날 때와 숨길 때의 위치 조절
-            }}
-            onClick={toggleBottomBar}
-          >
-            <BottomBar />
-          </div>
+          <BottomBar />
         </>
       )}
     </div>
