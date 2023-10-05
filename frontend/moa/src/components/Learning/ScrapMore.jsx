@@ -11,7 +11,7 @@ function WordLearning(props) {
                 word.map((list, index) => {
                     return (
                         <div className={Style.middleContainer} key={index}>
-                            <div className={Style.wordFont}>{list.wordName}</div>
+                            <div className={Style.myWordKoreanFont}>{list.wordName}</div>
                             <div className={Style.myWordFont}>{list.wordMean}</div>
                         </div>
                     )
@@ -45,7 +45,7 @@ function NewsLearning(props) {
                     const translatedItem = translatedSentence[index];
                     return (
                         <div className={Style.middleContainer} key={index}>
-                            <div className={Style.wordFont}>{list.articleTitle}</div>
+                            <div className={Style.myWordKoreanFont}>{list.articleTitle}</div>
                             <div className={Style.myWordFont}>{translatedItem}</div>
                         </div>
                     )
