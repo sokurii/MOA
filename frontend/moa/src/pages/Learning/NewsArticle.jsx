@@ -11,6 +11,8 @@ function NewsArticle(props) {
 
     const { articleId } = useParams();
 
+    const [isSpeech, setIsSpeech] = useState(true);
+
     const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
     const [translatedSentence, setTranslatedSentence] = useState('');
     const [translatedWord, setTranslatedWord] = useState('');
@@ -144,6 +146,16 @@ function NewsArticle(props) {
 
     //TTS
 
+    const clickSpeech = () => {
+        setIsSpeech(!isSpeech);
+        if(isSpeech){
+            speech(articleSentences[currentSentenceIndex]);                    
+        }
+        else {
+            window.speechSynthesis.cancel();
+        }
+    };
+
     useEffect(() => {
         setVoiceList();
     })
@@ -236,32 +248,31 @@ function NewsArticle(props) {
                     <>
                         <div className={styles.container}>
 
-                            <div className={styles.articleTitle}>{articleTitle}</div>
-                            <div className={styles.articleDate}>{articleDate}</div>
-                            <button className={styles.listenToSound} onClick={() =>
-                                speech(articleSentences[currentSentenceIndex])}>
-                                <img src="../../../assets/NewsArticle/listen-to-sound.png"
-                                    style={{ width: "35px", height: "35px", paddingTop: "5px" }} alt=""></img>
-                            </button>
-                            <button className={styles.recordSound}>
-                                <img src="../../../assets/NewsArticle/record-sound.png"
-                                    style={{ width: "35px", height: "35px", paddingTop: "5px" }}></img>
-                            </button>
-                            {!isNewsScrap &&
-                                <button className={styles.scrap}
-                                    onClick={createNewsScrap}>
-                                    <img src="../../../assets/NewsArticle/scrap.png"
-                                        style={{ width: "30px", height: "30px" }}></img>
-                                </button>
-                            }
-                            {isNewsScrap &&
-                                <button className={styles.scrap}
-                                    onClick={deleteNewsScrap}
-                                >
-                                    <img src="../../../assets/NewsArticle/scrap_complete.png"
-                                        style={{ width: "28px", height: "35px" }}></img>
-                                </button>
-                            }
+                <div className={styles.articleTitle}>{articleTitle}</div>
+                <div className={styles.articleDate}>{articleDate}</div>
+                <button className={styles.listenToSound} onClick={clickSpeech}>
+                    <img src="../../../assets/NewsArticle/listen-to-sound.png"
+                        style={{ width: "35px", height: "35px", paddingTop: "5px" }} alt=""></img>
+                </button>
+                <button className={styles.recordSound}>
+                    <img src="../../../assets/NewsArticle/record-sound.png"
+                        style={{ width: "35px", height: "35px", paddingTop: "5px" }}></img>
+                </button>
+                {!isNewsScrap &&
+                    <button className={styles.scrap}
+                        onClick={createNewsScrap}>
+                        <img src="../../../assets/NewsArticle/scrap.png"
+                            style={{ width: "30px", height: "30px" }}></img>
+                    </button>
+                }
+                {isNewsScrap &&
+                    <button className={styles.scrap}
+                        onClick={deleteNewsScrap}
+                    >
+                        <img src="../../../assets/NewsArticle/scrap_complete.png"
+                            style={{ width: "28px", height: "35px" }}></img>
+                    </button>
+                }
 
                             <div className={styles.articleContent}>
                                 <div className={styles.articleSentences}>

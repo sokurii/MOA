@@ -49,6 +49,7 @@ function App() {
   const state = store.getState();
   const accessToken = state.accessToken;
   const isMatching = state.isMatching;
+  console.log(isMatching);
   const refreshToken = Cookies.get('refreshToken');
 
   const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +75,7 @@ function App() {
               <Route path="/matching" element={<Matching />} />
 
               <Route path="/chatting" element={<ChattingHome />} />
-              <Route path="/chatting/buddy" element={<BuddyChattingModal />} />
+              <Route path="/chatting/buddy" element={isMatching!=="false" ? <BuddyChattingModal /> : <Navigate to="/matching" />} />
               <Route path="/chatting/openchat" element={<OpenChattingModal />} />
               <Route path="/chatting/openchat/:id" element={<OpenChattingDetail />} />
 
@@ -95,13 +96,13 @@ function App() {
               <Route path="/quiz/incorrect-note-list" element={<IncorrectNoteList />} />
               <Route path="/quiz/quiz-result" element={<QuizResult />} />
 
-              <Route path="/buddy/exchangediary" element={<ExchangeDiary />} />
+              <Route path="/buddy/exchangediary" element={isMatching!=="false" ? <ExchangeDiary /> : <Navigate to="/matching" />} />
               <Route path="/buddy/exchangediary/:exchangeDiaryDate" element={<ExchangeDiaryDetail />} />
               <Route path="/buddy/exchangediary/content" element={<ExchangeDiaryContent />} />
               <Route path="/buddy/exchangediary/create" element={<CreateExchangeDiary />} />
               <Route path="/buddy/exchangediary/:id/update" element={<UpdateExchangeDiary />} />
 
-              <Route path="/buddy/balancegame" element={<BalanceGame />} />
+              <Route path="/buddy/balancegame" element={isMatching!=="false" ? <BalanceGame /> : <Navigate to="/matching" />} />
               <Route path="/buddy/balancegame/:id" element={<BalanceGameDetail />} />
               <Route path="/buddy/balancegame/create" element={<CreateBalanceGame />} />
               <Route path="/buddy/balancegame/:id/update" element={<UpdateBalanceGame />} />
