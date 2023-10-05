@@ -58,6 +58,7 @@ function BuddyChatArea({ buddyId }) {
   const userInfo = state.userInfo;
   const sender = JSON.parse(userInfo).memberId.toString();
 
+  const [shouldScrollToBottom, setShouldScrollToBottom] = useState(true);
   const chatAreaRef = useRef();
 
   useEffect(() => {
@@ -73,13 +74,17 @@ function BuddyChatArea({ buddyId }) {
   }, [messages]);
 
   useEffect(() => {
-    const scrollToBottom = () => {
-      if (chatAreaRef.current) {
-        chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
-      }
-    };
-    scrollToBottom();
-  }, [messages])
+    // 새 메시지가 도착할 때마다 자동으로 스크롤됩니다.
+    if (shouldScrollToBottom) {
+      scrollToBottom();
+    }
+  }, [messages, shouldScrollToBottom]);
+
+  const scrollToBottom = () => {
+    if (chatAreaRef.current) {
+      chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
+    }
+  };
 
   useEffect(() => {
     setStompClient(
@@ -99,8 +104,6 @@ function BuddyChatArea({ buddyId }) {
             console.log('subscribe 콜백 함수에서 에러 발생:', error);
           }
         }, {});
-
-        console.log(stompClient.subscriptions);
 
         stompClient.send(`/pub/chat/message`, {},
         JSON.stringify({
@@ -136,8 +139,19 @@ function BuddyChatArea({ buddyId }) {
           message: inputMyText,
         }));
       };
-      chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
       setInputMyText('');
+      setShouldScrollToBottom(true);
+    }
+  };
+
+  const handleScroll = () => {
+    // 사용자가 수동으로 스크롤할 때 자동 스크롤을 비활성화합니다.
+    if (
+      chatAreaRef.current &&
+      chatAreaRef.current.scrollHeight - chatAreaRef.current.scrollTop !==
+        chatAreaRef.current.clientHeight
+    ) {
+      setShouldScrollToBottom(false);
     }
   };
 
@@ -146,6 +160,7 @@ function BuddyChatArea({ buddyId }) {
       <div 
         style={chatAreaStyle}
         ref={chatAreaRef}
+        onScroll={handleScroll}
       >
         {messages.map((message, index) =>
           message.sender === sender ? (
