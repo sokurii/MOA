@@ -31,10 +31,10 @@
 - FrontEnd - 뉴스
 
 ## ERD
-![title](./assets/ERD.png)
+![ERD](./assets/ERD.png)
 
 ## ARCHITECTURE
-![title](./assets/Architecture.png)
+![Architecture](./assets/Architecture.png)
 
 ## 서비스 소개
 ### 1. 
@@ -47,15 +47,15 @@
 - KoNLPy 활용 -> 한국어 자연어처리 라이브러리, 형태소 분석을 통한 단어 분리, 자체 제작 불용어 사전으로 단어 필터링
 - 빅데이터 분산처리 시스템 -> 낮은 자원으로 연산 효율 ↑, 확장용이성 ↑
 - 빅데이터 분산처리 파이프라인
-![title](./assets/Pipeline.png)
+![Pipeline](./assets/Pipeline.png)
 - DAG(Directed Acyclic Graph) : Task 간 의존성 설정을 통해 데이터 ETL(Extract - Transform - Load) 과정의 무결성 보장
 
 ### 백엔드
 - 자연어 처리를 통한 말뭉치 데이터 형태소를 분석하여 퀴즈 제공
-![title](./assets/BackData1.png)  ![title](./assets/quiz.png)
+![BackData1](./assets/BackData1.png)  ![quiz](./assets/quiz.png)
 - Selenium 활용
     - 이미지 정보 제공을 위해 키워드 구글 검색으로 이미지 파일 크롤링
-![title](./assets/Selenium.png)
+![Selenium](./assets/Selenium.png)
 - ElasticSearch
     - 역색인(Inverted Index)을 통해 특정 문자열 검색 속도를 비약적으로 향상
     - nori, ngram을 사용하여 형태소 분석의 정확도를 높임
