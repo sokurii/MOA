@@ -1,0 +1,259 @@
+.quizTitle{
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 31px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  text-align: start;
+  /* display: flex; */
+}
+
+.questionContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.questionArea{
+  margin: 0 20px 0;
+  width: 350px;
+  height: 210px;
+
+  border-radius: 18px;
+  border: 7px solid rgba(222, 255, 149, 0.91);
+  background: #FFF;
+  filter: drop-shadow(-9px -9px 16px rgba(255, 255, 255, 0.60)) drop-shadow(9px 9px 16px rgba(226, 226, 227, 0.60));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.questionArea p{
+  text-align: center;
+  margin: 0;
+  font-family: "Ganpan";
+  font-size: 32px;
+}
+
+button img{
+  width: 79px;
+}
+
+.quizUl{
+  margin-top: 51px;
+  padding: 0 20px 0;
+}
+
+.selectBtn{
+  width: calc(50% - 15px); /* 50% 너비에서 5px 간격을 뺀 값 */
+  margin: 7.5px;
+  height: 98.81px;
+  padding: 25px 21px;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Ganpan";
+  font-size: 24px;
+
+  border-style: none;
+  border-radius: 18px;
+  background: var(--SELECT, radial-gradient(50% 50% at 50% 50%, #FFF 48.23%, #FAF8F8 100%), radial-gradient(50% 50% at 50% 50%, #FFF 0%, rgba(255, 255, 255, 0.00) 100%));
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.20));
+}
+.selectBtn.selected{
+  width: calc(50% - 15px); /* 50% 너비에서 5px 간격을 뺀 값 */
+  margin: 7.5px;
+  height: 98.81px;
+  padding: 25px 21px;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Ganpan";
+  font-size: 24px;
+
+  border-style: none;
+  border-radius: 18px;
+  background: var(--SELECTED, linear-gradient(180deg, #F8F8F8 0%, #DADADA 95.29%));
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.20));
+}
+
+
+/* 문장 */
+
+.sentenceArea{
+  margin: 0 20px 0;
+  width: 350px;
+  height: 97px;
+
+  border-radius: 18px;
+  border: 7px solid rgba(222, 255, 149, 0.91);
+  background: #FFF;
+  filter: drop-shadow(-9px -9px 16px rgba(255, 255, 255, 0.60)) drop-shadow(9px 9px 16px rgba(226, 226, 227, 0.60));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sentenceArea p{
+  text-align: center;
+  margin: 0;
+  font-family: "Ganpan";
+  font-size: 18px;
+  margin: 0 20px;
+}
+
+.sentenceArea img{
+  width: 70px;
+}
+
+.selectBtns{
+  flex: 0 0 calc(33.33% - 10px);
+  margin-bottom: 10px;
+  padding: 10px 25px;
+  text-align: center;
+  font-family:'Ganpan';
+  font-size: 20px;
+
+  border-radius: 18px;
+  border-style: none;
+  background: var(--SELECT, radial-gradient(50% 50% at 50% 50%, #FFF 48.23%, #FAF8F8 100%), radial-gradient(50% 50% at 50% 50%, #FFF 0%, rgba(255, 255, 255, 0.00) 100%));
+}
+
+.selectBtns.selected{
+  flex: 0 0 calc(33.33% - 10px);
+  margin-bottom: 10px;
+  padding: 10px 25px;
+  text-align: center;
+  font-family:'Ganpan';
+  font-size: 20px;
+
+  border-radius: 18px;
+  border-style: none;
+  background: var(--SELECTED, linear-gradient(180deg, #F8F8F8 0%, #DADADA 95.29%));
+}
+
+.sentenceQuizUl{
+  margin: 0 20px;
+  flex: 1;
+  flex-wrap: wrap; 
+  justify-content:space-around;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center; */
+  padding: 0;
+  gap: 10px;
+}
+
+.answerContainer{
+  margin: 0px 20px;
+
+
+}
+
+.completeAnswer{
+  font-family:'Ganpan';
+  font-size: 20px;
+  height: 80px;
+  background-color: rgb(243, 243, 243);
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  border-radius: 18px;
+  margin-bottom: 5px;
+  margin-top: 0;
+}
+
+.btnContainer{
+  display: flex;
+  gap: 5px;
+}
+
+.answerContainer button{
+  background: var(--ex, linear-gradient(104deg, #C4DD7C 32.8%, #A6CC38 101.6%));
+  color: white;
+  width: 100%;
+  padding: 17px 25px;
+  border-radius: 18px;
+  border-style: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.resultBtn{
+  background: var(--ex, linear-gradient(104deg, #C4DD7C 32.8%, #A6CC38 101.6%));
+  padding: 17px 0px;
+  font-size: 18px;
+  font-weight: bold;
+
+  border-radius: 18px;
+  border-style: none;
+}
+
+/* 결과모달 */
+
+.resultModal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  border-radius: 18px;
+  background-color: #fff;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.resultModal img{
+  margin-bottom: 10px;
+}
+
+.resultModal p{
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+
+.correctMessage{
+  width: 253px;
+  height: 182px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #E5F8D2 0%, #FFF 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.incorrectMessage{
+  width: 253px;
+  height: 182px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #FFDADA 0%, #FFF 50.31%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.excludeBtn{
+  width: 222px;
+  height: 37px;
+  border: none;
+  margin-top: 13px ;
+
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  border-radius: 18px;
+  background: var(--ex, linear-gradient(104deg, #C4DD7C 32.8%, #A6CC38 101.6%));
+}

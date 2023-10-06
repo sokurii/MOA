@@ -1,0 +1,24 @@
+{
+  "properties": {
+    "realImg" : { "type": "text" },
+    "placeNm": { "type": "text" },
+    "placeTy": { "type": "text" },
+    "operTime": { "type": "text" },
+    "restTime": { "type": "text" },
+    "rstdeQuidCn": { "type": "text" },
+    "addr": { "type": "text" },
+    "latitude": { "type": "float" },
+    "longitude": { "type": "float" },
+    "telNo": { "type": "long", "null_value": 0  },
+    "location": { "type": "geo_point" },
+    "seqNo" : {"type": "integer"},
+    "mediaTy": { "type": "text" },
+    "titleNm": { "type": "text" },
+    "relatePlaceDc": { "type": "text" },
+    "lastUpdtDe": { "type": "integer" }
+  },
+  "description" : {
+    "type" : "text",
+    "analyzer" : "korean"
+  }
+}

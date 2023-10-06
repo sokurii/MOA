@@ -1,0 +1,104 @@
+.scrapBoxContainer{
+    display: flex;
+    width: 349px;
+    padding: 31px 15px;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 18px;
+    background: #FFF;
+    margin: 14px auto;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+.wordContainer {
+    display: flex;
+    width: 383px;
+    padding: 31px 15px;
+    align-items: center;
+    border-radius: 18px;
+    background-color: #ffffff;
+}
+
+.background {
+    background: url('../../../public/assets/Background/collection_background.png') no-repeat;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.fontContainer {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: flex-start; */
+    align-self: stretch;
+}
+
+.wordFont {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.plusFont {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.middleTopContainer {
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    margin-top: 15px;
+}
+.middleContainer {
+    display: flex;
+    flex-direction: row;
+    min-height: 75px;
+    padding: 5px 22px;
+    margin: 7px 4px;
+    /* align-self: stretch; */
+    justify-content: space-between;
+    text-align: left;
+    /* justify-content: center; */
+    border-radius: 15px;
+    border: 1px solid #47A0DC;
+    background-color: #ffffff;
+}
+
+.leftTextContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rightIconContainer {
+    display: flex;
+    align-items: center;
+}
+
+.imgBox {
+    width: 16px;
+    height: 16px;
+}
+
+.myWordKoreanFont {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.myWordFont {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.scrapContainer {
+    flex: 1;
+    padding-bottom: 919px;
+    width: 383px;
+    padding: 31px 15px;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 28px 28px 0px 0px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+}

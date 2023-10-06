@@ -1,0 +1,129 @@
+.topContainer {
+    position: relative;
+    width: 412px;
+    height: 104px;
+    box-shadow: 4px 4px 16px rgba(181, 178, 178, 0.25), -4px -4px 16px #F0FFF3;
+}
+
+.collectionContainer {
+    position: relative;
+    width: 412px;
+    height: 104px;
+    /* box-shadow: -4px -4px 16px 0px #F0FFF3, 4px 4px 16px 0px rgba(181, 178, 178, 0.25); */
+    background-color: #CBDCFD;
+}
+
+.leftWrap {
+    position: absolute;
+    top: 70%;
+    left: 10%;
+    font-size: 21.903px;
+    transform: translate(-10%, -70%);
+}
+
+.rightWrap {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    font-size: 20px;
+}
+
+.middleContainer {
+    position: relative;
+    width: 350px;
+    flex-shrink: 0;
+    border-radius: 18px;
+    margin: 17px auto;
+    background: rgba(203, 220, 253, 0.79);
+    /* thiss */
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 18px;
+}
+
+.wrapContainer {
+    padding: 10px 32px;
+}
+
+.middleTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: left;
+}
+
+.fontContainer {
+    padding-top: 30px;
+}
+
+.fontBrContainer {
+    display: flex;
+    margin-left: 32px;
+    align-items: flex-end;
+}
+
+.topLeftFont {
+    color: #2C432E;
+    font-size: 20px;
+    font-weight: 700;
+    position: absolute;
+    left: 58px;
+    top: 50px;
+}
+
+.topRightFont {
+    color: #2C432E;
+    font-size: 17px;
+    position: absolute;
+    left: 50px;
+    top: 75px;
+}
+
+.soundContainer {
+    margin-left: 190px;
+    width: 51px;
+    height: 51px;
+    /* margin-bottom: 0px; */
+    margin-top: 30px;
+    background: #FFFFFF;
+    border: 2.37209px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 10.6744px 10.6744px 18.9767px rgba(177, 200, 244, 0.6), -10.6744px -10.6744px 18.9767px rgba(255, 255, 255, 0.6);
+    border-radius: 23.7209px;
+}
+
+.soundImg {
+    width: 27.5px;
+    height: 20.119px;
+}
+
+.askButton {
+    width: 286px;
+    height: 39px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    display: inline-flex;
+    padding: 10px 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    border-radius: 60px;
+    background: var(--blueBtn, linear-gradient(133deg, #B5CCF9 -0.88%, #6C99F0 126.31%));
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.askFont {
+    color: #FFF;
+    font-size: 16px;
+}
+
+.container {
+    position: relative;
+    width: 350px;
+    height: 168px;
+    flex-shrink: 0;
+    border-radius: 18px;
+    margin: 17px auto;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+    fill: rgba(0, 0, 0, 0.40);
+}

@@ -1,0 +1,108 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 915px;
+    background: url("../../../../public/assets/Background/exchange_diary_background.png");
+}
+
+.diaryInside {
+    position: absolute;
+    left: 0px;
+    top: calc(50% - 584px/2 + 50px);
+}
+
+
+.diaryInsideImg {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.diaryDate {
+    position: absolute;
+    width: 157px;
+    height: 27px;
+    left: 60px;
+    top: 40px;
+
+    font-family: 'KCC-Ganpan';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
+}
+
+.diaryPhoto {
+    position: absolute;
+    left: 50px;
+    top: 80px;
+    width: 288px;
+    height: 208px;
+}
+
+.diaryContentInput {
+    position: absolute;
+    left: 50px;
+    top: 303px;
+    width: 265px;
+    height: 83px;
+    padding: 10px;
+
+    border-color: #FC9F31;
+    outline-color: #FC9F31;
+
+    font-family: 'KCC-Ganpan';
+    font-style: normal;
+    font-size: 15px;
+    resize: none;
+    overflow-y: auto;
+}
+
+.diaryContentInput::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.diaryContentInput::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(255, 119, 0, 0.3);
+    width: 10px;
+    height: 10px;
+
+}
+
+.diaryContentInput::-webkit-scrollbar-thumb {
+    background-color: #FFD88D;
+    outline: 1px solid #FC9F31;
+    width: 10px;
+    height: 10px;
+}
+
+.diaryCreateButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 17px 65px;
+    gap: 10px;
+
+    position: absolute;
+    width: 286px;
+    height: 56px;
+    left: calc(50% - 286px/2 + 8px);
+    top: 420px;
+
+    border: none;
+    background: linear-gradient(185.83deg, #FFD88D 4.86%, #FC9F31 80.61%);
+    border-radius: 18px;
+
+    font-family: 'KCC-Ganpan';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+
+    color: #FFFFFF;
+}

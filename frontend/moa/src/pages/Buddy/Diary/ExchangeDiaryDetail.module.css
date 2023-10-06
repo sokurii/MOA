@@ -1,0 +1,144 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 915px;
+    background: url("../../../../public/assets/Background/exchange_diary_background.png");
+}
+
+.diaryInside {
+    position: absolute;
+    left: 0px;
+    top: calc(50% - 584px/2 + 50px);
+}
+
+.diaryInsideImg {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.diaryDate {
+    position: absolute;
+    width: 200px;
+    height: 27px;
+    left: 60px;
+    top: 40px;
+
+    font-family: 'KCC-Ganpan';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
+}
+
+.diaryPhoto {
+    position: absolute;
+    left: 50px;
+    top: 80px;
+    width: 288px;
+    height: 208px;
+}
+
+.diaryContent {
+    position: absolute;
+    left: 50px;
+    top: 303px;
+    width: 268px;
+    height: 110px;
+    padding: 10px;
+
+    border-color: #FC9F31;
+    outline-color: #FC9F31;
+
+    font-family: 'KCC-Ganpan';
+    font-style: normal;
+    font-size: 17px;
+    overflow-y: auto;
+
+    text-align: left;
+
+    white-space: pre-line;
+}
+
+.diaryContentInput::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.diaryContentInput::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(255, 119, 0, 0.3);
+    width: 10px;
+    height: 10px;
+
+}
+
+.diaryContentInput::-webkit-scrollbar-thumb {
+    background-color: #FFD88D;
+    outline: 1px solid #FC9F31;
+    width: 10px;
+    height: 10px;
+}
+
+.moveToNextPage {
+    position: absolute;
+    width: 180px;
+    height: 24px;
+    left: 180px;
+    top: 450px;
+
+    font-family: 'SUITE-Regular';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 19px;
+    text-align: center;
+
+    color: #FC9F33;
+}
+
+.diaryNoContent {
+    position: absolute;
+    left: 120px;
+    top: 170px;
+}
+
+.diaryNoContentDesc {
+    margin-top: 10px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.065em;
+
+    color: #000000;
+}
+
+.diaryNoContentBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+
+    width: 226px;
+    height: 41px;
+    margin-top: 10px;
+
+    background: linear-gradient(185.83deg, #FFD88D 4.86%, #FC9F31 80.61%);
+    border: none;
+    border-radius: 18px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    font-family: 'SUITE-Regular';
+    /* identical to box height */
+
+    color: #FFFFFF;
+}

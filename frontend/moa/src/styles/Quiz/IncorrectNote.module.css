@@ -1,0 +1,69 @@
+.retryBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.retryContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 350px;
+  height: 477px;
+  background-color: #fff;
+  border-radius: 8px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  text-align: center;
+
+  border: 6px solid #E6F58A;
+  border-radius: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.retryContainer p, .retryContainer span {
+  margin: 0;
+  font-family: "Ganpan";
+  font-size: 32px;
+}
+
+.wrongCnt{
+  margin-bottom: 50px;
+}
+
+.wrongCnt input{
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #0980D0;
+  font-size: 32px;
+  font-family: "Ganpan";
+  padding: 0; /* 내부 여백 제거 */
+  width: 100px; /* 내용에 맞게 자동 조정 */
+  background: transparent; /* 배경 제거 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.retryBtn{
+display: flex;
+width: 286px;
+height: 57px;
+justify-content: center;
+align-items: center;
+
+border-radius: 18px;
+background: var(--ex, linear-gradient(104deg, #C4DD7C 32.8%, #A6CC38 101.6%));
+}
+
+.retryBtn{
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+

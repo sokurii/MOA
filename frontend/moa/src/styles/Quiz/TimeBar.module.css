@@ -1,0 +1,14 @@
+.TimeBarContainer{
+  width: 100%;
+  background-color: #C4DD7C;
+}
+
+.TimeBar{
+  /* width: 100%; */
+  height: 15px;
+  background-color: rgb(243, 243, 243);
+  line-height: 15px;
+  transform-origin: left; /* 변환 축을 왼쪽으로 설정 */
+  transform: scaleX(1); /* 초기 변환 스케일 설정 */
+  transition: transform 1s linear; /* 변환 애니메이션 설정 */
+}

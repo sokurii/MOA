@@ -1,0 +1,26 @@
+.usecaseContainer {
+    display: flex;
+    margin: 18px auto;
+    width: 348px;
+    padding: 17px 16px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 18px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.firstFont {
+    text-align: left;
+    line-height: normal;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.secondFont {
+    text-align: left;
+    color: #B1B1B1;
+    font-size: 14px;
+    line-height: normal;
+}

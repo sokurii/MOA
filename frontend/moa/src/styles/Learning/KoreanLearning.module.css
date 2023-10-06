@@ -1,0 +1,49 @@
+.font {
+    margin-left: 20px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.displayWord {
+    display: flex;
+    margin-top: 42px;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+.display {
+    margin-top: 42px;
+}
+
+.middleFont {
+    margin-left: 20px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.keywordBtn {
+    width: 350px;
+    height: 56px;
+    border: none;
+    color: #2C432E;
+    margin-left: 20px;
+    font-size: 18px;
+    margin-top: 22px;
+    border-radius: 18px;
+    background: rgba(203, 220, 253, 0.79);
+}
+
+.modify {
+    width: 20px;
+    margin-right: 20px;
+}
+
+.popularWordsDiv {
+    height: 350px;
+    overflow-y: scroll;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

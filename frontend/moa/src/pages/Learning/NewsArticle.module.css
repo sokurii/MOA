@@ -1,0 +1,186 @@
+/* NewsArticle.css */
+
+.container {
+    position: relative;
+    width: 412px;
+    height: 791px;
+    background: url("../../../public/assets/Background/news_background.png");
+}
+
+.backgroundImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.articleContent {
+    position: absolute;
+    width: 412px;
+    height: 400px;
+    left: 0px;
+    top: 270px;
+
+    background: #FFFFFF;
+    border-radius: 40px 40px 0px 0px;
+}
+
+.articleTitle {
+    position: absolute;
+    width: 350px;
+    height: 81px;
+    left: 31px;
+    top: 30px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 29px;
+
+    color: #2C432E;
+}
+
+.articleSentences {
+    position: absolute;
+    width: 340px;
+    height: 370px;
+    left: calc(50% - 328px/2 - 2px);
+    top: 40px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 126.34%;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    /* 요소들을 수직으로 정렬 */
+    gap: 30px;
+    /* 요소들 간의 간격 (최신 브라우저에서 지원) */
+
+    overflow: scroll;
+}
+
+.pageMoving {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 0px;
+    gap: 74px;
+
+    position: relative;
+    width: 350px;
+    height: 39px;
+    left: 34px;
+    top: 720px;
+
+    background: linear-gradient(90deg, #D1E0FD 15.94%, rgba(255, 255, 255, 0) 51.56%, #D1E0FD 85.21%);
+    border-radius: 16px;
+}
+
+.pageButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    height: 37px;
+
+    border-radius: 20px;
+    border: none;
+    background-color: transparent;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+}
+
+.pageNumber {
+    width: 29px;
+    height: 17px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    color: #000000;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.listenToSound {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    left: 31px;
+    top: 200px;
+
+    background: #FFFFFF;
+    border: 2.37209px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 10.6744px 10.6744px 18.9767px rgba(177, 200, 244, 0.6), -10.6744px -10.6744px 18.9767px rgba(255, 255, 255, 0.6);
+    border-radius: 23.7209px;
+}
+
+.recordSound {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    left: 101px;
+    top: 200px;
+
+    background: #FFFFFF;
+    border: 2.37209px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 10.6744px 10.6744px 18.9767px rgba(177, 200, 244, 0.6), -10.6744px -10.6744px 18.9767px rgba(255, 255, 255, 0.6);
+    border-radius: 23.7209px;
+}
+
+.scrap {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    left: 330px;
+    top: 200px;
+    padding-left: 7px;
+    padding-top: 7px;
+    background: #FFFFFF;
+    border: 2.37209px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 10.6744px 10.6744px 18.9767px rgba(177, 200, 244, 0.6), -10.6744px -10.6744px 18.9767px rgba(255, 255, 255, 0.6);
+    border-radius: 23.7209px;
+}
+
+.articleDate {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 8px;
+    gap: 10px;
+
+    position: absolute;
+    width: 62.55px;
+    height: 21px;
+    left: 280px;
+    top: 150px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 15px;
+    color: #B1B1B1;
+}
+
+.highlightWord {
+    background-color: #FFF1A7;
+}
+
+/* .highlightWord:hover {
+    background-color: red;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300&display=swap');
