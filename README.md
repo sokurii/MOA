@@ -7,6 +7,7 @@
 ## 팀원 소개
 
 ## ERD
+![title](./assets/ERD.png)
 
 ## ARCHITECTURE
 
