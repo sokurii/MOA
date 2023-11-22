@@ -1,3 +1,5 @@
+![image](https://github.com/sokurii/MOA/assets/122415844/c0454814-1460-4ebc-a9dd-a2181ffd1a17)
+
 # <center>  프로젝트 소개 </center>
 - 제작기간 : 2023년 8월 28일 (MON) ~ 2023년 10월 6일(FRI)
 - 프로젝트 주제: 빅데이터 분산 기술을 활용한 외국인 유학생 한국 온보딩 서비스
